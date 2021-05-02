@@ -28,3 +28,20 @@ target/**
 # IJ files
 *.iml
 .idea/**
+
+# Code files
+.vscode/
+
+# Eclipse files
+.project
+.classpath
+.settings/
+.factorypath
+
+# Windows files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# OSX files
+.DS_Store
