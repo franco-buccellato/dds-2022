@@ -3,6 +3,7 @@ package domain.usuario;
 import static constants.Mensajes.NOT_NULO;
 import static constants.TipoIdentificacion.*;
 
+import constants.TipoMascota;
 import domain.mascota.Mascota;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,7 @@ public class PersonaTest {
   }
   @Test
   void puedoActualizarLaMascotaDeUnaPersona() {
-    Mascota mascota = new Mascota();
+    Mascota mascota = new Mascota(TipoMascota.PERRO, "Pepe", "Pe", 4.2, "Femenino", "Un poco flaco", null, null);
     persona.setMascotas(new ArrayList(Arrays.asList(mascota)));
 
     assertEquals(Arrays.asList(mascota), persona.getMascotas());
