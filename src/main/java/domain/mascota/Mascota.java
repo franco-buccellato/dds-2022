@@ -4,7 +4,7 @@ import static constants.Mensajes.NOT_NULO;
 
 import constants.TipoMascota;
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,8 +26,8 @@ public class Mascota {
     this.edadAproximada = Objects.requireNonNull(edadAproximada, NOT_NULO.mensaje("edadAproximada"));
     this.sexo = Objects.requireNonNull(sexo, NOT_NULO.mensaje("sexo"));
     this.descripcionFisica = Objects.requireNonNull(descripcionFisica, NOT_NULO.mensaje("descripcionFisica"));
-    this.fotos = Objects.isNull(fotos) ? new ArrayList<>() : fotos;
-    this.caracteristicas = Objects.isNull(caracteristicas) ? new ArrayList<>() : caracteristicas;
+    this.fotos = fotos;
+    this.caracteristicas = caracteristicas;
   }
 
   public TipoMascota getTipoMascota() {
@@ -75,10 +75,16 @@ public class Mascota {
   }
 
   public void addFoto(Image foto) {
+    this.fotos = Objects.isNull(this.fotos)
+        ? new ArrayList<>()
+        : this.fotos;
     this.fotos.add(foto);
   }
 
   public void addCaracteristica(Caracteristica caracteristica) {
+    this.caracteristicas = Objects.isNull(this.caracteristicas)
+        ? new ArrayList<>()
+        : this.caracteristicas;
     this.caracteristicas.add(caracteristica);
   }
 }
