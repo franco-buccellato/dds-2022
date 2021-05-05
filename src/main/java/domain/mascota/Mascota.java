@@ -67,9 +67,6 @@ public class Mascota {
   }
 
   public void addFoto(Image foto) {
-    this.fotos = Objects.isNull(this.fotos)
-        ? new ArrayList<>()
-        : this.fotos;
     this.fotos.add(foto);
   }
 
