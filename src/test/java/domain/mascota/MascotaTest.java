@@ -7,6 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.imageio.ImageIO;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,15 +21,20 @@ public class MascotaTest {
   Caracteristica colorPrincipalNaranja;
   Caracteristica colorSecundarioBlanco;
   List<Caracteristica> caracteristicas;
+  Image fotoPerro;
+  List<Image> fotos;
 
   @BeforeEach
-  public void setup() {
+  public void setup() throws IOException {
     colorPrincipalNaranja = new Caracteristica(new TipoCaracteristica("Color Principal"), "naranja");
     colorSecundarioBlanco = new Caracteristica(new TipoCaracteristica("Color Secundario"), "blanco");
     caracteristicas = new ArrayList<>(Collections.singletonList(colorPrincipalNaranja));
 
-    perroPepe = new Mascota(PERRO, "Pedro", "Pepe", 3.0, "Masculino", "Tiene pulgas", null, null);
-    gatoBenito = new Mascota(GATO, "Benito", "Beno", 2.0, "Masculino", "Esta gordito", null, caracteristicas);
+    fotoPerro = ImageIO.read(new File("resources/images/perro.jpg"));
+    fotos = new ArrayList<>(Collections.singletonList(fotoPerro));
+
+    perroPepe = new Mascota(PERRO, "Pedro", "Pepe", 3.0, "Masculino", "Tiene pulgas", fotos, null);
+    gatoBenito = new Mascota(GATO, "Benito", "Beno", 2.0, "Masculino", "Esta gordito", fotos, caracteristicas);
   }
 
   @Test
@@ -88,6 +97,15 @@ public class MascotaTest {
   }
 
   @Test
+  public void noPuedoCrearMascotaSinFoto() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Mascota(PERRO, "Pedro", "Pepe", 4.0, "Masculino", "Flaco", null, null);
+    });
+
+    assertEquals(NOT_NULO.mensaje("fotos"), exception.getMessage());
+  }
+
+  @Test
   public void elTipoDeUnPerroEsPerro() {
     assertEquals("PERRO", perroPepe.getTipoMascota().toString());
   }
@@ -123,8 +141,9 @@ public class MascotaTest {
   }
 
   @Test
-  public void unaMascotaSinFotosTieneNullFotos() {
-    assertNull(perroPepe.getFotos());
+  public void unPerroConFotoTieneUnaFotoDePerro() {
+    assertEquals(1, perroPepe.getFotos().size());
+    assertEquals(fotoPerro, perroPepe.getFotos().get(0));
   }
 
   @Test
@@ -148,6 +167,20 @@ public class MascotaTest {
   }
 
   @Test
+  public void puedoActualizarFotoDePerro() throws IOException {
+    Image fotoNueva = ImageIO.read(new File("resources/images/perro.jpg"));
+    List<Image> fotosNuevas = new ArrayList<>(Collections.singletonList(fotoNueva));
+
+    assertEquals(1, perroPepe.getFotos().size());
+    assertEquals(fotoPerro, perroPepe.getFotos().get(0));
+
+    perroPepe.setFotos(fotosNuevas);
+
+    assertEquals(1, perroPepe.getFotos().size());
+    assertEquals(fotoNueva, perroPepe.getFotos().get(0));
+  }
+
+  @Test
   public void puedoActualizarCaracteristicasDeMascota() {
     assertEquals(1, gatoBenito.getCaracteristicas().size());
     assertEquals(colorPrincipalNaranja, gatoBenito.getCaracteristicas().get(0));
@@ -160,6 +193,20 @@ public class MascotaTest {
     assertEquals(colorSecundarioBlanco, gatoBenito.getCaracteristicas().get(0));
     assertEquals("Color Secundario", gatoBenito.getCaracteristicas().get(0).getTipoCaracteristica().getDescripcion());
     assertEquals("blanco", gatoBenito.getCaracteristicas().get(0).getDescripcion());
+  }
+
+  @Test
+  public void puedoAgregarFotoAMascota() throws IOException {
+    Image fotoNueva = ImageIO.read(new File("resources/images/perro.jpg"));
+
+    assertEquals(1, perroPepe.getFotos().size());
+    assertEquals(fotoPerro, perroPepe.getFotos().get(0));
+
+    perroPepe.addFoto(fotoNueva);
+
+    assertEquals(2, perroPepe.getFotos().size());
+    assertEquals(fotoPerro, perroPepe.getFotos().get(0));
+    assertEquals(fotoNueva, perroPepe.getFotos().get(1));
   }
 
   @Test

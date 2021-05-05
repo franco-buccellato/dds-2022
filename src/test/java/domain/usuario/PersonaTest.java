@@ -7,8 +7,13 @@ import constants.TipoMascota;
 import domain.mascota.Mascota;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.imageio.ImageIO;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,8 +55,8 @@ public class PersonaTest {
     assertEquals(nuevoContacto, persona.getContacto());
   }
   @Test
-  void puedoActualizarLaMascotaDeUnaPersona() {
-    Mascota mascota = new Mascota(TipoMascota.PERRO, "Pepe", "Pe", 4.2, "Femenino", "Un poco flaco", null, null);
+  void puedoActualizarLaMascotaDeUnaPersona() throws IOException {
+    Mascota mascota = new Mascota(TipoMascota.PERRO, "Pepe", "Pe", 4.2, "Femenino", "Un poco flaco", new ArrayList(Arrays.asList(ImageIO.read(new File("resources/images/perro.jpg")))), null);
     persona.setMascotas(new ArrayList(Arrays.asList(mascota)));
 
     assertEquals(Arrays.asList(mascota), persona.getMascotas());

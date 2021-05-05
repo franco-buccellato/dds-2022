@@ -26,7 +26,7 @@ public class Mascota {
     this.edadAproximada = Objects.requireNonNull(edadAproximada, NOT_NULO.mensaje("edadAproximada"));
     this.sexo = Objects.requireNonNull(sexo, NOT_NULO.mensaje("sexo"));
     this.descripcionFisica = Objects.requireNonNull(descripcionFisica, NOT_NULO.mensaje("descripcionFisica"));
-    this.fotos = fotos;
+    this.fotos = Objects.requireNonNull(fotos, NOT_NULO.mensaje("fotos"));
     this.caracteristicas = caracteristicas;
   }
 
@@ -66,19 +66,19 @@ public class Mascota {
     this.fotos = fotos;
   }
 
+  public void addFoto(Image foto) {
+    this.fotos = Objects.isNull(this.fotos)
+        ? new ArrayList<>()
+        : this.fotos;
+    this.fotos.add(foto);
+  }
+
   public List<Caracteristica> getCaracteristicas() {
     return caracteristicas;
   }
 
   public void setCaracteristicas(List<Caracteristica> caracteristicas) {
     this.caracteristicas = caracteristicas;
-  }
-
-  public void addFoto(Image foto) {
-    this.fotos = Objects.isNull(this.fotos)
-        ? new ArrayList<>()
-        : this.fotos;
-    this.fotos.add(foto);
   }
 
   public void addCaracteristica(Caracteristica caracteristica) {
