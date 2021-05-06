@@ -1,4 +1,4 @@
-package MascotaEncontrada;
+package domain.MascotaEncontrada;
 
 import domain.mascota.Mascota;
 
@@ -11,24 +11,40 @@ import java.util.Objects;
 import static constants.Mensajes.NOT_NULO;
 
 public class MascotaEncontrada {
+  private List<Image> fotos;
+  private String descripcion;
+  private String lugarEncuentro;
+  private LocalDateTime fecha;
 
-    public List<Image> fotos;
-    public String descripcion;
-    public String lugarEncuentro;
-    public LocalDateTime fecha;
+  public MascotaEncontrada ( List<Image> fotos, String descripcion, String lugarEncuentro, LocalDateTime fecha ) {
+    this.fotos = fotos;
+    this.descripcion = Objects.requireNonNull ( descripcion, NOT_NULO.mensaje ( "descripcion" ) );
+    this.lugarEncuentro = Objects.requireNonNull ( lugarEncuentro, NOT_NULO.mensaje ( "lugarEncuentro" ) );
+    this.fecha = Objects.requireNonNull ( fecha, NOT_NULO.mensaje ( "fecha" ) );
+  }
 
-    public MascotaEncontrada(List<Image> fotos, String descripcion, String lugarEncuentro, LocalDateTime fecha){
-        this.fotos = fotos;
-        this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
-        this.lugarEncuentro = Objects.requireNonNull(lugarEncuentro, NOT_NULO.mensaje("lugarEncuentro"));
-        this.fecha = Objects.requireNonNull(fecha, NOT_NULO.mensaje("fecha"));
-    }
+  /*Getters & Setters*/
+  public List<Image> getFotos() {
+    return fotos;
+  }
 
-    /*Getters & Setters*/
-    public List<Image> getFotos(){ return fotos; }
-    public void addFoto(Image foto){ this.fotos.add(foto); }
-    public String getDescripcion(){ return this.descripcion; }
-    public String getLugarEncuentro(){ return this.lugarEncuentro; }
-    public LocalDateTime getFecha(){ return this.fecha; }
+  public void addFoto(Image foto) {
+    this.fotos.add (foto);
+  }
 
+  public String getDescripcion() {
+    return this.descripcion;
+  }
+
+  public String getLugarEncuentro() {
+    return this.lugarEncuentro;
+  }
+
+  public LocalDateTime getFecha() {
+    return this.fecha;
+  }
+
+  public Boolean encontradaEntre(LocalDateTime fechaInicio, LocalDateTime fechaFin){
+    return this.getFecha().isAfter(fechaInicio) && this.getFecha().isBefore(fechaFin);
+  }
 }
