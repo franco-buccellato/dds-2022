@@ -1,4 +1,4 @@
-package rescatista;
+package domain.rescatista;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -29,12 +29,12 @@ public class Rescatista {
     }
 
     /*Getters & Setters*/
-    String getNombre() { return nombre; }
-    String getApellido() { return apellido; }
-    TipoIdentificacion getTipoIdentificacion() { return tipoIdentificacion; }
-    String getNumeroIdentificacion() { return numeroIdentificacion; }
-    LocalDate getFechaNacimiento() { return fechaNacimiento; }
-    MascotaEncontrada getMascotaEncontrada() { return mascotaEncontrada; }
-    Contacto getContacto() { return contacto; }
+    public String getNombre() { return nombre; }
+    public String getApellido() { return apellido; }
+    public TipoIdentificacion getTipoIdentificacion() { return tipoIdentificacion; }
+    public String getNumeroIdentificacion() { return numeroIdentificacion; }
+    public LocalDate getFechaNacimiento() { return fechaNacimiento; }
+    public MascotaEncontrada getMascotaEncontrada() { return mascotaEncontrada; }
+    public Contacto getContacto() { return contacto; }
 
 }
