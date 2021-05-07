@@ -1,3 +1,8 @@
+# Grupo 2021 - viernes-noche
+
+## Diagrama de clases - Entrega I
+![diagrama_de_clases](https://raw.githubusercontent.com/dds-utn/2021-vi-no-grupo-20/main/resources/diagrama%20de%20clases%20-%20entrega%201.png?token=AFB7NF24D3JA6KFVUUNWJ2LAT3ZCG)
+
 # java-base-project
 
 Esta es una plantilla de proyecto diseñada para: 
