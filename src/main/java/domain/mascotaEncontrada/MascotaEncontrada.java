@@ -14,7 +14,7 @@ public class MascotaEncontrada {
   private LocalDate fecha;
 
   public MascotaEncontrada (List<Image> fotos, String descripcion, String lugarEncuentro, LocalDate fecha ) {
-    this.fotos = fotos;
+    this.fotos = Objects.requireNonNull(fotos, NOT_NULO.mensaje("fotos"));
     this.descripcion = Objects.requireNonNull ( descripcion, NOT_NULO.mensaje ( "descripcion" ) );
     this.lugarEncuentro = Objects.requireNonNull ( lugarEncuentro, NOT_NULO.mensaje ( "lugarEncuentro" ) );
     this.fecha = Objects.requireNonNull ( fecha, NOT_NULO.mensaje ( "fecha" ) );
