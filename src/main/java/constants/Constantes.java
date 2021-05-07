@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Constantes {
-  private static final LocalDateTime FECHA_SISTEMA = LocalDateTime.of(2021, 5, 5, 0, 0);
+  private static final LocalDate FECHA_SISTEMA = LocalDate.of(2021, 5, 5);
   private static Constantes constantes;
 
   private Constantes(){}
@@ -15,7 +15,7 @@ public class Constantes {
     return constantes;
   }
 
-  public LocalDateTime getFechaSistema() {
+  public LocalDate getFechaSistema() {
     return this.FECHA_SISTEMA;
   }
 }

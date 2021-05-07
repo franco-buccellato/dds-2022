@@ -1,10 +1,7 @@
-package domain.MascotaEncontrada;
-
-import domain.mascota.Mascota;
+package domain.mascotaEncontrada;
 
 import java.awt.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,9 +11,9 @@ public class MascotaEncontrada {
   private List<Image> fotos;
   private String descripcion;
   private String lugarEncuentro;
-  private LocalDateTime fecha;
+  private LocalDate fecha;
 
-  public MascotaEncontrada ( List<Image> fotos, String descripcion, String lugarEncuentro, LocalDateTime fecha ) {
+  public MascotaEncontrada (List<Image> fotos, String descripcion, String lugarEncuentro, LocalDate fecha ) {
     this.fotos = fotos;
     this.descripcion = Objects.requireNonNull ( descripcion, NOT_NULO.mensaje ( "descripcion" ) );
     this.lugarEncuentro = Objects.requireNonNull ( lugarEncuentro, NOT_NULO.mensaje ( "lugarEncuentro" ) );
@@ -40,11 +37,11 @@ public class MascotaEncontrada {
     return this.lugarEncuentro;
   }
 
-  public LocalDateTime getFecha() {
+  public LocalDate getFecha() {
     return this.fecha;
   }
 
-  public Boolean encontradaEntre(LocalDateTime fechaInicio, LocalDateTime fechaFin){
+  public Boolean encontradaEntre(LocalDate fechaInicio, LocalDate fechaFin){
     return this.getFecha().isAfter(fechaInicio) && this.getFecha().isBefore(fechaFin);
   }
 }

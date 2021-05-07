@@ -1,4 +1,4 @@
-package domain.MascotaEncontrada;
+package domain.mascotaEncontrada;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import constants.Constantes;
-import domain.MascotaEncontrada.*;
 
 public class RepositorioMascotaEncontrada {
   private List<MascotaEncontrada> mascotasEncontradas;
@@ -20,7 +19,7 @@ public class RepositorioMascotaEncontrada {
     return repositorioMascotaEncontrada;
   }
 
-  private List<MascotaEncontrada> mascotasEncontradasEntre(LocalDateTime fechaInicio, LocalDateTime fechaFin){
+  private List<MascotaEncontrada> mascotasEncontradasEntre(LocalDate fechaInicio, LocalDate fechaFin){
     return this.mascotasEncontradas.stream().filter(mascotaEncontrada -> mascotaEncontrada.encontradaEntre (fechaInicio, fechaFin)).collect(Collectors.toList());
   }
 
