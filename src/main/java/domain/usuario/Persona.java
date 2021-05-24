@@ -1,13 +1,12 @@
 package domain.usuario;
 
-import constants.TipoIdentificacion;
 import domain.mascota.Mascota;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-import static constants.Mensajes.NOT_NULO;
+import static domain.exception.Mensajes.NOT_NULO;
 
 public class Persona {
   private String nombre;
