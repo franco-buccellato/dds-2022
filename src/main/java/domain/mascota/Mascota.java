@@ -1,8 +1,6 @@
 package domain.mascota;
 
-import static constants.Mensajes.NOT_NULO;
-
-import constants.TipoMascota;
+import static domain.exception.Mensajes.NOT_NULO;
 
 import java.awt.Image;
 import java.util.ArrayList;

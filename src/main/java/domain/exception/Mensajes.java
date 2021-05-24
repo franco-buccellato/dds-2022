@@ -1,4 +1,4 @@
-package constants;
+package domain.exception;
 
 public enum Mensajes {
   NOT_NULO("El campo %s no puede ser nulo");

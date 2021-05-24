@@ -1,11 +1,13 @@
 package domain.mascotaEncontrada;
 
+import domain.utilidades.FechaUtilidad;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import constants.Constantes;
+//import constants.Constantes;
 
 public class RepositorioMascotaEncontrada {
   private List<MascotaEncontrada> mascotasEncontradas;
@@ -24,7 +26,7 @@ public class RepositorioMascotaEncontrada {
   }
 
   public List<MascotaEncontrada> ultimasEncontradasEn10Dias(){
-    return this.mascotasEncontradasEntre(Constantes.getConstates().getFechaSistema().minusDays(10), Constantes.getConstates().getFechaSistema());
+    return this.mascotasEncontradasEntre(FechaUtilidad.getConstates().getFechaSistema().minusDays(10), FechaUtilidad.getConstates().getFechaSistema());
   }
 
   public void setMascotasEncontradas(List<MascotaEncontrada> mascotasEncontradas){

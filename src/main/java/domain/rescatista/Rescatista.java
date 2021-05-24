@@ -2,11 +2,11 @@ package domain.rescatista;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import constants.TipoIdentificacion;
+import domain.usuario.TipoIdentificacion;
 import domain.mascotaEncontrada.MascotaEncontrada;
 import domain.usuario.Contacto;
 
-import static constants.Mensajes.NOT_NULO;
+import static domain.exception.Mensajes.NOT_NULO;
 
 public class Rescatista {
     private String nombre;

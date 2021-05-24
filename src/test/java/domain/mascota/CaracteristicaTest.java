@@ -1,13 +1,16 @@
 package domain.mascota;
 
-import static domain.mascota.TipoCaracteristica.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
+import static domain.mascota.TipoCaracteristica.BULLET;
+import static domain.mascota.TipoCaracteristica.CHECKBOX;
+import static domain.mascota.TipoCaracteristica.TEXT;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import org.junit.jupiter.api.Test;
 
 public class CaracteristicaTest {
 

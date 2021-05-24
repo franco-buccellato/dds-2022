@@ -1,7 +1,7 @@
 package domain.rescatista;
 
-import static constants.Mensajes.NOT_NULO;
-import static constants.TipoIdentificacion.DNI;
+import static domain.exception.Mensajes.NOT_NULO;
+import static domain.usuario.TipoIdentificacion.DNI;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;

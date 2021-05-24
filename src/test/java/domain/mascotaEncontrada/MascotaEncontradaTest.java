@@ -1,7 +1,5 @@
 package domain.mascotaEncontrada;
 
-import domain.mascota.Mascota;
-import domain.usuario.Contacto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static constants.Mensajes.NOT_NULO;
-import static constants.TipoIdentificacion.DNI;
+import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MascotaEncontradaTest {

@@ -1,9 +1,9 @@
 package domain.usuario;
 
-import static constants.Mensajes.NOT_NULO;
-import static constants.TipoIdentificacion.*;
+import static domain.exception.Mensajes.NOT_NULO;
+import static domain.usuario.TipoIdentificacion.*;
 
-import constants.TipoMascota;
+import domain.mascota.TipoMascota;
 import domain.mascota.Mascota;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
