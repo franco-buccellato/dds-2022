@@ -1,110 +1,83 @@
 package domain.mascota;
 
-import static constants.Mensajes.NOT_NULO;
+import static domain.mascota.TipoCaracteristica.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 public class CaracteristicaTest {
-  TipoCaracteristica colorPrincipal;
-  Caracteristica colorPrincipalAzul;
-  TipoCaracteristica colorSecundario;
-  Caracteristica colorSecundarioRojo;
-  TipoCaracteristica estaCastrada;
-  Caracteristica estaCastradaSi;
 
-  @BeforeEach
-  public void setup() {
-    colorPrincipal = new TipoCaracteristica("Color Principal");
-    colorPrincipalAzul = new Caracteristica(colorPrincipal, "azul");
-
-    colorSecundario = new TipoCaracteristica("Color Secundario");
-    colorSecundarioRojo = new Caracteristica(colorSecundario, "rojo");
-
-    estaCastrada = new TipoCaracteristica("Esta Castrada");
-    estaCastradaSi = new Caracteristica(estaCastrada, "si");
+  @Test
+  public void puedoSetearCaracteristicaCastrada(){
+    CaracteristicaBooleana estaCastrada = estaCastrada();
+    estaCastrada.setSeleccionada(true);
+    assertTrue(estaCastrada.getSeleccionada());
+    estaCastrada.setSeleccionada(false);
+    assertFalse(estaCastrada.getSeleccionada());
   }
 
   @Test
-  public void puedoCrearUnTipoCaracteristica() {
-    assertNotNull(colorPrincipal);
+  public void puedoAgregarUnDatoCurioso(){
+    CaracteristicaInput datoCurioso = datosDeInteres();
+    String dato = "Ronca mucho cuando duerme";
+
+    assertTrue(datoCurioso.getOpciones().equals(dato));
+  }
+  @Test
+  public void puedoDejarOpcionalUnDatoCurioso(){
+    CaracteristicaInput datoCurioso = datosDeInteres();
+    datoCurioso.addOpcion("");
+    assertTrue(datoCurioso.getOpciones().equals(""));
+  }
+  @Test
+  public void puedoSetearVacunas(){
+    CaracteristicaChoice vacunas = vacunas();
+    Integer index1 = setOpcionRandom(vacunas.getOpciones());
+    Integer index2 = setOpcionRandom(vacunas.getOpciones());
+
+    assertTrue(vacunas.getOpciones().get(index1).getSeleccionada());
+    assertTrue(vacunas.getOpciones().get(index2).getSeleccionada());
+  }
+  @Test
+  public void puedoSetearComportamiento(){
+    CaracteristicaChoice comportamiento = comportamientoConNiños();
+    Integer index = setOpcionRandom(comportamiento.getOpciones());
+
+    assertTrue(comportamiento.getOpciones().get(index).getSeleccionada());
   }
 
-  @Test
-  public void puedoCrearUnaCaracteristica() {
-    assertNotNull(colorPrincipalAzul);
+  private CaracteristicaBooleana estaCastrada() {
+    return new CaracteristicaBooleana("Esta Castrada:", false);
   }
-
-  @Test
-  public void noPuedoCrearUnTipoCaracteristicaSinDescripcion() {
-    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new TipoCaracteristica(null);
-    });
-
-    assertEquals(NOT_NULO.mensaje("descripcion"), exception.getMessage());
+  private CaracteristicaInput datosDeInteres() {
+    return new CaracteristicaInput(TEXT, "Datos de interes", false);
   }
+  private CaracteristicaChoice vacunas() {
+    Opcion moquillo = new Opcion("Moquillo");
+    Opcion hepatitis = new Opcion("Hepatitis");
+    Opcion parvovirosis = new Opcion("Parvovirosis");
+    Opcion rabia = new Opcion("Rabia");
+    List<Opcion> vacunas = Arrays.asList(moquillo, hepatitis, parvovirosis, rabia);
 
-  @Test
-  public void noPuedoCrearUnaCaracteristicaSinTipoCaracteristica() {
-    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new Caracteristica(null, "verde");
-    });
-
-    assertEquals(NOT_NULO.mensaje("tipoCaracteristica"), exception.getMessage());
+    return new CaracteristicaChoice(CHECKBOX, "Vacunas administradas", vacunas, true);
   }
+  private CaracteristicaChoice comportamientoConNiños() {
+    Opcion jugueton = new Opcion("Jugueton");
+    Opcion agresivo = new Opcion("Agresivo");
+    Opcion desinteres = new Opcion("Desinteres");
+    List<Opcion> comportamientos = Arrays.asList(jugueton, agresivo, desinteres);
 
-  @Test
-  public void noPuedoCrearUnaCaracteristicaSinDescripcion() {
-    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new Caracteristica(colorSecundario, null);
-    });
-
-    assertEquals(NOT_NULO.mensaje("descripcion"), exception.getMessage());
+    return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, true);
   }
+  private Integer setOpcionRandom(List<Opcion> opciones) {
+    Random random = new Random();
+    Integer index = random.nextInt(opciones.size());
 
-  @Test
-  public void laDescripcionDeColorPrincipalEsColorPrincipal() {
-    assertEquals("Color Principal", colorPrincipal.getDescripcion());
-  }
-
-  @Test
-  public void laDescripcionDeColorSecundarioEsColorSecundario() {
-    assertEquals("Color Secundario", colorSecundario.getDescripcion());
-  }
-
-  @Test
-  public void laDescripcionDeEstaCastradaEsEstaCastrada() {
-    assertEquals("Esta Castrada", estaCastrada.getDescripcion());
-  }
-
-  @Test
-  public void elTipoDeColorPrincipalAzulEsColorPrincipal() {
-    assertEquals("Color Principal", colorPrincipalAzul.getTipoCaracteristica().getDescripcion());
-  }
-
-  @Test
-  public void elTipoDeColorSecundarioRojoEsColorSecundario() {
-    assertEquals("Color Secundario", colorSecundarioRojo.getTipoCaracteristica().getDescripcion());
-  }
-
-  @Test
-  public void elTipoDeEstaCastradaSiEsEstaCastrada() {
-    assertEquals("Esta Castrada", estaCastradaSi.getTipoCaracteristica().getDescripcion());
-  }
-
-  @Test
-  public void laDescricpionDeColorPrincipalAzulEsAzul() {
-    assertEquals("azul", colorPrincipalAzul.getDescripcion());
-  }
-
-  @Test
-  public void laDescripcionDeColorSecundarioRojoEsRojo() {
-    assertEquals("rojo", colorSecundarioRojo.getDescripcion());
-  }
-
-  @Test
-  public void laDescripcionDeEstaCastradaSiEsSi() {
-    assertEquals("si", estaCastradaSi.getDescripcion());
+    opciones.get(index).setSeleccionada(true);
+    return index;
   }
 }
