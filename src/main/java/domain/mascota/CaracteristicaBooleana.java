@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static constants.Mensajes.NOT_NULO;
+import static domain.exception.Mensajes.NOT_NULO;
 import static domain.mascota.TipoCaracteristica.BOOLEAN;
 
 public class CaracteristicaBooleana implements Caracteristica{

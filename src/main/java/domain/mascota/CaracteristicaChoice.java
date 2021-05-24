@@ -2,8 +2,9 @@ package domain.mascota;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
-import static constants.Mensajes.NOT_NULO;
+import static domain.exception.Mensajes.NOT_NULO;
 
 public class CaracteristicaChoice implements Caracteristica{
   private TipoCaracteristica tipoCaracteristica;
@@ -28,6 +29,14 @@ public class CaracteristicaChoice implements Caracteristica{
 
   @Override
   public void addOpcion(Object opcion) { this.opciones.add((Opcion) opcion); }
+
+  @Override
+  public List<Opcion> getSeleccionada() {
+    return this.opciones
+      .stream()
+      .filter(Opcion::getSeleccionada)
+      .collect(Collectors.toList());
+  }
 
   public void addOpciones(Opcion opcion) {
     opciones.add(opcion);

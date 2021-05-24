@@ -1,8 +1,6 @@
 package domain.mascota;
 
-import static domain.mascota.TipoCaracteristica.BULLET;
-import static domain.mascota.TipoCaracteristica.CHECKBOX;
-import static domain.mascota.TipoCaracteristica.TEXT;
+import static domain.mascota.TipoCaracteristica.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -27,6 +25,7 @@ public class CaracteristicaTest {
   public void puedoAgregarUnDatoCurioso(){
     CaracteristicaInput datoCurioso = datosDeInteres();
     String dato = "Ronca mucho cuando duerme";
+    datoCurioso.addOpcion(dato);
 
     assertTrue(datoCurioso.getOpciones().equals(dato));
   }
@@ -39,8 +38,8 @@ public class CaracteristicaTest {
   @Test
   public void puedoSetearVacunas(){
     CaracteristicaChoice vacunas = vacunas();
-    Integer index1 = setOpcionRandom(vacunas.getOpciones());
-    Integer index2 = setOpcionRandom(vacunas.getOpciones());
+    int index1 = setOpcionRandom(vacunas.getOpciones());
+    int index2 = setOpcionRandom(vacunas.getOpciones());
 
     assertTrue(vacunas.getOpciones().get(index1).getSeleccionada());
     assertTrue(vacunas.getOpciones().get(index2).getSeleccionada());
@@ -48,18 +47,17 @@ public class CaracteristicaTest {
   @Test
   public void puedoSetearComportamiento(){
     CaracteristicaChoice comportamiento = comportamientoConNiños();
-    Integer index = setOpcionRandom(comportamiento.getOpciones());
+    int index = setOpcionRandom(comportamiento.getOpciones());
 
     assertTrue(comportamiento.getOpciones().get(index).getSeleccionada());
   }
-
-  private CaracteristicaBooleana estaCastrada() {
+  protected CaracteristicaBooleana estaCastrada() {
     return new CaracteristicaBooleana("Esta Castrada:", false);
   }
-  private CaracteristicaInput datosDeInteres() {
+  protected CaracteristicaInput datosDeInteres() {
     return new CaracteristicaInput(TEXT, "Datos de interes", false);
   }
-  private CaracteristicaChoice vacunas() {
+  protected CaracteristicaChoice vacunas() {
     Opcion moquillo = new Opcion("Moquillo");
     Opcion hepatitis = new Opcion("Hepatitis");
     Opcion parvovirosis = new Opcion("Parvovirosis");
@@ -68,7 +66,7 @@ public class CaracteristicaTest {
 
     return new CaracteristicaChoice(CHECKBOX, "Vacunas administradas", vacunas, true);
   }
-  private CaracteristicaChoice comportamientoConNiños() {
+  protected CaracteristicaChoice comportamientoConNiños() {
     Opcion jugueton = new Opcion("Jugueton");
     Opcion agresivo = new Opcion("Agresivo");
     Opcion desinteres = new Opcion("Desinteres");
@@ -76,9 +74,9 @@ public class CaracteristicaTest {
 
     return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, true);
   }
-  private Integer setOpcionRandom(List<Opcion> opciones) {
+  private int setOpcionRandom(List<Opcion> opciones) {
     Random random = new Random();
-    Integer index = random.nextInt(opciones.size());
+    int index = random.nextInt(opciones.size());
 
     opciones.get(index).setSeleccionada(true);
     return index;

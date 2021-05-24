@@ -2,7 +2,7 @@ package domain.mascota;
 
 import java.util.Objects;
 
-import static constants.Mensajes.NOT_NULO;
+import static domain.exception.Mensajes.NOT_NULO;
 
 public class CaracteristicaInput implements Caracteristica{
   private TipoCaracteristica tipoCaracteristica;
@@ -20,6 +20,11 @@ public class CaracteristicaInput implements Caracteristica{
   @Override
   public String getOpciones() {
     return texto;
+  }
+
+  @Override
+  public Object getSeleccionada() {
+    return null;
   }
 
   @Override
