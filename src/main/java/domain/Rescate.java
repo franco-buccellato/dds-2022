@@ -43,7 +43,7 @@ public class Rescate{
   }
 
   public void setMascota(Mascota unaMascota){
-    this.mascota = mascota;
+    this.mascota = unaMascota;
     mascota.setSituacionMascota(SituacionMascota.EN_HOGAR_TRANSITORIO);
   }
 

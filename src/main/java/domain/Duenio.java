@@ -16,7 +16,7 @@ public class Duenio {
   private LocalDate fechaNacimiento;
   private Usuario usuario;
 
-  public Duenio(String nombre, String apellido, TipoIdentificacion tipoIdentificacion, String nroIdentificacion, List<Contacto> contactos, List<Mascota> mascotas, LocalDate fechaNacimiento, Usuario usaurio) {
+  public Duenio(String nombre, String apellido, TipoIdentificacion tipoIdentificacion, String nroIdentificacion, List<Contacto> contactos, List<Mascota> mascotas, LocalDate fechaNacimiento, Usuario usuario) {
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
     this.apellido = Objects.requireNonNull(apellido, NOT_NULO.mensaje("apellido"));
     this.tipoIdentificacion = Objects.requireNonNull(tipoIdentificacion, NOT_NULO.mensaje("tipoIdentificacion"));

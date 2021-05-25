@@ -14,7 +14,7 @@ public class ValidadorClaveTop10000 implements ValidacionClave {
   public void validarClave(String usuario, String password) {
     try {
       if (lector.existeEnArchivo(password)) {
-        throw new PasswordDebilException("La password ingresada es debil");
+        throw new PasswordDebilException("La clave ingresada es debil");
       }
     } catch (IOException e) {
       throw new BaseCredencialesNoDisponibleException(e.getMessage());

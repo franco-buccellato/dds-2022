@@ -23,6 +23,7 @@ public class Rescatista {
     this.fechaNacimiento = Objects.requireNonNull(fechaNacimiento, NOT_NULO.mensaje("fechaNacimiento"));
     this.rescate = Objects.requireNonNull(rescate, NOT_NULO.mensaje("mascotaEncontrada"));
     this.contacto = Objects.requireNonNull(contacto, NOT_NULO.mensaje("contacto"));
+    this.direccion = direccion;
   }
 
   public String getNombre() {
