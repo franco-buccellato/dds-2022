@@ -25,16 +25,20 @@ public class DuenioTest {
   @BeforeEach
   void setup() {
     contacto = new Contacto("Juan", "Perez", "11123123123", "juan@perez.com", Vinculo.TITULAR);
-    duenio = new Duenio("Juan", "Perez", DNI, "123123123", Arrays.asList(contacto), null, LocalDate.of(1990, 1, 1), null);
+    duenio = new Duenio(
+        "Juan",
+        "Perez",
+        DNI,
+        "123123123",
+        Arrays.asList(contacto),
+        null,
+        LocalDate.of(1990, 1, 1),
+        null
+    );
   }
 
   @Test
-  void puedoCrearUnaPersona() {
-    assertNotNull(duenio);
-  }
-
-  @Test
-  void noPuedoCrearUnaPersonaSiFaltanRequiredParams() {
+  void noPuedoCrearUnDuenioSiFaltanRequiredParams() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
       new Duenio(null, "Perez", DNI, "123123123", Arrays.asList(contacto), null, LocalDate.of(1990, 1, 1), null);
     });
@@ -47,7 +51,7 @@ public class DuenioTest {
     assertEquals("Perez", duenio.getApellido());
     assertEquals(DNI, duenio.getTipoIdentificacion());
     assertEquals("123123123", duenio.getNroIdentificacion());
-    assertEquals(null, duenio.getMascotas());
+    assertNull(duenio.getMascotas());
     assertEquals(LocalDate.of(1990, 1, 1), duenio.getFechaNacimiento());
   }
 
@@ -62,7 +66,17 @@ public class DuenioTest {
 
   @Test
   void puedoActualizarLaMascotaDeUnaPersona() throws IOException {
-    Mascota mascota = new Mascota(TipoMascota.PERRO, "Pepe", "Pe", 4.2, Sexo.HEMBRA, "Un poco flaco", new ArrayList<Image>(Arrays.asList(ImageIO.read(new File("resources/images/perro.jpg")))), null, SituacionMascota.EN_HOGAR_PROPIO);
+    Mascota mascota = new Mascota(
+        TipoMascota.PERRO,
+        "Pepe",
+        "Pe",
+        4.2,
+        Sexo.HEMBRA,
+        "Un poco flaco",
+        new ArrayList<Image>(Arrays.asList(ImageIO.read(new File("resources/images/perro.jpg")))),
+        null,
+        SituacionMascota.EN_HOGAR_PROPIO
+    );
     duenio.setMascotas(new ArrayList(Arrays.asList(mascota)));
 
     assertEquals(Arrays.asList(mascota), duenio.getMascotas());

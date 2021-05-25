@@ -2,6 +2,7 @@ package domain.mascota;
 
 import static domain.TipoMascota.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,77 +34,92 @@ public class MascotaTest {
     fotoPerro = ImageIO.read(new File("resources/images/perro.jpg"));
     fotos = new ArrayList<>(Collections.singletonList(fotoPerro));
 
-    perroPepe = new Mascota(PERRO, "Pedro", "Pepe", 3.0, Sexo.MACHO, "Tiene pulgas", fotos, null, SituacionMascota.EN_HOGAR_TRANSITORIO);
-    gatoBenito = new Mascota(GATO, "Benito", "Beno", 2.0, Sexo.MACHO, "Esta gordito", fotos, caracteristicas, SituacionMascota.EN_HOGAR_PROPIO);
+    perroPepe = new Mascota(
+        PERRO,
+        "Pedro",
+        "Pepe",
+        3.0,
+        Sexo.MACHO,
+        "Tiene pulgas",
+        fotos,
+        null,
+        SituacionMascota.EN_HOGAR_TRANSITORIO
+    );
+    gatoBenito = new Mascota(
+        GATO,
+        "Benito",
+        "Beno",
+        2.0,
+        Sexo.MACHO,
+        "Esta gordito",
+        fotos,
+        caracteristicas,
+        SituacionMascota.EN_HOGAR_PROPIO
+    );
   }
 
   @Test
-  public void puedoCrearUnaMascota() {
-    assertNotNull(perroPepe);
+  public void noPuedoCrearMascotaSinTipoMascota() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Mascota(null, "Pedro", "Pepe", 3.0, Sexo.MACHO, "Tiene pulgas", null, null, null);
+    });
+
+    assertEquals(NOT_NULO.mensaje("tipoMascota"), exception.getMessage());
   }
 
-//  @Test
-//  public void noPuedoCrearMascotaSinTipoMascota() {
-//    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-//      new Mascota(null, "Pedro", "Pepe", 3.0, "Masculino", "Tiene pulgas", null, null);
-//    });
-//
-//    assertEquals(NOT_NULO.mensaje("tipoMascota"), exception.getMessage());
-//  }
-//
-//  @Test
-//  public void noPuedoCrearMascotaSinNombre() {
-//    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-//      new Mascota(PERRO, null, "Pepe", 3.0, "Masculino", "Tiene pulgas", null, null);
-//    });
-//
-//    assertEquals(NOT_NULO.mensaje("nombre"), exception.getMessage());
-//  }
-//
-//  @Test
-//  public void noPuedoCrearMascotaSinApodo() {
-//    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-//      new Mascota(PERRO, "Pedro", null, 3.0, "Masculino", "Tiene pulgas", null, null);
-//    });
-//
-//    assertEquals(NOT_NULO.mensaje("apodo"), exception.getMessage());
-//  }
-//
-//  @Test
-//  public void noPuedoCrearMascotaSinEdadAproximada() {
-//    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-//      new Mascota(PERRO, "Pedro", "Pepe", null, "Masculino", "Tiene pulgas", null, null);
-//    });
-//
-//    assertEquals(NOT_NULO.mensaje("edadAproximada"), exception.getMessage());
-//  }
-//
-//  @Test
-//  public void noPuedoCrearMascotaSinSexo() {
-//    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-//      new Mascota(PERRO, "Pedro", "Pepe", 4.0, null, "Tiene pulgas", null, null);
-//    });
-//
-//    assertEquals(NOT_NULO.mensaje("sexo"), exception.getMessage());
-//  }
-//
-//  @Test
-//  public void noPuedoCrearMascotaSinDescripcionFisica() {
-//    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-//      new Mascota(PERRO, "Pedro", "Pepe", 4.0, "Masculino", null, null, null);
-//    });
-//
-//    assertEquals(NOT_NULO.mensaje("descripcionFisica"), exception.getMessage());
-//  }
-//
-//  @Test
-//  public void noPuedoCrearMascotaSinFoto() {
-//    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-//      new Mascota(PERRO, "Pedro", "Pepe", 4.0, "Masculino", "Flaco", null, null);
-//    });
-//
-//    assertEquals(NOT_NULO.mensaje("fotos"), exception.getMessage());
-//  }
+  @Test
+  public void noPuedoCrearMascotaSinNombre() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Mascota(PERRO, null, "Pepe", 3.0, Sexo.MACHO, "Tiene pulgas", null, null, null);
+    });
+
+    assertEquals(NOT_NULO.mensaje("nombre"), exception.getMessage());
+  }
+
+  @Test
+  public void noPuedoCrearMascotaSinApodo() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Mascota(PERRO, "Pedro", null, 3.0, Sexo.MACHO, "Tiene pulgas", null, null, null);
+    });
+
+    assertEquals(NOT_NULO.mensaje("apodo"), exception.getMessage());
+  }
+
+  @Test
+  public void noPuedoCrearMascotaSinEdadAproximada() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Mascota(PERRO, "Pedro", "Pepe", null, Sexo.MACHO, "Tiene pulgas", null, null, null);
+    });
+
+    assertEquals(NOT_NULO.mensaje("edadAproximada"), exception.getMessage());
+  }
+
+  @Test
+  public void noPuedoCrearMascotaSinSexo() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Mascota(PERRO, "Pedro", "Pepe", 4.0, null, "Tiene pulgas", null, null, null);
+    });
+
+    assertEquals(NOT_NULO.mensaje("sexo"), exception.getMessage());
+  }
+
+  @Test
+  public void noPuedoCrearMascotaSinDescripcionFisica() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Mascota(PERRO, "Pedro", "Pepe", 4.0, Sexo.MACHO, null, null, null, null);
+    });
+
+    assertEquals(NOT_NULO.mensaje("descripcionFisica"), exception.getMessage());
+  }
+
+  @Test
+  public void noPuedoCrearMascotaSinFoto() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Mascota(PERRO, "Pedro", "Pepe", 4.0, Sexo.MACHO, "Flaco", null, null, null);
+    });
+
+    assertEquals(NOT_NULO.mensaje("fotos"), exception.getMessage());
+  }
 
   @Test
   public void elTipoDeUnPerroEsPerro() {
@@ -113,57 +129,6 @@ public class MascotaTest {
   @Test
   public void elTipoDeUnGatoEsGato() {
     assertEquals("GATO", gatoBenito.getTipoMascota().toString());
-  }
-
-  @Test
-  public void elNombreDePedroEsPedro() {
-    assertEquals("Pedro", perroPepe.getNombre());
-  }
-
-  @Test
-  public void elApodoDePepeEsPepe() {
-    assertEquals("Pepe", perroPepe.getApodo());
-  }
-
-  @Test
-  public void laEdadDePerroDeTresEsTres() {
-    assertEquals(3, perroPepe.getEdadAproximada());
-  }
-
-  @Test
-  public void elSexoMasculinoEsMasculino() {
-    assertEquals(Sexo.MACHO, perroPepe.getSexo());
-  }
-
-  @Test
-  public void laDescripcionTienePulgasEsTienePulgas() {
-    assertEquals("Tiene pulgas", perroPepe.getDescripcionFisica());
-  }
-
-  @Test
-  public void unPerroConFotoTieneUnaFotoDePerro() {
-    assertEquals(1, perroPepe.getFotos().size());
-    assertEquals(fotoPerro, perroPepe.getFotos().get(0));
-  }
-
-  @Test
-  public void unaMascotaSinCaracteristicasTieneNullCaracteristicas() {
-    assertNull(perroPepe.getCaracteristicas());
-  }
-
-  @Test
-  public void lasCaracteristicasConColorPrincipalNaranjaEsColorPrincipalNaranja() {
-    assertEquals(1, gatoBenito.getCaracteristicas().size());
-    assertEquals(colorPrincipalNaranja, gatoBenito.getCaracteristicas().get(0));
-    assertEquals("Color Principal", gatoBenito.getCaracteristicas().get(0).getTipoCaracteristica().getDescripcion());
-    assertEquals("naranja", gatoBenito.getCaracteristicas().get(0).getDescripcion());
-  }
-
-  @Test
-  public void puedoActualizarEdadAproximadaDeMascota() {
-    assertEquals(3, perroPepe.getEdadAproximada());
-    perroPepe.setEdadAproximada(4.5);
-    assertEquals(4.5, perroPepe.getEdadAproximada());
   }
 
   @Test
@@ -184,15 +149,11 @@ public class MascotaTest {
   public void puedoActualizarCaracteristicasDeMascota() {
     assertEquals(1, gatoBenito.getCaracteristicas().size());
     assertEquals(colorPrincipalNaranja, gatoBenito.getCaracteristicas().get(0));
-    assertEquals("Color Principal", gatoBenito.getCaracteristicas().get(0).getTipoCaracteristica().getDescripcion());
-    assertEquals("naranja", gatoBenito.getCaracteristicas().get(0).getDescripcion());
 
     gatoBenito.setCaracteristicas(Collections.singletonList(colorSecundarioBlanco));
 
     assertEquals(1, gatoBenito.getCaracteristicas().size());
     assertEquals(colorSecundarioBlanco, gatoBenito.getCaracteristicas().get(0));
-    assertEquals("Color Secundario", gatoBenito.getCaracteristicas().get(0).getTipoCaracteristica().getDescripcion());
-    assertEquals("blanco", gatoBenito.getCaracteristicas().get(0).getDescripcion());
   }
 
   @Test
@@ -217,22 +178,16 @@ public class MascotaTest {
 
     assertEquals(1, perroPepe.getCaracteristicas().size());
     assertEquals(colorPrincipalNaranja, perroPepe.getCaracteristicas().get(0));
-    assertEquals("Color Principal", perroPepe.getCaracteristicas().get(0).getTipoCaracteristica().getDescripcion());
-    assertEquals("naranja", perroPepe.getCaracteristicas().get(0).getDescripcion());
   }
 
   @Test
   void puedoAgregarCaracteristicaAMascotaConCaracteristicas() {
     assertEquals(1, gatoBenito.getCaracteristicas().size());
     assertEquals(colorPrincipalNaranja, gatoBenito.getCaracteristicas().get(0));
-    assertEquals("Color Principal", gatoBenito.getCaracteristicas().get(0).getTipoCaracteristica().getDescripcion());
-    assertEquals("naranja", gatoBenito.getCaracteristicas().get(0).getDescripcion());
 
     gatoBenito.addCaracteristica(colorSecundarioBlanco);
 
     assertEquals(2, gatoBenito.getCaracteristicas().size());
     assertEquals(colorSecundarioBlanco, gatoBenito.getCaracteristicas().get(1));
-    assertEquals("Color Secundario", gatoBenito.getCaracteristicas().get(1).getTipoCaracteristica().getDescripcion());
-    assertEquals("blanco", gatoBenito.getCaracteristicas().get(1).getDescripcion());
   }
 }
