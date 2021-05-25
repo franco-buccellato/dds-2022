@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static constants.Mensajes.NOT_NULO;
 import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 

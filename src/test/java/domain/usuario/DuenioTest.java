@@ -1,6 +1,5 @@
 package domain.usuario;
 
-import static constants.Mensajes.NOT_NULO;
 import static domain.TipoIdentificacion.*;
 
 import domain.*;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
 
+import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.*;

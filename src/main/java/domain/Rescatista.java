@@ -3,7 +3,7 @@ package domain;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static constants.Mensajes.NOT_NULO;
+import static domain.exception.Mensajes.NOT_NULO;
 
 public class Rescatista {
   private String nombre;

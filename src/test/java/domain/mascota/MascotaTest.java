@@ -1,6 +1,5 @@
 package domain.mascota;
 
-import static constants.Mensajes.NOT_NULO;
 import static domain.TipoMascota.*;
 import static org.junit.jupiter.api.Assertions.*;
 
