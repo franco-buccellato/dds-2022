@@ -1,4 +1,4 @@
-package domain.mascota;
+package domain;
 
 public enum TipoMascota {
   PERRO,

@@ -1,4 +1,4 @@
-package domain.usuario;
+package domain;
 
 public enum TipoIdentificacion {
   DNI,

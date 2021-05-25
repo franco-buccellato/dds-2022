@@ -1,7 +1,7 @@
-package domain.servicio.impl;
+package servicio.impl;
 
 import domain.exception.PasswordDebilException;
-import domain.servicio.ValidacionClave;
+import servicio.ValidacionClave;
 
 public class ValidadorClaveSecuencias implements ValidacionClave {
 

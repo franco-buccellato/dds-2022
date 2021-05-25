@@ -1,18 +1,14 @@
-package domain.usuario;
+package domain;
 
 public class Usuario {
   private String nombreUsuario;
   private String contrasenia;
   private TipoUsuario tipoUsuario;
-  private Persona persona;
 
-  public Usuario(String nombreUsuario, String contrasenia,
-                 TipoUsuario tipoUsuario, Persona persona) {
-
+  public Usuario(String nombreUsuario, String contrasenia, TipoUsuario tipoUsuario) {
     this.nombreUsuario = nombreUsuario;
     this.contrasenia = contrasenia;
     this.tipoUsuario = tipoUsuario;
-    this.persona = persona;
   }
 
   public String getNombreUsuario() {
@@ -26,9 +22,4 @@ public class Usuario {
   public TipoUsuario getTipoUsuario() {
     return tipoUsuario;
   }
-
-  public Persona getPersona() {
-    return persona;
-  }
-
 }

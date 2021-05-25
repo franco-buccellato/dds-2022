@@ -1,6 +1,6 @@
-package domain.servicio.impl;
+package servicio.impl;
 
-import domain.servicio.ValidacionClave;
+import servicio.ValidacionClave;
 import java.util.ArrayList;
 import java.util.List;
 

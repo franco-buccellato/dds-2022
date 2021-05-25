@@ -8,16 +8,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class Mascota {
-  private final TipoMascota tipoMascota;
-  private final String nombre;
-  private final String apodo;
+  private TipoMascota tipoMascota;
+  private String nombre;
+  private String apodo;
   private Double edadAproximada;
-  private final String sexo;
-  private final String descripcionFisica;
+  private Sexo sexo;
+  private String descripcionFisica;
   private List<Image> fotos;
   private List<Caracteristica> caracteristicas;
+  private SituacionMascota situacionMascota;
 
-  public Mascota(TipoMascota tipoMascota, String nombre, String apodo, Double edadAproximada, String sexo, String descripcionFisica, List<Image> fotos, List<Caracteristica> caracteristicas) {
+  public Mascota(TipoMascota tipoMascota, String nombre, String apodo, Double edadAproximada, Sexo sexo, String descripcionFisica, List<Image> fotos, List<Caracteristica> caracteristicas, SituacionMascota situacionMascota) {
     this.tipoMascota = Objects.requireNonNull(tipoMascota, NOT_NULO.mensaje("tipoMascota"));
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
     this.apodo = Objects.requireNonNull(apodo, NOT_NULO.mensaje("apodo"));
@@ -26,6 +27,7 @@ public class Mascota {
     this.descripcionFisica = Objects.requireNonNull(descripcionFisica, NOT_NULO.mensaje("descripcionFisica"));
     this.fotos = Objects.requireNonNull(fotos, NOT_NULO.mensaje("fotos"));
     this.caracteristicas = caracteristicas;
+    this.situacionMascota = situacionMascota;
   }
 
   public TipoMascota getTipoMascota() {
@@ -48,8 +50,8 @@ public class Mascota {
     this.edadAproximada = edadAproximada;
   }
 
-  public String getSexo() {
-    return sexo;
+  public Sexo getSexo() {
+    return this.sexo;
   }
 
   public String getDescripcionFisica() {
@@ -74,6 +76,14 @@ public class Mascota {
 
   public void setCaracteristicas(List<Caracteristica> caracteristicas) {
     this.caracteristicas = caracteristicas;
+  }
+
+  public void setSituacionMascota(SituacionMascota situacionMascota) {
+    this.situacionMascota = situacionMascota;
+  }
+
+  public SituacionMascota getSituacionMascota() {
+    return this.situacionMascota;
   }
 
   public void addCaracteristica(Caracteristica caracteristica) {

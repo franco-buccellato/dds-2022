@@ -1,13 +1,13 @@
-package domain.usuario;
+package domain;
 
-import domain.servicio.Funcion;
+import servicio.Funcion;
 import java.util.Arrays;
 import java.util.List;
 
 public enum TipoUsuario {
   ESTANDAR(null),
-  ADMINISTRADOR(Arrays.asList(Funcion.AGREGAR_CARACTERISTICAS)
-  );
+  VOLUNTARIO(Arrays.asList(Funcion.APROBAR_PUBLICACION)),
+  ADMINISTRADOR(Arrays.asList(Funcion.AGREGAR_CARACTERISTICAS)  );
 
   private List<Funcion> funcionesDisponibles;
 

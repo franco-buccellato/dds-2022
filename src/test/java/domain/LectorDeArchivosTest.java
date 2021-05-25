@@ -1,6 +1,6 @@
 package domain;
 
-import domain.utilidades.LectorArchivos;
+import utilidades.LectorArchivos;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

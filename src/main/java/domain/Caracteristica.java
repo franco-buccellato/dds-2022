@@ -1,23 +1,23 @@
-package domain.mascota;
+package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.Objects;
 
-public class Caracteristica {
+public class Caracteristica{
   private final TipoCaracteristica tipoCaracteristica;
   private final String descripcion;
 
-  public Caracteristica(TipoCaracteristica tipoCaracteristica, String descripcion) {
+  public Caracteristica(TipoCaracteristica tipoCaracteristica, String descripcion){
     this.tipoCaracteristica = Objects.requireNonNull(tipoCaracteristica, NOT_NULO.mensaje("tipoCaracteristica"));
     this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
   }
 
-  public TipoCaracteristica getTipoCaracteristica() {
+  public TipoCaracteristica getTipoCaracteristica(){
     return tipoCaracteristica;
   }
 
-  public String getDescripcion() {
+  public String getDescripcion(){
     return descripcion;
   }
 }

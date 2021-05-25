@@ -1,5 +1,7 @@
 package domain.usuario;
 
+import domain.Contacto;
+import domain.Vinculo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +12,7 @@ class ContactoTest {
 
   @BeforeEach
   void setup(){
-    contacto = new Contacto("Juan", "Perez", "11123123123", "juan@perez.com", "Calle Falsa 123" );
+    contacto = new Contacto("Juan", "Perez", "11123123123", "juan@perez.com", Vinculo.TITULAR );
   }
   @Test
   void puedoCrearUnContacto() {
@@ -20,19 +22,17 @@ class ContactoTest {
   void puedoLeerUnContacto() {
     assertEquals("Juan", contacto.getNombre());
     assertEquals("Perez", contacto.getApellido());
-    assertEquals("Calle Falsa 123", contacto.getDireccion());
+    assertEquals(Vinculo.TITULAR, contacto.getVinculo());
     assertEquals("juan@perez.com",contacto.getMail());
     assertEquals("11123123123",contacto.getTelefono());
   }
   @Test
   void puedoActualizarDatosDeUnContacto() {
-    contacto.setDireccion("Calle Verdadera 321");
     contacto.setMail("perez@juan.com");
     contacto.setTelefono("321321321");
 
     assertEquals("Juan", contacto.getNombre());
     assertEquals("Perez", contacto.getApellido());
-    assertEquals("Calle Verdadera 321", contacto.getDireccion());
     assertEquals("perez@juan.com",contacto.getMail());
     assertEquals("321321321",contacto.getTelefono());
   }
