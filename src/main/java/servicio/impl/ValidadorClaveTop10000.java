@@ -1,10 +1,10 @@
-package domain.servicio.impl;
+package servicio.impl;
 
 import domain.exception.PasswordDebilException;
-import domain.servicio.RutasSistema;
-import domain.servicio.ValidacionClave;
-import domain.servicio.exception.BaseCredencialesNoDisponibleException;
-import domain.utilidades.LectorArchivos;
+import servicio.RutasSistema;
+import servicio.ValidacionClave;
+import servicio.exception.BaseCredencialesNoDisponibleException;
+import utilidades.LectorArchivos;
 import java.io.IOException;
 
 public class ValidadorClaveTop10000 implements ValidacionClave {

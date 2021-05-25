@@ -1,7 +1,8 @@
-package domain.servicio;
+package servicio;
 
 public enum Funcion {
-  AGREGAR_CARACTERISTICAS("Agregar Caracteristicas");
+  AGREGAR_CARACTERISTICAS("Agregar Caracteristicas"),
+  APROBAR_PUBLICACION("");
 
   private String denominacion;
 
