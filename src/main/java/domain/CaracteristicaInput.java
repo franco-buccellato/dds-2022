@@ -1,4 +1,4 @@
-package domain.mascota;
+package domain;
 
 public class CaracteristicaInput extends Caracteristica{
   private String texto;

@@ -1,4 +1,4 @@
-package domain.mascota;
+package domain;
 
 
 import java.util.List;

@@ -1,15 +1,10 @@
 package domain;
 
-import domain.mascota.CaracteristicaBooleana;
-import domain.mascota.CaracteristicaChoice;
-import domain.mascota.CaracteristicaInput;
-import domain.mascota.Opcion;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static domain.mascota.TipoCaracteristica.*;
+import static domain.TipoCaracteristica.*;
 
 public class Caracteristicas {
   protected CaracteristicaBooleana estaCastrada() {

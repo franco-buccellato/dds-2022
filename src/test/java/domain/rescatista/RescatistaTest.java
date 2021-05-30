@@ -3,7 +3,6 @@ package domain.rescatista;
 import static domain.exception.Mensajes.NOT_NULO;
 import static domain.TipoIdentificacion.DNI;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.awt.Image;

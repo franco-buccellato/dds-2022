@@ -3,6 +3,9 @@ package domain.mascota;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import domain.CaracteristicaBooleana;
+import domain.CaracteristicaChoice;
+import domain.CaracteristicaInput;
 import org.junit.jupiter.api.Test;
 
 import domain.Caracteristicas;
@@ -10,7 +13,7 @@ import domain.Caracteristicas;
 public class CaracteristicaTest extends Caracteristicas {
 
   @Test
-  public void puedoSetearCaracteristicaCastrada(){
+  public void puedoSetearCaracteristicaBooleana(){
     CaracteristicaBooleana estaCastrada = estaCastrada();
     estaCastrada.getOpciones().get(0).setSeleccionada(true);
     assertTrue(estaCastrada.getOpciones().get(0).getSeleccionada());
@@ -19,7 +22,7 @@ public class CaracteristicaTest extends Caracteristicas {
   }
 
   @Test
-  public void puedoAgregarUnDatoCurioso(){
+  public void puedoCompletarUnaCaracteristicaTexto(){
     CaracteristicaInput datoCurioso = datosDeInteres();
     String dato = "Ronca mucho cuando duerme";
     datoCurioso.addOpcion(dato);
@@ -27,13 +30,13 @@ public class CaracteristicaTest extends Caracteristicas {
     assertTrue(datoCurioso.getOpciones().equals(dato));
   }
   @Test
-  public void puedoDejarOpcionalUnDatoCurioso(){
+  public void puedoDejarOpcionalUnaCaracteristicaTexto(){
     CaracteristicaInput datoCurioso = datosDeInteres();
     datoCurioso.addOpcion("");
     assertTrue(datoCurioso.getOpciones().equals(""));
   }
   @Test
-  public void puedoSetearVacunas(){
+  public void puedoSetearUnaCaracteristicaMultipleChoice(){
     CaracteristicaChoice vacunas = vacunas();
     int index1 = setOpcionRandom(vacunas.getOpciones());
     int index2 = setOpcionRandom(vacunas.getOpciones());
@@ -42,7 +45,7 @@ public class CaracteristicaTest extends Caracteristicas {
     assertTrue(vacunas.getOpciones().get(index2).getSeleccionada());
   }
   @Test
-  public void puedoSetearComportamiento(){
+  public void puedoSetearUnaCaracteristicaSingleChoice(){
     CaracteristicaChoice comportamiento = comportamientoConNiños();
     int index = setOpcionRandom(comportamiento.getOpciones());
 

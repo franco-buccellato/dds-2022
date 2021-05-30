@@ -27,5 +27,5 @@ public abstract class Caracteristica {
     return obligatoria;
   }
 
-  abstract Object getOpciones();
+  public abstract Object getOpciones();
 }

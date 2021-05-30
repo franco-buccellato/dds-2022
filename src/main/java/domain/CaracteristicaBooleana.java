@@ -1,9 +1,9 @@
-package domain.mascota;
+package domain;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static domain.mascota.TipoCaracteristica.BOOLEAN;
+import static domain.TipoCaracteristica.BOOLEAN;
 
 public class CaracteristicaBooleana extends Caracteristica{
   private List<Opcion> opciones;

@@ -1,10 +1,10 @@
 package domain.mascota;
 
 import static domain.exception.Mensajes.NOT_NULO;
-import static domain.mascota.TipoCaracteristica.BOOLEAN;
-import static domain.mascota.TipoCaracteristica.CHECKBOX;
-import static domain.mascota.TipoCaracteristica.TEXT;
-import static domain.mascota.TipoMascota.*;
+import static domain.TipoCaracteristica.BOOLEAN;
+import static domain.TipoCaracteristica.CHECKBOX;
+import static domain.TipoCaracteristica.TEXT;
+import static domain.TipoMascota.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Image;
@@ -17,14 +17,9 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import domain.Caracteristica;
-import domain.Caracteristicas;
-import domain.Mascota;
-import domain.Sexo;
-import domain.SituacionMascota;
 
 public class MascotaTest extends Caracteristicas {
   Mascota perroPepe;

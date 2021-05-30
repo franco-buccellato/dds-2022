@@ -1,4 +1,4 @@
-package domain.mascota;
+package domain;
 
 public class Opcion {
   private Object descripcion;
