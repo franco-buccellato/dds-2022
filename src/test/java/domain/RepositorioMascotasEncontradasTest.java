@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -28,20 +30,16 @@ public class RepositorioMascotasEncontradasTest {
   private Rescate siames;
   private Rescate bengala;
   private RepositorioMascotaEncontrada repoTest;
-  private LocalDate fechaSistema;
-  private LocalDate fechaSistemaTest = LocalDate.of (2021, 5, 5);
 
   @BeforeEach
   public void inicio() throws IOException {
     Image fotoPerro1Encontrado = ImageIO.read(new File("resources/images/perroEncontrado1.jpg"));
     List<Image> fotos = new ArrayList<>(Collections.singletonList(fotoPerro1Encontrado));
-    fechaSistema = Constantes.getConstates().getFechaSistema();
-    Constantes.getConstates().setFechaSistema (fechaSistemaTest);
 
-    pastorAleman = new Rescate(fotos, "perro pastorAleman" , new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 5, 4));
-    bulldog		 = new Rescate(fotos, "perro bulldog"		, new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 5, 3));
-    husky		 = new Rescate(fotos, "perro husky"		, new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 5, 2));
-    poodle		 = new Rescate(fotos, "perro poodle"		, new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 5, 1));
+    pastorAleman = new Rescate(fotos, "perro pastorAleman" , new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.now().minus(1, ChronoUnit.DAYS));
+    bulldog		 = new Rescate(fotos, "perro bulldog"		, new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.now().minus(3, ChronoUnit.DAYS));
+    husky		 = new Rescate(fotos, "perro husky"		, new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.now().minus(2, ChronoUnit.DAYS));
+    poodle		 = new Rescate(fotos, "perro poodle"		, new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.now().minus(5, ChronoUnit.DAYS));
     persa		 = new Rescate(fotos, "gato persa"			, new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 4, 12));
     maineCoon	 = new Rescate(fotos, "gato maineCoon"		, new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 3, 15));
     siames		 = new Rescate(fotos, "gato siames"		, new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 3, 15));
@@ -49,11 +47,6 @@ public class RepositorioMascotasEncontradasTest {
 
     repoTest = RepositorioMascotaEncontrada.getRepositorio();
     repoTest.setMascotasEncontradas(Arrays.asList(pastorAleman, bulldog, husky, poodle, persa, maineCoon, siames, bengala));
-  }
-
-  @AfterEach
-  public void fin(){
-    Constantes.getConstates().setFechaSistema(fechaSistema);
   }
 
   public List<Rescate> ultimasEncontradasEnDiezDias(){

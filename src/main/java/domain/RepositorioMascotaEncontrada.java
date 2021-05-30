@@ -1,7 +1,5 @@
 package domain;
 
-import domain.utilidades.FechaUtilidad;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +21,7 @@ public class RepositorioMascotaEncontrada {
   }
 
   public List<Rescate> ultimasEncontradasEn10Dias(){
-    return this.mascotasEncontradasEntre(FechaUtilidad.getConstates().getFechaSistema().minusDays(10), FechaUtilidad.getConstates().getFechaSistema());
+    return this.mascotasEncontradasEntre(LocalDate.now().minusDays(10), LocalDate.now());
   }
 
   public void setMascotasEncontradas(List<Rescate> mascotasEncontradas){
