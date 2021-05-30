@@ -1,7 +1,5 @@
 package servicio;
 
-import java.io.IOException;
-
 public interface ValidacionClave {
-  void validarClave(String usuario, String clave) throws IOException;
+  void validarClave(String usuario, String clave);
 }
