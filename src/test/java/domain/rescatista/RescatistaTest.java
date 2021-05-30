@@ -34,15 +34,39 @@ public class RescatistaTest {
   public void setup() throws IOException {
     fotoPerro1Encontrado = ImageIO.read(new File("resources/images/perroEncontrado1.jpg"));
     fotos1 = new ArrayList<>(Collections.singletonList(fotoPerro1Encontrado));
-    caniche = new Rescate(fotos1, "Canino macho, color negro, raza caniche", new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 4, 4));
+    caniche = new Rescate(fotos1, "Canino macho, color negro, raza caniche", ubicacion(), LocalDate.of(2021, 4, 4));
     contactoDon = new Contacto("don", "Rescatista", "1234", "donrescatista@rescatista.com", Vinculo.TITULAR);
-    donRescatista = new Rescatista("Don", "Rescatista", TipoIdentificacion.DNI, "99999999", LocalDate.of(1995, 5, 5), caniche, contactoDon, new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)));
-    doniaRescatista = new Rescatista("Donia", "Rescatista", TipoIdentificacion.DNI, "88888888", LocalDate.of(1995, 4, 4), new Rescate(fotos1, "Canino hembra, color blanco, raza caniche", new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 5, 4)), new Contacto("donia", "Rescatista", "1234", "doniarescatista@rescatista.com", Vinculo.TITULAR), new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)));
-  }
-
-  @Test
-  void puedoCrearUnRescatista() {
-    assertNotNull(donRescatista);
+    donRescatista = new Rescatista(
+        "Don",
+        "Rescatista",
+        TipoIdentificacion.DNI,
+        "99999999",
+        LocalDate.of(1995, 5, 5),
+        caniche,
+        contactoDon,
+        ubicacion()
+    );
+    doniaRescatista = new Rescatista(
+        "Donia",
+        "Rescatista",
+        TipoIdentificacion.DNI,
+        "88888888",
+        LocalDate.of(1995, 4, 4),
+        new Rescate(
+            fotos1,
+            "Canino hembra, color blanco, raza caniche",
+            ubicacion(),
+            LocalDate.of(2021, 5, 4)
+        ),
+        new Contacto(
+            "donia",
+            "Rescatista",
+            "1234",
+            "doniarescatista@rescatista.com",
+            Vinculo.TITULAR
+        ),
+        ubicacion()
+    );
   }
 
   @Test
@@ -54,9 +78,10 @@ public class RescatistaTest {
           TipoIdentificacion.DNI,
           "99999999",
           LocalDate.of(1995, 5, 5),
-          new Rescate(fotos1, "Canino macho, color negro, raza caniche", new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 4, 4)),
+          new Rescate(fotos1, "Canino macho, color negro, raza caniche", ubicacion(), LocalDate.of(2021, 4, 4)),
           new Contacto("don", "Rescatista", "1234", "donrescatista@rescatista.com", Vinculo.TITULAR),
-          new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)));
+          ubicacion()
+      );
     });
     assertEquals(NOT_NULO.mensaje("apellido"), exception.getMessage());
   }
@@ -70,5 +95,15 @@ public class RescatistaTest {
     assertEquals(caniche, donRescatista.getRescate());
     assertEquals(contactoDon, donRescatista.getContacto());
     assertEquals(LocalDate.of(1995, 5, 5), donRescatista.getFechaNacimiento());
+  }
+
+  protected Ubicacion ubicacion() {
+    return new Ubicacion(
+        "El Rescatista 123",
+        "1417",
+        "CABA",
+        BigDecimal.valueOf(56.54684),
+        BigDecimal.valueOf(56.54684)
+    );
   }
 }

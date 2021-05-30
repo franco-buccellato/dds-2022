@@ -11,8 +11,8 @@ public class TipoCaracteristicaSeleccionMultiple implements TipoCaracteristica{
   }
 
   @Override
-  public boolean validarCriterio (Caracteristica caracteristica) {
-    return caracteristicasAdmitidas.stream().anyMatch(caracteristicaAdmitida->caracteristicaAdmitida.equals(caracteristicaAdmitida));
+  public boolean validarCriterio(Caracteristica caracteristica) {
+    return caracteristicasAdmitidas.stream().anyMatch(caracteristica::equals);
   }
 
   @Override

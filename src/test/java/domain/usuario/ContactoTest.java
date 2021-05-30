@@ -11,21 +11,19 @@ class ContactoTest {
   Contacto contacto;
 
   @BeforeEach
-  void setup(){
-    contacto = new Contacto("Juan", "Perez", "11123123123", "juan@perez.com", Vinculo.TITULAR );
+  void setup() {
+    contacto = new Contacto("Juan", "Perez", "11123123123", "juan@perez.com", Vinculo.TITULAR);
   }
-  @Test
-  void puedoCrearUnContacto() {
-    assertNotNull(contacto);
-  }
+
   @Test
   void puedoLeerUnContacto() {
     assertEquals("Juan", contacto.getNombre());
     assertEquals("Perez", contacto.getApellido());
     assertEquals(Vinculo.TITULAR, contacto.getVinculo());
-    assertEquals("juan@perez.com",contacto.getMail());
-    assertEquals("11123123123",contacto.getTelefono());
+    assertEquals("juan@perez.com", contacto.getMail());
+    assertEquals("11123123123", contacto.getTelefono());
   }
+
   @Test
   void puedoActualizarDatosDeUnContacto() {
     contacto.setMail("perez@juan.com");
@@ -33,7 +31,7 @@ class ContactoTest {
 
     assertEquals("Juan", contacto.getNombre());
     assertEquals("Perez", contacto.getApellido());
-    assertEquals("perez@juan.com",contacto.getMail());
-    assertEquals("321321321",contacto.getTelefono());
+    assertEquals("perez@juan.com", contacto.getMail());
+    assertEquals("321321321", contacto.getTelefono());
   }
 }

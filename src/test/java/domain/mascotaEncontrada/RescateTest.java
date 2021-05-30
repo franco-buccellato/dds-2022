@@ -18,58 +18,61 @@ import java.util.List;
 import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RescateTest{
+public class RescateTest {
+  @Test
+  void noPuedoCrearUnRescateSinFotos() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Rescate(null, descripcion(), ubicacion(), fecha());
+    });
+    assertEquals(NOT_NULO.mensaje("fotos"), exception.getMessage());
+  }
 
-    Rescate unaRescate;
-    Image fotoPerro1Encontrado;
-    List<Image> fotos1;
+  @Test
+  void noPuedoCrearUnaMascotaSinDescripcion() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Rescate(fotos(), null, ubicacion(), fecha());
+    });
+    assertEquals(NOT_NULO.mensaje("descripcion"), exception.getMessage());
+  }
 
-    @BeforeEach
-    public void setup() throws IOException {
+  @Test
+  void noPuedoCrearUnaMascotaSinLugarDeEncuentro() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Rescate(fotos(), descripcion(), null, fecha());
+    });
+    assertEquals(NOT_NULO.mensaje("lugarEncuentro"), exception.getMessage());
+  }
 
-        fotoPerro1Encontrado = ImageIO.read(new File("resources/images/perroEncontrado1.jpg"));
-        fotos1 = new ArrayList<>(Collections.singletonList(fotoPerro1Encontrado));
-        unaRescate = new Rescate(fotos1, "Canino macho, color negro, raza caniche",
-            new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 5, 4));
-    }
+  @Test
+  void noPuedoCrearUnaMascotaSinFecha() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Rescate(fotos(), descripcion(), ubicacion(), null);
+    });
+    assertEquals(NOT_NULO.mensaje("fecha"), exception.getMessage());
+  }
 
-    @Test
-    void puedoCrearUnaMascotaEncontrada(){ assertNotNull(unaRescate); }
+  protected List<Image> fotos() throws IOException {
+    return new ArrayList<>(Collections.singletonList(ImageIO.read(
+        new File("resources/images/perroEncontrado1.jpg")
+    )));
+  }
 
-    @Test
-    void noPuedoCrearUnaMascotaSinFotos(){
-        NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-            new Rescate(null, "Canino macho, color negro, raza caniche",
-                new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 5, 4));
-        });
-        assertEquals(NOT_NULO.mensaje("fotos"), exception.getMessage());
-    }
+  protected String descripcion() {
+    return "Canino macho, color negro, raza caniche";
+  }
 
-    @Test
-    void noPuedoCrearUnaMascotaSinDescripcion(){
-        NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-            new Rescate(fotos1, null,
-                new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), LocalDate.of(2021, 5, 4));
-        });
-        assertEquals(NOT_NULO.mensaje("descripcion"), exception.getMessage());
-    }
+  protected LocalDate fecha() {
+    return LocalDate.of(2021, 5, 4);
+  }
 
-    @Test
-    void noPuedoCrearUnaMascotaSinLugarDeEncuentro(){
-        NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-            new Rescate(fotos1, "Canino macho, color negro, raza caniche",
-                    null, LocalDate.of(2021, 5, 4));
-        });
-        assertEquals(NOT_NULO.mensaje("lugarEncuentro"), exception.getMessage());
-    }
-
-    @Test
-    void noPuedoCrearUnaMascotaSinFecha(){
-        NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-            new Rescate(fotos1, "Canino macho, color negro, raza caniche",
-                new Ubicacion("El Rescatista 123", "1417", "CABA", BigDecimal.valueOf(56.54684), BigDecimal.valueOf(56.54684)), null);
-        });
-        assertEquals(NOT_NULO.mensaje("fecha"), exception.getMessage());
-    }
+  protected Ubicacion ubicacion() {
+    return new Ubicacion(
+        "El Rescatista 123",
+        "1417",
+        "CABA",
+        BigDecimal.valueOf(56.54684),
+        BigDecimal.valueOf(56.54684)
+    );
+  }
 
 }

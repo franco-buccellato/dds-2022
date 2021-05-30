@@ -9,7 +9,7 @@ public class ValidadorClaveLargo implements ValidacionClave {
 
   public void validarClave(String usuario, String clave) {
     if (clave.length() < LARGO_CLAVE_MINIMO) {
-      throw new PasswordDebilException("La password ingresada es demasiado corta");
+      throw new PasswordDebilException("La clave ingresada es demasiado corta");
     }
   }
 }
