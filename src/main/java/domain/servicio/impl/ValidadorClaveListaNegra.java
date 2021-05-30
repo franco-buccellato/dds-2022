@@ -3,7 +3,6 @@ package domain.servicio.impl;
 import domain.exception.PasswordDebilException;
 import domain.servicio.RutasSistema;
 import domain.servicio.ValidacionClave;
-import domain.servicio.exception.BaseCredencialesNoDisponibleException;
 import domain.utilidades.LectorArchivos;
 import java.io.IOException;
 
@@ -11,7 +10,7 @@ public class ValidadorClaveListaNegra implements ValidacionClave {
   private final String path = RutasSistema.listaNegraClaves();
   private LectorArchivos lector = new LectorArchivos(path);
 
-  public void validarClave(String usuario, String clave) {
+  public void validarClave(String usuario, String clave) throws IOException {
     validarClaveDistintaUsuario(usuario, clave);
     validarClaveDistintaPalabraProhibida(clave);
   }
@@ -22,14 +21,9 @@ public class ValidadorClaveListaNegra implements ValidacionClave {
     }
   }
 
-  private void validarClaveDistintaPalabraProhibida(String clave) {
-    try {
-      if (lector.existeEnArchivo(clave)) {
-        throw new PasswordDebilException("La password ingresada no est� permitida");
-      }
-    } catch (IOException e) {
-      throw new BaseCredencialesNoDisponibleException(e.getMessage());
+  private void validarClaveDistintaPalabraProhibida(String clave) throws IOException {
+    if (lector.existeEnArchivo(clave)) {
+      throw new PasswordDebilException("La password ingresada no es permitida");
     }
-
   }
 }

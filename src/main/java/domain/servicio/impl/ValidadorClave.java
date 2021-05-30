@@ -1,6 +1,8 @@
 package domain.servicio.impl;
 
 import domain.servicio.ValidacionClave;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,13 @@ public class ValidadorClave {
   }
 
   public void validarClave(String usuario, String clave) {
-    validadores.forEach(v -> v.validarClave(usuario, clave));
+    validadores.forEach(v -> {
+      try {
+        v.validarClave(usuario, clave);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
   }
 
 }
