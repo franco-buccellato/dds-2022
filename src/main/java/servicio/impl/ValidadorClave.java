@@ -1,10 +1,10 @@
-package domain.servicio.impl;
-
-import domain.servicio.ValidacionClave;
+package servicio.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import servicio.ValidacionClave;
 
 public class ValidadorClave {
 

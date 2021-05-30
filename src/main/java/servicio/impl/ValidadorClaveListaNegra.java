@@ -1,10 +1,11 @@
-package domain.servicio.impl;
+package servicio.impl;
+
+import java.io.IOException;
 
 import domain.exception.PasswordDebilException;
-import domain.servicio.RutasSistema;
-import domain.servicio.ValidacionClave;
-import domain.utilidades.LectorArchivos;
-import java.io.IOException;
+import servicio.RutasSistema;
+import servicio.ValidacionClave;
+import utilidades.LectorArchivos;
 
 public class ValidadorClaveListaNegra implements ValidacionClave {
   private final String path = RutasSistema.listaNegraClaves();
@@ -17,7 +18,7 @@ public class ValidadorClaveListaNegra implements ValidacionClave {
 
   private void validarClaveDistintaUsuario(String usuario, String clave) {
     if (usuario.equals(clave)) {
-      throw new PasswordDebilException("La password es igual al usuario ingresado");
+      throw new PasswordDebilException("La clave es igual al usuario ingresado");
     }
   }
 

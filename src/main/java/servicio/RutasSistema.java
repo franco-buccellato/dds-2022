@@ -1,4 +1,4 @@
-package domain.servicio;
+package servicio;
 
 public final class RutasSistema {
 

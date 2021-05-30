@@ -1,71 +1,66 @@
 package domain.usuario;
 
+import domain.TipoUsuario;
+import domain.Usuario;
 import domain.exception.PasswordDebilException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UsuarioYClaveTest {
-  CreadorUsuario creadorUsuario;
-
-  @BeforeEach
-  public void init() {
-    creadorUsuario = new CreadorUsuario();
-  }
 
   @Test
   public void claveTieneSecuenciaDeLetrasYNumeros() {
     assertThrows(PasswordDebilException.class, () ->
-        creadorUsuario.nuevoUsuario("uPassSecuenciaMixta", "abc12345", TipoUsuario.ESTANDAR, null));
+        new Usuario("uPassSecuenciaMixta", "abc12345", TipoUsuario.ESTANDAR));
   }
 
   @Test
   public void claveTieneSecuenciaDeLetras() {
     assertThrows(PasswordDebilException.class, () ->
-        creadorUsuario.nuevoUsuario("uPassSecuenciaLetras", "bcdefghij", TipoUsuario.ESTANDAR, null));
+        new Usuario("uPassSecuenciaLetras", "bcdefghij", TipoUsuario.ESTANDAR));
   }
 
   @Test
   public void claveTieneSecuenciaDeNumeros() {
     assertThrows(PasswordDebilException.class, () ->
-        creadorUsuario.nuevoUsuario("uPassSecuenciaNumeros", "23456789", TipoUsuario.ESTANDAR, null));
+        new Usuario("uPassSecuenciaNumeros", "23456789", TipoUsuario.ESTANDAR));
   }
 
   @Test
   public void claveDeCaracteresRepetidos() {
     assertThrows(PasswordDebilException.class, () ->
-        creadorUsuario.nuevoUsuario("uPassrepeticion", "bbbbbbbb", TipoUsuario.ESTANDAR, null));
+        new Usuario("uPassrepeticion", "bbbbbbbb", TipoUsuario.ESTANDAR));
   }
 
   @Test
   public void claveTienePalabraProhibida() {
     assertThrows(PasswordDebilException.class, () ->
-        creadorUsuario.nuevoUsuario("uPassPalabraProhibida", "rescatedemascotas", TipoUsuario.ESTANDAR, null));
+        new Usuario("uPassPalabraProhibida", "rescatedemascotas", TipoUsuario.ESTANDAR));
   }
 
   @Test
   public void claveMasCortaQueLoPermitido() {
     assertThrows(PasswordDebilException.class, () ->
-        creadorUsuario.nuevoUsuario("uClaveCorta", "clave", TipoUsuario.ESTANDAR, null));
+        new Usuario("uClaveCorta", "clave", TipoUsuario.ESTANDAR));
   }
 
   @Test
   public void claveIgualAlUsuario() {
     assertThrows(PasswordDebilException.class, () ->
-        creadorUsuario.nuevoUsuario("uClaveIgualUsuario", "uClaveIgualUsuario", TipoUsuario.ESTANDAR, null));
+        new Usuario("uClaveIgualUsuario", "uClaveIgualUsuario", TipoUsuario.ESTANDAR));
   }
 
   @Test
   public void testPasswordEstaEnTop10000() {
     assertThrows(PasswordDebilException.class, () ->
-        creadorUsuario.nuevoUsuario("uClaveTop10000", "password", TipoUsuario.ESTANDAR, null));
+        new Usuario("uClaveTop10000", "password", TipoUsuario.ESTANDAR));
   }
 
   @Test
   public void claveCorrecta() {
-    Usuario usuarioCorrecto = creadorUsuario.nuevoUsuario("uCorrecto", "administradorcorrecto", TipoUsuario.ADMINISTRADOR, null);
+    Usuario usuarioCorrecto = new Usuario("uCorrecto", "administradorcorrecto", TipoUsuario.ADMINISTRADOR);
     assertEquals(TipoUsuario.ADMINISTRADOR, usuarioCorrecto.getTipoUsuario());
   }
 }

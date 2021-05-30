@@ -1,4 +1,4 @@
-package domain.mascotaEncontrada;
+package domain;
 
 import java.awt.*;
 import java.time.LocalDate;
@@ -7,13 +7,14 @@ import java.util.Objects;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-public class MascotaEncontrada {
+public class Rescate{
   private List<Image> fotos;
   private String descripcion;
-  private String lugarEncuentro;
+  private Ubicacion lugarEncuentro;
   private LocalDate fecha;
+  private Mascota mascota;
 
-  public MascotaEncontrada (List<Image> fotos, String descripcion, String lugarEncuentro, LocalDate fecha ) {
+  public Rescate(List<Image> fotos, String descripcion, Ubicacion lugarEncuentro, LocalDate fecha) {
     this.fotos = Objects.requireNonNull(fotos, NOT_NULO.mensaje("fotos"));
     this.descripcion = Objects.requireNonNull ( descripcion, NOT_NULO.mensaje ( "descripcion" ) );
     this.lugarEncuentro = Objects.requireNonNull ( lugarEncuentro, NOT_NULO.mensaje ( "lugarEncuentro" ) );
@@ -33,12 +34,17 @@ public class MascotaEncontrada {
     return this.descripcion;
   }
 
-  public String getLugarEncuentro() {
+  public Ubicacion getLugarEncuentro() {
     return this.lugarEncuentro;
   }
 
   public LocalDate getFecha() {
     return this.fecha;
+  }
+
+  public void setMascota(Mascota unaMascota){
+    this.mascota = unaMascota;
+    mascota.setSituacionMascota(SituacionMascota.EN_HOGAR_TRANSITORIO);
   }
 
   public Boolean encontradaEntre(LocalDate fechaInicio, LocalDate fechaFin){

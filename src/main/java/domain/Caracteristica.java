@@ -1,8 +1,8 @@
-package domain.mascota;
-
-import java.util.Objects;
+package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
+
+import java.util.Objects;
 
 public abstract class Caracteristica {
   private TipoCaracteristica tipoCaracteristica;
@@ -15,11 +15,11 @@ public abstract class Caracteristica {
     this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
   }
 
-  public TipoCaracteristica getTipoCaracteristica() {
+  public TipoCaracteristica getTipoCaracteristica(){
     return tipoCaracteristica;
   }
 
-  public String getDescripcion() {
+  public String getDescripcion(){
     return descripcion;
   }
 

@@ -1,7 +1,7 @@
-package domain.servicio.impl;
+package servicio.impl;
 
 import domain.exception.PasswordDebilException;
-import domain.servicio.ValidacionClave;
+import servicio.ValidacionClave;
 
 public class ValidadorClaveLargo implements ValidacionClave {
 
@@ -9,7 +9,7 @@ public class ValidadorClaveLargo implements ValidacionClave {
 
   public void validarClave(String usuario, String clave) {
     if (clave.length() < LARGO_CLAVE_MINIMO) {
-      throw new PasswordDebilException("La password ingresada es demasiado corta");
+      throw new PasswordDebilException("La clave ingresada es demasiado corta");
     }
   }
 }

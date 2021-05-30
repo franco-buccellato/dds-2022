@@ -1,7 +1,7 @@
-package domain.servicio.impl;
+package servicio.impl;
 
 import domain.exception.PasswordDebilException;
-import domain.servicio.ValidacionClave;
+import servicio.ValidacionClave;
 
 public class ValidadorClaveSecuencias implements ValidacionClave {
 
@@ -18,7 +18,7 @@ public class ValidadorClaveSecuencias implements ValidacionClave {
 
   private void validarCaracteresIguales(String clave) {
     if (clave.matches(REGEX_CARACTERES_IGUALES)) {
-      throw new PasswordDebilException("La password ingresada posee sus caracteres iguales");
+      throw new PasswordDebilException("La clave ingresada posee sus caracteres iguales");
     }
   }
 
@@ -40,7 +40,7 @@ public class ValidadorClaveSecuencias implements ValidacionClave {
       } else {
         // Se rompio la secuencia. Valido si lo acumulado es secuencia
         if (subCadena.length() >= GRUPOS_SECUENCIAS && SECUENCIAS.contains(subCadena)) {
-          throw new PasswordDebilException("La password ingresada posee secuencias");
+          throw new PasswordDebilException("La clave ingresada posee secuencias");
         } else {
 
           // Limpio la cadena acumulada y grabado proximo caracter
@@ -51,7 +51,7 @@ public class ValidadorClaveSecuencias implements ValidacionClave {
       // Validacion para ultimo caracter
       if ((i == (clave.length() - 2)) && subCadena.length() >= GRUPOS_SECUENCIAS
           && SECUENCIAS.contains(subCadena)) {
-        throw new PasswordDebilException("La password ingresada posee secuencias");
+        throw new PasswordDebilException("La clave ingresada posee secuencias");
       }
 
       // Guardo el proximo caracter

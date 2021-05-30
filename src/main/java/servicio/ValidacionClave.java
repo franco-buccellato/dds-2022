@@ -1,4 +1,4 @@
-package domain.servicio;
+package servicio;
 
 import java.io.IOException;
 
