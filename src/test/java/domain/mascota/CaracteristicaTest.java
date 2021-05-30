@@ -1,24 +1,20 @@
 package domain.mascota;
 
-import static domain.mascota.TipoCaracteristica.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 import org.junit.jupiter.api.Test;
+import domain.Caracteristicas;
 
-public class CaracteristicaTest {
+public class CaracteristicaTest extends Caracteristicas {
 
   @Test
   public void puedoSetearCaracteristicaCastrada(){
     CaracteristicaBooleana estaCastrada = estaCastrada();
-    estaCastrada.setSeleccionada(true);
-    assertTrue(estaCastrada.getSeleccionada());
-    estaCastrada.setSeleccionada(false);
-    assertFalse(estaCastrada.getSeleccionada());
+    estaCastrada.getOpciones().get(0).setSeleccionada(true);
+    assertTrue(estaCastrada.getOpciones().get(0).getSeleccionada());
+    estaCastrada.getOpciones().get(0).setSeleccionada(false);
+    assertFalse(estaCastrada.getOpciones().get(0).getSeleccionada());
   }
 
   @Test
@@ -50,35 +46,5 @@ public class CaracteristicaTest {
     int index = setOpcionRandom(comportamiento.getOpciones());
 
     assertTrue(comportamiento.getOpciones().get(index).getSeleccionada());
-  }
-  protected CaracteristicaBooleana estaCastrada() {
-    return new CaracteristicaBooleana("Esta Castrada:", false);
-  }
-  protected CaracteristicaInput datosDeInteres() {
-    return new CaracteristicaInput(TEXT, "Datos de interes", false);
-  }
-  protected CaracteristicaChoice vacunas() {
-    Opcion moquillo = new Opcion("Moquillo");
-    Opcion hepatitis = new Opcion("Hepatitis");
-    Opcion parvovirosis = new Opcion("Parvovirosis");
-    Opcion rabia = new Opcion("Rabia");
-    List<Opcion> vacunas = Arrays.asList(moquillo, hepatitis, parvovirosis, rabia);
-
-    return new CaracteristicaChoice(CHECKBOX, "Vacunas administradas", vacunas, true);
-  }
-  protected CaracteristicaChoice comportamientoConNiños() {
-    Opcion jugueton = new Opcion("Jugueton");
-    Opcion agresivo = new Opcion("Agresivo");
-    Opcion desinteres = new Opcion("Desinteres");
-    List<Opcion> comportamientos = Arrays.asList(jugueton, agresivo, desinteres);
-
-    return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, true);
-  }
-  private int setOpcionRandom(List<Opcion> opciones) {
-    Random random = new Random();
-    int index = random.nextInt(opciones.size());
-
-    opciones.get(index).setSeleccionada(true);
-    return index;
   }
 }

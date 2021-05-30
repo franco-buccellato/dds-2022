@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import domain.Caracteristicas;
 
 import javax.imageio.ImageIO;
 import java.awt.Image;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MascotaTest {
+public class MascotaTest extends Caracteristicas {
   Mascota perroPepe;
   Mascota gatoBenito;
   CaracteristicaChoice vacunas;
@@ -189,13 +190,14 @@ public class MascotaTest {
     assertEquals(2, gatoBenito.getCaracteristicas().size());
 
     CaracteristicaBooleana castrado = estaCastrada();
-    castrado.setSeleccionada(true);
+    castrado.getOpciones().get(0).setSeleccionada(true);
     gatoBenito.setCaracteristicas(Collections.singletonList(castrado));
+
+    System.out.println(gatoBenito.getCaracteristicas().get(0).getOpciones());
 
     assertEquals(1, gatoBenito.getCaracteristicas().size());
     assertEquals(castrado, gatoBenito.getCaracteristicas().get(0));
     assertEquals(BOOLEAN, gatoBenito.getCaracteristicas().get(0).getTipoCaracteristica());
-    assertEquals(true, gatoBenito.getCaracteristicas().get(0).getSeleccionada());
   }
 
   @Test
@@ -229,7 +231,7 @@ public class MascotaTest {
     perroPepe.addCaracteristica(vacunas);
     assertEquals(1, perroPepe.getCaracteristicas().size());
 
-    Caracteristica datoDeInteres = datosDeInteres();
+    CaracteristicaInput datoDeInteres = datosDeInteres();
     String dato = "Le gusta perseguir motos";
     datoDeInteres.addOpcion(dato);
     perroPepe.addCaracteristica(datoDeInteres);
@@ -238,28 +240,5 @@ public class MascotaTest {
     assertEquals(datoDeInteres, perroPepe.getCaracteristicas().get(1));
     assertEquals(TEXT, perroPepe.getCaracteristicas().get(1).getTipoCaracteristica());
     assertEquals("Datos de interes", perroPepe.getCaracteristicas().get(1).getDescripcion());
-  }
-  protected CaracteristicaBooleana estaCastrada() {
-    return new CaracteristicaBooleana("Esta Castrada:", false);
-  }
-  protected CaracteristicaInput datosDeInteres() {
-    return new CaracteristicaInput(TEXT, "Datos de interes", false);
-  }
-  protected CaracteristicaChoice vacunas() {
-    Opcion moquillo = new Opcion("Moquillo");
-    Opcion hepatitis = new Opcion("Hepatitis");
-    Opcion parvovirosis = new Opcion("Parvovirosis");
-    Opcion rabia = new Opcion("Rabia");
-    List<Opcion> vacunas = Arrays.asList(moquillo, hepatitis, parvovirosis, rabia);
-
-    return new CaracteristicaChoice(CHECKBOX, "Vacunas administradas", vacunas, true);
-  }
-  protected CaracteristicaChoice comportamientoConNiños() {
-    Opcion jugueton = new Opcion("Jugueton");
-    Opcion agresivo = new Opcion("Agresivo");
-    Opcion desinteres = new Opcion("Desinteres");
-    List<Opcion> comportamientos = Arrays.asList(jugueton, agresivo, desinteres);
-
-    return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, true);
   }
 }
