@@ -17,6 +17,7 @@ public class RescateTest {
   String descripcion;
   Ubicacion ubicacion;
   LocalDate fecha;
+  Mascota mascota;
   Rescatista rescatista;
 
   @BeforeEach
@@ -26,13 +27,14 @@ public class RescateTest {
     descripcion = "Canino macho, color negro, raza caniche";
     ubicacion = fixture.ubicacion();
     fecha = LocalDate.of(2021, 5, 4);
+    mascota = fixture.mascotaConChapa();
     rescatista = fixture.rescatista();
   }
 
   @Test
   void noPuedoCrearUnRescateSinFotos() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new Rescate(null, descripcion, ubicacion, fecha, rescatista);
+      new Rescate(null, descripcion, ubicacion, fecha, mascota, rescatista);
     });
     assertEquals(NOT_NULO.mensaje("fotos"), exception.getMessage());
   }
@@ -40,7 +42,7 @@ public class RescateTest {
   @Test
   void noPuedoCrearUnRescateSinDescripcion() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new Rescate(fotos, null, ubicacion, fecha, rescatista);
+      new Rescate(fotos, null, ubicacion, fecha, mascota, rescatista);
     });
     assertEquals(NOT_NULO.mensaje("descripcion"), exception.getMessage());
   }
@@ -48,7 +50,7 @@ public class RescateTest {
   @Test
   void noPuedoCrearUnRescateSinLugarDeEncuentro() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new Rescate(fotos, descripcion, null, fecha, rescatista);
+      new Rescate(fotos, descripcion, null, fecha, mascota, rescatista);
     });
     assertEquals(NOT_NULO.mensaje("lugarEncuentro"), exception.getMessage());
   }
@@ -56,15 +58,23 @@ public class RescateTest {
   @Test
   void noPuedoCrearUnRescateSinFecha() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new Rescate(fotos, descripcion, ubicacion, null, rescatista);
+      new Rescate(fotos, descripcion, ubicacion, null, mascota, rescatista);
     });
     assertEquals(NOT_NULO.mensaje("fecha"), exception.getMessage());
   }
 
   @Test
+  void noPuedoCrearUnRescateSinMascota() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Rescate(fotos, descripcion, ubicacion, fecha, null, rescatista);
+    });
+    assertEquals(NOT_NULO.mensaje("mascota"), exception.getMessage());
+  }
+
+  @Test
   void noPuedoCrearUnRescateSinRescatista() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new Rescate(fotos, descripcion, ubicacion, fecha, null);
+      new Rescate(fotos, descripcion, ubicacion, fecha, mascota, null);
     });
     assertEquals(NOT_NULO.mensaje("rescatista"), exception.getMessage());
   }

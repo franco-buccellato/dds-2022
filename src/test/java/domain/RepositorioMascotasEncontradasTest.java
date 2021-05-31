@@ -30,12 +30,14 @@ public class RepositorioMascotasEncontradasTest {
     Fixture fixture = new Fixture();
     Ubicacion ubicacion = fixture.ubicacion();
     Rescatista rescatista = fixture.rescatista();
+    Mascota mascota = fixture.mascotaConChapa();
 
     pastorAleman = new Rescate(
         fotos,
         "perro pastorAleman",
         ubicacion,
         LocalDate.now().minus(1, ChronoUnit.DAYS),
+        mascota,
         rescatista
     );
 
@@ -44,6 +46,7 @@ public class RepositorioMascotasEncontradasTest {
         "perro bulldog",
         ubicacion,
         LocalDate.now().minus(3, ChronoUnit.DAYS),
+        mascota,
         rescatista
     );
 
@@ -52,6 +55,7 @@ public class RepositorioMascotasEncontradasTest {
         "perro husky",
         ubicacion,
         LocalDate.now().minus(5, ChronoUnit.DAYS),
+        mascota,
         rescatista
     );
 
@@ -60,6 +64,7 @@ public class RepositorioMascotasEncontradasTest {
         "perro poodle",
         ubicacion,
         LocalDate.now().minus(8, ChronoUnit.DAYS),
+        mascota,
         rescatista
     );
 
@@ -68,6 +73,7 @@ public class RepositorioMascotasEncontradasTest {
         "gato persa",
         ubicacion,
         LocalDate.of(2021, 4, 12),
+        mascota,
         rescatista
     );
 
@@ -76,6 +82,7 @@ public class RepositorioMascotasEncontradasTest {
         "gato maineCoon",
         ubicacion,
         LocalDate.of(2021, 3, 15),
+        mascota,
         rescatista
     );
 
@@ -84,6 +91,7 @@ public class RepositorioMascotasEncontradasTest {
         "gato siames",
         ubicacion,
         LocalDate.of(2021, 3, 15),
+        mascota,
         rescatista
     );
 
@@ -92,6 +100,7 @@ public class RepositorioMascotasEncontradasTest {
         "gato bengala",
         ubicacion,
         LocalDate.of(2021, 2, 10),
+        mascota,
         rescatista
     );
 

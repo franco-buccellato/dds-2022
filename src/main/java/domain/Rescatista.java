@@ -1,6 +1,5 @@
 package domain;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 import static domain.exception.Mensajes.NOT_NULO;
@@ -27,4 +26,8 @@ public class Rescatista {
   public Ubicacion getUbicacion() {
     return ubicacion;
   }
+
+//  public void generarRescate() {
+//    new Rescate().informarRescate(ubicacion);
+//  }
 }

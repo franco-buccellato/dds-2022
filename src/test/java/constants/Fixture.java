@@ -4,6 +4,7 @@ import domain.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Fixture {
   public Rescatista rescatista() {
@@ -37,6 +38,20 @@ public class Fixture {
         "CABA",
         BigDecimal.valueOf(56.54684),
         BigDecimal.valueOf(56.54684)
+    );
+  }
+
+  public MascotaConChapa mascotaConChapa() {
+    return new MascotaConChapa(
+        TipoMascota.PERRO,
+        "Canela",
+        "Cane",
+        5.2,
+        Sexo.HEMBRA,
+        "Gordita",
+        Arrays.asList("unaFoto"),
+        null,
+        SituacionMascota.EN_HOGAR_PROPIO
     );
   }
 }

@@ -14,12 +14,15 @@ public class Rescate {
   private Mascota mascota;
   private Rescatista rescatista;
 
-  public Rescate(List<String> fotos, String descripcion, Ubicacion lugarEncuentro, LocalDate fecha, Rescatista rescatista) {
+  public Rescate(List<String> fotos, String descripcion, Ubicacion lugarEncuentro, LocalDate fecha, Mascota mascota, Rescatista rescatista) {
     this.fotos = Objects.requireNonNull(fotos, NOT_NULO.mensaje("fotos"));
     this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
     this.lugarEncuentro = Objects.requireNonNull(lugarEncuentro, NOT_NULO.mensaje("lugarEncuentro"));
     this.fecha = Objects.requireNonNull(fecha, NOT_NULO.mensaje("fecha"));
+    this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.rescatista = Objects.requireNonNull(rescatista, NOT_NULO.mensaje("rescatista"));
+
+    mascota.setSituacionMascota(SituacionMascota.EN_HOGAR_TRANSITORIO);
   }
 
   /*Getters & Setters*/
@@ -43,6 +46,10 @@ public class Rescate {
     return fecha;
   }
 
+  public Mascota getMascota() {
+    return mascota;
+  }
+
   public void setMascota(Mascota unaMascota) {
     this.mascota = unaMascota;
     mascota.setSituacionMascota(SituacionMascota.EN_HOGAR_TRANSITORIO);
@@ -54,5 +61,9 @@ public class Rescate {
 
   public Boolean encontradaEntre(LocalDate fechaInicio, LocalDate fechaFin) {
     return this.getFecha().isAfter(fechaInicio) && this.getFecha().isBefore(fechaFin);
+  }
+
+  public void informarRescate() {
+
   }
 }
