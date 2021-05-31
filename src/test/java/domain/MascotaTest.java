@@ -1,4 +1,4 @@
-package domain.mascota;
+package domain;
 
 import static domain.TipoMascota.*;
 import static org.junit.jupiter.api.Assertions.*;

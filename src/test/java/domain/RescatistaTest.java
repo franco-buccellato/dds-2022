@@ -1,4 +1,4 @@
-package domain.rescatista;
+package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 import static domain.TipoIdentificacion.DNI;

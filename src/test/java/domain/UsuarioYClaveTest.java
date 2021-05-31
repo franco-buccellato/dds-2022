@@ -1,4 +1,4 @@
-package domain.usuario;
+package domain;
 
 import domain.TipoUsuario;
 import domain.Usuario;

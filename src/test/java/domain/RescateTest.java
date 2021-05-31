@@ -1,4 +1,4 @@
-package domain.mascotaEncontrada;
+package domain;
 
 import domain.Rescate;
 import domain.Ubicacion;
