@@ -1,5 +1,6 @@
 package domain;
 
-public enum Sexo{
-  MACHO, HEMBRA;
+public enum Sexo {
+  MACHO,
+  HEMBRA;
 }

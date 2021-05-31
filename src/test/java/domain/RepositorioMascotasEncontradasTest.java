@@ -1,15 +1,9 @@
 package domain;
 
-import constants.Constantes;
-import org.junit.jupiter.api.AfterEach;
+import constants.Fixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -29,67 +23,76 @@ public class RepositorioMascotasEncontradasTest {
   private Rescate siames;
   private Rescate bengala;
   private RepositorioMascotaEncontrada repoTest;
-  private LocalDate fechaSistema;
-  private LocalDate fechaSistemaTest = LocalDate.of (2021, 5, 5);
 
   @BeforeEach
-  public void inicio() throws IOException {
-    Image fotoPerro1Encontrado = ImageIO.read(new File("resources/images/perroEncontrado1.jpg"));
-    List<Image> fotos = new ArrayList<>(Collections.singletonList(fotoPerro1Encontrado));
+  public void inicio() {
+    List<String> fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
+    Fixture fixture = new Fixture();
+    Ubicacion ubicacion = fixture.ubicacion();
+    Rescatista rescatista = fixture.rescatista();
 
     pastorAleman = new Rescate(
         fotos,
         "perro pastorAleman",
-        ubicacion(),
-        LocalDate.now().minus(1, ChronoUnit.DAYS)
+        ubicacion,
+        LocalDate.now().minus(1, ChronoUnit.DAYS),
+        rescatista
     );
+
     bulldog = new Rescate(
         fotos,
         "perro bulldog",
-        ubicacion(),
-        LocalDate.now().minus(3, ChronoUnit.DAYS)
+        ubicacion,
+        LocalDate.now().minus(3, ChronoUnit.DAYS),
+        rescatista
     );
 
     husky = new Rescate(
         fotos,
         "perro husky",
-        ubicacion(),
-        LocalDate.now().minus(5, ChronoUnit.DAYS)
+        ubicacion,
+        LocalDate.now().minus(5, ChronoUnit.DAYS),
+        rescatista
     );
 
     poodle = new Rescate(
         fotos,
         "perro poodle",
-        ubicacion(),
-        LocalDate.now().minus(8, ChronoUnit.DAYS)
+        ubicacion,
+        LocalDate.now().minus(8, ChronoUnit.DAYS),
+        rescatista
     );
 
     persa = new Rescate(
         fotos,
         "gato persa",
-        ubicacion(),
-        LocalDate.of(2021, 4, 12)
+        ubicacion,
+        LocalDate.of(2021, 4, 12),
+        rescatista
     );
 
     maineCoon = new Rescate(
         fotos,
         "gato maineCoon",
-        ubicacion(),
-        LocalDate.of(2021, 3, 15)
+        ubicacion,
+        LocalDate.of(2021, 3, 15),
+        rescatista
     );
 
     siames = new Rescate(
         fotos,
         "gato siames",
-        ubicacion(),
-        LocalDate.of(2021, 3, 15)
+        ubicacion,
+        LocalDate.of(2021, 3, 15),
+        rescatista
     );
 
     bengala = new Rescate(
         fotos,
         "gato bengala",
-        ubicacion(),
-        LocalDate.of(2021, 2, 10)
+        ubicacion,
+        LocalDate.of(2021, 2, 10),
+        rescatista
     );
 
     repoTest = RepositorioMascotaEncontrada.getRepositorio();
@@ -112,15 +115,5 @@ public class RepositorioMascotasEncontradasTest {
   @Test
   public void testUltimasMascotasEncontradasEnDiezDias() {
     assertEquals(this.ultimasEncontradasEnDiezDias(), repoTest.ultimasEncontradasEn10Dias());
-  }
-
-  protected Ubicacion ubicacion() {
-    return new Ubicacion(
-        "El Rescatista 123",
-        "1417",
-        "CABA",
-        BigDecimal.valueOf(56.54684),
-        BigDecimal.valueOf(56.54684)
-    );
   }
 }

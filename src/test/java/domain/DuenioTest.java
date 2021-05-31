@@ -1,62 +1,46 @@
 package domain;
 
-import static domain.TipoIdentificacion.*;
-
-import domain.*;
+import constants.Fixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import javax.imageio.ImageIO;
 
 import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DuenioTest {
   Contacto contacto;
+  DatoPersonal datoPersonal;
   Duenio duenio;
 
   @BeforeEach
   void setup() {
-    contacto = new Contacto("Juan", "Perez", "11123123123", "juan@perez.com", Vinculo.TITULAR);
-    duenio = new Duenio(
-        "Juan",
-        "Perez",
-        DNI,
-        "123123123",
-        Arrays.asList(contacto),
-        null,
-        LocalDate.of(1990, 1, 1),
-        null
-    );
+    Fixture fixture = new Fixture();
+    datoPersonal = fixture.datoPersonal();
+    contacto = fixture.contacto();
+    duenio = new Duenio(datoPersonal, Arrays.asList(contacto), null, null);
   }
 
   @Test
-  void noPuedoCrearUnDuenioSiFaltanRequiredParams() {
+  void noPuedoCrearDuenioSiFaltanDatosPersonales() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new Duenio(null, "Perez", DNI, "123123123", Arrays.asList(contacto), null, LocalDate.of(1990, 1, 1), null);
+      new Duenio(null, Arrays.asList(contacto), null, null);
     });
-    assertEquals(NOT_NULO.mensaje("nombre"), exception.getMessage());
+    assertEquals(NOT_NULO.mensaje("datoPersonal"), exception.getMessage());
   }
 
   @Test
-  void puedoLeerDatosDeUnaPersona() {
-    assertEquals("Juan", duenio.getNombre());
-    assertEquals("Perez", duenio.getApellido());
-    assertEquals(DNI, duenio.getTipoIdentificacion());
-    assertEquals("123123123", duenio.getNroIdentificacion());
-    assertNull(duenio.getMascotas());
-    assertEquals(LocalDate.of(1990, 1, 1), duenio.getFechaNacimiento());
+  void puedoLeerDatosDeUnDuenio() {
+    assertEquals(datoPersonal, duenio.getDatoPersonal());
+    assertEquals(contacto, duenio.getContactos().get(0));
+    assertEquals(0, duenio.getMascotas().size());
+    assertNull(duenio.getUsuario());
   }
 
   @Test
-  void puedoActualizarElContactoDeUnaPersona() {
+  void puedoActualizarElContactoDeUnDuenio() {
     Contacto nuevoContacto = new Contacto("Pedro", "Perez", "11123123123", "pedro@perez.com", Vinculo.FAMILIAR);
     duenio.setContactos(Arrays.asList(nuevoContacto));
 
@@ -65,18 +49,21 @@ public class DuenioTest {
   }
 
   @Test
-  void puedoActualizarLaMascotaDeUnaPersona() throws IOException {
-    Mascota mascota = new Mascota(
+  void puedoActualizarLaMascotaDeUnDuenio() {
+    assertEquals(0, duenio.getMascotas().size());
+
+    Mascota mascota = new MascotaConChapa(
         TipoMascota.PERRO,
         "Pepe",
         "Pe",
         4.2,
         Sexo.HEMBRA,
         "Un poco flaco",
-        new ArrayList<Image>(Arrays.asList(ImageIO.read(new File("resources/images/perro.jpg")))),
+        Arrays.asList("unaFoto"),
         null,
         SituacionMascota.EN_HOGAR_PROPIO
     );
+
     duenio.setMascotas(new ArrayList(Arrays.asList(mascota)));
 
     assertEquals(Arrays.asList(mascota), duenio.getMascotas());

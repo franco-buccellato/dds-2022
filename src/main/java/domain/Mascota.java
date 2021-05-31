@@ -7,18 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Mascota {
+public abstract class Mascota {
   private TipoMascota tipoMascota;
   private String nombre;
   private String apodo;
   private Double edadAproximada;
   private Sexo sexo;
   private String descripcionFisica;
-  private List<Image> fotos;
+  private List<String> fotos;
   private List<Caracteristica> caracteristicas;
   private SituacionMascota situacionMascota;
 
-  public Mascota(TipoMascota tipoMascota, String nombre, String apodo, Double edadAproximada, Sexo sexo, String descripcionFisica, List<Image> fotos, List<Caracteristica> caracteristicas, SituacionMascota situacionMascota) {
+  public Mascota(TipoMascota tipoMascota, String nombre, String apodo, Double edadAproximada, Sexo sexo, String descripcionFisica, List<String> fotos, List<Caracteristica> caracteristicas, SituacionMascota situacionMascota) {
     this.tipoMascota = Objects.requireNonNull(tipoMascota, NOT_NULO.mensaje("tipoMascota"));
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
     this.apodo = Objects.requireNonNull(apodo, NOT_NULO.mensaje("apodo"));
@@ -26,7 +26,7 @@ public class Mascota {
     this.sexo = Objects.requireNonNull(sexo, NOT_NULO.mensaje("sexo"));
     this.descripcionFisica = Objects.requireNonNull(descripcionFisica, NOT_NULO.mensaje("descripcionFisica"));
     this.fotos = Objects.requireNonNull(fotos, NOT_NULO.mensaje("fotos"));
-    this.caracteristicas = caracteristicas;
+    this.caracteristicas = Objects.isNull(caracteristicas) ? new ArrayList<>() : caracteristicas;
     this.situacionMascota = situacionMascota;
   }
 
@@ -58,16 +58,16 @@ public class Mascota {
     return descripcionFisica;
   }
 
-  public List<Image> getFotos() {
+  public List<String> getFotos() {
     return fotos;
   }
 
-  public void setFotos(List<Image> fotos) {
+  public void setFotos(List<String> fotos) {
     this.fotos = fotos;
   }
 
-  public void addFoto(Image foto) {
-    this.fotos.add(foto);
+  public void addFoto(String foto) {
+    fotos.add(foto);
   }
 
   public List<Caracteristica> getCaracteristicas() {
@@ -87,9 +87,6 @@ public class Mascota {
   }
 
   public void addCaracteristica(Caracteristica caracteristica) {
-    this.caracteristicas = Objects.isNull(this.caracteristicas)
-        ? new ArrayList<>()
-        : this.caracteristicas;
-    this.caracteristicas.add(caracteristica);
+    caracteristicas.add(caracteristica);
   }
 }
