@@ -25,7 +25,7 @@ public class RescateTest {
     Fixture fixture = new Fixture();
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
     descripcion = "Canino macho, color negro, raza caniche";
-    ubicacion = fixture.ubicacion();
+    ubicacion = fixture.ubicacion1();
     fecha = LocalDate.of(2021, 5, 4);
     mascota = fixture.mascotaConChapa();
     rescatista = fixture.rescatista();

@@ -28,7 +28,7 @@ public class RepositorioMascotasEncontradasTest {
   public void inicio() {
     List<String> fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
     Fixture fixture = new Fixture();
-    Ubicacion ubicacion = fixture.ubicacion();
+    Ubicacion ubicacion = fixture.ubicacion1();
     Rescatista rescatista = fixture.rescatista();
     Mascota mascota = fixture.mascotaConChapa();
 

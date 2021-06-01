@@ -16,4 +16,13 @@ public class MascotaSinChapa extends Mascota {
         situacionMascota
     );
   }
+
+  void generarPublicacion(Rescate rescate){
+    rescate.informarRescate();
+  }
+
+  void buscarHogarDeTransito(Ubicacion ubicacion){
+
+  }
+
 }

@@ -27,6 +27,10 @@ public class Rescatista {
     return ubicacion;
   }
 
+  public void notificarMatchDuenio(Rescate rescate, Duenio duenio){
+    //Comunicar con el dueño mediante sms o mail
+  }
+
 //  public void generarRescate() {
 //    new Rescate().informarRescate(ubicacion);
 //  }

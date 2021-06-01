@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Fixture {
   public Rescatista rescatista() {
-    return new Rescatista(datoPersonal(), contacto(), ubicacion());
+    return new Rescatista(datoPersonal(), contacto(), ubicacion1());
   }
 
   public DatoPersonal datoPersonal() {
@@ -31,13 +31,23 @@ public class Fixture {
     );
   }
 
-  public Ubicacion ubicacion() {
+  public Ubicacion ubicacion1() {
     return new Ubicacion(
         "El Rescatista 123",
         "1417",
         "CABA",
         BigDecimal.valueOf(56.54684),
         BigDecimal.valueOf(56.54684)
+    );
+  }
+
+  public Ubicacion ubicacion2() {
+    return new Ubicacion(
+        "El Rescatista 123",
+        "1417",
+        "CABA",
+        BigDecimal.valueOf(54.54684),
+        BigDecimal.valueOf(58.54684)
     );
   }
 

@@ -19,7 +19,7 @@ public class RescatistaTest {
     Fixture fixture = new Fixture();
     datoPersonal = fixture.datoPersonal();
     contacto = fixture.contacto();
-    ubicacion = fixture.ubicacion();
+    ubicacion = fixture.ubicacion1();
     rescatista = fixture.rescatista();
   }
 
