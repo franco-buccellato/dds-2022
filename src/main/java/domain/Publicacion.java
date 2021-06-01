@@ -1,14 +1,15 @@
 package domain;
 
 public class Publicacion {
-  Rescate rescate;
+  RescateSinChapa rescateSinChapa;
   EstadoPublicacion estado;
   Asociacion asociacion;
 
-  Publicacion(Rescate rescate) {
-    this.rescate = rescate;
+  Publicacion(RescateSinChapa rescateSinChapa) {
+    this.rescateSinChapa = rescateSinChapa;
     this.estado = EstadoPublicacion.ESPERA;
     RepositorioPublicaciones.getRepositorioPublicaciones().agregarPublicacion(this);
+    this.buscarAsignacionCercana();
   }
 
   void setAsociacion(Asociacion asociacion) {
@@ -27,8 +28,12 @@ public class Publicacion {
     return this.estado;
   }
 
+  void buscarAsignacionCercana() {
+    asociacion = RepositorioAsociaciones.getRrepositorioAsociaciones().encontrarMasCercana(rescateSinChapa.getLugarEncuentro());
+  }
+
   void notificarRescatista(Duenio duenio) {
-    rescate.getRescatista().notificarMatchDuenio(rescate, duenio);
+    rescateSinChapa.getRescatista().notificarMatchDuenio(rescateSinChapa, duenio);
   }
 
 }

@@ -51,8 +51,8 @@ public class Fixture {
     );
   }
 
-  public MascotaConChapa mascotaConChapa() {
-    return new MascotaConChapa(
+  public Mascota mascota() {
+    return new Mascota(
         TipoMascota.PERRO,
         "Canela",
         "Cane",

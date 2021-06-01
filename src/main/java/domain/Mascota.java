@@ -2,12 +2,11 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Mascota {
+public class Mascota {
   private TipoMascota tipoMascota;
   private String nombre;
   private String apodo;
@@ -89,4 +88,14 @@ public abstract class Mascota {
   public void addCaracteristica(Caracteristica caracteristica) {
     caracteristicas.add(caracteristica);
   }
+
+  /*
+    public void informarRescate(RescateSinChapa rescateSinChapa) {
+      new Publicacion(rescateSinChapa);
+    }
+  */
+  void buscarHogarDeTransito(Ubicacion ubicacion) {
+
+  }
+
 }

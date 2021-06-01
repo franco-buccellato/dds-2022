@@ -14,14 +14,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RepositorioMascotasEncontradasTest {
-  private Rescate pastorAleman;
-  private Rescate bulldog;
-  private Rescate husky;
-  private Rescate poodle;
-  private Rescate persa;
-  private Rescate maineCoon;
-  private Rescate siames;
-  private Rescate bengala;
+  private RescateSinChapa pastorAleman;
+  private RescateSinChapa bulldog;
+  private RescateSinChapa husky;
+  private RescateSinChapa poodle;
+  private RescateSinChapa persa;
+  private RescateSinChapa maineCoon;
+  private RescateSinChapa siames;
+  private RescateSinChapa bengala;
   private RepositorioMascotaEncontrada repoTest;
 
   @BeforeEach
@@ -30,9 +30,9 @@ public class RepositorioMascotasEncontradasTest {
     Fixture fixture = new Fixture();
     Ubicacion ubicacion = fixture.ubicacion1();
     Rescatista rescatista = fixture.rescatista();
-    Mascota mascota = fixture.mascotaConChapa();
+    Mascota mascota = fixture.mascota();
 
-    pastorAleman = new Rescate(
+    pastorAleman = new RescateSinChapa(
         fotos,
         "perro pastorAleman",
         ubicacion,
@@ -41,7 +41,7 @@ public class RepositorioMascotasEncontradasTest {
         rescatista
     );
 
-    bulldog = new Rescate(
+    bulldog = new RescateSinChapa(
         fotos,
         "perro bulldog",
         ubicacion,
@@ -50,7 +50,7 @@ public class RepositorioMascotasEncontradasTest {
         rescatista
     );
 
-    husky = new Rescate(
+    husky = new RescateSinChapa(
         fotos,
         "perro husky",
         ubicacion,
@@ -59,7 +59,7 @@ public class RepositorioMascotasEncontradasTest {
         rescatista
     );
 
-    poodle = new Rescate(
+    poodle = new RescateSinChapa(
         fotos,
         "perro poodle",
         ubicacion,
@@ -68,7 +68,7 @@ public class RepositorioMascotasEncontradasTest {
         rescatista
     );
 
-    persa = new Rescate(
+    persa = new RescateSinChapa(
         fotos,
         "gato persa",
         ubicacion,
@@ -77,7 +77,7 @@ public class RepositorioMascotasEncontradasTest {
         rescatista
     );
 
-    maineCoon = new Rescate(
+    maineCoon = new RescateSinChapa(
         fotos,
         "gato maineCoon",
         ubicacion,
@@ -86,7 +86,7 @@ public class RepositorioMascotasEncontradasTest {
         rescatista
     );
 
-    siames = new Rescate(
+    siames = new RescateSinChapa(
         fotos,
         "gato siames",
         ubicacion,
@@ -95,7 +95,7 @@ public class RepositorioMascotasEncontradasTest {
         rescatista
     );
 
-    bengala = new Rescate(
+    bengala = new RescateSinChapa(
         fotos,
         "gato bengala",
         ubicacion,
@@ -117,7 +117,7 @@ public class RepositorioMascotasEncontradasTest {
     );
   }
 
-  public List<Rescate> ultimasEncontradasEnDiezDias() {
+  public List<RescateSinChapa> ultimasEncontradasEnDiezDias() {
     return Arrays.asList(pastorAleman, bulldog, husky, poodle);
   }
 

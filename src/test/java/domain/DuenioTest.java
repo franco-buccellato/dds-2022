@@ -52,7 +52,7 @@ public class DuenioTest {
   void puedoActualizarLaMascotaDeUnDuenio() {
     assertEquals(0, duenio.getMascotas().size());
 
-    Mascota mascota = new MascotaConChapa(
+    Mascota mascota = new Mascota(
         TipoMascota.PERRO,
         "Pepe",
         "Pe",

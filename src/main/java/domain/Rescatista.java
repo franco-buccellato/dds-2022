@@ -1,5 +1,7 @@
 package domain;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import static domain.exception.Mensajes.NOT_NULO;
@@ -27,11 +29,13 @@ public class Rescatista {
     return ubicacion;
   }
 
-  public void notificarMatchDuenio(Rescate rescate, Duenio duenio){
+  public void notificarMatchDuenio(RescateSinChapa rescateSinChapa, Duenio duenio) {
     //Comunicar con el dueño mediante sms o mail
   }
 
-//  public void generarRescate() {
-//    new Rescate().informarRescate(ubicacion);
-//  }
+  public void generarRescate(
+      List<String> fotos,
+      String descripcion, Ubicacion lugarEncuentro, LocalDate fecha, Mascota mascota, Rescatista rescatista) {
+    new RescateSinChapa(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
+  }
 }
