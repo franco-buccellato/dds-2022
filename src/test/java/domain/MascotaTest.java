@@ -1,8 +1,11 @@
 package domain;
 
+import static domain.exception.Mensajes.NOT_NULO;
+import static domain.TipoCaracteristica.BOOLEAN;
+import static domain.TipoCaracteristica.CHECKBOX;
+import static domain.TipoCaracteristica.TEXT;
 import static domain.TipoMascota.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static domain.exception.Mensajes.NOT_NULO;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,21 +13,31 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
-public class MascotaTest {
+import javax.imageio.ImageIO;
+
+import domain.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class MascotaTest extends Caracteristicas {
   Mascota perroPepe;
   Mascota gatoBenito;
-  Caracteristica colorPrincipalNaranja;
-  Caracteristica colorSecundarioBlanco;
+  CaracteristicaChoice vacunas;
+  CaracteristicaChoice comportamiento;
   List<Caracteristica> caracteristicas;
   List<String> fotos;
 
   @BeforeEach
-  public void setup() {
-    colorPrincipalNaranja = new Caracteristica(new TipoCaracteristicaTextoLibre("Color Principal"), "naranja");
-    colorSecundarioBlanco = new Caracteristica(new TipoCaracteristicaTextoLibre("Color Secundario"), "blanco");
-    caracteristicas = new ArrayList<>(Collections.singletonList(colorPrincipalNaranja));
+  public void setup() throws IOException {
+    vacunas = vacunas();
+    vacunas.getOpciones().get(0).setSeleccionada(true);
+    comportamiento = comportamientoConNiños();
+    comportamiento.getOpciones().get(0).setSeleccionada(true);
+    caracteristicas = Arrays.asList(vacunas, comportamiento);
 
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
 
@@ -140,13 +153,17 @@ public class MascotaTest {
 
   @Test
   public void puedoActualizarCaracteristicasDeMascota() {
-    assertEquals(1, gatoBenito.getCaracteristicas().size());
-    assertEquals(colorPrincipalNaranja, gatoBenito.getCaracteristicas().get(0));
+    assertEquals(2, gatoBenito.getCaracteristicas().size());
 
-    gatoBenito.setCaracteristicas(Collections.singletonList(colorSecundarioBlanco));
+    CaracteristicaBooleana castrado = estaCastrada();
+    castrado.getOpciones().get(0).setSeleccionada(true);
+    gatoBenito.setCaracteristicas(Collections.singletonList(castrado));
+
+    System.out.println(gatoBenito.getCaracteristicas().get(0).getOpciones());
 
     assertEquals(1, gatoBenito.getCaracteristicas().size());
-    assertEquals(colorSecundarioBlanco, gatoBenito.getCaracteristicas().get(0));
+    assertEquals(castrado, gatoBenito.getCaracteristicas().get(0));
+    assertEquals(BOOLEAN, gatoBenito.getCaracteristicas().get(0).getTipoCaracteristica());
   }
 
   @Test
@@ -166,20 +183,27 @@ public class MascotaTest {
   public void puedoAgregarCaracteristicaAMascotaSinCaracteristicas() {
     assertEquals(0, perroPepe.getCaracteristicas().size());
 
-    perroPepe.addCaracteristica(colorPrincipalNaranja);
+    perroPepe.addCaracteristica(vacunas);
 
     assertEquals(1, perroPepe.getCaracteristicas().size());
-    assertEquals(colorPrincipalNaranja, perroPepe.getCaracteristicas().get(0));
+    assertEquals(vacunas, perroPepe.getCaracteristicas().get(0));
+    assertEquals(CHECKBOX, perroPepe.getCaracteristicas().get(0).getTipoCaracteristica());
+    assertEquals("Vacunas administradas", perroPepe.getCaracteristicas().get(0).getDescripcion());
   }
 
   @Test
   void puedoAgregarCaracteristicaAMascotaConCaracteristicas() {
-    assertEquals(1, gatoBenito.getCaracteristicas().size());
-    assertEquals(colorPrincipalNaranja, gatoBenito.getCaracteristicas().get(0));
+    perroPepe.addCaracteristica(vacunas);
+    assertEquals(1, perroPepe.getCaracteristicas().size());
 
-    gatoBenito.addCaracteristica(colorSecundarioBlanco);
+    CaracteristicaInput datoDeInteres = datosDeInteres();
+    String dato = "Le gusta perseguir motos";
+    datoDeInteres.addOpcion(dato);
+    perroPepe.addCaracteristica(datoDeInteres);
 
-    assertEquals(2, gatoBenito.getCaracteristicas().size());
-    assertEquals(colorSecundarioBlanco, gatoBenito.getCaracteristicas().get(1));
+    assertEquals(2, perroPepe.getCaracteristicas().size());
+    assertEquals(datoDeInteres, perroPepe.getCaracteristicas().get(1));
+    assertEquals(TEXT, perroPepe.getCaracteristicas().get(1).getTipoCaracteristica());
+    assertEquals("Datos de interes", perroPepe.getCaracteristicas().get(1).getDescripcion());
   }
 }

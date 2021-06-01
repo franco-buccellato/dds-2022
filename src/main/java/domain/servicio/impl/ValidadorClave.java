@@ -1,8 +1,13 @@
-package servicio.impl;
+package domain.servicio.impl;
 
-import servicio.ValidacionClave;
 import java.util.ArrayList;
 import java.util.List;
+
+import servicio.ValidacionClave;
+import servicio.impl.ValidadorClaveLargo;
+import servicio.impl.ValidadorClaveListaNegra;
+import servicio.impl.ValidadorClaveSecuencias;
+import servicio.impl.ValidadorClaveTop10000;
 
 public class ValidadorClave {
 

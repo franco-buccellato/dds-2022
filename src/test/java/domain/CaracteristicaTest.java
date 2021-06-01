@@ -1,31 +1,54 @@
 package domain;
 
-import static domain.exception.Mensajes.NOT_NULO;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import domain.Caracteristica;
-import domain.TipoCaracteristica;
-import domain.TipoCaracteristicaTextoLibre;
+import domain.CaracteristicaBooleana;
+import domain.CaracteristicaChoice;
+import domain.CaracteristicaInput;
 import org.junit.jupiter.api.Test;
 
-public class CaracteristicaTest {
-  @Test
-  public void noPuedoCrearUnaCaracteristicaSinTipoCaracteristica() {
-    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new Caracteristica(null, "verde");
-    });
+import domain.Caracteristicas;
 
-    assertEquals(NOT_NULO.mensaje("tipoCaracteristica"), exception.getMessage());
+public class CaracteristicaTest extends Caracteristicas {
+
+  @Test
+  public void puedoSetearCaracteristicaBooleana(){
+    CaracteristicaBooleana estaCastrada = estaCastrada();
+    estaCastrada.getOpciones().get(0).setSeleccionada(true);
+    assertTrue(estaCastrada.getOpciones().get(0).getSeleccionada());
+    estaCastrada.getOpciones().get(0).setSeleccionada(false);
+    assertFalse(estaCastrada.getOpciones().get(0).getSeleccionada());
   }
 
   @Test
-  public void noPuedoCrearUnaCaracteristicaSinDescripcion() {
-    TipoCaracteristica colorSecundario = new TipoCaracteristicaTextoLibre("Color Secundario");
+  public void puedoCompletarUnaCaracteristicaTexto(){
+    CaracteristicaInput datoCurioso = datosDeInteres();
+    String dato = "Ronca mucho cuando duerme";
+    datoCurioso.addOpcion(dato);
 
-    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new Caracteristica(colorSecundario, null);
-    });
+    assertTrue(datoCurioso.getOpciones().equals(dato));
+  }
+  @Test
+  public void puedoDejarOpcionalUnaCaracteristicaTexto(){
+    CaracteristicaInput datoCurioso = datosDeInteres();
+    datoCurioso.addOpcion("");
+    assertTrue(datoCurioso.getOpciones().equals(""));
+  }
+  @Test
+  public void puedoSetearUnaCaracteristicaMultipleChoice(){
+    CaracteristicaChoice vacunas = vacunas();
+    int index1 = setOpcionRandom(vacunas.getOpciones());
+    int index2 = setOpcionRandom(vacunas.getOpciones());
 
-    assertEquals(NOT_NULO.mensaje("descripcion"), exception.getMessage());
+    assertTrue(vacunas.getOpciones().get(index1).getSeleccionada());
+    assertTrue(vacunas.getOpciones().get(index2).getSeleccionada());
+  }
+  @Test
+  public void puedoSetearUnaCaracteristicaSingleChoice(){
+    CaracteristicaChoice comportamiento = comportamientoConNiños();
+    int index = setOpcionRandom(comportamiento.getOpciones());
+
+    assertTrue(comportamiento.getOpciones().get(index).getSeleccionada());
   }
 }
