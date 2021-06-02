@@ -7,16 +7,18 @@ import java.util.Random;
 import static domain.TipoCaracteristica.*;
 
 public class Caracteristicas {
-  protected CaracteristicaBooleana estaCastrada() {
-    return new CaracteristicaBooleana("Esta Castrada:", false);
-  }
-
   protected CaracteristicaInput datosDeInteres() {
     return new CaracteristicaInput(TEXT, "Datos de interes", false);
   }
 
   protected CaracteristicaInput visitasAlVeterinarioUltimoAnio() {
     return new CaracteristicaInput(NUMBER, "Cantidad de consultas veterinarias", false);
+  }
+
+  protected CaracteristicaChoice estaCastrada() {
+    List<Opcion> opcionesBool = Arrays.asList(new Opcion("Si"), new Opcion("No"));
+
+    return new CaracteristicaChoice(BOOLEAN, "Esta Castrada:", opcionesBool, false);
   }
 
   protected CaracteristicaChoice vacunas() {

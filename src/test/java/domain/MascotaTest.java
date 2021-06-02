@@ -155,7 +155,7 @@ public class MascotaTest extends Caracteristicas {
   public void puedoActualizarCaracteristicasDeMascota() {
     assertEquals(2, gatoBenito.getCaracteristicas().size());
 
-    CaracteristicaBooleana castrado = estaCastrada();
+    CaracteristicaChoice castrado = estaCastrada();
     castrado.getOpciones().get(0).setSeleccionada(true);
     gatoBenito.setCaracteristicas(Collections.singletonList(castrado));
 

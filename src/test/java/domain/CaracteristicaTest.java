@@ -3,18 +3,13 @@ package domain;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import domain.CaracteristicaBooleana;
-import domain.CaracteristicaChoice;
-import domain.CaracteristicaInput;
 import org.junit.jupiter.api.Test;
-
-import domain.Caracteristicas;
 
 public class CaracteristicaTest extends Caracteristicas {
 
   @Test
-  public void puedoSetearCaracteristicaBooleana(){
-    CaracteristicaBooleana estaCastrada = estaCastrada();
+  public void puedoSetearCaracteristicaBooleana() {
+    CaracteristicaChoice estaCastrada = estaCastrada();
     estaCastrada.getOpciones().get(0).setSeleccionada(true);
     assertTrue(estaCastrada.getOpciones().get(0).getSeleccionada());
     estaCastrada.getOpciones().get(0).setSeleccionada(false);
