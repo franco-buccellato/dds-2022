@@ -32,15 +32,8 @@
       <version>3.9.0</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.twilio.sdk</groupId>
-      <artifactId>twilio</artifactId>
-      <version>8.X.X</version>
-      <scope>compile</scope>
-    </dependency>
-   </dependencies>
-
-  <build>
+  </dependencies>
+   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -53,6 +46,15 @@
         <version>3.1.2</version>
         <configuration>
           <configLocation>google_checks.xml</configLocation>
+          <violationSeverity>warning</violationSeverity>
+          <violationIgnore>
+            MissingJavadocMethod,
+            MissingJavadocPackage,
+            MissingJavadocType,
+            NonEmptyAtclauseDescription,
+            JavadocParagraph,
+            SummaryJavadoc
+          </violationIgnore>
         </configuration>
         <executions>
           <execution>
@@ -108,6 +110,16 @@
                   </limits>
                 </rule>
               </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <id>jacoco-report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>target/jacoco-report</outputDirectory>
             </configuration>
           </execution>
         </executions>

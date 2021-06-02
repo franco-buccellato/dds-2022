@@ -8,11 +8,13 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class RescateTest {
   List<String> fotos;
@@ -83,20 +85,53 @@ public class RescateTest {
     assertEquals(NOT_NULO.mensaje("rescatista"), exception.getMessage());
   }
 
-  //TODO: como testear que efectivamente se notifico a ese duenio específico sin meterse en la implementación de notificar?
-  @Disabled
+  @Test
+  void alCrearUnRescateLaMascotaEstaEnHogarTransitorio() {
+    new RescateSinChapa(
+        fotos,
+        descripcion,
+        ubicacion,
+        fecha,
+        mascota,
+        rescatista
+    );
+    assertEquals(SituacionMascota.EN_HOGAR_TRANSITORIO, mascota.getSituacionMascota());
+  }
+
   @Test
   void alInformarRescateConChapaSeInformaAlDuenioDeLaMascota() {
-    duenio.addMascota(mascota);
-    RescateConChapa rescateConChapa = new RescateConChapa(fotos, descripcion, ubicacion, fecha, mascota, rescatista);
+    Duenio duenioMock = mock(Duenio.class);
+    RepositorioDuenio repositorioDuenio = RepositorioDuenio.getInstance();
+    repositorioDuenio.addDuenio(duenioMock);
+
+    when(duenioMock.getMascotas()).thenReturn(new ArrayList<>(Arrays.asList(mascota)));
+
+    RescateConChapa rescateConChapa = new RescateConChapa(
+        fotos,
+        descripcion,
+        ubicacion,
+        fecha,
+        mascota,
+        rescatista
+    );
+
+    rescateConChapa.informaRescate();
+
+    verify(duenioMock).notificarMascotaEncontrada(mascota);
   }
 
   @Test
   void alInformarRescateConChapaSinDuenioLanzaUnaExcepcion() {
     Exception exception = assertThrows(MascotaSinDuenioException.class, () -> {
-      new RescateConChapa(fotos, descripcion, ubicacion, fecha, mascota, rescatista).informaRescate();
+      new RescateConChapa(
+          fotos,
+          descripcion,
+          ubicacion,
+          fecha,
+          mascota,
+          rescatista
+      ).informaRescate();
     });
     assertEquals("La mascota buscada no tiene duenio", exception.getMessage());
-
   }
 }

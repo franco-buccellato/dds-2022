@@ -76,10 +76,10 @@ public class RepositorioPublicacionesTest {
     publicacion2 = new Publicacion(rescate2);
     publicacion3 = new Publicacion(rescate3);
     repositorioPublicaciones = RepositorioPublicaciones.getRepositorioPublicaciones();
-    repositorioPublicaciones.setPublicaciones(Arrays.asList(
+    repositorioPublicaciones.setPublicaciones(new ArrayList<>(Arrays.asList(
         publicacion1,
         publicacion2,
-        publicacion3)
+        publicacion3))
     );
     voluntario = fixture.voluntario();
   }
@@ -90,20 +90,22 @@ public class RepositorioPublicacionesTest {
   }
 
   @Test
-  void todasLasPublicacionesInicialmenteEstanEnEspera(){
+  void todasLasPublicacionesInicialmenteEstanEnEspera() {
     assertEquals(
         repositorioPublicaciones
             .getPublicaciones()
             .stream()
             .filter(
                 publicacion -> publicacion
-                    .getEstado() == EstadoPublicacion.ESPERA).collect(Collectors.toList()).size(),
+                                   .getEstado() == EstadoPublicacion.ESPERA)
+            .collect(Collectors.toList())
+            .size(),
         3
     );
   }
 
   @Test
-  void voluntarioApruebaUnaPublicacionEntoncesQuedanDosEnEspera(){
+  void voluntarioApruebaUnaPublicacionEntoncesQuedanDosEnEspera() {
     assertEquals(repositorioPublicaciones.size(), 3);
     voluntario.aprobarPublicacion(repositorioPublicaciones.getPublicaciones().get(0));
     assertEquals(
@@ -112,7 +114,9 @@ public class RepositorioPublicacionesTest {
             .stream()
             .filter(
                 publicacion -> publicacion
-                    .getEstado() == EstadoPublicacion.ESPERA).collect(Collectors.toList()).size(),
+                                   .getEstado() == EstadoPublicacion.ESPERA)
+            .collect(Collectors.toList())
+            .size(),
         2
     );
     assertEquals(
@@ -121,7 +125,9 @@ public class RepositorioPublicacionesTest {
             .stream()
             .filter(
                 publicacion -> publicacion
-                    .getEstado() == EstadoPublicacion.ACEPTADA).collect(Collectors.toList()).size(),
+                                   .getEstado() == EstadoPublicacion.ACEPTADA)
+            .collect(Collectors.toList())
+            .size(),
         1
     );
   }

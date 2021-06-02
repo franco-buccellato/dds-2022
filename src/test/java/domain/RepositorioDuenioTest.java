@@ -3,10 +3,9 @@ package domain;
 import constants.Fixture;
 import domain.exception.MascotaSinDuenioException;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.invocation.InvocationOnMock;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -35,7 +34,12 @@ public class RepositorioDuenioTest {
 
   @Test
   void puedoBuscarUnDuenioDeUnaMascota() {
-    Duenio duenio = new Duenio(datoPersonal, Arrays.asList(contacto), Arrays.asList(mascota), null);
+    Duenio duenio = new Duenio(
+        datoPersonal,
+        new ArrayList<>(Arrays.asList(contacto)),
+        new ArrayList<>(Arrays.asList(mascota)),
+        null
+    );
 
     assertEquals(duenio, repositorioDuenio.findDuenioMascota(mascota).get());
   }
@@ -49,18 +53,14 @@ public class RepositorioDuenioTest {
     assertEquals("La mascota buscada no tiene duenio", exception.getMessage());
   }
 
-  //TODO: como testear que efectivamente se notifico a ese duenio específico sin meterse en la implementación de notificar?
-  @Disabled
   @Test
   void alInformarRescateDeMascotaConDuenioSeNotificaAlDuenio() {
-    Duenio duenio = mock(Duenio.class);
-    doAnswer(InvocationOnMock::callRealMethod).when(duenio).setMascotas(Arrays.asList(mascota));
-    duenio.setMascotas(Arrays.asList(mascota));
-    System.out.println(duenio.getMascotas().toString());
-    repositorioDuenio.addDuenio(duenio);
+    Duenio duenioMock = mock(Duenio.class);
+    repositorioDuenio.addDuenio(duenioMock);
+    when(duenioMock.getMascotas()).thenReturn(new ArrayList<>(Arrays.asList(mascota)));
 
     repositorioDuenio.informarMascotaRescatada(mascota);
 
-    verify(duenio).notificarMascotaEncontrada(mascota);
+    verify(duenioMock).notificarMascotaEncontrada(mascota);
   }
 }

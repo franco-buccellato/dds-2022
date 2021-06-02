@@ -32,6 +32,7 @@ public abstract class Rescate {
     this.fecha = Objects.requireNonNull(fecha, NOT_NULO.mensaje("fecha"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.rescatista = Objects.requireNonNull(rescatista, NOT_NULO.mensaje("rescatista"));
+    mascota.setSituacionMascota(SituacionMascota.EN_HOGAR_TRANSITORIO);
   }
 
   /*Getters & Setters*/
@@ -57,11 +58,6 @@ public abstract class Rescate {
 
   public Mascota getMascota() {
     return mascota;
-  }
-
-  public void setMascota(Mascota unaMascota) {
-    this.mascota = unaMascota;
-    mascota.setSituacionMascota(SituacionMascota.EN_HOGAR_TRANSITORIO);
   }
 
   public Rescatista getRescatista() {
