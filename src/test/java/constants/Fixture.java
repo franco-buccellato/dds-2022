@@ -36,8 +36,8 @@ public class Fixture {
         "El Rescatista 123",
         "1417",
         "CABA",
-        BigDecimal.valueOf(56.54684),
-        BigDecimal.valueOf(56.54684)
+        BigDecimal.valueOf(56.12345),
+        BigDecimal.valueOf(56.12345)
     );
   }
 
@@ -46,8 +46,58 @@ public class Fixture {
         "El Rescatista 123",
         "1417",
         "CABA",
-        BigDecimal.valueOf(54.54684),
-        BigDecimal.valueOf(58.54684)
+        BigDecimal.valueOf(53.12345),
+        BigDecimal.valueOf(56.12345)
+    );
+  }
+
+  public Ubicacion ubicacion3() {
+    return new Ubicacion(
+        "El Distinto 999",
+        "1417",
+        "CABA",
+        BigDecimal.valueOf(56.12345),
+        BigDecimal.valueOf(66.12345)
+    );
+  }
+
+  public Ubicacion ubicacionAsociacion1() {
+    return new Ubicacion(
+        "La Asociacion",
+        "1",
+        "CABA",
+        BigDecimal.valueOf(50.00000),
+        BigDecimal.valueOf(50.00000)
+    );
+  }
+
+  public Ubicacion ubicacionAsociacion2() {
+    return new Ubicacion(
+        "La Asociacion",
+        "2",
+        "CABA",
+        BigDecimal.valueOf(80.00000),
+        BigDecimal.valueOf(80.00000)
+    );
+  }
+
+  public Ubicacion ubicacionAsociacion3() {
+    return new Ubicacion(
+        "La Asociacion",
+        "3",
+        "CABA",
+        BigDecimal.valueOf(75.00000),
+        BigDecimal.valueOf(75.00000)
+    );
+  }
+
+  public Ubicacion ubicacionRescatista() {
+    return new Ubicacion(
+        "Le Rescatiste",
+        "1",
+        "CABA",
+        BigDecimal.valueOf(40.00000),
+        BigDecimal.valueOf(40.00000)
     );
   }
 

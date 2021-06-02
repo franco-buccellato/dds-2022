@@ -8,13 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UbicacionTest {
 
-  Ubicacion ubicacion1, ubicacion2;
+  Ubicacion ubicacion1, ubicacion2, ubicacion3;
 
   @BeforeEach
   void setup(){
     Fixture fixture = new Fixture();
     ubicacion1 = fixture.ubicacion1();
     ubicacion2 = fixture.ubicacion2();
+    ubicacion3 = fixture.ubicacion3();
   }
 
   @Test
@@ -23,8 +24,14 @@ public class UbicacionTest {
   }
 
   @Test
-  void distanciaEntreUbicacion1Ubicacion2Es(){
-    assertEquals(ubicacion1.distanciaA(ubicacion2),4);
+  void distanciaEntreUbicacion1Ubicacion2Es3(){
+    assertEquals(ubicacion1.distanciaA(ubicacion2),3);
   }
+
+  @Test
+  void distanciaEntreUbicacion1Ubicacion3Es10() {
+    assertEquals(ubicacion1.distanciaA(ubicacion3), 10);
+  }
+
 
 }

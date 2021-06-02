@@ -14,24 +14,29 @@ public class RepositorioAsociaciones {
     return repositorioAsociaciones;
   }
 
-  public void setPublicaciones(List<Asociacion> asociaciones) {
+  public void setAsociaciones(List<Asociacion> asociaciones) {
     this.asociaciones = asociaciones;
   }
 
   public Asociacion encontrarMasCercana(Ubicacion ubicacionOigen) {
-    int indice = 0;
-    int posicionMenor = 0;
-    float menorDistancia = 0;
+    int indice = asociaciones.size()-1;
     Asociacion asociacionMasCercana = asociaciones.get(indice), unaAsociacion;
-    while (asociaciones.get(indice) != null) {
+    double menorDistancia = asociacionMasCercana.ubicacion.distanciaA(ubicacionOigen);
+    indice--;
+    while (indice >= 0) {
       unaAsociacion = asociaciones.get(indice);
       if (unaAsociacion.ubicacion.distanciaA(ubicacionOigen) < menorDistancia) {
         menorDistancia = unaAsociacion.ubicacion.distanciaA(ubicacionOigen);
         asociacionMasCercana = unaAsociacion;
-        indice++;
+        indice--;
       }
-      indice++;
+      indice--;
     }
     return asociacionMasCercana;
   }
+
+  public int size(){
+    return asociaciones.size();
+  }
+
 }
