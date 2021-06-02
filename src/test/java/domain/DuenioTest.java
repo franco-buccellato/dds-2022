@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -40,8 +41,9 @@ public class DuenioTest {
   }
 
   @Test
-  void puedoActualizarElContactoDeUnDuenio() {
-    Contacto nuevoContacto = new Contacto("Pedro", "Perez", "11123123123", "pedro@perez.com", Vinculo.FAMILIAR);
+  void puedoActualizarElContactoDeUnDuenio() throws IOException {
+    MedioNotificacion email = new MedioNotificacionEmail();
+    Contacto nuevoContacto = new Contacto("Pedro", "Perez", "11123123123", "pedro@perez.com", Vinculo.FAMILIAR, email);
     duenio.setContactos(Arrays.asList(nuevoContacto));
 
     assertNotEquals(contacto, duenio.getContactos().get(0));

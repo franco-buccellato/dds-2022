@@ -1,9 +1,7 @@
 package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
-import static domain.TipoCaracteristica.BOOLEAN;
-import static domain.TipoCaracteristica.CHECKBOX;
-import static domain.TipoCaracteristica.TEXT;
+import static domain.TipoCaracteristica.*;
 import static domain.TipoMascota.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,17 +13,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-
-import domain.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class MascotaTest extends Caracteristicas {
-  Mascota perroPepe;
-  Mascota gatoBenito;
+  private Mascota perroPepe;
+  private Mascota gatoBenito;
   CaracteristicaChoice vacunas;
   CaracteristicaChoice comportamiento;
   List<Caracteristica> caracteristicas;

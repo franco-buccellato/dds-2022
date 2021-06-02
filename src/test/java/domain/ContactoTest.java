@@ -1,9 +1,14 @@
 package domain;
 
-import domain.Contacto;
-import domain.Vinculo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import services.MailReader;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
+
+import static domain.Vinculo.TITULAR;
+import static org.mockito.Mockito.mock;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,14 +17,15 @@ class ContactoTest {
 
   @BeforeEach
   void setup() {
-    contacto = new Contacto("Juan", "Perez", "11123123123", "juan@perez.com", Vinculo.TITULAR);
+    MedioNotificacion medioNotificacion = mock(MedioNotificacion.class);
+    contacto = new Contacto("Juan", "Perez", "11123123123", "juan@perez.com", TITULAR, medioNotificacion);
   }
 
   @Test
   void puedoLeerUnContacto() {
     assertEquals("Juan", contacto.getNombre());
     assertEquals("Perez", contacto.getApellido());
-    assertEquals(Vinculo.TITULAR, contacto.getVinculo());
+    assertEquals(TITULAR, contacto.getVinculo());
     assertEquals("juan@perez.com", contacto.getMail());
     assertEquals("11123123123", contacto.getTelefono());
   }
@@ -33,5 +39,21 @@ class ContactoTest {
     assertEquals("Perez", contacto.getApellido());
     assertEquals("perez@juan.com", contacto.getMail());
     assertEquals("321321321", contacto.getTelefono());
+  }
+
+  @Test
+  void puedoContactarUnContacto() throws IOException, MessagingException {
+    String emailTo = "contact.patitas+juan@gmail.com";
+    String mensaje = "Mensaje #" + System.currentTimeMillis();
+
+    contacto.setMedioNotificacion(new MedioNotificacionEmail());
+    contacto.setMail(emailTo);
+    contacto.notificar(mensaje);
+
+    MailReader reader = new MailReader();
+    reader.check();
+
+    assertEquals(reader.getMensaje().get("To"), emailTo);
+    assertTrue(reader.getMensaje().get("Content").contains(mensaje));
   }
 }

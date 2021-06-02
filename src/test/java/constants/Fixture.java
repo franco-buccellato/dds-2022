@@ -1,6 +1,8 @@
 package constants;
 
 import domain.*;
+import static domain.Vinculo.*;
+import static org.mockito.Mockito.mock;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -8,7 +10,7 @@ import java.util.Arrays;
 
 public class Fixture {
   public Rescatista rescatista() {
-    return new Rescatista(datoPersonal(), contacto(), ubicacion());
+    return new Rescatista(datoPersonal(), contacto(), ubicacion(), mock(Usuario.class));
   }
 
   public DatoPersonal datoPersonal() {
@@ -22,12 +24,14 @@ public class Fixture {
   }
 
   public Contacto contacto() {
+    MedioNotificacion medioNotificacion = mock(MedioNotificacion.class);
     return new Contacto(
         "Pedro",
         "Gonzalez",
         "494949",
         "pedro@g.com",
-        Vinculo.AMISTAD
+        AMISTAD,
+        medioNotificacion
     );
   }
 
