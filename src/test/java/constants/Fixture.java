@@ -7,8 +7,21 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 public class Fixture {
+
   public Rescatista rescatista() {
     return new Rescatista(datoPersonal(), contacto(), ubicacion1());
+  }
+
+  public Voluntario voluntario(){
+    return new Voluntario(
+      new Usuario(
+          "Voluntario1",
+          "voluntariocorrecto",
+          TipoUsuario.VOLUNTARIO),
+      new Asociacion(
+          "Asociacion1",
+          ubicacionAsociacion1())
+    );
   }
 
   public DatoPersonal datoPersonal() {
@@ -66,8 +79,8 @@ public class Fixture {
         "La Asociacion",
         "1",
         "CABA",
-        BigDecimal.valueOf(50.00000),
-        BigDecimal.valueOf(50.00000)
+        BigDecimal.valueOf(50.54235),
+        BigDecimal.valueOf(50.55621)
     );
   }
 
@@ -76,8 +89,8 @@ public class Fixture {
         "La Asociacion",
         "2",
         "CABA",
-        BigDecimal.valueOf(80.00000),
-        BigDecimal.valueOf(80.00000)
+        BigDecimal.valueOf(70.12548),
+        BigDecimal.valueOf(80.36587)
     );
   }
 
@@ -86,8 +99,8 @@ public class Fixture {
         "La Asociacion",
         "3",
         "CABA",
-        BigDecimal.valueOf(75.00000),
-        BigDecimal.valueOf(75.00000)
+        BigDecimal.valueOf(75.58962),
+        BigDecimal.valueOf(75.15963)
     );
   }
 
@@ -96,8 +109,8 @@ public class Fixture {
         "Le Rescatiste",
         "1",
         "CABA",
-        BigDecimal.valueOf(40.00000),
-        BigDecimal.valueOf(40.00000)
+        BigDecimal.valueOf(30.45216),
+        BigDecimal.valueOf(30.33652)
     );
   }
 

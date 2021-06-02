@@ -8,7 +8,7 @@ public class Asociacion {
   String nombre;
   Ubicacion ubicacion;
 
-  Asociacion(String nombre,Ubicacion ubicacion) {
+  public Asociacion(String nombre, Ubicacion ubicacion) {
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
     this.ubicacion = ubicacion;
   }

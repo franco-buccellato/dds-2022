@@ -8,8 +8,8 @@ public class Publicacion {
   Publicacion(RescateSinChapa rescateSinChapa) {
     this.rescateSinChapa = rescateSinChapa;
     this.estado = EstadoPublicacion.ESPERA;
-    RepositorioPublicaciones.getRepositorioPublicaciones().agregarPublicacion(this);
-    this.buscarAsignacionCercana();
+    //RepositorioPublicaciones.getRepositorioPublicaciones().agregarPublicacion(this);
+    //this.buscarAsignacionCercana();
   }
 
   void setAsociacion(Asociacion asociacion) {
@@ -28,7 +28,7 @@ public class Publicacion {
     return this.estado;
   }
 
-  void buscarAsignacionCercana() {
+  void buscarAsociacionCercana() {
     asociacion = RepositorioAsociaciones
       .getRrepositorioAsociaciones()
       .encontrarMasCercana(rescateSinChapa.getLugarEncuentro());

@@ -5,24 +5,17 @@ public class Voluntario {
   Usuario usuario;
   Asociacion asociacion;
 
+  public Voluntario(Usuario usuario, Asociacion asociacion) {
+    this.usuario = usuario;
+    this.asociacion = asociacion;
+  }
+
   void aprobarPublicacion(Publicacion publicacion) {
-    /*
-    publicacion.setAsociacion
-        (RepositorioAsociaciones
-            .getRrepositorioAsociaciones()
-            .encontrarMasCercana(publicacion
-                .rescate
-                .getLugarEncuentro()));
-    */
     publicacion.aprobar();
   }
 
   void rechazarPublicacion(Publicacion publicacion) {
     publicacion.rechazar();
-  }
-
-  Publicacion tomarUnaPublicacion() {
-    return RepositorioPublicaciones.getRepositorioPublicaciones().getEnEspera().get(0);
   }
 
 }

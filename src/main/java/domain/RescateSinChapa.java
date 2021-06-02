@@ -10,8 +10,6 @@ public class RescateSinChapa extends Rescate {
 
   public RescateSinChapa(List<String> fotos, String descripcion, Ubicacion lugarEncuentro, LocalDate fecha, Mascota mascota, Rescatista rescatista) {
     super(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
-    //mascota.setSituacionMascota(SituacionMascota.EN_HOGAR_TRANSITORIO);
-    //mascota.informarRescate(this);
     this.informaRescate();
     this.buscarHogarDeTransito();
   }
