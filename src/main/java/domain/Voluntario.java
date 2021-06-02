@@ -10,6 +10,14 @@ public class Voluntario {
     this.asociacion = asociacion;
   }
 
+  public Usuario getUsuario() {
+    return usuario;
+  }
+
+  public Asociacion getAsociacion() {
+    return asociacion;
+  }
+
   void aprobarPublicacion(Publicacion publicacion) {
     publicacion.aprobar();
   }

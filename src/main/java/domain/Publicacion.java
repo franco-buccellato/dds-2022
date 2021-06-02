@@ -1,19 +1,18 @@
 package domain;
 
+import static domain.exception.Mensajes.NOT_NULO;
+
+import java.util.Objects;
+
 public class Publicacion {
-  RescateSinChapa rescateSinChapa;
+  Rescate rescate;
   EstadoPublicacion estado;
   Asociacion asociacion;
 
-  Publicacion(RescateSinChapa rescateSinChapa) {
-    this.rescateSinChapa = rescateSinChapa;
+  Publicacion(Rescate rescate) {
+    this.rescate = Objects.requireNonNull(rescate, NOT_NULO.mensaje("rescate"));
     this.estado = EstadoPublicacion.ESPERA;
-    //RepositorioPublicaciones.getRepositorioPublicaciones().agregarPublicacion(this);
-    //this.buscarAsignacionCercana();
-  }
-
-  void setAsociacion(Asociacion asociacion) {
-    this.asociacion = asociacion;
+    RepositorioPublicaciones.getRepositorioPublicaciones().agregarPublicacion(this);
   }
 
   void aprobar() {
@@ -28,14 +27,18 @@ public class Publicacion {
     return this.estado;
   }
 
+  Asociacion getAsociacion() {
+    return asociacion;
+  }
+
   void buscarAsociacionCercana() {
     asociacion = RepositorioAsociaciones
-      .getRrepositorioAsociaciones()
-      .encontrarMasCercana(rescateSinChapa.getLugarEncuentro());
+        .getRepositorioAsociaciones()
+        .encontrarMasCercana(rescate.getLugarEncuentro());
   }
 
   void notificarRescatista(Duenio duenio) {
-    rescateSinChapa.getRescatista().notificarMatchDuenio(rescateSinChapa, duenio);
+    rescate.getRescatista().notificarMatchDuenio(rescate, duenio);
   }
 
 }

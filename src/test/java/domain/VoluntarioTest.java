@@ -33,13 +33,14 @@ public class VoluntarioTest {
     fecha = LocalDate.of(2021, 5, 4);
     mascota = fixture.mascota();
     rescatista = fixture.rescatista();
+
     rescateSinChapa = new RescateSinChapa(
-        fotos,
-        descripcion,
-        ubicacion,
-        fecha,
-        mascota,
-        rescatista
+      fotos,
+      descripcion,
+      ubicacion,
+      fecha,
+      mascota,
+      rescatista
     );
     publicacion = new Publicacion(rescateSinChapa);
   }
@@ -50,19 +51,14 @@ public class VoluntarioTest {
   }
 
   @Test
-  void elNombreDelVoluntarioEsVoluntario1(){
-    assertEquals(voluntario.usuario.getNombreUsuario(), "Voluntario1");
-  }
-
-  @Test
-  void elVoluntarioPuedeAprobarUnaPublicacion(){
+  void elVoluntarioPuedeAprobarUnaPublicacion() {
     assertEquals(publicacion.getEstado(), EstadoPublicacion.ESPERA);
     voluntario.aprobarPublicacion(publicacion);
     assertEquals(publicacion.getEstado(), EstadoPublicacion.ACEPTADA);
   }
 
   @Test
-  void elVoluntarioPuedeRechazarUnaPublicacion(){
+  void elVoluntarioPuedeRechazarUnaPublicacion() {
     assertEquals(publicacion.getEstado(), EstadoPublicacion.ESPERA);
     voluntario.rechazarPublicacion(publicacion);
     assertEquals(publicacion.getEstado(), EstadoPublicacion.RECHAZADA);

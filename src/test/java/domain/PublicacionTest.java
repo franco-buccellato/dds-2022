@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PublicacionTest {
 
@@ -32,6 +34,7 @@ public class PublicacionTest {
     fecha = LocalDate.of(2021, 5, 4);
     mascota = fixture.mascota();
     rescatista = fixture.rescatista();
+
     rescate = new RescateSinChapa(
         fotos,
         descripcion,
@@ -42,6 +45,14 @@ public class PublicacionTest {
     );
 
     publicacion = new Publicacion(rescate);
+  }
+
+  @Test
+  void noPuedoCrearPublicacionSinRescate() {
+    Exception exception = assertThrows(NullPointerException.class, () -> {
+      new Publicacion(null);
+    });
+    assertEquals(NOT_NULO.mensaje("rescate"), exception.getMessage());
   }
 
   @Test

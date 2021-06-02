@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
 import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -87,15 +86,15 @@ public class RescateTest {
   //TODO: como testear que efectivamente se notifico a ese duenio específico sin meterse en la implementación de notificar?
   @Disabled
   @Test
-  void alCrearRescateConChapaSeInformaAlDuenioDeLaMascota() {
+  void alInformarRescateConChapaSeInformaAlDuenioDeLaMascota() {
     duenio.addMascota(mascota);
     RescateConChapa rescateConChapa = new RescateConChapa(fotos, descripcion, ubicacion, fecha, mascota, rescatista);
   }
 
   @Test
-  void alCrearRescateConChapaSinDuenioLanzaUnaExcepcion() {
+  void alInformarRescateConChapaSinDuenioLanzaUnaExcepcion() {
     Exception exception = assertThrows(MascotaSinDuenioException.class, () -> {
-      new RescateConChapa(fotos, descripcion, ubicacion, fecha, mascota, rescatista);
+      new RescateConChapa(fotos, descripcion, ubicacion, fecha, mascota, rescatista).informaRescate();
     });
     assertEquals("La mascota buscada no tiene duenio", exception.getMessage());
 

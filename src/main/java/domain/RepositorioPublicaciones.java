@@ -1,11 +1,11 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RepositorioPublicaciones {
-
-  private List<Publicacion> publicaciones;
+  private List<Publicacion> publicaciones = new ArrayList<>();
   private static RepositorioPublicaciones repositorioPublicaciones;
 
   public static RepositorioPublicaciones getRepositorioPublicaciones() {
@@ -25,23 +25,23 @@ public class RepositorioPublicaciones {
 
   List<Publicacion> getEnEspera() {
     return publicaciones
-      .stream()
-      .filter(unaPublicacion -> unaPublicacion.getEstado() == EstadoPublicacion.ESPERA)
-      .collect(Collectors.toList());
+        .stream()
+        .filter(unaPublicacion -> unaPublicacion.getEstado() == EstadoPublicacion.ESPERA)
+        .collect(Collectors.toList());
   }
 
   List<Publicacion> getAceptadas() {
     return publicaciones
-      .stream()
-      .filter(unaPublicacion -> unaPublicacion.getEstado() == EstadoPublicacion.ACEPTADA)
-      .collect(Collectors.toList());
+        .stream()
+        .filter(unaPublicacion -> unaPublicacion.getEstado() == EstadoPublicacion.ACEPTADA)
+        .collect(Collectors.toList());
   }
 
   List<Publicacion> getRechazadas() {
     return publicaciones
-      .stream()
-      .filter(unaPublicacion -> unaPublicacion.getEstado() == EstadoPublicacion.RECHAZADA)
-      .collect(Collectors.toList());
+        .stream()
+        .filter(unaPublicacion -> unaPublicacion.getEstado() == EstadoPublicacion.RECHAZADA)
+        .collect(Collectors.toList());
   }
 
 }

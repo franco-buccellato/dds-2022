@@ -1,10 +1,8 @@
 package domain;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
-
 import static domain.exception.Mensajes.NOT_NULO;
+
+import java.util.Objects;
 
 public class Rescatista {
   private DatoPersonal datoPersonal;
@@ -29,7 +27,7 @@ public class Rescatista {
     return ubicacion;
   }
 
-  public void notificarMatchDuenio(RescateSinChapa rescateSinChapa, Duenio duenio) {
+  public void notificarMatchDuenio(Rescate rescate, Duenio duenio) {
     //Comunicar con el dueño mediante sms o mail
   }
 }
