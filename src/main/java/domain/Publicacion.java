@@ -38,7 +38,7 @@ public class Publicacion {
   void buscarAsociacionCercana() {
     asociacion = RepositorioAsociaciones
         .getRepositorioAsociaciones()
-        .encontrarMasCercana(rescate.getLugarEncuentro());
+        .encontrarMasCercana(rescate.getRescatista().getUbicacion());
   }
 
   void notificarRescatista(Duenio duenio) {
