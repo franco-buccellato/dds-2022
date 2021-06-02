@@ -1,11 +1,10 @@
 package domain;
 
-import java.time.LocalDate;
+import static domain.exception.Mensajes.NOT_NULO;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static domain.exception.Mensajes.NOT_NULO;
 
 public class Duenio {
   private DatoPersonal datoPersonal;
@@ -13,7 +12,12 @@ public class Duenio {
   private List<Mascota> mascotas;
   private Usuario usuario;
 
-  public Duenio(DatoPersonal datoPersonal, List<Contacto> contactos, List<Mascota> mascotas, Usuario usuario) {
+  public Duenio(
+      DatoPersonal datoPersonal,
+      List<Contacto> contactos,
+      List<Mascota> mascotas,
+      Usuario usuario
+  ) {
     this.datoPersonal = Objects.requireNonNull(datoPersonal, NOT_NULO.mensaje("datoPersonal"));
     this.contactos = Objects.isNull(contactos) ? new ArrayList<>() : contactos;
     this.mascotas = Objects.isNull(mascotas) ? new ArrayList<>() : mascotas;

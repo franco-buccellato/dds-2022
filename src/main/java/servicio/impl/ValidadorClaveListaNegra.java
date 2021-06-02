@@ -1,12 +1,11 @@
 package servicio.impl;
 
+import domain.exception.BaseCredencialesNoDisponibleException;
 import domain.exception.PasswordDebilException;
-import domain.servicio.exception.BaseCredencialesNoDisponibleException;
+import java.io.IOException;
 import servicio.RutasSistema;
 import servicio.ValidacionClave;
 import utilidades.LectorArchivos;
-
-import java.io.IOException;
 
 public class ValidadorClaveListaNegra implements ValidacionClave {
   private final String path = RutasSistema.listaNegraClaves();

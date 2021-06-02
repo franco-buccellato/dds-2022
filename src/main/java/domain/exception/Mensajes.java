@@ -8,6 +8,7 @@ public enum Mensajes {
   Mensajes(String mensaje) {
     this.mensaje = mensaje;
   }
+
   public String mensaje(String campo) {
     return String.format(this.mensaje, campo);
   }

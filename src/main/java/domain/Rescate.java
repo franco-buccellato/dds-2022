@@ -15,15 +15,23 @@ public abstract class Rescate {
   private Mascota mascota;
   private Rescatista rescatista;
 
-  public Rescate(List<String> fotos, String descripcion, Ubicacion lugarEncuentro, LocalDate fecha, Mascota mascota, Rescatista rescatista) {
+  public Rescate(
+      List<String> fotos,
+      String descripcion,
+      Ubicacion lugarEncuentro,
+      LocalDate fecha,
+      Mascota mascota,
+      Rescatista rescatista
+  ) {
     this.fotos = Objects.requireNonNull(fotos, NOT_NULO.mensaje("fotos"));
     this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
-    this.lugarEncuentro = Objects.requireNonNull(lugarEncuentro, NOT_NULO.mensaje("lugarEncuentro"));
+    this.lugarEncuentro = Objects.requireNonNull(
+        lugarEncuentro,
+        NOT_NULO.mensaje("lugarEncuentro")
+    );
     this.fecha = Objects.requireNonNull(fecha, NOT_NULO.mensaje("fecha"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.rescatista = Objects.requireNonNull(rescatista, NOT_NULO.mensaje("rescatista"));
-
-    informaRescate();
   }
 
   /*Getters & Setters*/

@@ -9,8 +9,15 @@ public abstract class Caracteristica {
   private String descripcion;
   private Boolean obligatoria;
 
-  public Caracteristica(TipoCaracteristica tipoCaracteristica, String descripcion, Boolean obligatoria) {
-    this.tipoCaracteristica = Objects.requireNonNull(tipoCaracteristica, NOT_NULO.mensaje("tipoCaracteristica"));
+  public Caracteristica(
+      TipoCaracteristica tipoCaracteristica,
+      String descripcion,
+      Boolean obligatoria
+  ) {
+    this.tipoCaracteristica = Objects.requireNonNull(
+        tipoCaracteristica,
+        NOT_NULO.mensaje("tipoCaracteristica")
+    );
     this.descripcion = descripcion;
     this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
   }

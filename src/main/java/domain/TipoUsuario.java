@@ -1,9 +1,8 @@
 package domain;
 
-import servicio.Funcion;
-
 import java.util.Arrays;
 import java.util.List;
+import servicio.Funcion;
 
 public enum TipoUsuario {
   ESTANDAR(null),

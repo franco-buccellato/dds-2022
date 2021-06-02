@@ -1,7 +1,6 @@
 package domain;
 
 import domain.exception.MascotaSinDuenioException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
