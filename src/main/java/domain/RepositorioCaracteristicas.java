@@ -15,8 +15,6 @@ public class RepositorioCaracteristicas {
   }
 
   public void addCaracteristicasDisponibles(Caracteristica caracteristica) {
-    System.out.println(caracteristica.getClass());
-    System.out.println(caracteristicasDisponibles.getClass());
     this.caracteristicasDisponibles.add(caracteristica);
   }
 

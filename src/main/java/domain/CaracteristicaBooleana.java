@@ -5,7 +5,7 @@ import java.util.List;
 
 import static domain.TipoCaracteristica.BOOLEAN;
 
-public class CaracteristicaBooleana extends Caracteristica{
+public class CaracteristicaBooleana extends Caracteristica {
   private List<Opcion> opciones;
 
   public CaracteristicaBooleana(String descripcion, Boolean obligatoria) {

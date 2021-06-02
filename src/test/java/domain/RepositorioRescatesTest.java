@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RepositorioMascotasEncontradasTest {
+public class RepositorioRescatesTest {
   private RescateSinChapa pastorAleman;
   private RescateSinChapa bulldog;
   private RescateSinChapa husky;
@@ -22,7 +22,7 @@ public class RepositorioMascotasEncontradasTest {
   private RescateSinChapa maineCoon;
   private RescateSinChapa siames;
   private RescateSinChapa bengala;
-  private RepositorioMascotaEncontrada repoTest;
+  private RepositorioRescates repoTest;
 
   @BeforeEach
   public void inicio() {
@@ -104,7 +104,7 @@ public class RepositorioMascotasEncontradasTest {
         rescatista
     );
 
-    repoTest = RepositorioMascotaEncontrada.getRepositorio();
+    repoTest = RepositorioRescates.getRepositorio();
     repoTest.setMascotasEncontradas(Arrays.asList(
         pastorAleman,
         bulldog,
@@ -123,6 +123,6 @@ public class RepositorioMascotasEncontradasTest {
 
   @Test
   public void testUltimasMascotasEncontradasEnDiezDias() {
-    assertEquals(this.ultimasEncontradasEnDiezDias(), repoTest.ultimasEncontradasEn10Dias());
+    assertEquals(this.ultimasEncontradasEnDiezDias(), repoTest.ultimosRescatesEn10Dias());
   }
 }

@@ -15,11 +15,11 @@ public abstract class Caracteristica {
     this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
   }
 
-  public TipoCaracteristica getTipoCaracteristica(){
+  public TipoCaracteristica getTipoCaracteristica() {
     return tipoCaracteristica;
   }
 
-  public String getDescripcion(){
+  public String getDescripcion() {
     return descripcion;
   }
 

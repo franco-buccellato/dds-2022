@@ -9,20 +9,14 @@ import static domain.exception.Mensajes.NOT_NULO;
 public class RescateSinChapa extends Rescate {
 
   public RescateSinChapa(List<String> fotos, String descripcion, Ubicacion lugarEncuentro, LocalDate fecha, Mascota mascota, Rescatista rescatista) {
-    super(
-        fotos,
-        descripcion,
-        lugarEncuentro,
-        fecha,
-        mascota,
-        rescatista
-    );
+    super(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
     //mascota.setSituacionMascota(SituacionMascota.EN_HOGAR_TRANSITORIO);
     //mascota.informarRescate(this);
     this.informaRescate();
     this.buscarHogarDeTransito();
   }
 
+  @Override
   public void informaRescate() {
     new Publicacion(this);
   }

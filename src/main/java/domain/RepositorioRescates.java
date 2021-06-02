@@ -20,9 +20,9 @@ public class RepositorioMascotaEncontrada {
 
   private List<RescateSinChapa> mascotasEncontradasEntre(LocalDate fechaInicio, LocalDate fechaFin) {
     return this.mascotasEncontradas
-        .stream()
-        .filter(mascotaEncontrada -> mascotaEncontrada.encontradaEntre(fechaInicio, fechaFin))
-        .collect(Collectors.toList());
+      .stream()
+      .filter(mascotaEncontrada -> mascotaEncontrada.encontradaEntre(fechaInicio, fechaFin))
+      .collect(Collectors.toList());
   }
 
   public List<RescateSinChapa> ultimasEncontradasEn10Dias() {

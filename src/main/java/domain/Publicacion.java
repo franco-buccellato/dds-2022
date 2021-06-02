@@ -29,7 +29,9 @@ public class Publicacion {
   }
 
   void buscarAsignacionCercana() {
-    asociacion = RepositorioAsociaciones.getRrepositorioAsociaciones().encontrarMasCercana(rescateSinChapa.getLugarEncuentro());
+    asociacion = RepositorioAsociaciones
+      .getRrepositorioAsociaciones()
+      .encontrarMasCercana(rescateSinChapa.getLugarEncuentro());
   }
 
   void notificarRescatista(Duenio duenio) {

@@ -3,7 +3,7 @@ package domain;
 
 import java.util.List;
 
-public class CaracteristicaChoice extends Caracteristica{
+public class CaracteristicaChoice extends Caracteristica {
   private List<Opcion> opciones;
 
   // Aplica para tipos CHECKBOX y BULLET donde los constraints van a ser resueltos en otra capa
@@ -20,6 +20,7 @@ public class CaracteristicaChoice extends Caracteristica{
   public void removeOpciones(List<Opcion> opciones) {
     this.opciones.removeAll(opciones);
   }
+
   public void addOpciones(List<Opcion> opciones) {
     this.opciones.addAll(opciones);
   }

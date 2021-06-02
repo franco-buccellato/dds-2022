@@ -58,4 +58,5 @@ public abstract class Rescate {
     return rescatista;
   }
 
+  abstract public void informaRescate();
 }

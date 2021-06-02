@@ -39,13 +39,13 @@ public class Ubicacion {
 
   public float distanciaA(Ubicacion destino) {
     return (
-        valorAbsolutoNumero(
-            destino.getLatitud().subtract(this.latitud)
-                .subtract(destino.getLongitud().subtract(this.longitud)).floatValue()));
+      Math.abs(
+        destino
+          .getLatitud()
+          .subtract(this.latitud)
+          .subtract(destino.getLongitud().subtract(this.longitud))
+          .floatValue()
+      )
+    );
   }
-
-  static float valorAbsolutoNumero(float num){
-    return num>=0?num:-num;
-  }
-
 }

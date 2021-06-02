@@ -1,6 +1,6 @@
 package domain;
 
-public enum Vinculo{
+public enum Vinculo {
   TITULAR,
   FAMILIAR,
   AMISTAD

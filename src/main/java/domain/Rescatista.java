@@ -32,10 +32,4 @@ public class Rescatista {
   public void notificarMatchDuenio(RescateSinChapa rescateSinChapa, Duenio duenio) {
     //Comunicar con el dueño mediante sms o mail
   }
-
-  public void generarRescate(
-      List<String> fotos,
-      String descripcion, Ubicacion lugarEncuentro, LocalDate fecha, Mascota mascota, Rescatista rescatista) {
-    new RescateSinChapa(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
-  }
 }
