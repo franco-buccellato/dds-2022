@@ -9,13 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RepositorioPublicacionesTest {
-
-
   List<String> fotos;
   String descripcion1, descripcion2, descripcion3;
   Ubicacion ubicacion1, ubicacion2, ubicacion3;
@@ -86,50 +83,27 @@ public class RepositorioPublicacionesTest {
 
   @Test
   void elRepositorioPublicacionesTestPosee3Asociaciones() {
-    assertEquals(repositorioPublicaciones.size(), 3);
+    assertEquals(repositorioPublicaciones.getPublicaciones().size(), 3);
   }
 
   @Test
   void todasLasPublicacionesInicialmenteEstanEnEspera() {
-    assertEquals(
-        repositorioPublicaciones
-            .getPublicaciones()
-            .stream()
-            .filter(
-                publicacion -> publicacion
-                                   .getEstado() == EstadoPublicacion.ESPERA)
-            .collect(Collectors.toList())
-            .size(),
-        3
-    );
+    assertEquals(repositorioPublicaciones.getEnEspera().size(), 3);
   }
 
   @Test
   void voluntarioApruebaUnaPublicacionEntoncesQuedanDosEnEspera() {
-    assertEquals(repositorioPublicaciones.size(), 3);
+    assertEquals(repositorioPublicaciones.getPublicaciones().size(), 3);
     voluntario.aprobarPublicacion(repositorioPublicaciones.getPublicaciones().get(0));
-    assertEquals(
-        repositorioPublicaciones
-            .getPublicaciones()
-            .stream()
-            .filter(
-                publicacion -> publicacion
-                                   .getEstado() == EstadoPublicacion.ESPERA)
-            .collect(Collectors.toList())
-            .size(),
-        2
-    );
-    assertEquals(
-        repositorioPublicaciones
-            .getPublicaciones()
-            .stream()
-            .filter(
-                publicacion -> publicacion
-                                   .getEstado() == EstadoPublicacion.ACEPTADA)
-            .collect(Collectors.toList())
-            .size(),
-        1
-    );
+    assertEquals(repositorioPublicaciones.getEnEspera().size(), 2);
+    assertEquals(repositorioPublicaciones.getAceptadas().size(), 1);
   }
 
+  @Test
+  void voluntarioRechazaPublicacionEntoncesQuedaUnaRechazada() {
+    assertEquals(repositorioPublicaciones.getPublicaciones().size(), 3);
+    voluntario.rechazarPublicacion(repositorioPublicaciones.getPublicaciones().get(0));
+    assertEquals(repositorioPublicaciones.getRechazadas().size(), 1);
+    assertEquals(repositorioPublicaciones.getEnEspera().size(), 2);
+  }
 }

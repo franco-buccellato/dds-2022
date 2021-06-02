@@ -6,12 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 public class PublicacionTest {
 
@@ -23,6 +25,10 @@ public class PublicacionTest {
   Rescatista rescatista;
   RescateSinChapa rescate;
   Publicacion publicacion;
+  Asociacion asociacion1;
+  Asociacion asociacion2;
+  Asociacion asociacion3;
+  Duenio duenio;
 
   @BeforeEach
   void setup() {
@@ -44,6 +50,18 @@ public class PublicacionTest {
         rescatista
     );
     publicacion = new Publicacion(rescate);
+
+    asociacion1 = new Asociacion("Asociacion1", fixture.ubicacionAsociacion1());
+    asociacion2 = new Asociacion("Asociacion2", fixture.ubicacionAsociacion2());
+    asociacion3 = new Asociacion("Asociacion3", fixture.ubicacionAsociacion3());
+    RepositorioAsociaciones repositorioAsociacionesTest = RepositorioAsociaciones.getRepositorioAsociaciones();
+    repositorioAsociacionesTest.setAsociaciones(new ArrayList<>(Arrays.asList(
+        asociacion1,
+        asociacion2,
+        asociacion3
+    )));
+
+    duenio = fixture.duenio();
   }
 
   @Test
@@ -59,4 +77,22 @@ public class PublicacionTest {
     assertEquals(publicacion.getEstado(), EstadoPublicacion.ESPERA);
   }
 
+  @Test
+  void alBuscarAsociacionMasCercanaALaPublicacionDevuelveLaAsociacion() {
+    publicacion.buscarAsociacionCercana();
+    assertEquals(publicacion.getAsociacion(), asociacion1);
+  }
+
+  @Test
+  void alNotificarRescatistaElRescatistaEsNotificado() {
+    Rescatista rescatistaMock = mock(Rescatista.class);
+    Rescate rescateMock = mock(Rescate.class);
+    Publicacion unaPublicacion = new Publicacion(rescateMock);
+
+    when(rescateMock.getRescatista()).thenReturn(rescatistaMock);
+
+    unaPublicacion.notificarRescatista(duenio);
+
+    verify(rescatistaMock).notificarMatchDuenio(rescateMock, duenio);
+  }
 }

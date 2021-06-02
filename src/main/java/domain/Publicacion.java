@@ -15,12 +15,8 @@ public class Publicacion {
     RepositorioPublicaciones.getRepositorioPublicaciones().agregarPublicacion(this);
   }
 
-  void aprobar() {
-    this.estado = EstadoPublicacion.ACEPTADA;
-  }
-
-  void rechazar() {
-    this.estado = EstadoPublicacion.RECHAZADA;
+  Rescate getRescate() {
+    return rescate;
   }
 
   EstadoPublicacion getEstado() {
@@ -31,6 +27,14 @@ public class Publicacion {
     return asociacion;
   }
 
+  void aprobar() {
+    this.estado = EstadoPublicacion.ACEPTADA;
+  }
+
+  void rechazar() {
+    this.estado = EstadoPublicacion.RECHAZADA;
+  }
+
   void buscarAsociacionCercana() {
     asociacion = RepositorioAsociaciones
         .getRepositorioAsociaciones()
@@ -38,7 +42,7 @@ public class Publicacion {
   }
 
   void notificarRescatista(Duenio duenio) {
-    rescate.getRescatista().notificarMatchDuenio(rescate, duenio);
+    this.getRescate().getRescatista().notificarMatchDuenio(this.getRescate(), duenio);
   }
 
 }

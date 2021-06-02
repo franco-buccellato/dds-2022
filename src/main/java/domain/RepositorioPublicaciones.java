@@ -47,9 +47,4 @@ public class RepositorioPublicaciones {
   List<Publicacion> getPublicaciones() {
     return this.publicaciones;
   }
-
-  public int size() {
-    return publicaciones.size();
-  }
-
 }

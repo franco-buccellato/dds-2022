@@ -134,4 +134,24 @@ public class RescateTest {
     });
     assertEquals("La mascota buscada no tiene duenio", exception.getMessage());
   }
+
+  @Test
+  void alInformarRescateSinChapaSeCreaPublicacion() {
+    RepositorioPublicaciones repositorioPublicaciones = RepositorioPublicaciones.getRepositorioPublicaciones();
+    repositorioPublicaciones.setPublicaciones(new ArrayList<>(Collections.emptyList()));
+    assertEquals(0, repositorioPublicaciones.getPublicaciones().size());
+
+    RescateSinChapa rescateSinChapa = new RescateSinChapa(
+        fotos,
+        descripcion,
+        ubicacion,
+        fecha,
+        mascota,
+        rescatista
+    );
+
+    rescateSinChapa.informaRescate();
+
+    assertEquals(1, repositorioPublicaciones.getPublicaciones().size());
+  }
 }
