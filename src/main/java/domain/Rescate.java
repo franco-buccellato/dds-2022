@@ -1,10 +1,10 @@
 package domain;
 
+import static domain.exception.Mensajes.NOT_NULO;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-
-import static domain.exception.Mensajes.NOT_NULO;
 
 public abstract class Rescate {
 
@@ -22,6 +22,8 @@ public abstract class Rescate {
     this.fecha = Objects.requireNonNull(fecha, NOT_NULO.mensaje("fecha"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.rescatista = Objects.requireNonNull(rescatista, NOT_NULO.mensaje("rescatista"));
+
+    informaRescate();
   }
 
   /*Getters & Setters*/
@@ -58,5 +60,9 @@ public abstract class Rescate {
     return rescatista;
   }
 
-  abstract public void informaRescate();
+  public Boolean ocurrioEntreFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+    return this.getFecha().isAfter(fechaInicio) && this.getFecha().isBefore(fechaFin);
+  }
+
+  public abstract void informaRescate();
 }

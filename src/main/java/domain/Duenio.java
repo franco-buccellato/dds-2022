@@ -18,6 +18,8 @@ public class Duenio {
     this.contactos = Objects.isNull(contactos) ? new ArrayList<>() : contactos;
     this.mascotas = Objects.isNull(mascotas) ? new ArrayList<>() : mascotas;
     this.usuario = usuario;
+
+    RepositorioDuenio.getInstance().addDuenio(this);
   }
 
   //  Getters y setters
@@ -47,5 +49,9 @@ public class Duenio {
 
   public Usuario getUsuario() {
     return usuario;
+  }
+
+  public void notificarMascotaEncontrada(Mascota mascota) {
+
   }
 }

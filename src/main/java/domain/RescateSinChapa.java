@@ -10,7 +10,6 @@ public class RescateSinChapa extends Rescate {
 
   public RescateSinChapa(List<String> fotos, String descripcion, Ubicacion lugarEncuentro, LocalDate fecha, Mascota mascota, Rescatista rescatista) {
     super(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
-    this.informaRescate();
     this.buscarHogarDeTransito();
   }
 
@@ -22,9 +21,4 @@ public class RescateSinChapa extends Rescate {
   public void buscarHogarDeTransito() {
 
   }
-
-  public Boolean encontradaEntre(LocalDate fechaInicio, LocalDate fechaFin) {
-    return this.getFecha().isAfter(fechaInicio) && this.getFecha().isBefore(fechaFin);
-  }
-
 }

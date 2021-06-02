@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RepositorioRescates {
-  private List<RescateSinChapa> mascotasEncontradas;
+  private List<Rescate> rescates;
   private static RepositorioRescates repositorioRescate;
 
   private RepositorioRescates() {
@@ -18,18 +18,18 @@ public class RepositorioRescates {
     return repositorioRescate;
   }
 
-  private List<RescateSinChapa> rescatesEntre(LocalDate fechaInicio, LocalDate fechaFin) {
-    return this.mascotasEncontradas
+  private List<Rescate> rescatesEntre(LocalDate fechaInicio, LocalDate fechaFin) {
+    return this.rescates
       .stream()
-      .filter(mascotaEncontrada -> mascotaEncontrada.encontradaEntre(fechaInicio, fechaFin))
+      .filter(rescate -> rescate.ocurrioEntreFechas(fechaInicio, fechaFin))
       .collect(Collectors.toList());
   }
 
-  public List<RescateSinChapa> ultimosRescatesEn10Dias() {
+  public List<Rescate> ultimosRescatesEn10Dias() {
     return this.rescatesEntre(LocalDate.now().minusDays(10), LocalDate.now());
   }
 
-  public void setMascotasEncontradas(List<RescateSinChapa> mascotasEncontradas) {
-    this.mascotasEncontradas = mascotasEncontradas;
+  public void setMascotasEncontradas(List<Rescate> rescates) {
+    this.rescates = rescates;
   }
 }

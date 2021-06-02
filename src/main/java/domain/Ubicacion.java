@@ -39,20 +39,9 @@ public class Ubicacion {
 
   public double distanciaA(Ubicacion destino) {
     return Math.sqrt(
-        (destino
-            .getLatitud()
-            .subtract(
-                this
-                    .getLatitud())
-            .pow(2)
-            .add(
-                destino
-        .getLongitud()
-            .subtract(
-                this
-                    .getLongitud())
-            .pow(2)
-            ))
-        .doubleValue());
+      (destino.getLatitud().subtract(this.getLatitud()).pow(2).add(
+        destino.getLongitud().subtract(this.getLongitud()).pow(2))
+      ).doubleValue()
+    );
   }
 }

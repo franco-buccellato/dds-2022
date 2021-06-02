@@ -1,7 +1,9 @@
 package domain;
 
 import constants.Fixture;
+import domain.exception.MascotaSinDuenioException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
 import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +22,7 @@ public class RescateTest {
   LocalDate fecha;
   Mascota mascota;
   Rescatista rescatista;
+  Duenio duenio;
 
   @BeforeEach
   void setup() {
@@ -29,6 +33,7 @@ public class RescateTest {
     fecha = LocalDate.of(2021, 5, 4);
     mascota = fixture.mascota();
     rescatista = fixture.rescatista();
+    duenio = fixture.duenio();
   }
 
   @Test
@@ -77,5 +82,22 @@ public class RescateTest {
       new RescateSinChapa(fotos, descripcion, ubicacion, fecha, mascota, null);
     });
     assertEquals(NOT_NULO.mensaje("rescatista"), exception.getMessage());
+  }
+
+  //TODO: como testear que efectivamente se notifico a ese duenio específico sin meterse en la implementación de notificar?
+  @Disabled
+  @Test
+  void alCrearRescateConChapaSeInformaAlDuenioDeLaMascota() {
+    duenio.addMascota(mascota);
+    RescateConChapa rescateConChapa = new RescateConChapa(fotos, descripcion, ubicacion, fecha, mascota, rescatista);
+  }
+
+  @Test
+  void alCrearRescateConChapaSinDuenioLanzaUnaExcepcion() {
+    Exception exception = assertThrows(MascotaSinDuenioException.class, () -> {
+      new RescateConChapa(fotos, descripcion, ubicacion, fecha, mascota, rescatista);
+    });
+    assertEquals("La mascota buscada no tiene duenio", exception.getMessage());
+
   }
 }
