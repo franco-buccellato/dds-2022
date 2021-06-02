@@ -44,4 +44,12 @@ public class RepositorioPublicaciones {
         .collect(Collectors.toList());
   }
 
+  List<Publicacion> getPublicaciones() {
+    return this.publicaciones;
+  }
+
+  public int size() {
+    return publicaciones.size();
+  }
+
 }

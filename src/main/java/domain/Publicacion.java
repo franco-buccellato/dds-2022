@@ -12,7 +12,7 @@ public class Publicacion {
   Publicacion(Rescate rescate) {
     this.rescate = Objects.requireNonNull(rescate, NOT_NULO.mensaje("rescate"));
     this.estado = EstadoPublicacion.ESPERA;
-    RepositorioPublicaciones.getRepositorioPublicaciones().agregarPublicacion(this);
+    //RepositorioPublicaciones.getRepositorioPublicaciones().agregarPublicacion(this);
   }
 
   void aprobar() {

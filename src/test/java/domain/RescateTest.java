@@ -30,7 +30,7 @@ public class RescateTest {
     descripcion = "Canino macho, color negro, raza caniche";
     ubicacion = fixture.ubicacion1();
     fecha = LocalDate.of(2021, 5, 4);
-    mascota = fixture.mascota();
+    mascota = fixture.mascota1();
     rescatista = fixture.rescatista();
     duenio = fixture.duenio();
   }

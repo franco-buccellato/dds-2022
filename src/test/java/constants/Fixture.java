@@ -114,7 +114,7 @@ public class Fixture {
     );
   }
 
-  public Mascota mascota() {
+  public Mascota mascota1() {
     return new Mascota(
       TipoMascota.PERRO,
       "Canela",
@@ -125,6 +125,34 @@ public class Fixture {
       Arrays.asList("unaFoto"),
       null,
       SituacionMascota.EN_HOGAR_PROPIO
+    );
+  }
+
+  public Mascota mascota2() {
+    return new Mascota(
+        TipoMascota.GATO,
+        "Minerva",
+        "Mine",
+        .7,
+        Sexo.HEMBRA,
+        "Gordita",
+        Arrays.asList("unaFoto"),
+        null,
+        SituacionMascota.PERDIDA
+    );
+  }
+
+  public Mascota mascota3() {
+    return new Mascota(
+        TipoMascota.GATO,
+        "Iris",
+        "Terremoto",
+        .7,
+        Sexo.HEMBRA,
+        "Atigrada",
+        Arrays.asList("unaFoto"),
+        null,
+        SituacionMascota.PERDIDA
     );
   }
 

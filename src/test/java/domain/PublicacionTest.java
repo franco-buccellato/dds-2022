@@ -32,7 +32,7 @@ public class PublicacionTest {
     descripcion = "Canino macho, color negro, raza caniche";
     ubicacion = fixture.ubicacion1();
     fecha = LocalDate.of(2021, 5, 4);
-    mascota = fixture.mascota();
+    mascota = fixture.mascota1();
     rescatista = fixture.rescatista();
 
     rescate = new RescateSinChapa(
@@ -43,7 +43,6 @@ public class PublicacionTest {
         mascota,
         rescatista
     );
-
     publicacion = new Publicacion(rescate);
   }
 

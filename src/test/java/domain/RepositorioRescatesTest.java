@@ -30,7 +30,7 @@ public class RepositorioRescatesTest {
     Fixture fixture = new Fixture();
     Ubicacion ubicacion = fixture.ubicacion1();
     Rescatista rescatista = fixture.rescatista();
-    Mascota mascota = fixture.mascota();
+    Mascota mascota = fixture.mascota1();
 
     pastorAleman = new RescateSinChapa(
         fotos,
