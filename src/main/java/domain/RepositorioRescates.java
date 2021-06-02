@@ -4,29 +4,29 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RepositorioMascotaEncontrada {
+public class RepositorioRescates {
   private List<RescateSinChapa> mascotasEncontradas;
-  private static RepositorioMascotaEncontrada repositorioMascotaEncontrada;
+  private static RepositorioRescates repositorioRescate;
 
-  private RepositorioMascotaEncontrada() {
+  private RepositorioRescates() {
   }
 
-  public static RepositorioMascotaEncontrada getRepositorio() {
-    if (repositorioMascotaEncontrada == null) {
-      repositorioMascotaEncontrada = new RepositorioMascotaEncontrada();
+  public static RepositorioRescates getRepositorio() {
+    if (repositorioRescate == null) {
+      repositorioRescate = new RepositorioRescates();
     }
-    return repositorioMascotaEncontrada;
+    return repositorioRescate;
   }
 
-  private List<RescateSinChapa> mascotasEncontradasEntre(LocalDate fechaInicio, LocalDate fechaFin) {
+  private List<RescateSinChapa> rescatesEntre(LocalDate fechaInicio, LocalDate fechaFin) {
     return this.mascotasEncontradas
       .stream()
       .filter(mascotaEncontrada -> mascotaEncontrada.encontradaEntre(fechaInicio, fechaFin))
       .collect(Collectors.toList());
   }
 
-  public List<RescateSinChapa> ultimasEncontradasEn10Dias() {
-    return this.mascotasEncontradasEntre(LocalDate.now().minusDays(10), LocalDate.now());
+  public List<RescateSinChapa> ultimosRescatesEn10Dias() {
+    return this.rescatesEntre(LocalDate.now().minusDays(10), LocalDate.now());
   }
 
   public void setMascotasEncontradas(List<RescateSinChapa> mascotasEncontradas) {
