@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RepositorioCaracterisiticasTest extends Caracteristicas {
+public class RepositorioCaracteristicasTest extends Caracteristicas {
   RepositorioCaracteristicas repositorio;
 
   @BeforeEach
@@ -16,11 +16,9 @@ public class RepositorioCaracterisiticasTest extends Caracteristicas {
   }
 
   @Test
-  public void puedoLeerCaracterisiticasDisponibles() {
-    assertEquals(3, repositorio.getCaracteristicasDisponibles().size());
-  }
-  @Test
   public void puedoAgregarCaracterisiticasDisponibles() {
+    assertEquals(3, repositorio.getCaracteristicasDisponibles().size());
+
     repositorio.addCaracteristicasDisponibles(comportamientoConNiños());
 
     assertEquals(4, repositorio.getCaracteristicasDisponibles().size());

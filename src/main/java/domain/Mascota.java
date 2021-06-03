@@ -2,12 +2,11 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Mascota {
+public class Mascota {
   private TipoMascota tipoMascota;
   private String nombre;
   private String apodo;
@@ -18,15 +17,33 @@ public abstract class Mascota {
   private List<Caracteristica> caracteristicas;
   private SituacionMascota situacionMascota;
 
-  public Mascota(TipoMascota tipoMascota, String nombre, String apodo, Double edadAproximada, Sexo sexo, String descripcionFisica, List<String> fotos, List<Caracteristica> caracteristicas, SituacionMascota situacionMascota) {
+  public Mascota(
+      TipoMascota tipoMascota,
+      String nombre,
+      String apodo,
+      Double edadAproximada,
+      Sexo sexo,
+      String descripcionFisica,
+      List<String> fotos,
+      List<Caracteristica> caracteristicas,
+      SituacionMascota situacionMascota
+  ) {
     this.tipoMascota = Objects.requireNonNull(tipoMascota, NOT_NULO.mensaje("tipoMascota"));
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
     this.apodo = Objects.requireNonNull(apodo, NOT_NULO.mensaje("apodo"));
-    this.edadAproximada = Objects.requireNonNull(edadAproximada, NOT_NULO.mensaje("edadAproximada"));
+    this.edadAproximada = Objects.requireNonNull(
+        edadAproximada,
+        NOT_NULO.mensaje("edadAproximada")
+    );
     this.sexo = Objects.requireNonNull(sexo, NOT_NULO.mensaje("sexo"));
-    this.descripcionFisica = Objects.requireNonNull(descripcionFisica, NOT_NULO.mensaje("descripcionFisica"));
+    this.descripcionFisica = Objects.requireNonNull(
+        descripcionFisica,
+        NOT_NULO.mensaje("descripcionFisica")
+    );
     this.fotos = Objects.requireNonNull(fotos, NOT_NULO.mensaje("fotos"));
-    this.caracteristicas = Objects.isNull(caracteristicas) ? new ArrayList<>() : caracteristicas;
+    this.caracteristicas = Objects.isNull(caracteristicas)
+        ? new ArrayList<>()
+        : caracteristicas;
     this.situacionMascota = situacionMascota;
   }
 

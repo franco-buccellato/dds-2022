@@ -21,23 +21,32 @@ public class Contacto {
     this.vinculo = vinculo;
     this.medioNotificacion = medioNotificacion;
   }
+
   //  Getters y setters
-  public String getNombre() { return nombre; }
+  public String getNombre() {
+    return nombre;
+  }
+
   public String getApellido() {
     return apellido;
   }
+
   public String getTelefono() {
     return telefono;
   }
+
   public void setTelefono(String telefono) {
     this.telefono = telefono;
   }
+
   public String getMail() {
     return mail;
   }
+
   public void setMail(String mail) {
     this.mail = mail;
   }
+
   public Vinculo getVinculo() {
     return vinculo;
   }

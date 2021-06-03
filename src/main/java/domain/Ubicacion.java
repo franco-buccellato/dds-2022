@@ -9,7 +9,13 @@ public class Ubicacion {
   private BigDecimal latitud;
   private BigDecimal longitud;
 
-  public Ubicacion(String direccion, String codigoPostal, String localidad, BigDecimal latitud, BigDecimal longitud) {
+  public Ubicacion(
+      String direccion,
+      String codigoPostal,
+      String localidad,
+      BigDecimal latitud,
+      BigDecimal longitud
+  ) {
     this.direccion = direccion;
     this.codigoPostal = codigoPostal;
     this.localidad = localidad;
@@ -35,5 +41,13 @@ public class Ubicacion {
 
   public BigDecimal getLongitud() {
     return longitud;
+  }
+
+  public double distanciaA(Ubicacion destino) {
+    return Math.sqrt(
+        (destino.getLatitud().subtract(this.getLatitud()).pow(2).add(
+            destino.getLongitud().subtract(this.getLongitud()).pow(2))
+        ).doubleValue()
+    );
   }
 }

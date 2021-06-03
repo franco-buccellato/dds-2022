@@ -32,7 +32,7 @@ public class MascotaTest extends Caracteristicas {
 
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
 
-    perroPepe = new MascotaConChapa(
+    perroPepe = new Mascota(
         PERRO,
         "Pedro",
         "Pepe",
@@ -43,7 +43,7 @@ public class MascotaTest extends Caracteristicas {
         null,
         SituacionMascota.EN_HOGAR_TRANSITORIO
     );
-    gatoBenito = new MascotaConChapa(
+    gatoBenito = new Mascota(
         GATO,
         "Benito",
         "Beno",
@@ -59,7 +59,7 @@ public class MascotaTest extends Caracteristicas {
   @Test
   public void noPuedoCrearMascotaSinTipoMascota() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new MascotaConChapa(null, "Pedro", "Pepe", 3.0, Sexo.MACHO, "Tiene pulgas", null, null, null);
+      new Mascota(null, "Pedro", "Pepe", 3.0, Sexo.MACHO, "Tiene pulgas", null, null, null);
     });
 
     assertEquals(NOT_NULO.mensaje("tipoMascota"), exception.getMessage());
@@ -68,7 +68,7 @@ public class MascotaTest extends Caracteristicas {
   @Test
   public void noPuedoCrearMascotaSinNombre() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new MascotaConChapa(PERRO, null, "Pepe", 3.0, Sexo.MACHO, "Tiene pulgas", null, null, null);
+      new Mascota(PERRO, null, "Pepe", 3.0, Sexo.MACHO, "Tiene pulgas", null, null, null);
     });
 
     assertEquals(NOT_NULO.mensaje("nombre"), exception.getMessage());
@@ -77,7 +77,7 @@ public class MascotaTest extends Caracteristicas {
   @Test
   public void noPuedoCrearMascotaSinApodo() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new MascotaConChapa(PERRO, "Pedro", null, 3.0, Sexo.MACHO, "Tiene pulgas", null, null, null);
+      new Mascota(PERRO, "Pedro", null, 3.0, Sexo.MACHO, "Tiene pulgas", null, null, null);
     });
 
     assertEquals(NOT_NULO.mensaje("apodo"), exception.getMessage());
@@ -86,7 +86,7 @@ public class MascotaTest extends Caracteristicas {
   @Test
   public void noPuedoCrearMascotaSinEdadAproximada() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new MascotaConChapa(PERRO, "Pedro", "Pepe", null, Sexo.MACHO, "Tiene pulgas", null, null, null);
+      new Mascota(PERRO, "Pedro", "Pepe", null, Sexo.MACHO, "Tiene pulgas", null, null, null);
     });
 
     assertEquals(NOT_NULO.mensaje("edadAproximada"), exception.getMessage());
@@ -95,7 +95,7 @@ public class MascotaTest extends Caracteristicas {
   @Test
   public void noPuedoCrearMascotaSinSexo() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new MascotaConChapa(PERRO, "Pedro", "Pepe", 4.0, null, "Tiene pulgas", null, null, null);
+      new Mascota(PERRO, "Pedro", "Pepe", 4.0, null, "Tiene pulgas", null, null, null);
     });
 
     assertEquals(NOT_NULO.mensaje("sexo"), exception.getMessage());
@@ -104,7 +104,7 @@ public class MascotaTest extends Caracteristicas {
   @Test
   public void noPuedoCrearMascotaSinDescripcionFisica() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new MascotaConChapa(PERRO, "Pedro", "Pepe", 4.0, Sexo.MACHO, null, null, null, null);
+      new Mascota(PERRO, "Pedro", "Pepe", 4.0, Sexo.MACHO, null, null, null, null);
     });
 
     assertEquals(NOT_NULO.mensaje("descripcionFisica"), exception.getMessage());
@@ -113,7 +113,7 @@ public class MascotaTest extends Caracteristicas {
   @Test
   public void noPuedoCrearMascotaSinFoto() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new MascotaConChapa(PERRO, "Pedro", "Pepe", 4.0, Sexo.MACHO, "Flaco", null, null, null);
+      new Mascota(PERRO, "Pedro", "Pepe", 4.0, Sexo.MACHO, "Flaco", null, null, null);
     });
 
     assertEquals(NOT_NULO.mensaje("fotos"), exception.getMessage());
@@ -149,8 +149,6 @@ public class MascotaTest extends Caracteristicas {
     CaracteristicaChoice castrado = estaCastrada();
     castrado.getOpciones().get(0).setSeleccionada(true);
     gatoBenito.setCaracteristicas(Collections.singletonList(castrado));
-
-    System.out.println(gatoBenito.getCaracteristicas().get(0).getOpciones());
 
     assertEquals(1, gatoBenito.getCaracteristicas().size());
     assertEquals(castrado, gatoBenito.getCaracteristicas().get(0));

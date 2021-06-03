@@ -1,9 +1,8 @@
 package servicio.impl;
 
-import java.io.IOException;
-
+import domain.exception.BaseCredencialesNoDisponibleException;
 import domain.exception.PasswordDebilException;
-import domain.servicio.exception.BaseCredencialesNoDisponibleException;
+import java.io.IOException;
 import servicio.RutasSistema;
 import servicio.ValidacionClave;
 import utilidades.LectorArchivos;

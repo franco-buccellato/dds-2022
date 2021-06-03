@@ -38,7 +38,6 @@
       <version>1.5.0-b01</version>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -52,6 +51,15 @@
         <version>3.1.2</version>
         <configuration>
           <configLocation>google_checks.xml</configLocation>
+          <violationSeverity>warning</violationSeverity>
+          <violationIgnore>
+            MissingJavadocMethod,
+            MissingJavadocPackage,
+            MissingJavadocType,
+            NonEmptyAtclauseDescription,
+            JavadocParagraph,
+            SummaryJavadoc
+          </violationIgnore>
         </configuration>
         <executions>
           <execution>
@@ -107,6 +115,16 @@
                   </limits>
                 </rule>
               </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <id>jacoco-report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>target/jacoco-report</outputDirectory>
             </configuration>
           </execution>
         </executions>
