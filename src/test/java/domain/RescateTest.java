@@ -117,7 +117,7 @@ public class RescateTest {
 
     rescateConChapa.informaRescate();
 
-    verify(duenioMock).notificarMascotaEncontrada(mascota);
+    verify(duenioMock).notificarMascotaEncontrada(rescateConChapa);
   }
 
   @Test
