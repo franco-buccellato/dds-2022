@@ -61,6 +61,10 @@ public class Duenio {
   }
 
   public Contacto contactoTitular() {
-    return this.contactos.stream().filter(contacto -> contacto.getVinculo().equals(Vinculo.TITULAR)).findFirst().get();
+    return this.getContactos()
+               .stream()
+               .filter(contacto -> contacto.getVinculo().equals(Vinculo.TITULAR))
+               .findFirst()
+               .get();
   }
 }
