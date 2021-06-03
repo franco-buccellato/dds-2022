@@ -20,7 +20,7 @@ public class Duenio {
       Usuario usuario
   ) {
     this.datoPersonal = Objects.requireNonNull(datoPersonal, NOT_NULO.mensaje("datoPersonal"));
-    this.contactos = Objects.isNull(contactos) ? new ArrayList<>() : contactos;
+    this.contactos = Objects.requireNonNull(contactos, NOT_NULO.mensaje("contactos"));
     this.mascotas = Objects.isNull(mascotas) ? new ArrayList<>() : mascotas;
     this.usuario = usuario;
 
@@ -56,11 +56,28 @@ public class Duenio {
     return usuario;
   }
 
-  public void notificarMascotaEncontrada(Mascota mascota) {
+  public void notificarMascotaEncontrada(Rescate rescate) {
+    String mensaje = new StringBuilder()
+        .append("<h1>Encontramos a tu mascota!</h2>")
+        .append("<br><p>Fue encontrada en: " + rescate.getLugarEncuentro().getDireccion())
+        .append("</p><p>Te dejamos el contacto del rescatista: ")
+        .append(rescate.getRescatista().getContacto().toString())
+        .toString();
 
+    Contacto contacto = contactoTitular();
+
+    if (Objects.isNull(contacto)) {
+      contacto = getContactos().get(0);
+    }
+
+    contacto.notificar(mensaje);
   }
 
   public Contacto contactoTitular() {
-    return this.contactos.stream().filter(contacto -> contacto.getVinculo().equals(Vinculo.TITULAR)).findFirst().get();
+    return this.getContactos()
+               .stream()
+               .filter(contacto -> contacto.getVinculo().equals(Vinculo.TITULAR))
+               .findFirst()
+               .get();
   }
 }

@@ -17,6 +17,6 @@ public class RescateConChapa extends Rescate {
 
   @Override
   public void informaRescate() {
-    RepositorioDuenio.getInstance().informarMascotaRescatada(getMascota());
+    RepositorioDuenio.getInstance().informarMascotaRescatada(this);
   }
 }

@@ -1,10 +1,10 @@
 package domain;
 
 import constants.Fixture;
+import domain.exception.NoSePudoEnviarMailException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,15 +85,22 @@ public class PublicacionTest {
   }
 
   @Test
-  void alNotificarRescatistaElRescatistaEsNotificado() throws MessagingException {
-    Rescatista rescatistaMock = mock(Rescatista.class);
+  void alNotificarRescatistaElRescatistaEsNotificado() throws NoSePudoEnviarMailException {
     Rescate rescateMock = mock(Rescate.class);
-    Publicacion unaPublicacion = new Publicacion(rescateMock);
+    Rescatista rescatistaMock = mock(Rescatista.class);
+    Contacto contactoMock = mock(Contacto.class);
+    Duenio duenioMock = mock(Duenio.class);
+    Contacto contactoDuenioMock = mock(Contacto.class);
+    Publicacion publicacion = new Publicacion(rescateMock);
 
     when(rescateMock.getRescatista()).thenReturn(rescatistaMock);
+    when(rescateMock.getRescatista().getContacto()).thenReturn(contactoMock);
+    when(duenioMock.contactoTitular()).thenReturn(contactoDuenioMock);
 
-    unaPublicacion.notificarRescatista(duenio);
+    publicacion.notificarRescatista(duenioMock);
 
-    verify(rescatistaMock).notificarMatchDuenio(rescateMock, duenio);
+    assertEquals(publicacion.getRescate().getRescatista().getContacto(), contactoMock);
+
+    verify(contactoMock).notificar(any());
   }
 }

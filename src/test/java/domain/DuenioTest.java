@@ -33,6 +33,14 @@ public class DuenioTest {
   }
 
   @Test
+  void noPuedoCrearDuenioSinContacto() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+      new Duenio(datoPersonal, null, null, null);
+    });
+    assertEquals(NOT_NULO.mensaje("contactos"), exception.getMessage());
+  }
+
+  @Test
   void puedoLeerDatosDeUnDuenio() {
     assertEquals(datoPersonal, duenio.getDatoPersonal());
     assertEquals(contacto, duenio.getContactos().get(0));
