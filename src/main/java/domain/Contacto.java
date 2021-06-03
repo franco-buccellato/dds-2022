@@ -53,7 +53,15 @@ public class Contacto {
   public void setMedioNotificacion(MedioNotificacion medioNotificacion) {
     this.medioNotificacion = medioNotificacion;
   }
-  public void notificar(String mensage) throws MessagingException {
+  public void notificar(String mensage) {
     medioNotificacion.notificar(this, mensage);
+  }
+
+  @Override
+  public String toString() {
+    return "Nombre: " + this.nombre
+        + "\nApellido: " + this.apellido
+        + "\nTel: " + this.telefono
+        + "\nMail: " + this.mail;
   }
 }

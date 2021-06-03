@@ -1,5 +1,7 @@
 package domain;
 
+import domain.exception.NoSePudoEnviarMailException;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -16,8 +18,13 @@ public class MedioNotificacionEmail implements MedioNotificacion {
   }
 
   @Override
-  public void notificar(Contacto contacto, String mensage) throws MessagingException {
-    sendEmail(contacto.getMail(), "Contacto desde Patitas por sus mascota", mensage);
+  public void notificar(Contacto contacto, String mensage)  {
+    try {
+      sendEmail(contacto.getMail(), "Contacto desde Patitas por sus mascota", mensage);
+    }
+    catch(MessagingException e) {
+      throw new NoSePudoEnviarMailException(e.getMessage());
+    }
   }
 
   private Session getSession() {

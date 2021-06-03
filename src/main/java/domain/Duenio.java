@@ -5,6 +5,7 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Duenio {
   private DatoPersonal datoPersonal;
@@ -57,5 +58,9 @@ public class Duenio {
 
   public void notificarMascotaEncontrada(Mascota mascota) {
 
+  }
+
+  public Contacto contactoTitular() {
+    return this.contactos.stream().filter(contacto -> contacto.getVinculo().equals(Vinculo.TITULAR)).findFirst().get();
   }
 }

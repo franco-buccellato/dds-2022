@@ -1,13 +1,20 @@
 package domain;
 
 import java.math.BigDecimal;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Ubicacion {
+  @JsonProperty("direccion")
   private String direccion;
   private String codigoPostal;
   private String localidad;
+  @JsonProperty("lat")
   private BigDecimal latitud;
+  @JsonProperty("long")
   private BigDecimal longitud;
+
+  public Ubicacion() {
+  }
 
   public Ubicacion(
       String direccion,
