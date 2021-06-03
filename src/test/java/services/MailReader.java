@@ -1,7 +1,9 @@
 package services;
 
 import java.io.FileInputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.mail.Folder;
 import javax.mail.Message;

@@ -1,7 +1,7 @@
 package domain;
 
 public class Opcion {
-  private Object descripcion;
+  private String descripcion;
   private Boolean seleccionada;
 
   public Opcion(String descripcion) {
@@ -9,7 +9,7 @@ public class Opcion {
     this.seleccionada = false;
   }
 
-  public Object getDescripcion() {
+  public String getDescripcion() {
     return descripcion;
   }
 

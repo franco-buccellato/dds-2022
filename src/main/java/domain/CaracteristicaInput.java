@@ -1,7 +1,7 @@
 package domain;
 
 public class CaracteristicaInput extends Caracteristica {
-  private String texto;
+  private String input;
 
   // Aplica para tipos TEXTO y NUMERO donde los constraints van a ser resueltos en otra capa
   public CaracteristicaInput(
@@ -10,15 +10,16 @@ public class CaracteristicaInput extends Caracteristica {
       Boolean obligatoria
   ) {
     super(tipoCaracteristica, descripcion, obligatoria);
-    this.texto = "";
-  }
-
-  @Override
-  public String getOpciones() {
-    return texto;
+    this.input = "";
   }
 
   public void addOpcion(String texto) {
-    this.texto = texto;
+    this.input = texto;
+    opciones.get(0).setSeleccionada(true);
+  }
+
+  public void removeOpcion() {
+    this.input = "";
+    opciones.get(0).setSeleccionada(false);
   }
 }

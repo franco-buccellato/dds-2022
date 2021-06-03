@@ -5,6 +5,7 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Mascota {
   private TipoMascota tipoMascota;
@@ -105,5 +106,12 @@ public class Mascota {
 
   public void addCaracteristica(Caracteristica caracteristica) {
     caracteristicas.add(caracteristica);
+  }
+
+  public List<List<String>> getCaracteristicasSeleccionadas() {
+    return caracteristicas
+        .stream()
+        .map(Caracteristica::getOpcionesSeleccionas)
+        .collect(Collectors.toList());
   }
 }
