@@ -4,6 +4,7 @@ import constants.Fixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,7 +85,7 @@ public class PublicacionTest {
   }
 
   @Test
-  void alNotificarRescatistaElRescatistaEsNotificado() {
+  void alNotificarRescatistaElRescatistaEsNotificado() throws MessagingException {
     Rescatista rescatistaMock = mock(Rescatista.class);
     Rescate rescateMock = mock(Rescate.class);
     Publicacion unaPublicacion = new Publicacion(rescateMock);

@@ -26,7 +26,7 @@ import domain.Voluntario;
 public class Fixture {
 
   public Rescatista rescatista() {
-    return new Rescatista(datoPersonal(), contacto(), ubicacion(), mock(Usuario.class));
+    return new Rescatista(datoPersonal(), contacto(), ubicacion1(), mock(Usuario.class));
   }
 
   public Voluntario voluntario() {

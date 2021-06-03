@@ -1,5 +1,7 @@
 package domain;
 
+import javax.mail.MessagingException;
+
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.Objects;
@@ -38,10 +40,10 @@ public class Publicacion {
   void buscarAsociacionCercana() {
     asociacion = RepositorioAsociaciones
         .getRepositorioAsociaciones()
-        .encontrarMasCercana(rescate.getLugarEncuentro());
+        .encontrarMasCercana(rescate.getRescatista().getUbicacion());
   }
 
-  void notificarRescatista(Duenio duenio) {
+  void notificarRescatista(Duenio duenio) throws MessagingException {
     this.getRescate().getRescatista().notificarMatchDuenio(this.getRescate(), duenio);
   }
 
