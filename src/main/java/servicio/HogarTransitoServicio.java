@@ -20,6 +20,7 @@ public class HogarTransitoServicio implements BuscadorHogar {
               + " o excede el limite de paginas");
     }
     HogarTransito hogar = responseRefugios.getEntity(HogarTransito.class);
+    
     return hogar.getHogares();
   }
 }
