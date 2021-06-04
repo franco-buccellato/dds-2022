@@ -1,9 +1,6 @@
 package domain;
 
-import constants.Fixture;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import servicio.HogarTransitoServicio;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 import java.security.KeyManagementException;
@@ -13,7 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import constants.Fixture;
+import servicio.HogarTransitoServicio;
 
 public class RepositorioHogaresTest extends Fixture {
   private HogarTransitoServicio hogares;
@@ -31,7 +32,7 @@ public class RepositorioHogaresTest extends Fixture {
   @BeforeEach
   public void setup() throws KeyManagementException, NoSuchAlgorithmException {
     hogares = new HogarTransitoServicio();
-    repositorioHogares = new RepositorioHogares(hogares.buscarHogares(1));
+    repositorioHogares = new RepositorioHogares(hogares.hogaresDisponibles());
     rescatePerro =  new RescateSinChapa(
         new ArrayList<>(Collections.singletonList("unaFoto")),
         "Canino macho, color negro, raza caniche",
@@ -73,19 +74,19 @@ public class RepositorioHogaresTest extends Fixture {
   @Test
   public void puedoEncontrarHogaresParaPerrosChicos() {
     rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturaDelgado, comportamientoManso, tamanioChico));
-    assertEquals( 8, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
+    assertEquals( 14, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
   }
 
   @Test
   public void puedoEncontrarHogaresParaPerrosGrandes() {
     rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturaDelgado, comportamientoManso, tamanioGrande));
-    assertEquals( 8, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
+    assertEquals( 12, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
   }
 
   @Test
   public void puedoEncontrarHogaresParaPerrosAgresivos() {
     rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturaDelgado, comportamientoAgresivo, tamanioGrande));
-    assertEquals( 7, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
+    assertEquals( 11, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
   }
 
   @Test
@@ -107,13 +108,13 @@ public class RepositorioHogaresTest extends Fixture {
     );
 
     rescateAlaska.getMascota().setCaracteristicas(Arrays.asList(contexturaDelgado, comportamientoManso, tamanioGrande));
-    assertEquals( 0, repositorioHogares.getHogaresParaRescate(rescateAlaska, 13000).size());
+    assertEquals( 0, repositorioHogares.getHogaresParaRescate(rescateAlaska, 10000).size());
   }
 
   @Test
   public void puedoEncontrarHogaresParaGatosTranquilos() {
     rescateGato.getMascota().setCaracteristicas(Arrays.asList(comportamientoTranquilo, tamanioChico));
-    assertEquals( 5, repositorioHogares.getHogaresParaRescate(rescateGato, 500).size());
+    assertEquals( 15, repositorioHogares.getHogaresParaRescate(rescateGato, 500).size());
   }
 
   @Test
@@ -122,7 +123,7 @@ public class RepositorioHogaresTest extends Fixture {
     comportamiento.getOpciones().get(2).setSeleccionada(true);
 
     rescateGato.getMascota().setCaracteristicas(Arrays.asList(comportamiento, tamanioGrande));
-    assertEquals( 4, repositorioHogares.getHogaresParaRescate(rescateGato, 500).size());
+    assertEquals( 10, repositorioHogares.getHogaresParaRescate(rescateGato, 500).size());
   }
 
   @Test

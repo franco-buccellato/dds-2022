@@ -6,7 +6,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class HogarTransito {
 
-  @JsonIgnore
+  @JsonProperty("total")
   int total;
 
   @JsonIgnore
@@ -140,6 +140,10 @@ public class HogarTransito {
 
   public void setCaracteristicas(List<String> caracteristicas) {
     this.caracteristicas = caracteristicas;
+  }
+
+  public int getTotal() {
+    return this.total;
   }
 
   List<String> caracteristicas;

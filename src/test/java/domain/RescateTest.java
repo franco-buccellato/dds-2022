@@ -5,6 +5,8 @@ import domain.exception.MascotaSinDuenioException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -152,5 +154,21 @@ public class RescateTest {
     rescateSinChapa.informaRescate();
 
     assertEquals(1, repositorioPublicaciones.getPublicaciones().size());
+  }
+
+  @Test
+  void noPuedoConseguirHogaresMuyCercaDeMiUbicacion() throws KeyManagementException, NoSuchAlgorithmException {
+    RescateSinChapa rescateSinChapa = new RescateSinChapa(
+        fotos,
+        descripcion,
+        ubicacion,
+        fecha,
+        mascota,
+        rescatista
+    );
+
+    List<HogarTransito> listaHogares = rescateSinChapa.buscarHogarDeTransito(0.1);
+    System.out.println(listaHogares.size());
+    assertEquals(0, rescateSinChapa.getHogaresTransito().size());
   }
 }
