@@ -32,9 +32,9 @@ public class Rescatista {
     return ubicacion;
   }
 
-  public void notificarMatchDuenio(Rescate rescate, Duenio duenio) throws MessagingException {
-    // Conpletar mensaje para que use datos del rescate
-    String mensaje = "";
-    duenio.getContactos().get(0).notificar(mensaje);
-  }
+//  public void notificarMatchDuenio(Rescate rescate, Duenio duenio) throws MessagingException {
+//    // Conpletar mensaje para que use datos del rescate
+//    String mensaje = "";
+//    duenio.getContactos().get(0).notificar(mensaje);
+//  }
 }

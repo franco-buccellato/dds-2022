@@ -1,5 +1,6 @@
 package domain;
 
+import constants.MensajePruebaTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import services.MailReader;
@@ -45,10 +46,12 @@ class ContactoTest {
   void puedoContactarUnContacto() throws IOException, MessagingException {
     String emailTo = "contact.patitas+juan@gmail.com";
     String mensaje = "Mensaje #" + System.currentTimeMillis();
+    Notificacion notificacion = new Notificacion(new MensajePruebaTemplate(mensaje));
 
     contacto.setMedioNotificacion(new MedioNotificacionEmail());
     contacto.setMail(emailTo);
-    contacto.notificar(mensaje);
+    System.out.println(notificacion.getMensaje());
+    contacto.notificar(notificacion);
 
     MailReader reader = new MailReader();
     reader.check();
@@ -56,4 +59,6 @@ class ContactoTest {
     assertEquals(reader.getMensaje().get("To"), emailTo);
     assertTrue(reader.getMensaje().get("Content").contains(mensaje));
   }
+
+
 }

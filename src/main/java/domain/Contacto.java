@@ -61,8 +61,8 @@ public class Contacto {
     this.medioNotificacion = medioNotificacion;
   }
 
-  public void notificar(String mensage) {
-    medioNotificacion.notificar(this, mensage);
+  public void notificar(Notificacion notificacion) {
+    medioNotificacion.notificar(this, notificacion.getMensaje());
   }
 
   @Override

@@ -23,6 +23,26 @@ public class Fixture {
     return new Rescatista(datoPersonal(), contacto(), ubicacion1(), mock(Usuario.class));
   }
 
+  public Rescate rescateSinChapa() {
+    return new RescateSinChapa(
+        Arrays.asList(""),
+        "Rescate sin chapa test",
+        this.ubicacion1(),
+        LocalDate.of(2021, 6, 3),
+        this.mascota1(),
+        this.rescatista());
+  }
+
+  public Rescate rescateConChapa() {
+    return new RescateConChapa(
+        Arrays.asList(""),
+        "Rescate con chapa test",
+        this.ubicacion1(),
+        LocalDate.of(2021, 6, 3),
+        this.mascota2(),
+        this.rescatista());
+  }
+
   public Voluntario voluntario() {
     return new Voluntario(
       new Usuario(
