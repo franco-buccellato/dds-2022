@@ -22,13 +22,13 @@ public class CaracteristicaTest extends Caracteristicas {
     String dato = "Ronca mucho cuando duerme";
     datoCurioso.addOpcion(dato);
 
-    assertTrue(datoCurioso.getOpciones().equals(dato));
+    assertTrue(datoCurioso.getOpcion().equals(dato));
   }
   @Test
   public void puedoDejarOpcionalUnaCaracteristicaTexto(){
     CaracteristicaInput datoCurioso = datosDeInteres();
     datoCurioso.addOpcion("");
-    assertTrue(datoCurioso.getOpciones().equals(""));
+    assertTrue(datoCurioso.getOpcion().equals(""));
   }
   @Test
   public void puedoSetearUnaCaracteristicaMultipleChoice(){

@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Arrays;
+
 public class CaracteristicaInput extends Caracteristica {
   private String input;
 
@@ -10,7 +12,12 @@ public class CaracteristicaInput extends Caracteristica {
       Boolean obligatoria
   ) {
     super(tipoCaracteristica, descripcion, obligatoria);
+    this.opciones = Arrays.asList(new Opcion(""));
     this.input = "";
+  }
+
+  public String getOpcion() {
+    return this.input;
   }
 
   public void addOpcion(String texto) {
