@@ -5,6 +5,7 @@ import static domain.TipoCaracteristica.*;
 import static domain.TipoMascota.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import constants.Fixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class MascotaTest extends Caracteristicas {
+public class MascotaTest extends Fixture {
   private Mascota perroPepe;
   private Mascota gatoBenito;
   CaracteristicaChoice vacunas;
@@ -23,7 +24,7 @@ public class MascotaTest extends Caracteristicas {
   List<String> fotos;
 
   @BeforeEach
-  public void setup() throws IOException {
+  public void setup() {
     vacunas = vacunas();
     vacunas.getOpciones().get(0).setSeleccionada(true);
     comportamiento = comportamientoConNiños();
@@ -181,7 +182,7 @@ public class MascotaTest extends Caracteristicas {
   }
 
   @Test
-  void puedoAgregarCaracteristicaAMascotaConCaracteristicas() {
+  public void puedoAgregarCaracteristicaAMascotaConCaracteristicas() {
     perroPepe.addCaracteristica(vacunas);
     assertEquals(1, perroPepe.getCaracteristicas().size());
 
@@ -194,5 +195,17 @@ public class MascotaTest extends Caracteristicas {
     assertEquals(datoDeInteres, perroPepe.getCaracteristicas().get(1));
     assertEquals(TEXT, perroPepe.getCaracteristicas().get(1).getTipoCaracteristica());
     assertEquals("Datos de interes", perroPepe.getCaracteristicas().get(1).getDescripcion());
+  }
+  @Test
+  public void puedoObtenerLasCaracteristicasSeleccionadasDeUnaMascota() {
+    CaracteristicaChoice contextura = contextura();
+    setOpcionRandom(vacunas.getOpciones());
+    perroPepe.addCaracteristica(vacunas);
+    perroPepe.addCaracteristica(contextura);
+
+    assertEquals(1, perroPepe.getCaracteristicasSeleccionadas().size());
+
+    setOpcionRandom(contextura.getOpciones());
+    assertEquals(2, perroPepe.getCaracteristicasSeleccionadas().size());
   }
 }

@@ -3,7 +3,8 @@ package domain;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class AdmisionMascota {
-  public AdmisionMascota() {}
+  public AdmisionMascota() {
+  }
 
   @JsonProperty("perros")
   public boolean getPerros() {

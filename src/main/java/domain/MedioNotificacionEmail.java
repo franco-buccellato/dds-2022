@@ -1,13 +1,17 @@
 package domain;
 
 import domain.exception.NoSePudoEnviarMailException;
-
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import javax.mail.Session;
+import javax.mail.MessagingException;
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Message;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class MedioNotificacionEmail implements MedioNotificacion {
   private Properties emailCredentials;
@@ -21,19 +25,18 @@ public class MedioNotificacionEmail implements MedioNotificacion {
   public void notificar(Contacto contacto, String mensage)  {
     try {
       sendEmail(contacto.getMail(), "Contacto desde Patitas por sus mascota", mensage);
-    }
-    catch(MessagingException e) {
+    } catch (MessagingException e) {
       throw new NoSePudoEnviarMailException(e.getMessage());
     }
   }
 
   private Session getSession() {
-    return Session.getInstance(
-        getSmtpProperties(),
-        new Authenticator() {
+    return Session.getInstance(getSmtpProperties(), new Authenticator() {
       @Override
       protected PasswordAuthentication getPasswordAuthentication() {
-          return new PasswordAuthentication(emailCredentials.getProperty("usuarioContacto"), emailCredentials.getProperty("passContacto"));
+          return new PasswordAuthentication(emailCredentials.getProperty("usuarioContacto"),
+              emailCredentials.getProperty("passContacto")
+          );
       }
     });
   }

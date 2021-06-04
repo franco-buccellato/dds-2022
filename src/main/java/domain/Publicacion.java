@@ -1,7 +1,5 @@
 package domain;
 
-import javax.mail.MessagingException;
-
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.Objects;

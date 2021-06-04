@@ -13,7 +13,10 @@ public abstract class Caracteristica {
   protected List<Opcion> opciones;
   protected Boolean obligatoria;
 
-  public Caracteristica(TipoCaracteristica tipoCaracteristica, String descripcion, Boolean obligatoria) {
+  public Caracteristica(TipoCaracteristica tipoCaracteristica,
+      String descripcion,
+      Boolean obligatoria
+  ) {
     this.tipoCaracteristica = Objects.requireNonNull(
         tipoCaracteristica,
         NOT_NULO.mensaje("tipoCaracteristica")
@@ -38,6 +41,7 @@ public abstract class Caracteristica {
   public List<Opcion> getOpciones() {
     return opciones;
   }
+
   public List<String> getOpcionesSeleccionas() {
     return opciones
         .stream()

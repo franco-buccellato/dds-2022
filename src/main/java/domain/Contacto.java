@@ -1,9 +1,8 @@
 package domain;
 
-import javax.mail.MessagingException;
-import java.util.Objects;
-
 import static domain.exception.Mensajes.NOT_NULO;
+
+import java.util.Objects;
 
 public class Contacto {
   private String nombre;
@@ -13,7 +12,14 @@ public class Contacto {
   private Vinculo vinculo;
   private MedioNotificacion medioNotificacion;
 
-  public Contacto(String nombre, String apellido, String telefono, String mail, Vinculo vinculo, MedioNotificacion medioNotificacion) {
+  public Contacto(
+      String nombre,
+      String apellido,
+      String telefono,
+      String mail,
+      Vinculo vinculo,
+      MedioNotificacion medioNotificacion
+  ) {
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
     this.apellido = Objects.requireNonNull(apellido, NOT_NULO.mensaje("apellido"));
     this.telefono = telefono;
@@ -50,9 +56,11 @@ public class Contacto {
   public Vinculo getVinculo() {
     return vinculo;
   }
+
   public void setMedioNotificacion(MedioNotificacion medioNotificacion) {
     this.medioNotificacion = medioNotificacion;
   }
+
   public void notificar(String mensage) {
     medioNotificacion.notificar(this, mensage);
   }

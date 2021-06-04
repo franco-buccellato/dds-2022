@@ -1,27 +1,21 @@
 package constants;
 
+import static domain.Sexo.HEMBRA;
+import static domain.SituacionMascota.*;
+import static domain.TipoCaracteristica.*;
+import static domain.TipoIdentificacion.DNI;
+import static domain.TipoMascota.*;
+import static domain.TipoUsuario.VOLUNTARIO;
 import static domain.Vinculo.AMISTAD;
 import static org.mockito.Mockito.mock;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
-import domain.Asociacion;
-import domain.Contacto;
-import domain.DatoPersonal;
-import domain.Duenio;
-import domain.Mascota;
-import domain.MedioNotificacion;
-import domain.Rescatista;
-import domain.Sexo;
-import domain.SituacionMascota;
-import domain.TipoIdentificacion;
-import domain.TipoMascota;
-import domain.TipoUsuario;
-import domain.Ubicacion;
-import domain.Usuario;
-import domain.Voluntario;
+import domain.*;
 
 public class Fixture {
 
@@ -34,7 +28,7 @@ public class Fixture {
       new Usuario(
         "Voluntario1",
         "voluntariocorrecto",
-        TipoUsuario.VOLUNTARIO),
+          VOLUNTARIO),
       new Asociacion(
         "Asociacion1",
         ubicacionAsociacion1())
@@ -45,7 +39,7 @@ public class Fixture {
     return new DatoPersonal(
       "Juan",
       "Perez",
-      TipoIdentificacion.DNI,
+        DNI,
       "99919999",
       LocalDate.of(1995, 5, 24)
     );
@@ -68,8 +62,8 @@ public class Fixture {
       "El Rescatista 123",
       "1417",
       "CABA",
-      BigDecimal.valueOf(56.12345),
-      BigDecimal.valueOf(56.12345)
+      BigDecimal.valueOf(-34.607415758394005),
+      BigDecimal.valueOf(-58.37020660410098)
     );
   }
 
@@ -78,8 +72,8 @@ public class Fixture {
       "El Rescatista 123",
       "1417",
       "CABA",
-      BigDecimal.valueOf(53.12345),
-      BigDecimal.valueOf(56.12345)
+      BigDecimal.valueOf(-34.607415758394005),
+      BigDecimal.valueOf(-58.50000000000000)
     );
   }
 
@@ -88,8 +82,8 @@ public class Fixture {
       "El Distinto 999",
       "1417",
       "CABA",
-      BigDecimal.valueOf(56.12345),
-      BigDecimal.valueOf(66.12345)
+      BigDecimal.valueOf(-34.70000000000000),
+      BigDecimal.valueOf(-58.37020660410098)
     );
   }
 
@@ -135,47 +129,115 @@ public class Fixture {
 
   public Mascota mascota1() {
     return new Mascota(
-      TipoMascota.PERRO,
+      PERRO,
       "Canela",
       "Cane",
       5.2,
-      Sexo.HEMBRA,
+      HEMBRA,
       "Gordita",
       Arrays.asList("unaFoto"),
       null,
-      SituacionMascota.EN_HOGAR_PROPIO
+      EN_HOGAR_PROPIO
     );
   }
 
   public Mascota mascota2() {
     return new Mascota(
-        TipoMascota.GATO,
+        GATO,
         "Minerva",
         "Mine",
         .7,
-        Sexo.HEMBRA,
+        HEMBRA,
         "Gordita",
         Arrays.asList("unaFoto"),
         null,
-        SituacionMascota.PERDIDA
+        PERDIDA
     );
   }
 
   public Mascota mascota3() {
     return new Mascota(
-        TipoMascota.GATO,
+        GATO,
         "Iris",
         "Terremoto",
         .7,
-        Sexo.HEMBRA,
+        HEMBRA,
         "Atigrada",
         Arrays.asList("unaFoto"),
         null,
-        SituacionMascota.PERDIDA
+        PERDIDA
     );
   }
 
   public Duenio duenio() {
     return new Duenio(datoPersonal(), Arrays.asList(contacto()), null, null);
+  }
+
+  protected CaracteristicaInput datosDeInteres() {
+    return new CaracteristicaInput(TEXT, "Datos de interes", false);
+  }
+
+  protected CaracteristicaInput visitasAlVeterinarioUltimoAnio() {
+    return new CaracteristicaInput(NUMBER, "Cantidad de consultas veterinarias", false);
+  }
+
+  protected CaracteristicaChoice estaCastrada() {
+    List<Opcion> opcionesBool = Arrays.asList(new Opcion("Si"), new Opcion("No"));
+
+    return new CaracteristicaChoice(BOOLEAN, "Esta Castrada:", opcionesBool, false);
+  }
+
+  protected CaracteristicaChoice vacunas() {
+    Opcion moquillo = new Opcion("Moquillo");
+    Opcion hepatitis = new Opcion("Hepatitis");
+    Opcion parvovirosis = new Opcion("Parvovirosis");
+    Opcion rabia = new Opcion("Rabia");
+    List<Opcion> vacunas = Arrays.asList(moquillo, hepatitis, parvovirosis, rabia);
+
+    return new CaracteristicaChoice(CHECKBOX, "Vacunas administradas", vacunas, true);
+  }
+
+  protected CaracteristicaChoice comportamientoConNiños() {
+    Opcion amistoso = new Opcion("Amistoso");
+    Opcion manso = new Opcion("Manso");
+    Opcion agresivo = new Opcion("Agresivo");
+    List<Opcion> comportamientos = Arrays.asList(amistoso, manso, agresivo);
+
+    return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, true);
+  }
+
+  protected CaracteristicaChoice contextura() {
+    Opcion delgado = new Opcion("Delgado");
+    Opcion normal = new Opcion("Normal");
+    Opcion gordito = new Opcion("Gordito");
+    List<Opcion> contexturas = Arrays.asList(delgado, normal, gordito);
+
+    return new CaracteristicaChoice(BULLET, "Contextura", contexturas, true);
+  }
+
+  protected CaracteristicaChoice tamanio() {
+    Opcion grande = new Opcion("Grande");
+    Opcion mediano = new Opcion("Mediano");
+    Opcion chico = new Opcion("Chico");
+    List<Opcion> tamanios = Arrays.asList(grande, mediano, chico);
+
+    return new CaracteristicaChoice(BULLET, "Tamanio de la mascota", tamanios, true);
+  }
+
+  protected CaracteristicaChoice comportamiento() {
+    Opcion tranquilo = new Opcion("Tranquilo");
+    Opcion pacifico = new Opcion("Pacifico");
+    Opcion alborotado = new Opcion("Alborotado");
+    List<Opcion> comportamientos = Arrays.asList(tranquilo, pacifico, alborotado);
+
+    return new CaracteristicaChoice(BULLET, "Comportamiento de la mascota", comportamientos, true);
+  }
+
+  protected static int setOpcionRandom(List<Opcion> opciones) {
+    Random random = new Random();
+    int index = random.nextInt(opciones.size());
+
+    opciones.get(index).setSeleccionada(true);
+    return index;
   }
 }

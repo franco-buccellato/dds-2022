@@ -25,12 +25,12 @@ public class UbicacionTest {
 
   @Test
   void distanciaEntreUbicacion1Ubicacion2Es3(){
-    assertEquals(ubicacion1.distanciaA(ubicacion2),3);
+    assertEquals(ubicacion1.distanciaA(ubicacion2),13);
   }
 
   @Test
   void distanciaEntreUbicacion1Ubicacion3Es10() {
-    assertEquals(ubicacion1.distanciaA(ubicacion3), 10);
+    assertEquals(ubicacion1.distanciaA(ubicacion3), 9);
   }
 
 

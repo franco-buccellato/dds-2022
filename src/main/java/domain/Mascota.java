@@ -109,9 +109,11 @@ public class Mascota {
   }
 
   public List<List<String>> getCaracteristicasSeleccionadas() {
-    return caracteristicas
+    List<List<String>> caracteristicasSeleccionadas = caracteristicas
         .stream()
         .map(Caracteristica::getOpcionesSeleccionas)
         .collect(Collectors.toList());
+    caracteristicasSeleccionadas.removeIf(List::isEmpty);
+    return caracteristicasSeleccionadas;
   }
 }

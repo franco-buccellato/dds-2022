@@ -3,7 +3,6 @@ package domain;
 import constants.Fixture;
 import domain.exception.MascotaSinDuenioException;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

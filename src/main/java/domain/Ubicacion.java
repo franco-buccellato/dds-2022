@@ -51,10 +51,10 @@ public class Ubicacion {
   }
 
   public double distanciaA(Ubicacion destino) {
-    return Math.sqrt(
-        (destino.getLatitud().subtract(this.getLatitud()).pow(2).add(
-            destino.getLongitud().subtract(this.getLongitud()).pow(2))
-        ).doubleValue()
-    );
+    BigDecimal difLatitud = destino.getLatitud().subtract(this.getLatitud());
+    BigDecimal difLongitud = destino.getLongitud().subtract(this.getLongitud());
+
+    double kilometros = Math.sqrt(difLatitud.pow(2).add(difLongitud.pow(2)).doubleValue()) * 100;
+    return Math.round(kilometros);
   }
 }

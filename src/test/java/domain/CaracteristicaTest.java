@@ -3,9 +3,10 @@ package domain;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import constants.Fixture;
 import org.junit.jupiter.api.Test;
 
-public class CaracteristicaTest extends Caracteristicas {
+public class CaracteristicaTest extends Fixture {
 
   @Test
   public void puedoSetearCaracteristicaBooleana() {
