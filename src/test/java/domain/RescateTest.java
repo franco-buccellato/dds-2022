@@ -166,8 +166,7 @@ public class RescateTest extends Fixture {
         rescatista
     );
 
-    List<HogarTransito> listaHogares = rescateSinChapa.buscarHogarDeTransito(0.1);
-    System.out.println(listaHogares.size());
+    rescateSinChapa.buscarHogarDeTransito(0.1);
     assertEquals(0, rescateSinChapa.getHogaresTransito().size());
   }
 }
