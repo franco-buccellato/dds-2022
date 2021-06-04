@@ -28,6 +28,7 @@ public class RescateSinChapa extends Rescate {
   }
 
   public List<HogarTransito> buscarHogarDeTransito(double radioBusqueda) throws NoSuchAlgorithmException, KeyManagementException {
+    // TODO: Tech-debt to remove new RepositorioHogares cuando este persistencia
     hogaresTransito = new RepositorioHogares(new HogarTransitoServicio().hogaresDisponibles()).getHogaresParaRescate(this, radioBusqueda);
     return hogaresTransito;
   }
