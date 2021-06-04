@@ -12,7 +12,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class RepositorioAsociacionesTest {
+public class RepositorioAsociacionesTest extends Fixture {
 
   Asociacion asociacion1, asociacion2, asociacion3;
   RepositorioAsociaciones repositorioAsociacionesTest;
@@ -20,11 +20,10 @@ public class RepositorioAsociacionesTest {
 
   @BeforeEach
   void setup() {
-    Fixture fixture = new Fixture();
-    asociacion1 = new Asociacion("Asociacion1", fixture.ubicacionAsociacion1());
-    asociacion2 = new Asociacion("Asociacion2", fixture.ubicacionAsociacion2());
-    asociacion3 = new Asociacion("Asociacion3", fixture.ubicacionAsociacion3());
-    ubicacionRescatista = fixture.ubicacionRescatista();
+    asociacion1 = new Asociacion("Asociacion1", ubicacionAsociacion1());
+    asociacion2 = new Asociacion("Asociacion2", ubicacionAsociacion2());
+    asociacion3 = new Asociacion("Asociacion3", ubicacionAsociacion3());
+    ubicacionRescatista = ubicacionRescatista();
     repositorioAsociacionesTest = RepositorioAsociaciones.getRepositorioAsociaciones();
   }
 

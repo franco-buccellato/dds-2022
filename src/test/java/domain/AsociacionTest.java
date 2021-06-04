@@ -7,13 +7,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static domain.exception.Mensajes.NOT_NULO;
 
-public class AsociacionTest {
+public class AsociacionTest extends Fixture {
   Ubicacion ubicacion;
 
   @BeforeEach
   void setup() {
-    Fixture fixture = new Fixture();
-    ubicacion = fixture.ubicacion1();
+    ubicacion = ubicacion1();
   }
 
   @Test

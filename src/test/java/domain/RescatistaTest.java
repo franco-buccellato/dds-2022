@@ -9,7 +9,7 @@ import constants.Fixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class RescatistaTest {
+public class RescatistaTest extends Fixture {
   DatoPersonal datoPersonal;
   Contacto contacto;
   Ubicacion ubicacion;
@@ -17,11 +17,10 @@ public class RescatistaTest {
 
   @BeforeEach
   public void setup() {
-    Fixture fixture = new Fixture();
-    datoPersonal = fixture.datoPersonal();
-    contacto = fixture.contacto();
-    ubicacion = fixture.ubicacion1();
-    rescatista = fixture.rescatista();
+    datoPersonal = datoPersonal();
+    contacto = contacto();
+    ubicacion = ubicacion1();
+    rescatista = rescatista();
   }
 
   @Test
