@@ -12,7 +12,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class RepositorioDuenioTest {
+public class RepositorioDuenioTest extends Fixture {
   RepositorioDuenio repositorioDuenio;
   Mascota mascota;
   DatoPersonal datoPersonal;
@@ -20,11 +20,10 @@ public class RepositorioDuenioTest {
 
   @BeforeEach
   void setup() {
-    Fixture fixture = new Fixture();
     repositorioDuenio = RepositorioDuenio.getInstance();
-    mascota = fixture.mascota1();
-    datoPersonal = fixture.datoPersonal();
-    contacto = fixture.contacto();
+    mascota = mascota1();
+    datoPersonal = datoPersonal();
+    contacto = contacto();
   }
 
   @Test

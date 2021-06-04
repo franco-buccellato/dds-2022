@@ -6,16 +6,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UbicacionTest {
+public class UbicacionTest extends Fixture {
 
   Ubicacion ubicacion1, ubicacion2, ubicacion3;
 
   @BeforeEach
   void setup(){
-    Fixture fixture = new Fixture();
-    ubicacion1 = fixture.ubicacion1();
-    ubicacion2 = fixture.ubicacion2();
-    ubicacion3 = fixture.ubicacion3();
+    ubicacion1 = ubicacion1();
+    ubicacion2 = ubicacion2();
+    ubicacion3 = ubicacion3();
   }
 
   @Test

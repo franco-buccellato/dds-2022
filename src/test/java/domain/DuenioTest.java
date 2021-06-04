@@ -11,16 +11,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DuenioTest {
+public class DuenioTest extends Fixture {
   Contacto contacto;
   DatoPersonal datoPersonal;
   Duenio duenio;
 
   @BeforeEach
   void setup() {
-    Fixture fixture = new Fixture();
-    datoPersonal = fixture.datoPersonal();
-    contacto = fixture.contacto();
+    datoPersonal = datoPersonal();
+    contacto = contacto();
     duenio = new Duenio(datoPersonal, Arrays.asList(contacto), null, null);
   }
 

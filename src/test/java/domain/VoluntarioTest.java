@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class VoluntarioTest {
+public class VoluntarioTest extends Fixture {
   Voluntario voluntario;
 
   List<String> fotos;
@@ -25,14 +25,13 @@ public class VoluntarioTest {
 
   @BeforeEach
   void setup() {
-    Fixture fixture = new Fixture();
-    voluntario = fixture.voluntario();
+    voluntario = voluntario();
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
     descripcion = "Canino macho, color negro, raza caniche";
-    ubicacion = fixture.ubicacion1();
+    ubicacion = ubicacion1();
     fecha = LocalDate.of(2021, 5, 4);
-    mascota = fixture.mascota1();
-    rescatista = fixture.rescatista();
+    mascota = mascota1();
+    rescatista = rescatista();
 
     rescateSinChapa = new RescateSinChapa(
       fotos,

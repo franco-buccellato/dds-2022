@@ -1,7 +1,5 @@
 package domain;
 
-import domain.TipoUsuario;
-import domain.Usuario;
 import domain.exception.PasswordDebilException;
 import org.junit.jupiter.api.Test;
 

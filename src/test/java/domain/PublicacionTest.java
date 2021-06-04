@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-public class PublicacionTest {
+public class PublicacionTest extends Fixture {
 
   List<String> fotos;
   String descripcion;
@@ -33,14 +33,12 @@ public class PublicacionTest {
 
   @BeforeEach
   void setup() {
-    Fixture fixture = new Fixture();
-
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
     descripcion = "Canino macho, color negro, raza caniche";
-    ubicacion = fixture.ubicacion1();
+    ubicacion = ubicacion1();
     fecha = LocalDate.of(2021, 5, 4);
-    mascota = fixture.mascota1();
-    rescatista = fixture.rescatista();
+    mascota = mascota1();
+    rescatista = rescatista();
 
     rescate = new RescateSinChapa(
         fotos,
@@ -52,9 +50,9 @@ public class PublicacionTest {
     );
     publicacion = new Publicacion(rescate);
 
-    asociacion1 = new Asociacion("Asociacion1", fixture.ubicacionAsociacion1());
-    asociacion2 = new Asociacion("Asociacion2", fixture.ubicacionAsociacion2());
-    asociacion3 = new Asociacion("Asociacion3", fixture.ubicacionAsociacion3());
+    asociacion1 = new Asociacion("Asociacion1", ubicacionAsociacion1());
+    asociacion2 = new Asociacion("Asociacion2", ubicacionAsociacion2());
+    asociacion3 = new Asociacion("Asociacion3", ubicacionAsociacion3());
     RepositorioAsociaciones repositorioAsociacionesTest = RepositorioAsociaciones.getRepositorioAsociaciones();
     repositorioAsociacionesTest.setAsociaciones(new ArrayList<>(Arrays.asList(
         asociacion1,
@@ -62,7 +60,7 @@ public class PublicacionTest {
         asociacion3
     )));
 
-    duenio = fixture.duenio();
+    duenio = duenio();
   }
 
   @Test

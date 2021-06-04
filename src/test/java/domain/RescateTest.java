@@ -17,7 +17,7 @@ import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class RescateTest {
+public class RescateTest extends Fixture {
   List<String> fotos;
   String descripcion;
   Ubicacion ubicacion;
@@ -28,14 +28,13 @@ public class RescateTest {
 
   @BeforeEach
   void setup() {
-    Fixture fixture = new Fixture();
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
     descripcion = "Canino macho, color negro, raza caniche";
-    ubicacion = fixture.ubicacion1();
+    ubicacion = ubicacion1();
     fecha = LocalDate.of(2021, 5, 4);
-    mascota = fixture.mascota1();
-    rescatista = fixture.rescatista();
-    duenio = fixture.duenio();
+    mascota = mascota1();
+    rescatista = rescatista();
+    duenio = duenio();
   }
 
   @Test

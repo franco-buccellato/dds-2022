@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RepositorioPublicacionesTest {
+public class RepositorioPublicacionesTest extends Fixture {
   List<String> fotos;
   String descripcion1, descripcion2, descripcion3;
   Ubicacion ubicacion1, ubicacion2, ubicacion3;
@@ -26,13 +26,12 @@ public class RepositorioPublicacionesTest {
 
   @BeforeEach
   void setup() {
-    Fixture fixture = new Fixture();
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
     descripcion1 = "Canino macho, color negro, raza caniche";
-    ubicacion1 = fixture.ubicacion1();
+    ubicacion1 = ubicacion1();
     fecha = LocalDate.of(2021, 5, 4);
-    mascota1 = fixture.mascota1();
-    rescatista = fixture.rescatista();
+    mascota1 = mascota1();
+    rescatista = rescatista();
     rescate1 = new RescateSinChapa(
         fotos,
         descripcion1,
@@ -43,10 +42,10 @@ public class RepositorioPublicacionesTest {
     );
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
     descripcion2 = "Gato hembra, color claro, raza siames";
-    ubicacion2 = fixture.ubicacion2();
+    ubicacion2 = ubicacion2();
     fecha = LocalDate.of(2021, 5, 4);
-    mascota2 = fixture.mascota2();
-    rescatista = fixture.rescatista();
+    mascota2 = mascota2();
+    rescatista = rescatista();
     rescate2 = new RescateSinChapa(
         fotos,
         descripcion2,
@@ -57,10 +56,10 @@ public class RepositorioPublicacionesTest {
     );
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
     descripcion3 = "Gato hembra, color atigrado, raza europeo";
-    ubicacion3 = fixture.ubicacion2();
+    ubicacion3 = ubicacion2();
     fecha = LocalDate.of(2021, 5, 4);
-    mascota3 = fixture.mascota3();
-    rescatista = fixture.rescatista();
+    mascota3 = mascota3();
+    rescatista = rescatista();
     rescate3 = new RescateSinChapa(
         fotos,
         descripcion3,
@@ -78,7 +77,7 @@ public class RepositorioPublicacionesTest {
         publicacion2,
         publicacion3))
     );
-    voluntario = fixture.voluntario();
+    voluntario = voluntario();
   }
 
   @Test
