@@ -154,6 +154,7 @@ public class MascotaTest extends Fixture {
     assertEquals(1, gatoBenito.getCaracteristicas().size());
     assertEquals(castrado, gatoBenito.getCaracteristicas().get(0));
     assertEquals(BOOLEAN, gatoBenito.getCaracteristicas().get(0).getTipoCaracteristica());
+    assertTrue(gatoBenito.getCaracteristicas().get(0).getOpcionesSeleccionas().get(0).equals("Si"));
   }
 
   @Test

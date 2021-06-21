@@ -1,7 +1,5 @@
 package domain;
 
-import java.util.HashMap;
-
 public class DuenioContactaRescatistaTemplate extends TemplateNotificacion<Duenio> {
   private Duenio duenio;
   public DuenioContactaRescatistaTemplate(Duenio duenio) {

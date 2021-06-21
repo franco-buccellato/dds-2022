@@ -50,7 +50,6 @@ class ContactoTest {
 
     contacto.setMedioNotificacion(new MedioNotificacionEmail());
     contacto.setMail(emailTo);
-    System.out.println(notificacion.getMensaje());
     contacto.notificar(notificacion);
 
     MailReader reader = new MailReader();

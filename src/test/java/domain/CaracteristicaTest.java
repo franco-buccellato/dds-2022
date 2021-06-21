@@ -11,6 +11,7 @@ public class CaracteristicaTest extends Fixture {
   @Test
   public void puedoSetearCaracteristicaBooleana() {
     CaracteristicaChoice estaCastrada = estaCastrada();
+
     estaCastrada.getOpciones().get(0).setSeleccionada(true);
     assertTrue(estaCastrada.getOpciones().get(0).getSeleccionada());
     estaCastrada.getOpciones().get(0).setSeleccionada(false);

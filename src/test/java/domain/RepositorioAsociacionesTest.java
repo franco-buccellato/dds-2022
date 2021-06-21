@@ -49,5 +49,4 @@ public class RepositorioAsociacionesTest extends Fixture {
         asociacion1.getNombre()
     );
   }
-
 }

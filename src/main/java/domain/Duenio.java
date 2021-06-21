@@ -57,18 +57,6 @@ public class Duenio {
   }
 
   public void notificarMascotaEncontrada(Rescate rescate) {
-//    String mensaje = new StringBuilder()
-//        .append("<h1>Encontramos a tu mascota!</h2>")
-//        .append("<br><p>Fue encontrada en: " + rescate.getLugarEncuentro().getDireccion())
-//        .append("</p><p>Te dejamos el contacto del rescatista: ")
-//        .append(rescate.getRescatista().getContacto().toString())
-//        .toString();
-//
-//    Contacto contacto = contactoTitular();
-//
-//    if (Objects.isNull(contacto)) {
-//      contacto = getContactos().get(0);
-//    }
     contactoTitular().notificar(new Notificacion(new RescatistaContactaDuenioTemplate(rescate)));
   }
 

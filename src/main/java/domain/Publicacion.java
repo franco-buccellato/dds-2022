@@ -27,21 +27,21 @@ public class Publicacion {
     return asociacion;
   }
 
-  void aprobar() {
+  public void aprobar() {
     this.estado = EstadoPublicacion.ACEPTADA;
   }
 
-  void rechazar() {
+  public void rechazar() {
     this.estado = EstadoPublicacion.RECHAZADA;
   }
 
-  void buscarAsociacionCercana() {
+  public void buscarAsociacionCercana() {
     asociacion = RepositorioAsociaciones
         .getRepositorioAsociaciones()
         .encontrarMasCercana(rescate.getRescatista().getUbicacion());
   }
-
-  void notificarRescatista(Duenio duenio) {
+// TODO asociar a la creacion
+  public void notificarRescatista(Duenio duenio) {
     this.getRescate().getRescatista().getContacto().notificar(new Notificacion(new DuenioContactaRescatistaTemplate(duenio)));
 //        new StringBuilder()
 //            .append("<h1>El due&ntilde;io de la mascota ")

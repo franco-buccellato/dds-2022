@@ -9,3 +9,5 @@ public interface BuscadorHogar {
   HogarTransito buscarHogares(int offset)
       throws NoSuchAlgorithmException, KeyManagementException;
 }
+
+// TODO se puede mover a repo

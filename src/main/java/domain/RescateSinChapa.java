@@ -24,6 +24,8 @@ public class RescateSinChapa extends Rescate {
 
   @Override
   public void informaRescate() {
+
+//    TODO : Remove. Obtener y sacar.
     new Publicacion(this);
   }
 
@@ -37,3 +39,6 @@ public class RescateSinChapa extends Rescate {
     return hogaresTransito;
   }
 }
+
+// TODO: instanciar y guardar
+// TODO api can be in repo

@@ -38,3 +38,5 @@ public class RepositorioDuenio {
     return duenios.stream().filter(duenio -> duenio.getMascotas().contains(mascota)).findFirst();
   }
 }
+
+// TODO: Logica no va

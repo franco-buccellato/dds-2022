@@ -40,19 +40,19 @@ public class NotificacionTest {
 //            "<td>pedro@g.com</td>" +
 //            "<td>AMISTAD</td>" +
 //            "</tr>" +
-//            "</table>"
-//        , notificacionDuenio.getMensaje());
+//            "</table>".replaceAll("^[\n\r]", "").replaceAll("[\n\r]$", "")
+//        , notificacionDuenio.getMensaje().replaceAll("^[\n\r]", "").replaceAll("[\n\r]$", ""));
 //  }
-//
-//  @Test
-//  public void testRescatistaContactaConDuenio() {
-//    Assertions.assertEquals(notificacionRescatista.getMensaje(),
-//        "<h1>Encontramos a tu mascota!</h1>\r\n" +
-//        "<br><p>Fue encontrada en: El Rescatista 123</p>\r\n" +
-//        "<p>Te dejamos el contacto del rescatista:</p>\r\n" +
-//        "Nombre: Pedro\r\n" +
-//        "Apellido: Gonzalez\r\n" +
-//        "Tel: 494949\r\n" +
-//        "Mail: pedro@g.com");
-//  }
+
+  @Test
+  public void testRescatistaContactaConDuenio() {
+    Assertions.assertEquals(notificacionRescatista.getMensaje(),
+        "<h1>Encontramos a tu mascota!</h1>\n" +
+        "<br><p>Fue encontrada en: El Rescatista 123</p>\n" +
+        "<p>Te dejamos el contacto del rescatista:</p>\n" +
+        "Nombre: Pedro\n" +
+        "Apellido: Gonzalez\n" +
+        "Tel: 494949\n" +
+        "Mail: pedro@g.com");
+  }
 }

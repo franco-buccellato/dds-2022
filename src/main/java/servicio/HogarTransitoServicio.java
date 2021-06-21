@@ -39,3 +39,5 @@ public class HogarTransitoServicio implements BuscadorHogar {
     return listaTemporal;
   }
 }
+// TODO exception management
+// TODO mensaje
