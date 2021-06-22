@@ -12,6 +12,7 @@ public class Publicacion {
   Publicacion(Rescate rescate) {
     this.rescate = Objects.requireNonNull(rescate, NOT_NULO.mensaje("rescate"));
     this.estado = EstadoPublicacion.ESPERA;
+    this.asociacion = this.buscarAsociacionCercana();
     RepositorioPublicaciones.getRepositorioPublicaciones().agregarPublicacion(this);
   }
 
@@ -35,8 +36,8 @@ public class Publicacion {
     this.estado = EstadoPublicacion.RECHAZADA;
   }
 
-  public void buscarAsociacionCercana() {
-    asociacion = RepositorioAsociaciones
+  public Asociacion buscarAsociacionCercana() {
+    return asociacion = RepositorioAsociaciones
         .getRepositorioAsociaciones()
         .encontrarMasCercana(rescate.getRescatista().getUbicacion());
   }

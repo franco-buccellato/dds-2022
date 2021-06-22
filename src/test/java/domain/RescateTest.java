@@ -26,6 +26,9 @@ public class RescateTest extends Fixture {
   Rescatista rescatista;
   Duenio duenio;
 
+  Asociacion asociacion1, asociacion2, asociacion3;
+  RepositorioAsociaciones repositorioAsociacionesTest;
+
   @BeforeEach
   void setup() {
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
@@ -35,6 +38,11 @@ public class RescateTest extends Fixture {
     mascota = mascota1();
     rescatista = rescatista();
     duenio = duenio();
+
+    asociacion1 = new Asociacion("Asociacion1", ubicacionAsociacion1());
+    asociacion2 = new Asociacion("Asociacion2", ubicacionAsociacion2());
+    asociacion3 = new Asociacion("Asociacion3", ubicacionAsociacion3());
+    repositorioAsociacionesTest = RepositorioAsociaciones.getRepositorioAsociaciones();
   }
 
   @Test
