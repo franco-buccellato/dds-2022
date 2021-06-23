@@ -24,14 +24,8 @@ public class RepositorioDuenio {
     duenios.add(duenio);
   }
 
-  public void informarMascotaRescatada(Rescate rescate) {
-    Optional<Duenio> elDuenio = findDuenioMascota(rescate.getMascota());
-
-    if (!elDuenio.isPresent()) {
-      throw new MascotaSinDuenioException("La mascota buscada no tiene duenio");
-    }
-
-    elDuenio.ifPresent(duenio -> duenio.notificarMascotaEncontrada(rescate));
+  public void informarMascotaRescatada(Rescate rescate, Duenio elDuenio) {
+    elDuenio.notificarMascotaEncontrada(rescate);
   }
 
   public Optional<Duenio> findDuenioMascota(Mascota mascota) {

@@ -1,7 +1,10 @@
 package domain;
 
+import domain.exception.MascotaSinDuenioException;
+
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public class RescateConChapa extends Rescate {
   public RescateConChapa(
@@ -17,6 +20,10 @@ public class RescateConChapa extends Rescate {
 
   @Override
   public void informaRescate() {
-    RepositorioDuenio.getInstance().informarMascotaRescatada(this);
+    Optional<Duenio> elDuenio = RepositorioDuenio.getInstance().findDuenioMascota(this.getMascota());
+    if (!elDuenio.isPresent()) {
+      throw new MascotaSinDuenioException("La mascota buscada no tiene duenio");
+    }
+    RepositorioDuenio.getInstance().informarMascotaRescatada(this, elDuenio.get());
   }
 }

@@ -44,17 +44,6 @@ public class RepositorioDuenioTest extends Fixture {
   }
 
   @Test
-  void alInformarRescateDeMascotaSinDuenioLanzaExcepcion() {
-    Rescate rescateMock = mock(Rescate.class);
-    when(rescateMock.getMascota()).thenReturn(mascota);
-    Exception exception = assertThrows(MascotaSinDuenioException.class, () -> {
-      repositorioDuenio.informarMascotaRescatada(rescateMock);
-    });
-
-    assertEquals("La mascota buscada no tiene duenio", exception.getMessage());
-  }
-
-  @Test
   void alInformarRescateDeMascotaConDuenioSeNotificaAlDuenio() {
     Duenio duenioMock = mock(Duenio.class);
     Rescate rescateMock = mock(Rescate.class);
@@ -64,8 +53,21 @@ public class RepositorioDuenioTest extends Fixture {
     when(duenioMock.getMascotas()).thenReturn(new ArrayList<>(Arrays.asList(mascotaMock)));
     when(rescateMock.getMascota()).thenReturn(mascotaMock);
 
-    repositorioDuenio.informarMascotaRescatada(rescateMock);
+    repositorioDuenio.informarMascotaRescatada(rescateMock, duenioMock);
 
     verify(duenioMock).notificarMascotaEncontrada(rescateMock);
   }
+
+  /*
+  @Test
+  void alInformarRescateDeMascotaSinDuenioLanzaExcepcion() {
+    Rescate rescateMock = mock(Rescate.class);
+    //when(rescateMock.getMascota()).thenReturn(mascota);
+    //repositorioDuenio.informarMascotaRescatada(rescateMock);
+    Exception exception = assertThrows(MascotaSinDuenioException.class, rescateMock::informaRescate);
+
+    assertEquals("La mascota buscada no tiene duenio", exception.getMessage());
+  }
+ */
+
 }
