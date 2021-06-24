@@ -10,6 +10,7 @@ import servicio.HogarTransitoServicio;
 
 public class RescateSinChapa extends Rescate {
   List<HogarTransito> hogaresTransito;
+  RepositorioHogares repositorioHogares;
 
   public RescateSinChapa(
       List<String> fotos,
@@ -19,6 +20,7 @@ public class RescateSinChapa extends Rescate {
       Rescatista rescatista
   ) {
     super(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
+    repositorioHogares = new RepositorioHogares();
     this.hogaresTransito = new ArrayList<>();
     this.informaRescate();
   }
@@ -28,9 +30,9 @@ public class RescateSinChapa extends Rescate {
     new Publicacion(this);
   }
 
-  public List<HogarTransito> buscarHogarDeTransito(double radioBusqueda) throws NoSuchAlgorithmException, KeyManagementException {
+  public List<HogarTransito> buscarHogarDeTransito(double radioBusqueda) {
     // TODO: Tech-debt to remove new RepositorioHogares cuando este persistencia
-    hogaresTransito = new RepositorioHogares(new HogarTransitoServicio().hogaresDisponibles()).getHogaresParaRescate(this, radioBusqueda);
+    this.hogaresTransito = repositorioHogares.getHogaresParaRescate(this, radioBusqueda);
     return hogaresTransito;
   }
 

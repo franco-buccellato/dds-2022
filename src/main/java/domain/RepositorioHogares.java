@@ -4,22 +4,20 @@ import static domain.TipoMascota.GATO;
 import static domain.TipoMascota.PERRO;
 import static domain.exception.Mensajes.NOT_NULO;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class RepositorioHogares {
   private List<HogarTransito> hogares;
 
-  public RepositorioHogares(List<HogarTransito> hogares) {
-    this.hogares = Objects.requireNonNull(hogares, NOT_NULO.mensaje("hogares"));
+  public RepositorioHogares() {
+    //this.hogares = Objects.requireNonNull(hogares, NOT_NULO.mensaje("hogares"));
+    this.hogares = new ArrayList<>();
   }
 
-  public List<HogarTransito> getHogares() {
-    return this.hogares;
+  public RepositorioHogares(List<HogarTransito> hogares) {
+    this.hogares = Objects.requireNonNull(hogares, NOT_NULO.mensaje("hogares"));
   }
 
   public List<HogarTransito> getHogaresParaRescate(Rescate rescate, double radioBusqueda) {
