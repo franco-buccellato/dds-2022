@@ -16,6 +16,7 @@ public class RescateConChapa extends Rescate {
       Rescatista rescatista
   ) {
     super(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
+    this.informaRescate();
   }
 
   @Override

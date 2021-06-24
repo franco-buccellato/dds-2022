@@ -31,6 +31,11 @@ public class RepositorioHogaresTest extends Fixture {
 
   @BeforeEach
   public void setup() throws KeyManagementException, NoSuchAlgorithmException {
+
+    new Asociacion("Asosiacion1", ubicacionAsociacion1());
+    new Asociacion("Asosiacion2", ubicacionAsociacion2());
+    new Asociacion("Asosiacion3", ubicacionAsociacion3());
+
     hogares = new HogarTransitoServicio();
     repositorioHogares = new RepositorioHogares(hogares.hogaresDisponibles());
     rescatePerro =  new RescateSinChapa(
@@ -69,6 +74,7 @@ public class RepositorioHogaresTest extends Fixture {
 
     tamanioGrande = tamanio();
     tamanioGrande.getOpciones().get(0).setSeleccionada(true);
+
   }
 
   @Test

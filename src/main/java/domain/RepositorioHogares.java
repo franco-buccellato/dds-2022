@@ -18,6 +18,10 @@ public class RepositorioHogares {
     this.hogares = Objects.requireNonNull(hogares, NOT_NULO.mensaje("hogares"));
   }
 
+  public List<HogarTransito> getHogares() {
+    return this.hogares;
+  }
+
   public List<HogarTransito> getHogaresParaRescate(Rescate rescate, double radioBusqueda) {
     Mascota mascota = rescate.getMascota();
     return hogares

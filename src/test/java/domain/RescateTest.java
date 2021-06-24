@@ -122,9 +122,6 @@ public class RescateTest extends Fixture {
         mascota,
         rescatista
     );
-
-    rescateConChapa.informaRescate();
-
     verify(duenioMock).notificarMascotaEncontrada(rescateConChapa);
   }
 
@@ -157,9 +154,6 @@ public class RescateTest extends Fixture {
         mascota,
         rescatista
     );
-
-    rescateSinChapa.informaRescate();
-
     assertEquals(1, repositorioPublicaciones.getPublicaciones().size());
   }
 

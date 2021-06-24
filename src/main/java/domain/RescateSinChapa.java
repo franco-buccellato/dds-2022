@@ -20,12 +20,11 @@ public class RescateSinChapa extends Rescate {
   ) {
     super(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
     this.hogaresTransito = new ArrayList<>();
+    this.informaRescate();
   }
 
   @Override
   public void informaRescate() {
-
-//    TODO : Remove. Obtener y sacar.
     new Publicacion(this);
   }
 
