@@ -2,6 +2,7 @@ package servicio;
 
 import com.sun.jersey.api.client.ClientResponse;
 import domain.HogarTransito;
+
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -14,8 +15,7 @@ import servicio.exception.LimiteOffsetException;
 public class HogarTransitoServicio implements BuscadorHogar {
 
   @Override
-  public HogarTransito buscarHogares(int offset)
-      throws NoSuchAlgorithmException, KeyManagementException {
+  public HogarTransito buscarHogares(int offset) {
     RefugioDdsApi refugioApi = new RefugioDdsApi();
     ClientResponse responseRefugios = refugioApi.getHogares(offset);
     if (responseRefugios.getStatus() == 400) {
@@ -26,7 +26,7 @@ public class HogarTransitoServicio implements BuscadorHogar {
     return responseRefugios.getEntity(HogarTransito.class);
   }
 
-  public List<HogarTransito> hogaresDisponibles() throws KeyManagementException, NoSuchAlgorithmException {
+  public List<HogarTransito> hogaresDisponibles() {
     int offset = 1;
     int total;
     List<HogarTransito> listaTemporal = Arrays.asList();
@@ -39,5 +39,3 @@ public class HogarTransitoServicio implements BuscadorHogar {
     return listaTemporal;
   }
 }
-// TODO exception management
-// TODO mensaje
