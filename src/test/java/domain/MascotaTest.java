@@ -26,9 +26,11 @@ public class MascotaTest extends Fixture {
   @BeforeEach
   public void setup() {
     vacunas = vacunas();
-    vacunas.getOpciones().get(0).setSeleccionada(true);
+    Opcion vacunaSeleccionada = (Opcion) vacunas.getOpciones().get(0);
+
+    vacunas.seleccionarOpcion(vacunaSeleccionada, true);
     comportamiento = comportamientoConNiños();
-    comportamiento.getOpciones().get(0).setSeleccionada(true);
+    comportamiento.seleccionarOpcion(comportamientoManso,true);
     caracteristicas = Arrays.asList(vacunas, comportamiento);
 
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
@@ -148,7 +150,8 @@ public class MascotaTest extends Fixture {
     assertEquals(2, gatoBenito.getCaracteristicas().size());
 
     CaracteristicaChoice castrado = estaCastrada();
-    castrado.getOpciones().get(0).setSeleccionada(true);
+    Opcion opcionSeleccionada = (Opcion) castrado.getOpciones().get(0);
+    castrado.seleccionarOpcion(opcionSeleccionada, true);
     gatoBenito.setCaracteristicas(Collections.singletonList(castrado));
 
     assertEquals(1, gatoBenito.getCaracteristicas().size());
@@ -189,7 +192,7 @@ public class MascotaTest extends Fixture {
 
     CaracteristicaInput datoDeInteres = datosDeInteres();
     String dato = "Le gusta perseguir motos";
-    datoDeInteres.addOpcion(dato);
+    datoDeInteres.setInput(dato);
     perroPepe.addCaracteristica(datoDeInteres);
 
     assertEquals(2, perroPepe.getCaracteristicas().size());
@@ -200,7 +203,6 @@ public class MascotaTest extends Fixture {
   @Test
   public void puedoObtenerLasCaracteristicasSeleccionadasDeUnaMascota() {
     CaracteristicaChoice contextura = contextura();
-    setOpcionRandom(vacunas.getOpciones());
     perroPepe.addCaracteristica(vacunas);
     perroPepe.addCaracteristica(contextura);
 

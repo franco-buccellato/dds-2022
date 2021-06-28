@@ -21,13 +21,10 @@ public class RepositorioHogaresTest extends Fixture {
   private RepositorioHogares repositorioHogares;
   private Rescate rescatePerro;
   private Rescate rescateGato;
-  private Caracteristica vacunas;
-  private Caracteristica contexturaDelgado;
-  private Caracteristica comportamientoManso;
-  private Caracteristica comportamientoAgresivo;
-  private Caracteristica tamanioChico;
-  private Caracteristica tamanioGrande;
-  private Caracteristica comportamientoTranquilo;
+  private CaracteristicaChoice vacunas;
+  private CaracteristicaChoice contexturas;
+  private CaracteristicaChoice comportamientos;
+  private CaracteristicaChoice tamanios;
 
   @BeforeEach
   public void setup() throws KeyManagementException, NoSuchAlgorithmException {
@@ -54,50 +51,48 @@ public class RepositorioHogaresTest extends Fixture {
         mascota2(),
         rescatista()
     );
+    contexturas = contextura();
+    comportamientos = comportamientoConNiños();
+    tamanios = tamanio();
     vacunas = vacunas();
-    vacunas.getOpciones().get(0).setSeleccionada(true);
-
-    contexturaDelgado = contextura();
-    contexturaDelgado.getOpciones().get(0).setSeleccionada(true);
-
-    comportamientoManso = comportamientoConNiños();
-    comportamientoManso.getOpciones().get(0).setSeleccionada(true);
-
-    comportamientoAgresivo = comportamientoConNiños();
-    comportamientoAgresivo.getOpciones().get(2).setSeleccionada(true);
-
-    comportamientoTranquilo = comportamiento();
-    comportamientoTranquilo.getOpciones().get(0).setSeleccionada(true);
-
-    tamanioChico = tamanio();
-    tamanioChico.getOpciones().get(2).setSeleccionada(true);
-
-    tamanioGrande = tamanio();
-    tamanioGrande.getOpciones().get(0).setSeleccionada(true);
-
+    Opcion vacunaSeleccionada = (Opcion) vacunas.getOpciones().get(0);
+    vacunas.seleccionarOpcion(vacunaSeleccionada, true);
   }
 
   @Test
   public void puedoEncontrarHogaresParaPerrosChicos() {
-    rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturaDelgado, comportamientoManso, tamanioChico));
+    tamanios.seleccionarOpcion(tamanioChico, true);
+    contexturas.seleccionarOpcion(contexturaDelgado, true);
+    comportamientos.seleccionarOpcion(comportamientoManso, true);
+    rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturas, comportamientos, tamanios));
+
     assertEquals( 14, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
   }
 
   @Test
   public void puedoEncontrarHogaresParaPerrosGrandes() {
-    rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturaDelgado, comportamientoManso, tamanioGrande));
+    tamanios.seleccionarOpcion(tamanioGrande, true);
+    comportamientos.seleccionarOpcion(comportamientoManso, true);
+    rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturas, comportamientos, tamanios));
+
     assertEquals( 12, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
   }
 
   @Test
   public void puedoEncontrarHogaresParaPerrosAgresivos() {
-    rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturaDelgado, comportamientoAgresivo, tamanioGrande));
+    comportamientos.seleccionarOpcion(comportamientoAgresivo, true);
+    tamanios.seleccionarOpcion(tamanioGrande, true);
+    rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturas, comportamientos, tamanios));
+
     assertEquals( 11, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
   }
 
   @Test
   public void noPuedoEncontrarHogaresParaPerrosMuyCercaDeMiUbicacion() {
-    rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturaDelgado, comportamientoAgresivo, tamanioGrande));
+    tamanios.seleccionarOpcion(tamanioGrande, true);
+    comportamientos.seleccionarOpcion(comportamientoManso, true);
+    rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturas, comportamientos, tamanios));
+
     assertEquals( 0, repositorioHogares.getHogaresParaRescate(rescatePerro, 1).size());
   }
 
@@ -112,29 +107,39 @@ public class RepositorioHogaresTest extends Fixture {
         mascota1(),
         rescatista()
     );
+    tamanios.seleccionarOpcion(tamanioGrande, true);
+    comportamientos.seleccionarOpcion(comportamientoManso, true);
+    rescateAlaska.getMascota().setCaracteristicas(Arrays.asList(contexturas, comportamientos, tamanios));
 
-    rescateAlaska.getMascota().setCaracteristicas(Arrays.asList(contexturaDelgado, comportamientoManso, tamanioGrande));
     assertEquals( 0, repositorioHogares.getHogaresParaRescate(rescateAlaska, 10000).size());
   }
 
   @Test
   public void puedoEncontrarHogaresParaGatosTranquilos() {
-    rescateGato.getMascota().setCaracteristicas(Arrays.asList(comportamientoTranquilo, tamanioChico));
+    tamanios.seleccionarOpcion(tamanioChico, true);
+    CaracteristicaChoice comportamiento = comportamiento();
+    comportamiento.seleccionarOpcion(comportamientoTranquilo, true);
+    rescateGato.getMascota().setCaracteristicas(Arrays.asList(comportamiento, tamanios));
+
     assertEquals( 15, repositorioHogares.getHogaresParaRescate(rescateGato, 500).size());
   }
 
   @Test
   public void puedoEncontrarHogaresParaGatosAlborotados() {
     CaracteristicaChoice comportamiento = comportamiento();
-    comportamiento.getOpciones().get(2).setSeleccionada(true);
+    comportamiento.seleccionarOpcion(comportamientoAlborotado, true);
+    rescateGato.getMascota().setCaracteristicas(Arrays.asList(comportamiento, tamanios));
 
-    rescateGato.getMascota().setCaracteristicas(Arrays.asList(comportamiento, tamanioGrande));
     assertEquals( 10, repositorioHogares.getHogaresParaRescate(rescateGato, 500).size());
   }
 
   @Test
   public void noPuedoEncontrarHogaresParaGatosMuyCercaDeMiUbicacion() {
-    rescateGato.getMascota().setCaracteristicas(Arrays.asList(comportamientoTranquilo, tamanioChico));
+    CaracteristicaChoice comportamiento = comportamiento();
+    comportamiento.seleccionarOpcion(comportamientoTranquilo, true);
+    tamanios.seleccionarOpcion(tamanioChico, true);
+    rescateGato.getMascota().setCaracteristicas(Arrays.asList(comportamiento, tamanios));
+
     assertEquals( 0, repositorioHogares.getHogaresParaRescate(rescateGato, 1).size());
   }
 }

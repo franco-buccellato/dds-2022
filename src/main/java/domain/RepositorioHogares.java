@@ -11,13 +11,8 @@ import java.util.stream.Collectors;
 public class RepositorioHogares {
   private List<HogarTransito> hogares;
 
-  public RepositorioHogares() {
-    //this.hogares = Objects.requireNonNull(hogares, NOT_NULO.mensaje("hogares"));
-    this.hogares = new ArrayList<>();
-  }
-
   public RepositorioHogares(List<HogarTransito> hogares) {
-    this.hogares = Objects.requireNonNull(hogares, NOT_NULO.mensaje("hogares"));
+    this.hogares = hogares;
   }
 
   public List<HogarTransito> getHogaresParaRescate(Rescate rescate, double radioBusqueda) {
