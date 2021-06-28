@@ -7,6 +7,7 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.client.urlconnection.HTTPSProperties;
+
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.SSLContext;
@@ -14,13 +15,13 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import servicio.exception.ApiNoDisponibleException;
 
 public class RefugioDdsApi {
 
-  public ClientResponse getHogares(int offset)
-      throws NoSuchAlgorithmException, KeyManagementException {
+  public ClientResponse getHogares(int offset) {
     ClientConfig config = new DefaultClientConfig();
     config.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
     config.getProperties()
@@ -43,27 +44,32 @@ public class RefugioDdsApi {
     }
   }
 
-  protected static SSLContext getInsecureSslContext()
-      throws KeyManagementException, NoSuchAlgorithmException {
-    final TrustManager[] trustAllCerts = new TrustManager[]{
-        new X509TrustManager() {
-          public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-            return null;
-          }
+  protected static SSLContext getInsecureSslContext() {
+    try {
+      final TrustManager[] trustAllCerts = new TrustManager[]{
+          new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+              return null;
+            }
 
-          public void checkClientTrusted(
-              final java.security.cert.X509Certificate[] arg0, final String arg1) {
-          }
+            public void checkClientTrusted(
+                final java.security.cert.X509Certificate[] arg0, final String arg1) {
+            }
 
-          public void checkServerTrusted(
-              final java.security.cert.X509Certificate[] arg0, final String arg1) {
+            public void checkServerTrusted(
+                final java.security.cert.X509Certificate[] arg0, final String arg1) {
+            }
           }
-        }
-    };
+      };
 
-    final SSLContext sslcontext = SSLContext.getInstance("SSL");
-    sslcontext.init(null, trustAllCerts,
-        new java.security.SecureRandom());
-    return sslcontext;
+      final SSLContext sslcontext = SSLContext.getInstance("SSL");
+      sslcontext.init(null, trustAllCerts,
+          new java.security.SecureRandom());
+      return sslcontext;
+    } catch (KeyManagementException ex) {
+      throw new ApiNoDisponibleException("Api RefugioDDS no se encuentra disponible");
+    } catch (NoSuchAlgorithmException ex) {
+      throw new ApiNoDisponibleException("Api RefugioDDS no se encuentra disponible");
+    }
   }
 }
