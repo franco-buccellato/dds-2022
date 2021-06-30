@@ -11,9 +11,7 @@ import static org.mockito.Mockito.mock;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import domain.*;
 
@@ -194,17 +192,18 @@ public class Fixture {
   }
 
   protected CaracteristicaInput datosDeInteres() {
-    return new CaracteristicaInput(TEXT, "Datos de interes", false);
+    return new CaracteristicaInput(TEXT, "Datos de interes", new HashSet<AlcanceCaracteristica>() {
+    });
   }
 
   protected CaracteristicaInput visitasAlVeterinarioUltimoAnio() {
-    return new CaracteristicaInput(NUMBER, "Cantidad de consultas veterinarias", false);
+    return new CaracteristicaInput(NUMBER, "Cantidad de consultas veterinarias", new HashSet<AlcanceCaracteristica>());
   }
 
   protected CaracteristicaChoice estaCastrada() {
     List<Opcion> opcionesBool = Arrays.asList(new Opcion("Si"), new Opcion("No"));
 
-    return new CaracteristicaChoice(BOOLEAN, "Esta Castrada:", opcionesBool, false);
+    return new CaracteristicaChoice(BOOLEAN, "Esta Castrada:", opcionesBool, new HashSet<AlcanceCaracteristica>());
   }
 
   protected CaracteristicaChoice vacunas() {
@@ -213,8 +212,9 @@ public class Fixture {
     Opcion parvovirosis = new Opcion("Parvovirosis");
     Opcion rabia = new Opcion("Rabia");
     List<Opcion> vacunas = Arrays.asList(moquillo, hepatitis, parvovirosis, rabia);
-
-    return new CaracteristicaChoice(CHECKBOX, "Vacunas administradas", vacunas, true);
+    HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
+    alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
+    return new CaracteristicaChoice(CHECKBOX, "Vacunas administradas", vacunas, alcanceCaracteristica);
   }
 
   protected CaracteristicaChoice comportamientoConNiños() {
@@ -222,8 +222,9 @@ public class Fixture {
     Opcion manso = new Opcion("Manso");
     Opcion agresivo = new Opcion("Agresivo");
     List<Opcion> comportamientos = Arrays.asList(amistoso, manso, agresivo);
-
-    return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, true);
+    HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
+    alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
+    return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, alcanceCaracteristica);
   }
 
   protected CaracteristicaChoice contextura() {
@@ -231,8 +232,9 @@ public class Fixture {
     Opcion normal = new Opcion("Normal");
     Opcion gordito = new Opcion("Gordito");
     List<Opcion> contexturas = Arrays.asList(delgado, normal, gordito);
-
-    return new CaracteristicaChoice(BULLET, "Contextura", contexturas, true);
+    HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
+    alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
+    return new CaracteristicaChoice(BULLET, "Contextura", contexturas, alcanceCaracteristica);
   }
 
   protected CaracteristicaChoice tamanio() {
@@ -240,8 +242,9 @@ public class Fixture {
     Opcion mediano = new Opcion("Mediano");
     Opcion chico = new Opcion("Chico");
     List<Opcion> tamanios = Arrays.asList(grande, mediano, chico);
-
-    return new CaracteristicaChoice(BULLET, "Tamanio de la mascota", tamanios, true);
+    HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
+    alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
+    return new CaracteristicaChoice(BULLET, "Tamanio de la mascota", tamanios, alcanceCaracteristica);
   }
 
   protected CaracteristicaChoice comportamiento() {
@@ -249,8 +252,9 @@ public class Fixture {
     Opcion pacifico = new Opcion("Pacifico");
     Opcion alborotado = new Opcion("Alborotado");
     List<Opcion> comportamientos = Arrays.asList(tranquilo, pacifico, alborotado);
-
-    return new CaracteristicaChoice(BULLET, "Comportamiento de la mascota", comportamientos, true);
+    HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
+    alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
+    return new CaracteristicaChoice(BULLET, "Comportamiento de la mascota", comportamientos, alcanceCaracteristica);
   }
 
   protected static int setOpcionRandom(List<Opcion> opciones) {

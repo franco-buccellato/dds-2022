@@ -5,17 +5,18 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class Caracteristica {
   protected TipoCaracteristica tipoCaracteristica;
   protected String descripcion;
   protected List<Opcion> opciones;
-  protected Boolean obligatoria;
+  //protected Boolean obligatoria;
+  protected Set<AlcanceCaracteristica> alcanceCaracteristica;
 
   public Caracteristica(TipoCaracteristica tipoCaracteristica,
-      String descripcion,
-      Boolean obligatoria
+      String descripcion, Set<AlcanceCaracteristica> alcanceCaracteristica
   ) {
     this.tipoCaracteristica = Objects.requireNonNull(
         tipoCaracteristica,
@@ -23,7 +24,7 @@ public abstract class Caracteristica {
     );
     this.descripcion = descripcion;
     this.opciones = new ArrayList<>();
-    this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
+    this.alcanceCaracteristica = Objects.requireNonNull(alcanceCaracteristica, NOT_NULO.mensaje("alcanceCaracteristica"));
   }
 
   public TipoCaracteristica getTipoCaracteristica() {
@@ -34,8 +35,14 @@ public abstract class Caracteristica {
     return descripcion;
   }
 
+  /*
   public Boolean getObligatoria() {
     return obligatoria;
+  }
+*/
+
+  public Set<AlcanceCaracteristica> getAlcanceCaracteristica() {
+    return this.alcanceCaracteristica;
   }
 
   public List<Opcion> getOpciones() {

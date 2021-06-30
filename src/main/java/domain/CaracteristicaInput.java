@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.Arrays;
+import java.util.Set;
 
 public class CaracteristicaInput extends Caracteristica {
   private String input;
@@ -9,9 +10,9 @@ public class CaracteristicaInput extends Caracteristica {
   public CaracteristicaInput(
       TipoCaracteristica tipoCaracteristica,
       String descripcion,
-      Boolean obligatoria
+      Set<AlcanceCaracteristica> alcanceCaracteristica
   ) {
-    super(tipoCaracteristica, descripcion, obligatoria);
+    super(tipoCaracteristica, descripcion, alcanceCaracteristica);
     this.opciones = Arrays.asList(new Opcion(""));
     this.input = "";
   }

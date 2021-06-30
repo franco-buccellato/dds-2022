@@ -1,4 +1,9 @@
-package domain;
+package repositorios;
+
+import domain.HogarTransito;
+import domain.Mascota;
+import domain.Rescate;
+import domain.Ubicacion;
 
 import static domain.TipoMascota.GATO;
 import static domain.TipoMascota.PERRO;

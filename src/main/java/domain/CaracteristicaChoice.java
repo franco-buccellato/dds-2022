@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.util.Set;
 
 public class CaracteristicaChoice extends Caracteristica {
   // Aplica para tipos CHECKBOX, BULLET, BOOLEAN donde los constraints se resuelven en otra capa
@@ -8,9 +9,9 @@ public class CaracteristicaChoice extends Caracteristica {
       TipoCaracteristica tipoCaracteristica,
       String descripcion,
       List<Opcion> opciones,
-      Boolean obligatoria
+      Set<AlcanceCaracteristica> alcanceCaracteristica
   ) {
-    super(tipoCaracteristica, descripcion, obligatoria);
+    super(tipoCaracteristica, descripcion, alcanceCaracteristica);
     this.opciones = opciones;
   }
 

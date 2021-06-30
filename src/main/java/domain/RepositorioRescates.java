@@ -1,4 +1,6 @@
-package domain;
+package repositorios;
+
+import domain.Rescate;
 
 import java.time.LocalDate;
 import java.util.List;
