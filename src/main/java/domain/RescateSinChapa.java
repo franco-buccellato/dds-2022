@@ -1,5 +1,6 @@
 package domain;
 
+import domain.repositorios.RepositorioHogares;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +25,7 @@ public class RescateSinChapa extends Rescate {
 
   @Override
   public void informaRescate() {
-    new Publicacion(this);
+    new PublicacionRescate(this);
   }
 
   public List<HogarTransito> buscarHogarDeTransito(double radioBusqueda) {

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import domain.repositorios.RepositorioHogares;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

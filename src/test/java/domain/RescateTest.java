@@ -2,6 +2,9 @@ package domain;
 
 import constants.Fixture;
 import domain.exception.MascotaSinDuenioException;
+import domain.repositorios.RepositorioAsociaciones;
+import domain.repositorios.RepositorioDuenio;
+import domain.repositorios.RepositorioPublicacionesRescate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -142,9 +145,9 @@ public class RescateTest extends Fixture {
 
   @Test
   void alInformarRescateSinChapaSeCreaPublicacion() {
-    RepositorioPublicaciones repositorioPublicaciones = RepositorioPublicaciones.getRepositorioPublicaciones();
-    repositorioPublicaciones.setPublicaciones(new ArrayList<>(Collections.emptyList()));
-    assertEquals(0, repositorioPublicaciones.getPublicaciones().size());
+    RepositorioPublicacionesRescate repositorioPublicacionesRescate = RepositorioPublicacionesRescate.getRepositorioPublicaciones();
+    repositorioPublicacionesRescate.setPublicaciones(new ArrayList<>(Collections.emptyList()));
+    assertEquals(0, repositorioPublicacionesRescate.getPublicaciones().size());
 
     RescateSinChapa rescateSinChapa = new RescateSinChapa(
         fotos,
@@ -154,7 +157,7 @@ public class RescateTest extends Fixture {
         mascota,
         rescatista
     );
-    assertEquals(1, repositorioPublicaciones.getPublicaciones().size());
+    assertEquals(1, repositorioPublicacionesRescate.getPublicaciones().size());
   }
 
   @Test

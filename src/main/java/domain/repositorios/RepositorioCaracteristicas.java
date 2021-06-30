@@ -1,5 +1,6 @@
-package domain;
+package domain.repositorios;
 
+import domain.Caracteristica;
 import java.util.ArrayList;
 import java.util.List;
 

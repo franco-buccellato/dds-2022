@@ -1,7 +1,7 @@
 package domain;
 
 import constants.Fixture;
-import domain.exception.NoSePudoEnviarMailException;
+import domain.repositorios.RepositorioAsociaciones;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +14,8 @@ import java.util.List;
 import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
 
-public class PublicacionTest extends Fixture {
+public class PublicacionRescateTest extends Fixture {
 
   List<String> fotos;
   String descripcion;
@@ -25,7 +24,7 @@ public class PublicacionTest extends Fixture {
   Mascota mascota;
   Rescatista rescatista;
   RescateSinChapa rescate;
-  Publicacion publicacion;
+  PublicacionRescate publicacionRescate;
   Asociacion asociacion1;
   Asociacion asociacion2;
   Asociacion asociacion3;
@@ -48,7 +47,7 @@ public class PublicacionTest extends Fixture {
         mascota,
         rescatista
     );
-    publicacion = new Publicacion(rescate);
+    publicacionRescate = new PublicacionRescate(rescate);
 
     asociacion1 = new Asociacion("Asociacion1", ubicacionAsociacion1());
     asociacion2 = new Asociacion("Asociacion2", ubicacionAsociacion2());
@@ -66,20 +65,20 @@ public class PublicacionTest extends Fixture {
   @Test
   void noPuedoCrearPublicacionSinRescate() {
     Exception exception = assertThrows(NullPointerException.class, () -> {
-      new Publicacion(null);
+      new PublicacionRescate(null);
     });
     assertEquals(NOT_NULO.mensaje("rescate"), exception.getMessage());
   }
 
   @Test
   void cuandoSeCreaLaPublicacionSuEstadoEsEnEspera() {
-    assertEquals(publicacion.getEstado(), EstadoPublicacion.ESPERA);
+    assertEquals(publicacionRescate.getEstado(), EstadoPublicacion.ESPERA);
   }
 
   @Test
   void alBuscarAsociacionMasCercanaALaPublicacionDevuelveLaAsociacion() {
-    publicacion.buscarAsociacionCercana();
-    assertEquals(publicacion.getAsociacion(), asociacion1);
+    publicacionRescate.buscarAsociacionCercana();
+    assertEquals(publicacionRescate.getAsociacion(), asociacion1);
   }
 /*
   @Test

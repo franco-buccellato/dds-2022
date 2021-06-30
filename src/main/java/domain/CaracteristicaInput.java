@@ -1,8 +1,8 @@
 package domain;
 
-import java.util.*;
-
 import static domain.exception.Mensajes.NOT_NULO;
+
+import java.util.*;
 
 public class CaracteristicaInput extends Caracteristica {
   private String input;

@@ -2,11 +2,12 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
+import domain.repositorios.RepositorioAsociaciones;
 import java.util.Objects;
 
 public class Asociacion {
-  String nombre;
-  Ubicacion ubicacion;
+  private String nombre;
+  private Ubicacion ubicacion;
 
   public Asociacion(String nombre, Ubicacion ubicacion) {
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
@@ -14,11 +15,11 @@ public class Asociacion {
     RepositorioAsociaciones.getRepositorioAsociaciones().addAsociacion(this);
   }
 
-  String getNombre() {
+  public String getNombre() {
     return nombre;
   }
 
-  Ubicacion getUbicacion() {
+  public Ubicacion getUbicacion() {
     return ubicacion;
   }
 

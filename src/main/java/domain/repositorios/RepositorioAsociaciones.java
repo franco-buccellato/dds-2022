@@ -1,5 +1,7 @@
-package domain;
+package domain.repositorios;
 
+import domain.Asociacion;
+import domain.Ubicacion;
 import domain.exception.AsociacionNoEncontradaException;
 import java.util.ArrayList;
 import java.util.Comparator;

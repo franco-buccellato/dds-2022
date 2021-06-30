@@ -1,9 +1,12 @@
-package domain;
+package domain.repositorios;
 
 import static domain.TipoMascota.GATO;
 import static domain.TipoMascota.PERRO;
-import static domain.exception.Mensajes.NOT_NULO;
 
+import domain.HogarTransito;
+import domain.Mascota;
+import domain.Rescate;
+import domain.Ubicacion;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -57,7 +60,7 @@ public class RepositorioHogares {
   }
 
   private Predicate<HogarTransito> distanciaEnRadio(
-      Ubicacion lugarEncuentro, double kilometrosRadioBusqueda
+          Ubicacion lugarEncuentro, double kilometrosRadioBusqueda
   ) {
     return hogarTransito ->
         hogarTransito.getUbicacion().distanciaA(lugarEncuentro) <= kilometrosRadioBusqueda;

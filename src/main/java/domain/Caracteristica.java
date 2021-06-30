@@ -28,7 +28,11 @@ public abstract class Caracteristica {
     return obligatoria;
   }
 
-  abstract public List getOpciones();
+  public abstract List getOpciones();
 
-  abstract public List<String> getOpcionesSeleccionas();
+  public abstract List<String> getOpcionesSeleccionas();
+
+  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
+    return caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
+  }
 }

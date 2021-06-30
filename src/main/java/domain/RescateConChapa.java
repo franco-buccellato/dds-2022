@@ -1,7 +1,7 @@
 package domain;
 
 import domain.exception.MascotaSinDuenioException;
-
+import domain.repositorios.RepositorioDuenio;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;

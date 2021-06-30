@@ -21,7 +21,7 @@ public class VoluntarioTest extends Fixture {
   Mascota mascota;
   Rescatista rescatista;
   RescateSinChapa rescateSinChapa;
-  Publicacion publicacion;
+  PublicacionRescate publicacionRescate;
 
   @BeforeEach
   void setup() {
@@ -41,7 +41,7 @@ public class VoluntarioTest extends Fixture {
       mascota,
       rescatista
     );
-    publicacion = new Publicacion(rescateSinChapa);
+    publicacionRescate = new PublicacionRescate(rescateSinChapa);
   }
 
   @Test
@@ -51,16 +51,16 @@ public class VoluntarioTest extends Fixture {
 
   @Test
   void elVoluntarioPuedeAprobarUnaPublicacion() {
-    assertEquals(publicacion.getEstado(), EstadoPublicacion.ESPERA);
-    voluntario.aprobarPublicacion(publicacion);
-    assertEquals(publicacion.getEstado(), EstadoPublicacion.ACEPTADA);
+    assertEquals(publicacionRescate.getEstado(), EstadoPublicacion.ESPERA);
+    voluntario.aprobarPublicacion(publicacionRescate);
+    assertEquals(publicacionRescate.getEstado(), EstadoPublicacion.ACEPTADA);
   }
 
   @Test
   void elVoluntarioPuedeRechazarUnaPublicacion() {
-    assertEquals(publicacion.getEstado(), EstadoPublicacion.ESPERA);
-    voluntario.rechazarPublicacion(publicacion);
-    assertEquals(publicacion.getEstado(), EstadoPublicacion.RECHAZADA);
+    assertEquals(publicacionRescate.getEstado(), EstadoPublicacion.ESPERA);
+    voluntario.rechazarPublicacion(publicacionRescate);
+    assertEquals(publicacionRescate.getEstado(), EstadoPublicacion.RECHAZADA);
   }
 
 }

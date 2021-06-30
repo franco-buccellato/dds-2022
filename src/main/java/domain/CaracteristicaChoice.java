@@ -5,8 +5,9 @@ import java.util.stream.Collectors;
 
 public class CaracteristicaChoice extends Caracteristica {
   private List<Opcion> opciones;
+
   // Aplica para tipos CHECKBOX, BULLET, BOOLEAN donde los constraints se resuelven en otra capa
-  public CaracteristicaChoice( TipoCaracteristica tipoCaracteristica, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
+  public CaracteristicaChoice(TipoCaracteristica tipoCaracteristica, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
     super(tipoCaracteristica, descripcion, obligatoria);
     this.opciones = opciones;
   }

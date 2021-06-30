@@ -1,6 +1,8 @@
-package domain;
+package domain.repositorios;
 
-import domain.exception.MascotaSinDuenioException;
+import domain.Duenio;
+import domain.Mascota;
+import domain.Rescate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
