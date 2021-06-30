@@ -1,39 +1,37 @@
 package domain;
 
-import java.util.List;
+import static domain.exception.Mensajes.NOT_NULO;
+
+import java.util.Objects;
+import java.util.UUID;
 
 public class PublicacionAdopcion {
-  private Mascota mascotaEnAdopcion;
-  private Duenio duenioMascotaEnAdopcion;
-  private Asociacion asociacionVinculada;
-  private List<Caracteristica> caracteristicasAdopcion;
+  private final UUID idPublicacion;
+  private Duenio duenio;
+  private Mascota mascota;
   private Boolean estaActiva;
+  private Asociacion asociacion;
 
-  public PublicacionAdopcion(Mascota mascotaEnAdopcion, Duenio duenioMascotaEnAdopcion, Asociacion asociacionVinculada, List<Caracteristica> caracteristicasAdopcion) {
-    this.mascotaEnAdopcion = mascotaEnAdopcion;
-    this.duenioMascotaEnAdopcion = duenioMascotaEnAdopcion;
-    this.asociacionVinculada = asociacionVinculada;
-    this.caracteristicasAdopcion = caracteristicasAdopcion;
-    this.estaActiva = Boolean.TRUE;
+  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion) {
+    this.idPublicacion = UUID.randomUUID();
+    this.duenio = Objects.requireNonNull(duenio, NOT_NULO.mensaje("duenio"));
+    this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
+    this.asociacion = asociacion;
   }
 
-  public void notificarInteresDe(Duenio adoptante) {
-    this.duenioMascotaEnAdopcion.contactoTitular().notificar(new Notificacion(new InteresadoEnAdoptarTemplate(adoptante)));
+  public Mascota getMoscota() {
+    return this.mascota;
   }
 
-  public Mascota getMascota() {
-    return this.mascotaEnAdopcion;
+  public void anularPublicacion() {
+    this.estaActiva = false;
   }
 
-  public List<Caracteristica> getCaracteristicasAdopcion() {
-    return this.caracteristicasAdopcion;
+  public Boolean getEstaActiva() {
+    return estaActiva;
   }
 
-  public void finalizarPublicacion() {
-    this.estaActiva = Boolean.FALSE;
-  }
-
-  public Boolean estaActiva() {
-    return this.estaActiva;
+  public void notificarInteresAdopcionDe(Duenio adoptante) {
+    this.duenio.contactoTitular().notificar(new Notificacion(new InteresadoEnAdoptarTemplate(adoptante)));
   }
 }

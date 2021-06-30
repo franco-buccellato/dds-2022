@@ -152,5 +152,3 @@ public class HogarTransito {
     return patio || caracteristicasMacotas.stream().anyMatch(list -> list.contains("Chico"));
   }
 }
-
-

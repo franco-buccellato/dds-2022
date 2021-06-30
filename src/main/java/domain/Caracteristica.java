@@ -45,15 +45,11 @@ public abstract class Caracteristica {
     return this.alcanceCaracteristica;
   }
 
-  public List<Opcion> getOpciones() {
-    return opciones;
-  }
+  public abstract List getOpciones();
 
-  public List<String> getOpcionesSeleccionas() {
-    return opciones
-        .stream()
-        .filter(Opcion::getSeleccionada)
-        .map(Opcion::getDescripcion)
-        .collect(Collectors.toList());
+  public abstract List<String> getOpcionesSeleccionas();
+
+  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
+    return caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
   }
 }

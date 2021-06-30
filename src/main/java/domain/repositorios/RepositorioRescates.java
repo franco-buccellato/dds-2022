@@ -1,7 +1,6 @@
-package repositorios;
+package domain.repositorios;
 
 import domain.Rescate;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;

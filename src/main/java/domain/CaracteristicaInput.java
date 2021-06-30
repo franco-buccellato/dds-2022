@@ -2,6 +2,9 @@ package domain;
 
 import java.util.Arrays;
 import java.util.Set;
+import static domain.exception.Mensajes.NOT_NULO;
+
+import java.util.*;
 
 public class CaracteristicaInput extends Caracteristica {
   private String input;
@@ -10,24 +13,27 @@ public class CaracteristicaInput extends Caracteristica {
   public CaracteristicaInput(
       TipoCaracteristica tipoCaracteristica,
       String descripcion,
+      String input,
       Set<AlcanceCaracteristica> alcanceCaracteristica
   ) {
     super(tipoCaracteristica, descripcion, alcanceCaracteristica);
-    this.opciones = Arrays.asList(new Opcion(""));
-    this.input = "";
+    this.input = Objects.requireNonNull(input, NOT_NULO.mensaje("input"));
   }
 
-  public String getOpcion() {
-    return this.input;
+  public void setInput(String input) {
+    this.input = input;
   }
 
-  public void addOpcion(String texto) {
-    this.input = texto;
-    opciones.get(0).setSeleccionada(true);
+  @Override
+  public List getOpciones() {
+    return Arrays.asList(input);
   }
 
-  public void removeOpcion() {
-    this.input = "";
-    opciones.get(0).setSeleccionada(false);
+  @Override
+  public List<String> getOpcionesSeleccionas() {
+    if (this.input != "") {
+      return Arrays.asList(input);
+    }
+    return Collections.emptyList();
   }
 }

@@ -1,7 +1,7 @@
 package domain;
 
 import constants.Fixture;
-import domain.exception.MascotaSinDuenioException;
+import domain.repositorios.RepositorioDuenio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

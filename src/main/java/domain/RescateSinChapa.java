@@ -1,12 +1,10 @@
 package domain;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
+import domain.repositorios.RepositorioHogares;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import servicio.HogarTransitoServicio;
 
 public class RescateSinChapa extends Rescate {
   List<HogarTransito> hogaresTransito;
@@ -20,14 +18,14 @@ public class RescateSinChapa extends Rescate {
       Rescatista rescatista
   ) {
     super(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
-    repositorioHogares = new RepositorioHogares();
+    repositorioHogares = new RepositorioHogares(Collections.emptyList());
     this.hogaresTransito = new ArrayList<>();
     this.informaRescate();
   }
 
   @Override
   public void informaRescate() {
-    new Publicacion(this);
+    new PublicacionRescate(this);
   }
 
   public List<HogarTransito> buscarHogarDeTransito(double radioBusqueda) {

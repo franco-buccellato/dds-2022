@@ -1,14 +1,12 @@
-package repositorios;
+package domain.repositorios;
+
+import static domain.TipoMascota.GATO;
+import static domain.TipoMascota.PERRO;
 
 import domain.HogarTransito;
 import domain.Mascota;
 import domain.Rescate;
 import domain.Ubicacion;
-
-import static domain.TipoMascota.GATO;
-import static domain.TipoMascota.PERRO;
-import static domain.exception.Mensajes.NOT_NULO;
-
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -16,13 +14,8 @@ import java.util.stream.Collectors;
 public class RepositorioHogares {
   private List<HogarTransito> hogares;
 
-  public RepositorioHogares() {
-    //this.hogares = Objects.requireNonNull(hogares, NOT_NULO.mensaje("hogares"));
-    this.hogares = new ArrayList<>();
-  }
-
   public RepositorioHogares(List<HogarTransito> hogares) {
-    this.hogares = Objects.requireNonNull(hogares, NOT_NULO.mensaje("hogares"));
+    this.hogares = hogares;
   }
 
   public List<HogarTransito> getHogaresParaRescate(Rescate rescate, double radioBusqueda) {
@@ -67,7 +60,7 @@ public class RepositorioHogares {
   }
 
   private Predicate<HogarTransito> distanciaEnRadio(
-      Ubicacion lugarEncuentro, double kilometrosRadioBusqueda
+          Ubicacion lugarEncuentro, double kilometrosRadioBusqueda
   ) {
     return hogarTransito ->
         hogarTransito.getUbicacion().distanciaA(lugarEncuentro) <= kilometrosRadioBusqueda;

@@ -3,7 +3,6 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.Objects;
-import javax.mail.MessagingException;
 
 public class Rescatista {
   private DatoPersonal datoPersonal;
@@ -32,9 +31,9 @@ public class Rescatista {
     return ubicacion;
   }
 
-//  public void notificarMatchDuenio(Rescate rescate, Duenio duenio) throws MessagingException {
-//    // Conpletar mensaje para que use datos del rescate
-//    String mensaje = "";
-//    duenio.getContactos().get(0).notificar(mensaje);
-//  }
+  //  public void notificarMatchDuenio(Rescate rescate, Duenio duenio) throws MessagingException {
+  //    // Conpletar mensaje para que use datos del rescate
+  //    String mensaje = "";
+  //    duenio.getContactos().get(0).notificar(mensaje);
+  //  }
 }

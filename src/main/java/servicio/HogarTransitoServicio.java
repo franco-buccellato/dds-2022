@@ -2,14 +2,10 @@ package servicio;
 
 import com.sun.jersey.api.client.ClientResponse;
 import domain.HogarTransito;
-
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import servicio.exception.LimiteOffsetException;
 
 public class HogarTransitoServicio implements BuscadorHogar {

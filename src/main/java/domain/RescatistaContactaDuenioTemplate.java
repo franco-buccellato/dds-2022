@@ -7,6 +7,7 @@ public class RescatistaContactaDuenioTemplate extends TemplateNotificacion<Resca
     super("contacto_rescatista");
     this.rescate = rescate;
   }
+
   @Override
   protected Rescate generarContexto() {
     return rescate;

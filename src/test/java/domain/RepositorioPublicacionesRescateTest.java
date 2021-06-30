@@ -1,6 +1,7 @@
 package domain;
 
 import constants.Fixture;
+import domain.repositorios.RepositorioPublicacionesRescate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RepositorioPublicacionesTest extends Fixture {
+public class RepositorioPublicacionesRescateTest extends Fixture {
   List<String> fotos;
   String descripcion1, descripcion2, descripcion3;
   Ubicacion ubicacion1, ubicacion2, ubicacion3;
@@ -20,8 +21,8 @@ public class RepositorioPublicacionesTest extends Fixture {
   Mascota mascota1, mascota2, mascota3;
   Rescatista rescatista;
   RescateSinChapa rescate1, rescate2, rescate3;
-  Publicacion publicacion1, publicacion2, publicacion3;
-  RepositorioPublicaciones repositorioPublicaciones;
+  PublicacionRescate publicacionRescate1, publicacionRescate2, publicacionRescate3;
+  RepositorioPublicacionesRescate repositorioPublicacionesRescate;
   Voluntario voluntario;
 
   @BeforeEach
@@ -68,41 +69,41 @@ public class RepositorioPublicacionesTest extends Fixture {
         mascota3,
         rescatista
     );
-    publicacion1 = new Publicacion(rescate1);
-    publicacion2 = new Publicacion(rescate2);
-    publicacion3 = new Publicacion(rescate3);
-    repositorioPublicaciones = RepositorioPublicaciones.getRepositorioPublicaciones();
-    repositorioPublicaciones.setPublicaciones(new ArrayList<>(Arrays.asList(
-        publicacion1,
-        publicacion2,
-        publicacion3))
+    publicacionRescate1 = new PublicacionRescate(rescate1);
+    publicacionRescate2 = new PublicacionRescate(rescate2);
+    publicacionRescate3 = new PublicacionRescate(rescate3);
+    repositorioPublicacionesRescate = RepositorioPublicacionesRescate.getRepositorioPublicaciones();
+    repositorioPublicacionesRescate.setPublicaciones(new ArrayList<>(Arrays.asList(
+            publicacionRescate1,
+            publicacionRescate2,
+            publicacionRescate3))
     );
     voluntario = voluntario();
   }
 
   @Test
   void elRepositorioPublicacionesTestPosee3Asociaciones() {
-    assertEquals(repositorioPublicaciones.getPublicaciones().size(), 3);
+    assertEquals(repositorioPublicacionesRescate.getPublicaciones().size(), 3);
   }
 
   @Test
   void todasLasPublicacionesInicialmenteEstanEnEspera() {
-    assertEquals(repositorioPublicaciones.getEnEspera().size(), 3);
+    assertEquals(repositorioPublicacionesRescate.getEnEspera().size(), 3);
   }
 
   @Test
   void voluntarioApruebaUnaPublicacionEntoncesQuedanDosEnEspera() {
-    assertEquals(repositorioPublicaciones.getPublicaciones().size(), 3);
-    voluntario.aprobarPublicacion(repositorioPublicaciones.getPublicaciones().get(0));
-    assertEquals(repositorioPublicaciones.getEnEspera().size(), 2);
-    assertEquals(repositorioPublicaciones.getAceptadas().size(), 1);
+    assertEquals(repositorioPublicacionesRescate.getPublicaciones().size(), 3);
+    voluntario.aprobarPublicacion(repositorioPublicacionesRescate.getPublicaciones().get(0));
+    assertEquals(repositorioPublicacionesRescate.getEnEspera().size(), 2);
+    assertEquals(repositorioPublicacionesRescate.getAceptadas().size(), 1);
   }
 
   @Test
   void voluntarioRechazaPublicacionEntoncesQuedaUnaRechazada() {
-    assertEquals(repositorioPublicaciones.getPublicaciones().size(), 3);
-    voluntario.rechazarPublicacion(repositorioPublicaciones.getPublicaciones().get(0));
-    assertEquals(repositorioPublicaciones.getRechazadas().size(), 1);
-    assertEquals(repositorioPublicaciones.getEnEspera().size(), 2);
+    assertEquals(repositorioPublicacionesRescate.getPublicaciones().size(), 3);
+    voluntario.rechazarPublicacion(repositorioPublicacionesRescate.getPublicaciones().get(0));
+    assertEquals(repositorioPublicacionesRescate.getRechazadas().size(), 1);
+    assertEquals(repositorioPublicacionesRescate.getEnEspera().size(), 2);
   }
 }

@@ -1,6 +1,7 @@
 package domain;
 
 import constants.Fixture;
+import domain.repositorios.RepositorioCaracteristicas;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

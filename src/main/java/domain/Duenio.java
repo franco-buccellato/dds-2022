@@ -2,10 +2,10 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
+import domain.repositorios.RepositorioDuenio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Duenio {
   private DatoPersonal datoPersonal;

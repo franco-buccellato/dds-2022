@@ -18,12 +18,12 @@ public class Voluntario {
     return asociacion;
   }
 
-  void aprobarPublicacion(Publicacion publicacion) {
-    publicacion.aprobar();
+  void aprobarPublicacion(PublicacionRescate publicacionRescate) {
+    publicacionRescate.aprobar();
   }
 
-  void rechazarPublicacion(Publicacion publicacion) {
-    publicacion.rechazar();
+  void rechazarPublicacion(PublicacionRescate publicacionRescate) {
+    publicacionRescate.rechazar();
   }
 
 }
