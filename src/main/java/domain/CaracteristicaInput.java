@@ -36,4 +36,9 @@ public class CaracteristicaInput extends Caracteristica {
     }
     return Collections.emptyList();
   }
+
+  @Override
+  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
+    return null;
+  }
 }

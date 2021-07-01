@@ -118,10 +118,12 @@ public class Mascota {
   }
 
   public Boolean cumpleConCaracteristicas(List<Caracteristica> caracteristicasCumplir) {
-    return this.caracteristicas
+    return caracteristicasCumplir
             .stream()
-            .allMatch(caracteristica ->
-              caracteristicasCumplir.stream().allMatch(caracteristicaCumplir -> caracteristicaCumplir.tienenMismasOpciones(caracteristica))
+            .allMatch(caracteristicaCumplir ->
+                    this.caracteristicas
+                            .stream()
+                            .anyMatch(caracteristicaCumplir::tienenMismasOpciones)
             );
   }
 }
