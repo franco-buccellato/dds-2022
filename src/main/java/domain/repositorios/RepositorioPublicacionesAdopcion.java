@@ -2,7 +2,6 @@ package domain.repositorios;
 
 import domain.PublicacionAdopcion;
 import domain.PublicacionInteresAdopcion;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,10 +29,12 @@ public class RepositorioPublicacionesAdopcion {
     return this.publicacionesAdopcion;
   }
 
-  public List<PublicacionAdopcion> recomendarAdopcion(PublicacionInteresAdopcion publicacionInteres) {
+  public List<PublicacionAdopcion> recomendarAdopcion(
+      PublicacionInteresAdopcion publicacionInteres) {
     return this.publicacionesAdopcion
             .stream()
-            .filter(publicacionAdopcion -> publicacionAdopcion.getMascota().cumpleConCaracteristicas(publicacionInteres.getPreguntas()))
+            .filter(publicacionAdopcion -> publicacionAdopcion.getMascota()
+                .cumpleConCaracteristicas(publicacionInteres.getPreguntas()))
             .collect(Collectors.toList());
   }
 }
