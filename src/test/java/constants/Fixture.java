@@ -75,6 +75,16 @@ public class Fixture {
     );
   }
 
+  public DatoPersonal datoPersonalAdoptante() {
+    return new DatoPersonal(
+        "Jose",
+        "Perez",
+        DNI,
+        "99919998",
+        LocalDate.of(1985, 5, 24)
+    );
+  }
+
   public Contacto contacto() {
     MedioNotificacion medioNotificacion = mock(MedioNotificacion.class);
     return new Contacto(
@@ -203,22 +213,26 @@ public class Fixture {
     return new Duenio(datoPersonal(), Arrays.asList(contacto()), null, null);
   }
 
-  protected CaracteristicaInput datosDeInteres() {
+  public Duenio adoptante() {
+    return new Duenio(datoPersonal(), Arrays.asList(contacto()), null, null);
+  }
+
+  public CaracteristicaInput datosDeInteres() {
     return new CaracteristicaInput(TEXT, "Datos de interes", "", new HashSet<AlcanceCaracteristica>() {
     });
   }
 
-  protected CaracteristicaInput visitasAlVeterinarioUltimoAnio() {
+  public CaracteristicaInput visitasAlVeterinarioUltimoAnio() {
     return new CaracteristicaInput(NUMBER, "Cantidad de consultas veterinarias", "0", new HashSet<AlcanceCaracteristica>());
   }
 
-  protected CaracteristicaChoice estaCastrada() {
+  public CaracteristicaChoice estaCastrada() {
     List<Opcion> opcionesBool = Arrays.asList(new Opcion("Si"), new Opcion("No"));
 
     return new CaracteristicaChoice(BOOLEAN, "Esta Castrada:", opcionesBool, new HashSet<AlcanceCaracteristica>());
   }
 
-  protected CaracteristicaChoice vacunas() {
+  public CaracteristicaChoice vacunas() {
     Opcion moquillo = new Opcion("Moquillo");
     Opcion hepatitis = new Opcion("Hepatitis");
     Opcion parvovirosis = new Opcion("Parvovirosis");
@@ -229,39 +243,47 @@ public class Fixture {
     return new CaracteristicaChoice(CHECKBOX, "Vacunas administradas", vacunas, alcanceCaracteristica);
   }
 
-  protected CaracteristicaChoice comportamientoConNiños() {
+  public CaracteristicaChoice comportamientoConNiños() {
     List<Opcion> comportamientos = Arrays.asList(comportamientoAmistoso, comportamientoManso, comportamientoAgresivo);
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUSTA_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, alcanceCaracteristica);
   }
 
-  protected CaracteristicaChoice contextura() {
+  public CaracteristicaChoice contextura() {
     List<Opcion> contexturas = Arrays.asList(contexturaDelgado, contexturaNormal, contexturaGordito);
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUSTA_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Contextura", contexturas, alcanceCaracteristica);
   }
 
-  protected CaracteristicaChoice tamanio() {
+  public CaracteristicaChoice tamanio() {
     List<Opcion> tamanios = Arrays.asList(tamanioGrande, tamanioMediano, tamanioChico);
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUSTA_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Tamanio de la mascota", tamanios, alcanceCaracteristica);
   }
 
-  protected CaracteristicaChoice comportamiento() {
+  public CaracteristicaChoice comportamiento() {
     List<Opcion> comportamientos = Arrays.asList(comportamientoTranquilo, comportamientoPacifico, comportamientoAlborotado);
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUSTA_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Comportamiento de la mascota", comportamientos, alcanceCaracteristica);
   }
 
-  protected static int setOpcionRandom(List<Opcion> opciones) {
+  public static int setOpcionRandom(List<Opcion> opciones) {
     Random random = new Random();
     int index = random.nextInt(opciones.size());
 
     opciones.get(index).setSeleccionada(true);
     return index;
+  }
+
+  public Asociacion asociacion() {
+    return new Asociacion("Asociacion Protectora de Animales", this.ubicacionAsociacion3());
   }
 }
