@@ -1,7 +1,10 @@
 package domain;
 
+import domain.exception.PreguntasAdopcionSinResponderException;
+
 import static domain.exception.Mensajes.NOT_NULO;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -11,15 +14,22 @@ public class PublicacionAdopcion {
   private Mascota mascota;
   private Boolean estaActiva;
   private Asociacion asociacion;
+  private List<Caracteristica> preguntasAdopcion;
 
-  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion) {
+  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<Caracteristica> preguntasAdopcion) {
     this.idPublicacion = UUID.randomUUID();
     this.duenio = Objects.requireNonNull(duenio, NOT_NULO.mensaje("duenio"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
-    this.asociacion = asociacion;
+    this.asociacion = Objects.requireNonNull(asociacion, NOT_NULO.mensaje("asociacion"));
+    if (this.fueronTodasContestadas(preguntasAdopcion)) {
+      this.preguntasAdopcion = preguntasAdopcion;
+    } else {
+      throw new PreguntasAdopcionSinResponderException("Para generar la publicacion deben contestarse todas las preguntas");
+    }
+    this.estaActiva = Boolean.TRUE;
   }
 
-  public Mascota getMoscota() {
+  public Mascota getMascota() {
     return this.mascota;
   }
 
@@ -32,6 +42,17 @@ public class PublicacionAdopcion {
   }
 
   public void notificarInteresAdopcionDe(Duenio adoptante) {
-    this.duenio.contactoTitular().notificar(new Notificacion(new InteresadoEnAdoptarTemplate(adoptante)));
+    this.duenio.contactoTitular()
+        .notificar(new Notificacion(new InteresadoEnAdoptarTemplate(adoptante)));
+  }
+
+  public List<Caracteristica> getPregutasAdopcion() {
+    return this.preguntasAdopcion;
+  }
+
+  private Boolean fueronTodasContestadas(List<Caracteristica> preguntasAdopcion) {
+    return ! preguntasAdopcion
+        .stream()
+        .anyMatch(caracteristica -> caracteristica.getOpcionesSeleccionas().isEmpty());
   }
 }

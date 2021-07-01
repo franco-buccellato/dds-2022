@@ -33,7 +33,7 @@ public class RepositorioPublicacionesAdopcion {
   public List<PublicacionAdopcion> recomendarAdopcion(PublicacionInteresAdopcion publicacionInteres) {
     return this.publicacionesAdopcion
             .stream()
-            .filter(publicacionAdopcion -> publicacionAdopcion.getMoscota().cumpleConCaracteristicas(publicacionInteres.getPreguntas()))
+            .filter(publicacionAdopcion -> publicacionAdopcion.getMascota().cumpleConCaracteristicas(publicacionInteres.getPreguntas()))
             .collect(Collectors.toList());
   }
 }
