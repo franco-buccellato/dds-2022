@@ -220,12 +220,12 @@ public class Fixture {
   }
 
   public CaracteristicaInput datosDeInteres() {
-    return new CaracteristicaInput(TEXT, "Datos de interes", "", new HashSet<AlcanceCaracteristica>() {
+    return new CaracteristicaInput(TEXT, "Datos de interes", new Opcion(""), new HashSet<AlcanceCaracteristica>() {
     });
   }
 
   public CaracteristicaInput visitasAlVeterinarioUltimoAnio() {
-    return new CaracteristicaInput(NUMBER, "Cantidad de consultas veterinarias", "0", new HashSet<AlcanceCaracteristica>());
+    return new CaracteristicaInput(NUMBER, "Cantidad de consultas veterinarias", new Opcion("0"), new HashSet<AlcanceCaracteristica>());
   }
 
   public CaracteristicaChoice estaCastrada() {
@@ -249,7 +249,7 @@ public class Fixture {
     List<Opcion> comportamientos = Arrays.asList(comportamientoAmistoso, comportamientoManso, comportamientoAgresivo);
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
-    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUSTA_ADOPCION);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUNTA_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, alcanceCaracteristica);
   }
 
@@ -257,7 +257,7 @@ public class Fixture {
     List<Opcion> contexturas = Arrays.asList(contexturaDelgado, contexturaNormal, contexturaGordito);
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
-    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUSTA_ADOPCION);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUNTA_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Contextura", contexturas, alcanceCaracteristica);
   }
 
@@ -265,7 +265,7 @@ public class Fixture {
     List<Opcion> tamanios = Arrays.asList(tamanioGrande, tamanioMediano, tamanioChico);
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
-    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUSTA_ADOPCION);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUNTA_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Tamanio de la mascota", tamanios, alcanceCaracteristica);
   }
 
@@ -273,7 +273,7 @@ public class Fixture {
     List<Opcion> comportamientos = Arrays.asList(comportamientoTranquilo, comportamientoPacifico, comportamientoAlborotado);
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
-    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUSTA_ADOPCION);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUNTA_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Comportamiento de la mascota", comportamientos, alcanceCaracteristica);
   }
 
@@ -281,7 +281,7 @@ public class Fixture {
     List<Opcion> tipos = Arrays.asList(tipoGato, tipoPerro);
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
-    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUSTA_ADOPCION);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUNTA_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Tipo mascota", tipos, alcanceCaracteristica);
   }
 
@@ -295,6 +295,12 @@ public class Fixture {
 
   public Asociacion asociacion() {
     return new Asociacion("Asociacion Protectora de Animales", this.ubicacionAsociacion3());
+  }
+
+  public Asociacion asociacionConPreguntasAdopcion() {
+    Asociacion asociacion = new Asociacion("Asociacion Protectora de Animales", this.ubicacionAsociacion3());
+    asociacion.setPreguntasAdopcion(Arrays.asList(this.estaCastrada(), this.vacunas()));
+    return asociacion;
   }
 
   public PublicacionAdopcion publicacionAdopcion1() {

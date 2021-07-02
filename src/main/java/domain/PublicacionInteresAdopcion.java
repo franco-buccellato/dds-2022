@@ -58,7 +58,7 @@ public class PublicacionInteresAdopcion {
     return preguntas.stream()
         .filter(caracteristica -> caracteristica.getAlcanceCaracteristica()
             .stream()
-            .anyMatch(alcanceCaracteristica -> alcanceCaracteristica == AlcanceCaracteristica.PREGUSTA_ADOPCION)
+            .anyMatch(alcanceCaracteristica -> alcanceCaracteristica == AlcanceCaracteristica.PREGUNTA_ADOPCION)
         ).collect(Collectors.toList());
   }
 

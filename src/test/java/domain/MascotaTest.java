@@ -192,7 +192,7 @@ public class MascotaTest extends Fixture {
 
     CaracteristicaInput datoDeInteres = datosDeInteres();
     String dato = "Le gusta perseguir motos";
-    datoDeInteres.setInput(dato);
+    datoDeInteres.setInput(new Opcion(dato));
     perroPepe.addCaracteristica(datoDeInteres);
 
     assertEquals(2, perroPepe.getCaracteristicas().size());

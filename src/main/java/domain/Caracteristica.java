@@ -46,7 +46,7 @@ public abstract class Caracteristica {
     return this.alcanceCaracteristica;
   }
 
-  public abstract List getOpciones();
+  public abstract List<Opcion> getOpciones();
 
   public abstract List<String> getOpcionesSeleccionas();
 

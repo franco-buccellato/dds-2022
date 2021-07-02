@@ -2,7 +2,6 @@ package domain;
 
 import constants.Fixture;
 import domain.exception.PreguntasAdopcionSinResponderException;
-import domain.repositorios.RepositorioAsociaciones;
 import domain.repositorios.RepositorioCaracteristicas;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +17,8 @@ public class PublicacionAdopcionTest extends Fixture {
   private Duenio interesadoAdoptar;
   private Mascota mascotaEnAdopcion;
   private Asociacion asociacionVinculada;
+  private Asociacion asociacionSinPreguntas;
+  private Asociacion asociacionConPreguntas;
   private List<Caracteristica> preguntasAsociacion;
   private RepositorioCaracteristicas repositorioCaracteristicas;
   private PublicacionAdopcion publicacionAdopcion;
@@ -29,6 +30,8 @@ public class PublicacionAdopcionTest extends Fixture {
     this.duenioMascostaEnAdopcion.addMascota(mascotaEnAdopcion);
     this.interesadoAdoptar = adoptante();
     this.asociacionVinculada = asociacion();
+    this.asociacionSinPreguntas = asociacion();
+    this.asociacionConPreguntas = asociacionConPreguntasAdopcion();
     this.repositorioCaracteristicas = new RepositorioCaracteristicas(Arrays.asList(
         estaCastrada(),
         contextura(),
@@ -38,16 +41,11 @@ public class PublicacionAdopcionTest extends Fixture {
   }
   @Test
   public void TestNoPuedoCrearPublicacionAdopcionPorNoResponderPreguntas() {
-    List<Caracteristica> preguntasAsociacion =
-        Stream.concat(
-            repositorioCaracteristicas.getCaracteristicasPreguntaAdopcion().stream(),
-            asociacionVinculada.getPreguntasAdopcion().stream())
-            .collect(Collectors.toList());
     Assertions.assertThrows(PreguntasAdopcionSinResponderException.class, () -> {new PublicacionAdopcion(
         duenioMascostaEnAdopcion,
         mascotaEnAdopcion,
-        asociacionVinculada,
-        preguntasAsociacion
+        asociacionSinPreguntas,
+        this.preguntasAdopcion(repositorioCaracteristicas, asociacionConPreguntas)
         );});
   }
 
@@ -56,7 +54,7 @@ public class PublicacionAdopcionTest extends Fixture {
     PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(
         duenioMascostaEnAdopcion,
         mascotaEnAdopcion,
-        asociacionVinculada,
+        asociacionSinPreguntas,
         this.preguntasRespondidas()
     );
     Assertions.assertEquals(mascotaEnAdopcion, publicacionAdopcion.getMascota());
@@ -65,10 +63,19 @@ public class PublicacionAdopcionTest extends Fixture {
   public List<Caracteristica> preguntasRespondidas() {
     CaracteristicaChoice contextura = contextura();
     CaracteristicaChoice comportamientoConNiños = comportamientoConNiños();
-    CaracteristicaInput datosDeInteres = datosDeInteres();
-    contextura.seleccionarOpcion((Opcion) contextura.getOpciones().get(0), Boolean.TRUE);
-    comportamientoConNiños.seleccionarOpcion((Opcion) comportamientoConNiños.getOpciones().get(0), Boolean.TRUE);
-    datosDeInteres.setInput("Pierde mucho pelo");
-    return Arrays.asList(contextura, comportamientoConNiños, datosDeInteres);
+    CaracteristicaChoice vacunas = vacunas();
+    CaracteristicaChoice estaCastrada = estaCastrada();
+    contextura.seleccionarOpcion(contextura.getOpciones().get(0), Boolean.TRUE);
+    comportamientoConNiños.seleccionarOpcion(comportamientoConNiños.getOpciones().get(0), Boolean.TRUE);
+    vacunas.seleccionarOpcion(vacunas.getOpciones().get(0), Boolean.TRUE);
+    estaCastrada.seleccionarOpcion(estaCastrada.getOpciones().get(0), Boolean.TRUE);
+    return Arrays.asList(contextura, comportamientoConNiños, vacunas, estaCastrada);
+  }
+
+  private List<Caracteristica> preguntasAdopcion(RepositorioCaracteristicas repositorioCaracteristicas, Asociacion asociacionVinculada) {
+    return Stream.concat(
+        repositorioCaracteristicas.getCaracteristicasPreguntaAdopcion().stream(),
+        asociacionVinculada.getPreguntasAdopcion().stream())
+        .collect(Collectors.toList());
   }
 }

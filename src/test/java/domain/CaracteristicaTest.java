@@ -27,15 +27,15 @@ public class CaracteristicaTest extends Fixture {
   public void puedoCompletarUnaCaracteristicaTexto(){
     CaracteristicaInput datoCurioso = datosDeInteres();
     String dato = "Ronca mucho cuando duerme";
-    datoCurioso.setInput(dato);
+    datoCurioso.setInput(new Opcion(dato));
 
     assertTrue(datoCurioso.getOpcionesSeleccionas().get(0).equals(dato));
   }
   @Test
   public void puedoDejarOpcionalUnaCaracteristicaTexto(){
     CaracteristicaInput datoCurioso = datosDeInteres();
-    datoCurioso.setInput("");
-    assertTrue(datoCurioso.getOpciones().get(0).equals(""));
+    datoCurioso.setInput(new Opcion(""));
+    assertTrue(datoCurioso.getOpciones().get(0).getDescripcion().equals(""));
   }
   @Test
   public void puedoSetearUnaCaracteristicaMultipleChoice(){

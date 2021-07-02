@@ -23,7 +23,7 @@ public class CaracteristicaChoice extends Caracteristica {
   }
 
   @Override
-  public List getOpciones() {
+  public List<Opcion> getOpciones() {
     return opciones;
   }
 
