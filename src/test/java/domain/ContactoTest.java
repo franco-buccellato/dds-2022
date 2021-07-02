@@ -58,6 +58,4 @@ class ContactoTest {
     assertEquals(reader.getMensaje().get("To"), emailTo);
     assertTrue(reader.getMensaje().get("Content").contains(mensaje));
   }
-
-
 }

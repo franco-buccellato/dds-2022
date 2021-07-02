@@ -46,7 +46,7 @@ public class VoluntarioTest extends Fixture {
 
   @Test
   void elVoluntarioEsDeTipoUsuarioVoluntario() {
-    assertEquals(voluntario.usuario.getTipoUsuario(), TipoUsuario.VOLUNTARIO);
+    assertEquals(voluntario.getUsuario().getTipoUsuario(), TipoUsuario.VOLUNTARIO);
   }
 
   @Test

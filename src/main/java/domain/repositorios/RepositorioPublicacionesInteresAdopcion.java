@@ -34,10 +34,10 @@ public class RepositorioPublicacionesInteresAdopcion {
   }
 
   public void enviarSugerenciasAdopcion(RepositorioPublicacionesAdopcion publicacionesAdopcion) {
-    this.getPublicaciones()
-            .stream()
-            .forEach(publicacionInteresAdopcion ->
-              notificarInteresado(publicacionInteresAdopcion.getInteresado(), publicacionesAdopcion.getAdopcionesRecomendadas(publicacionInteresAdopcion))
-             );
+    publicacionesInteresAdopcion
+        .stream()
+        .forEach(publicacionInteresAdopcion ->
+            notificarInteresado(publicacionInteresAdopcion.getInteresado(), publicacionesAdopcion.getAdopcionesRecomendadas(publicacionInteresAdopcion))
+        );
   }
 }

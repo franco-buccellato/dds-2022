@@ -43,14 +43,14 @@ public class PublicacionInteresAdopcion {
 
   private AtomicBoolean estanCompletasLasPreguntas(List<Caracteristica> preguntas) throws PreguntaObligatoriaNoContestadaException {
     AtomicBoolean estanCompletasLasPreguntas = new AtomicBoolean(true);
-      preguntas
+    preguntas
         .stream()
         .forEach(pregunta -> {
-              if (pregunta.getOpcionesSeleccionas().isEmpty()) {
-                estanCompletasLasPreguntas.set(false);
-                throw new PreguntaObligatoriaNoContestadaException("Falta contestar la pregunta " + pregunta.getDescripcion());
-              }
-            });
+          if (pregunta.getOpcionesSeleccionas().isEmpty()) {
+            estanCompletasLasPreguntas.set(false);
+            throw new PreguntaObligatoriaNoContestadaException("Falta contestar la pregunta " + pregunta.getDescripcion());
+          }
+        });
     return estanCompletasLasPreguntas;
   }
 

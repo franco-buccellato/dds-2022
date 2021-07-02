@@ -1,9 +1,8 @@
 package domain;
 
-import domain.exception.PreguntasAdopcionSinResponderException;
-
 import static domain.exception.Mensajes.NOT_NULO;
 
+import domain.exception.PreguntasAdopcionSinResponderException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;

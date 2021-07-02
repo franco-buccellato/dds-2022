@@ -38,6 +38,7 @@ public class CaracteristicaChoice extends Caracteristica {
 
   @Override
   public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
-    return !this.getOpcionesSeleccionas().isEmpty() && caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
+    return !this.getOpcionesSeleccionas().isEmpty()
+            && caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
   }
 }

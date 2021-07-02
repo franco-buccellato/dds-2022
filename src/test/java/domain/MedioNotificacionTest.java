@@ -26,6 +26,7 @@ public class MedioNotificacionTest {
     emailTo = "contact.patitas+" + System.currentTimeMillis() + "@gmail.com";
     contacto = new Contacto("Patitas", "Test", telefono, emailTo, TITULAR, null);
   }
+
   @Test
   public void puedoEnviarUnMail() throws MessagingException, IOException {
     MedioNotificacion email = new MedioNotificacionEmail();

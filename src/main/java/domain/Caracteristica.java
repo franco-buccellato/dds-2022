@@ -23,7 +23,9 @@ public abstract class Caracteristica {
     );
     this.descripcion = descripcion;
     this.opciones = new ArrayList<>();
-    this.alcanceCaracteristica = Objects.requireNonNull(alcanceCaracteristica, NOT_NULO.mensaje("alcanceCaracteristica"));
+    this.alcanceCaracteristica = Objects.requireNonNull(
+            alcanceCaracteristica, NOT_NULO.mensaje("alcanceCaracteristica"
+            ));
   }
 
   public TipoCaracteristica getTipoCaracteristica() {

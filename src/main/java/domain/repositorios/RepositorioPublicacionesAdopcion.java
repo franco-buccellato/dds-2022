@@ -2,7 +2,6 @@ package domain.repositorios;
 
 import domain.PublicacionAdopcion;
 import domain.PublicacionInteresAdopcion;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
