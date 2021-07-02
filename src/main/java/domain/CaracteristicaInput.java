@@ -39,4 +39,9 @@ public class CaracteristicaInput extends Caracteristica {
   public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
     return null;
   }
+
+  @Override
+  public String toString() {
+    return this.descripcion + ": " + this.input.getDescripcion();
+  }
 }

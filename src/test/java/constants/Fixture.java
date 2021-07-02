@@ -46,12 +46,15 @@ public class Fixture {
   }
 
   public Rescate rescateConChapa() {
+    Duenio duenio = this.duenio();
+    Mascota mascota = this.mascota2();
+    duenio.addMascota(mascota);
     return new RescateConChapa(
         Arrays.asList(""),
         "Rescate con chapa test",
         this.ubicacion1(),
         LocalDate.of(2021, 6, 3),
-        this.mascota2(),
+        mascota,
         this.rescatista());
   }
 

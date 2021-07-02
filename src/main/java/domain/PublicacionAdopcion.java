@@ -3,6 +3,8 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.exception.PreguntasAdopcionSinResponderException;
+import domain.templatesNotificacion.InteresadoEnAdoptarTemplate;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;

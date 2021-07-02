@@ -1,19 +1,31 @@
 package domain;
 
 import constants.Fixture;
+import domain.templatesNotificacion.DuenioContactaRescatistaTemplate;
+import domain.templatesNotificacion.PublicacionInteresTemplate;
+import domain.templatesNotificacion.RescatistaContactaDuenioTemplate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class NotificacionTest {
   Fixture fixture;
-  Notificacion notificacionDuenio, notificacionRescatista;
+  Notificacion notificacionDuenio, notificacionRescatista, notificacionPublicacionInteresAdopcion;
 
   @BeforeEach
   public void prepararDatos() {
     fixture = new Fixture();
     notificacionDuenio = new Notificacion(new DuenioContactaRescatistaTemplate(fixture.duenio()));
-    notificacionRescatista = new Notificacion(new RescatistaContactaDuenioTemplate(fixture.rescateConChapa()));
+    //notificacionRescatista = new Notificacion(new RescatistaContactaDuenioTemplate(fixture.rescateConChapa()));
+    notificacionPublicacionInteresAdopcion = new Notificacion(
+        new PublicacionInteresTemplate(
+            "lista_interes",
+            Arrays.asList(
+                fixture.publicacionAdopcion1(),
+                fixture.publicacionAdopcion2(),
+                fixture.publicacionAdopcion3())));
   }
 
 //  @Test
@@ -44,15 +56,20 @@ public class NotificacionTest {
 //        , notificacionDuenio.getMensaje().replaceAll("^[\n\r]", "").replaceAll("[\n\r]$", ""));
 //  }
 
+//  @Test
+//  public void testRescatistaContactaConDuenio() {
+//    Assertions.assertEquals(notificacionRescatista.getMensaje(),
+//        "<h1>Encontramos a tu mascota!</h1>\n" +
+//        "<br><p>Fue encontrada en: El Rescatista 123</p>\n" +
+//        "<p>Te dejamos el contacto del rescatista:</p>\n" +
+//        "Nombre: Pedro\n" +
+//        "Apellido: Gonzalez\n" +
+//        "Tel: 494949\n" +
+//        "Mail: pedro@g.com");
+//  }
+
   @Test
-  public void testRescatistaContactaConDuenio() {
-    Assertions.assertEquals(notificacionRescatista.getMensaje(),
-        "<h1>Encontramos a tu mascota!</h1>\n" +
-        "<br><p>Fue encontrada en: El Rescatista 123</p>\n" +
-        "<p>Te dejamos el contacto del rescatista:</p>\n" +
-        "Nombre: Pedro\n" +
-        "Apellido: Gonzalez\n" +
-        "Tel: 494949\n" +
-        "Mail: pedro@g.com");
+  public void testPublicacionInteresAdopcionTemplate() {
+    System.out.println(notificacionPublicacionInteresAdopcion.getMensaje());
   }
 }

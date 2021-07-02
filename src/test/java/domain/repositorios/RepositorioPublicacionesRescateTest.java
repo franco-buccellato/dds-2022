@@ -23,10 +23,13 @@ public class RepositorioPublicacionesRescateTest extends Fixture {
   RescateSinChapa rescate1, rescate2, rescate3;
   PublicacionRescate publicacionRescate1, publicacionRescate2, publicacionRescate3;
   RepositorioPublicacionesRescate repositorioPublicacionesRescate;
+  RepositorioAsociaciones repositorioAsociaciones;
   Voluntario voluntario;
 
   @BeforeEach
   void setup() {
+    repositorioAsociaciones = RepositorioAsociaciones.getRepositorioAsociaciones();
+    repositorioAsociaciones.addAsociacion(asociacion());
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
     descripcion1 = "Canino macho, color negro, raza caniche";
     ubicacion1 = ubicacion1();

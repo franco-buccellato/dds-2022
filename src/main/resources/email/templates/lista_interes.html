@@ -1,1 +1,14 @@
-<h1>Estas son las nuevas sugerencias de adopcion</h1><br><p>{{linksPublicaciones}}</p>>
+<h1>Estas son las nuevas sugerencias de adopcion</h1>
+<br>
+<p>
+{{#each this}}
+  {{#with mascota}}
+    Tipo Mascota: {{tipoMascota}} <br>
+    Nombre: {{nombre}} <br>
+    Edad Aprox: {{edadAproximada}} <br>
+    Sexo: {{sexo}} <br>
+    Descripci&oacute;n F&iacute;sica: {{descripcionFisica}} <br>
+  {{/with}}
+  {{preguntasAdopcion}}
+{{/each}}
+</p>

@@ -1,4 +1,7 @@
-package domain;
+package domain.templatesNotificacion;
+
+import domain.Duenio;
+import domain.TemplateNotificacion;
 
 public class InteresadoEnAdoptarTemplate extends TemplateNotificacion<Duenio> {
   private Duenio adoptante;

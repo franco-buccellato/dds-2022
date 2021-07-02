@@ -3,6 +3,9 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.repositorios.RepositorioDuenio;
+import domain.templatesNotificacion.PublicacionInteresTemplate;
+import domain.templatesNotificacion.RescatistaContactaDuenioTemplate;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -71,7 +74,7 @@ public class Duenio {
     this.ultimasPublicacionesInteres = publicaciones;
 
     PublicacionInteresTemplate template = publicaciones.isEmpty()
-            ? new PublicacionInteresTemplate("lista_interes", publicaciones.toString())
+            ? new PublicacionInteresTemplate("lista_interes", publicaciones)
             : new PublicacionInteresTemplate("lista_interes_vacia", null);
     contactoTitular().notificar(new Notificacion(template));
   }

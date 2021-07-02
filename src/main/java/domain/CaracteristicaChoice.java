@@ -41,4 +41,12 @@ public class CaracteristicaChoice extends Caracteristica {
     return !this.getOpcionesSeleccionas().isEmpty()
             && caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
   }
+
+  @Override
+  public String toString() {
+    return this.descripcion + " " + this.opciones.stream()
+        .filter(opcion -> opcion.getSeleccionada())
+        .map(opcion -> opcion.getDescripcion() + "\n")
+        .reduce(String::concat);
+  }
 }
