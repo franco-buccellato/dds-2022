@@ -15,18 +15,13 @@ import java.util.stream.Stream;
 
 public class PublicacionInteresAdopcionTest {
   private Fixture fixture;
-  private Duenio duenioMascostaEnAdopcion;
   private Duenio interesadoAdoptar;
-  private Mascota mascotaEnAdopcion;
   private RepositorioCaracteristicas repositorioCaracteristicas;
   private PublicacionInteresAdopcion publicacionInteresAdopcion;
 
   @BeforeEach
   public void iniciar() {
     this.fixture = new Fixture();
-    this.mascotaEnAdopcion = fixture.mascota1();
-    this.duenioMascostaEnAdopcion = fixture.duenio();
-    this.duenioMascostaEnAdopcion.addMascota(mascotaEnAdopcion);
     this.interesadoAdoptar = fixture.adoptante();
     this.repositorioCaracteristicas = new RepositorioCaracteristicas(Arrays.asList(
         fixture.estaCastrada(),
@@ -44,13 +39,12 @@ public class PublicacionInteresAdopcionTest {
           this.preguntasInteresAdopcion(repositorioCaracteristicas)
       );
     });
-
   }
 
   @Test
   public void TestPuedoCrearPublicacionInteresAdopcion() {
     publicacionInteresAdopcion = new PublicacionInteresAdopcion(
-        duenioMascostaEnAdopcion,
+        interesadoAdoptar,
         this.preguntasRespondidas()
     );
     Assertions.assertTrue(publicacionInteresAdopcion.getEstaActiva());
@@ -59,7 +53,7 @@ public class PublicacionInteresAdopcionTest {
   @Test
   public void TestUnaVezCreadaLaPublicacionInteresAdopcionPuedoDarlaDeBaja() {
     publicacionInteresAdopcion = new PublicacionInteresAdopcion(
-        duenioMascostaEnAdopcion,
+        interesadoAdoptar,
         this.preguntasRespondidas()
     );
     Assertions.assertTrue(publicacionInteresAdopcion.getEstaActiva());
