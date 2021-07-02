@@ -1,7 +1,5 @@
 package domain;
 
-import java.util.Arrays;
-import java.util.Set;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.*;
@@ -35,5 +33,10 @@ public class CaracteristicaInput extends Caracteristica {
       return Arrays.asList(input.getDescripcion());
     }
     return Collections.emptyList();
+  }
+
+  @Override
+  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
+    return null;
   }
 }

@@ -35,4 +35,10 @@ public class CaracteristicaChoice extends Caracteristica {
               .map(Opcion::getDescripcion)
               .collect(Collectors.toList());
   }
+
+  @Override
+  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
+    return !this.getOpcionesSeleccionas().isEmpty()
+            && caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
+  }
 }

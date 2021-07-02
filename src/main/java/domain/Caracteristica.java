@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public abstract class Caracteristica {
   protected TipoCaracteristica tipoCaracteristica;
@@ -24,7 +23,9 @@ public abstract class Caracteristica {
     );
     this.descripcion = descripcion;
     this.opciones = new ArrayList<>();
-    this.alcanceCaracteristica = Objects.requireNonNull(alcanceCaracteristica, NOT_NULO.mensaje("alcanceCaracteristica"));
+    this.alcanceCaracteristica = Objects.requireNonNull(
+            alcanceCaracteristica, NOT_NULO.mensaje("alcanceCaracteristica"
+            ));
   }
 
   public TipoCaracteristica getTipoCaracteristica() {
@@ -49,7 +50,5 @@ public abstract class Caracteristica {
 
   public abstract List<String> getOpcionesSeleccionas();
 
-  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
-    return caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
-  }
+  public abstract Boolean tienenMismasOpciones(Caracteristica caracteristica);
 }

@@ -1,9 +1,9 @@
 package domain.repositorios;
 
+import domain.Duenio;
 import domain.PublicacionAdopcion;
 import domain.PublicacionInteresAdopcion;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class RepositorioPublicacionesInteresAdopcion {
@@ -29,12 +29,15 @@ public class RepositorioPublicacionesInteresAdopcion {
     return this.publicacionesInteresAdopcion;
   }
 
-  public void enviarSugerenciasAdopcion(RepositorioPublicacionesAdopcion publicacionAdopcion) {
-
+  public void notificarInteresado(Duenio interesado, List<PublicacionAdopcion> publicaciones) {
+    interesado.notificarPublicacionesDeInteres(publicaciones);
   }
 
-  private List<PublicacionAdopcion> getSugerenciasAdopcionPara(PublicacionInteresAdopcion publicacionInteresAdopcion) {
-    // TODO: Temp para evitar conflictos de buildeo
-    return Collections.emptyList();
+  public void enviarSugerenciasAdopcion(RepositorioPublicacionesAdopcion publicacionesAdopcion) {
+    publicacionesInteresAdopcion
+        .stream()
+        .forEach(publicacionInteresAdopcion ->
+            notificarInteresado(publicacionInteresAdopcion.getInteresado(), publicacionesAdopcion.getAdopcionesRecomendadas(publicacionInteresAdopcion))
+        );
   }
 }

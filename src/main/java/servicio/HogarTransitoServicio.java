@@ -29,7 +29,9 @@ public class HogarTransitoServicio implements BuscadorHogar {
     do {
       HogarTransito response = buscarHogares(offset);
       total = response.getTotal();
-      listaTemporal = Stream.concat(listaTemporal.stream(), response.getHogares().stream()).collect(Collectors.toList());
+      listaTemporal = Stream.concat(
+              listaTemporal.stream(), response.getHogares().stream()
+      ).collect(Collectors.toList());
       offset += 1;
     } while ((offset * 10) <= total);
     return listaTemporal;

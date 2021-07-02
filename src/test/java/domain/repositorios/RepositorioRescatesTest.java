@@ -1,7 +1,10 @@
-package domain;
+package domain.repositorios;
 
 import constants.Fixture;
-import domain.repositorios.RepositorioRescates;
+import domain.Mascota;
+import domain.RescateSinChapa;
+import domain.Rescatista;
+import domain.Ubicacion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

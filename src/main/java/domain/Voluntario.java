@@ -2,8 +2,8 @@ package domain;
 
 public class Voluntario {
 
-  Usuario usuario;
-  Asociacion asociacion;
+  private Usuario usuario;
+  private Asociacion asociacion;
 
   public Voluntario(Usuario usuario, Asociacion asociacion) {
     this.usuario = usuario;
@@ -18,11 +18,11 @@ public class Voluntario {
     return asociacion;
   }
 
-  void aprobarPublicacion(PublicacionRescate publicacionRescate) {
+  public void aprobarPublicacion(PublicacionRescate publicacionRescate) {
     publicacionRescate.aprobar();
   }
 
-  void rechazarPublicacion(PublicacionRescate publicacionRescate) {
+  public void rechazarPublicacion(PublicacionRescate publicacionRescate) {
     publicacionRescate.rechazar();
   }
 

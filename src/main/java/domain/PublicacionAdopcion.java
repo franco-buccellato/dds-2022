@@ -1,9 +1,8 @@
 package domain;
 
-import domain.exception.PreguntasAdopcionSinResponderException;
-
 import static domain.exception.Mensajes.NOT_NULO;
 
+import domain.exception.PreguntasAdopcionSinResponderException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -29,6 +28,10 @@ public class PublicacionAdopcion {
     this.estaActiva = Boolean.TRUE;
   }
 
+  public UUID getIdPublicacion() {
+    return idPublicacion;
+  }
+
   public Mascota getMascota() {
     return this.mascota;
   }
@@ -51,8 +54,18 @@ public class PublicacionAdopcion {
   }
 
   private Boolean fueronTodasContestadas(List<Caracteristica> preguntasAdopcion) {
-    return ! preguntasAdopcion
+    return !preguntasAdopcion
         .stream()
         .anyMatch(caracteristica -> caracteristica.getOpcionesSeleccionas().isEmpty());
+  }
+
+  public Boolean cumpleConCaracteristicas(List<Caracteristica> caracteristicasCumplir) {
+    return caracteristicasCumplir
+            .stream()
+            .allMatch(caracteristicaCumplir ->
+                    this.preguntasAdopcion
+                            .stream()
+                            .anyMatch(caracteristicaCumplir::tienenMismasOpciones)
+            );
   }
 }

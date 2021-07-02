@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PublicacionAdopcionTest {
-  private Fixture fixture;
+public class PublicacionAdopcionTest extends Fixture {
   private Duenio duenioMascostaEnAdopcion;
   private Duenio interesadoAdoptar;
   private Mascota mascotaEnAdopcion;
+  private Asociacion asociacionVinculada;
   private Asociacion asociacionSinPreguntas;
   private Asociacion asociacionConPreguntas;
   private List<Caracteristica> preguntasAsociacion;
@@ -25,18 +25,18 @@ public class PublicacionAdopcionTest {
 
   @BeforeEach
   public void iniciar() {
-    this.fixture = new Fixture();
-    this.mascotaEnAdopcion = fixture.mascota1();
-    this.duenioMascostaEnAdopcion = fixture.duenio();
+    this.mascotaEnAdopcion = mascota1();
+    this.duenioMascostaEnAdopcion = duenio();
     this.duenioMascostaEnAdopcion.addMascota(mascotaEnAdopcion);
-    this.interesadoAdoptar = fixture.adoptante();
-    this.asociacionSinPreguntas = fixture.asociacion();
-    this.asociacionConPreguntas = fixture.asociacionConPreguntasAdopcion();
+    this.interesadoAdoptar = adoptante();
+    this.asociacionVinculada = asociacion();
+    this.asociacionSinPreguntas = asociacion();
+    this.asociacionConPreguntas = asociacionConPreguntasAdopcion();
     this.repositorioCaracteristicas = new RepositorioCaracteristicas(Arrays.asList(
-        fixture.estaCastrada(),
-        fixture.contextura(),
-        fixture.datosDeInteres(),
-        fixture.comportamientoConNiños()
+        estaCastrada(),
+        contextura(),
+        datosDeInteres(),
+        comportamientoConNiños()
     ));
   }
 
@@ -64,10 +64,10 @@ public class PublicacionAdopcionTest {
   }
 
   public List<Caracteristica> preguntasRespondidas() {
-    CaracteristicaChoice contextura = fixture.contextura();
-    CaracteristicaChoice comportamientoConNiños = fixture.comportamientoConNiños();
-    CaracteristicaChoice vacunas = fixture.vacunas();
-    CaracteristicaChoice estaCastrada = fixture.estaCastrada();
+    CaracteristicaChoice contextura = contextura();
+    CaracteristicaChoice comportamientoConNiños = comportamientoConNiños();
+    CaracteristicaChoice vacunas = vacunas();
+    CaracteristicaChoice estaCastrada = estaCastrada();
     contextura.seleccionarOpcion(contextura.getOpciones().get(0), Boolean.TRUE);
     comportamientoConNiños.seleccionarOpcion(comportamientoConNiños.getOpciones().get(0), Boolean.TRUE);
     vacunas.seleccionarOpcion(vacunas.getOpciones().get(0), Boolean.TRUE);
