@@ -1,7 +1,8 @@
-package domain.repositorios;
+package domain;
 
 import constants.Fixture;
 import domain.*;
+import domain.repositorios.RepositorioDuenio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

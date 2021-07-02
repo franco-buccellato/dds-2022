@@ -2,9 +2,10 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import domain.repositorios.RepositorioAsociaciones;
 import domain.repositorios.RepositorioPublicacionesRescate;
 import domain.templatesNotificacion.DuenioContactaRescatistaTemplate;
+
+import domain.repositorios.RepositorioAsociaciones;
 
 import java.util.Objects;
 

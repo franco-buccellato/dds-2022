@@ -1,7 +1,8 @@
-package domain.repositorios;
+package domain;
 
 import constants.Fixture;
 import domain.Caracteristica;
+import domain.repositorios.RepositorioCaracteristicas;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
