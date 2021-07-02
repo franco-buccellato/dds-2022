@@ -204,19 +204,11 @@ public class MascotaTest extends Fixture {
   public void puedoObtenerLasCaracteristicasSeleccionadasDeUnaMascota() {
     CaracteristicaChoice contextura = contextura();
     perroPepe.addCaracteristica(vacunas);
-
-    assertFalse(perroPepe.cumpleConCaracteristicas(Arrays.asList(contextura)));
-
-    assertFalse(perroPepe.cumpleConCaracteristicas(Arrays.asList(comportamiento)));
-
     perroPepe.addCaracteristica(contextura);
 
     assertEquals(1, perroPepe.getCaracteristicasSeleccionadas().size());
 
     setOpcionRandom(contextura.getOpciones());
     assertEquals(2, perroPepe.getCaracteristicasSeleccionadas().size());
-    assertTrue(perroPepe.cumpleConCaracteristicas(Arrays.asList(contextura)));
-    assertTrue(perroPepe.cumpleConCaracteristicas(Arrays.asList(vacunas, contextura)));
-    assertFalse(perroPepe.cumpleConCaracteristicas(Arrays.asList(vacunas, contextura, comportamiento)));
   }
 }

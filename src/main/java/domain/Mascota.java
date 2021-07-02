@@ -116,14 +116,4 @@ public class Mascota {
     caracteristicasSeleccionadas.removeIf(List::isEmpty);
     return caracteristicasSeleccionadas;
   }
-
-  public Boolean cumpleConCaracteristicas(List<Caracteristica> caracteristicasCumplir) {
-    return caracteristicasCumplir
-            .stream()
-            .allMatch(caracteristicaCumplir ->
-                    this.caracteristicas
-                            .stream()
-                            .anyMatch(caracteristicaCumplir::tienenMismasOpciones)
-            );
-  }
 }

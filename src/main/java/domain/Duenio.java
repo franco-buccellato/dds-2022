@@ -4,6 +4,7 @@ import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.repositorios.RepositorioDuenio;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ public class Duenio {
   private List<Contacto> contactos;
   private List<Mascota> mascotas;
   private Usuario usuario;
+  private List<PublicacionAdopcion> ultimasPublicacionesInteres;
 
   public Duenio(
       DatoPersonal datoPersonal,
@@ -23,7 +25,7 @@ public class Duenio {
     this.contactos = Objects.requireNonNull(contactos, NOT_NULO.mensaje("contactos"));
     this.mascotas = Objects.isNull(mascotas) ? new ArrayList<>() : mascotas;
     this.usuario = usuario;
-
+    this.ultimasPublicacionesInteres = Collections.emptyList();
     RepositorioDuenio.getInstance().addDuenio(this);
   }
 
@@ -58,6 +60,20 @@ public class Duenio {
 
   public void notificarMascotaEncontrada(Rescate rescate) {
     contactoTitular().notificar(new Notificacion(new RescatistaContactaDuenioTemplate(rescate)));
+  }
+
+  public List<PublicacionAdopcion> getUltimasPublicacionesInteres() {
+    return ultimasPublicacionesInteres;
+  }
+
+  public void notificarPublicacionesDeInteres(List<PublicacionAdopcion> publicaciones) {
+    // Para testing
+    this.ultimasPublicacionesInteres = publicaciones;
+
+    PublicacionInteresTemplate template = publicaciones.isEmpty()
+            ? new PublicacionInteresTemplate("lista_interes", publicaciones.toString())
+            : new PublicacionInteresTemplate("lista_interes_vacia", null);
+    contactoTitular().notificar(new Notificacion(template));
   }
 
   public Contacto contactoTitular() {

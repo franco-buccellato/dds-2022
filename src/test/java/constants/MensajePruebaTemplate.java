@@ -3,7 +3,7 @@ package constants;
 import domain.TemplateNotificacion;
 
 public class MensajePruebaTemplate extends TemplateNotificacion<String> {
-  private String mensaje;
+  private final String mensaje;
 
   public MensajePruebaTemplate(String mensaje) {
     super("template_test");

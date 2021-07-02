@@ -1,7 +1,6 @@
-package domain;
+package domain.repositorios;
 
 import constants.Fixture;
-import domain.repositorios.RepositorioCaracteristicas;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +24,7 @@ public class RepositorioCaracteristicasTest extends Fixture {
 
     assertEquals(4, repositorio.getCaracteristicasDisponibles().size());
   }
+  
   @Test
   public void puedoQuitarCaracterisiticasDisponibles() {
     repositorio.removeCaracteristicasDisponibles(repositorio.getCaracteristicasDisponibles().get(0));

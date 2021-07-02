@@ -30,10 +30,10 @@ public class RepositorioPublicacionesAdopcion {
     return this.publicacionesAdopcion;
   }
 
-  public List<PublicacionAdopcion> recomendarAdopcion(PublicacionInteresAdopcion publicacionInteres) {
+  public List<PublicacionAdopcion> getAdopcionesRecomendadas(PublicacionInteresAdopcion publicacionInteres) {
     return this.publicacionesAdopcion
             .stream()
-            .filter(publicacionAdopcion -> publicacionAdopcion.getMascota().cumpleConCaracteristicas(publicacionInteres.getPreguntas()))
+            .filter(publicacionAdopcion -> publicacionAdopcion.cumpleConCaracteristicas(publicacionInteres.getPreguntas()))
             .collect(Collectors.toList());
   }
 }

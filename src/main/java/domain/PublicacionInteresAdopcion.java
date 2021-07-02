@@ -25,6 +25,14 @@ public class PublicacionInteresAdopcion {
     this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("preguntas"));
   }
 
+  public UUID getIdPublicacion() {
+    return idPublicacion;
+  }
+
+  public Duenio getInteresado() {
+    return interesado;
+  }
+
   public List<Caracteristica> getPreguntas() {
     return preguntas;
   }
@@ -35,7 +43,7 @@ public class PublicacionInteresAdopcion {
 
   private AtomicBoolean estanCompletasLasPreguntas(List<Caracteristica> preguntas) throws PreguntaObligatoriaNoContestadaException {
     AtomicBoolean estanCompletasLasPreguntas = new AtomicBoolean(true);
-    this.filtrarPreguntasAdopcion(preguntas)
+      preguntas
         .stream()
         .forEach(pregunta -> {
               if (pregunta.getOpcionesSeleccionas().isEmpty()) {

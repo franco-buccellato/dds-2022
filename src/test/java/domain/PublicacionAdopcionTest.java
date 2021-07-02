@@ -8,14 +8,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PublicacionAdopcionTest {
-  private Fixture fixture;
+public class PublicacionAdopcionTest extends Fixture {
   private Duenio duenioMascostaEnAdopcion;
   private Duenio interesadoAdoptar;
   private Mascota mascotaEnAdopcion;
@@ -26,17 +24,16 @@ public class PublicacionAdopcionTest {
 
   @BeforeEach
   public void iniciar() {
-    this.fixture = new Fixture();
-    this.mascotaEnAdopcion = fixture.mascota1();
-    this.duenioMascostaEnAdopcion = fixture.duenio();
+    this.mascotaEnAdopcion = mascota1();
+    this.duenioMascostaEnAdopcion = duenio();
     this.duenioMascostaEnAdopcion.addMascota(mascotaEnAdopcion);
-    this.interesadoAdoptar = fixture.adoptante();
-    this.asociacionVinculada = fixture.asociacion();
+    this.interesadoAdoptar = adoptante();
+    this.asociacionVinculada = asociacion();
     this.repositorioCaracteristicas = new RepositorioCaracteristicas(Arrays.asList(
-        fixture.estaCastrada(),
-        fixture.contextura(),
-        fixture.datosDeInteres(),
-        fixture.comportamientoConNiños()
+        estaCastrada(),
+        contextura(),
+        datosDeInteres(),
+        comportamientoConNiños()
     ));
   }
   @Test
@@ -66,9 +63,9 @@ public class PublicacionAdopcionTest {
   }
 
   public List<Caracteristica> preguntasRespondidas() {
-    CaracteristicaChoice contextura = fixture.contextura();
-    CaracteristicaChoice comportamientoConNiños = fixture.comportamientoConNiños();
-    CaracteristicaInput datosDeInteres = fixture.datosDeInteres();
+    CaracteristicaChoice contextura = contextura();
+    CaracteristicaChoice comportamientoConNiños = comportamientoConNiños();
+    CaracteristicaInput datosDeInteres = datosDeInteres();
     contextura.seleccionarOpcion((Opcion) contextura.getOpciones().get(0), Boolean.TRUE);
     comportamientoConNiños.seleccionarOpcion((Opcion) comportamientoConNiños.getOpciones().get(0), Boolean.TRUE);
     datosDeInteres.setInput("Pierde mucho pelo");

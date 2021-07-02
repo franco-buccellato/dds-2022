@@ -1,8 +1,9 @@
-package domain;
+package domain.repositorios;
 
 import constants.Fixture;
+import domain.Asociacion;
+import domain.Ubicacion;
 import domain.exception.AsociacionNoEncontradaException;
-import domain.repositorios.RepositorioAsociaciones;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
