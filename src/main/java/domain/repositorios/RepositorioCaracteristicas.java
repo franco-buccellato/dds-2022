@@ -43,4 +43,8 @@ public class RepositorioCaracteristicas {
   public List<Caracteristica> getCaracteristicasPreguntaAdopcion() {
     return this.getCaracteristicasSegun(AlcanceCaracteristica.PREGUNTA_ADOPCION);
   }
+
+  public List<Caracteristica> getCaracteristicasPreguntaInteresAdopcion() {
+    return this.getCaracteristicasSegun(AlcanceCaracteristica.PREGUNTA_INTERES_ADOPCION);
+  }
 }

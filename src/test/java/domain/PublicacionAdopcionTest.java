@@ -39,14 +39,17 @@ public class PublicacionAdopcionTest {
         fixture.comportamientoConNiños()
     ));
   }
+
   @Test
   public void TestNoPuedoCrearPublicacionAdopcionPorNoResponderPreguntas() {
-    Assertions.assertThrows(PreguntasAdopcionSinResponderException.class, () -> {new PublicacionAdopcion(
-        duenioMascostaEnAdopcion,
-        mascotaEnAdopcion,
-        asociacionSinPreguntas,
-        this.preguntasAdopcion(repositorioCaracteristicas, asociacionConPreguntas)
-        );});
+    Assertions.assertThrows(PreguntasAdopcionSinResponderException.class, () -> {
+      new PublicacionAdopcion(
+          duenioMascostaEnAdopcion,
+          mascotaEnAdopcion,
+          asociacionSinPreguntas,
+          this.preguntasAdopcion(repositorioCaracteristicas, asociacionConPreguntas)
+      );
+    });
   }
 
   @Test

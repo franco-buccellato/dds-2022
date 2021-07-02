@@ -248,6 +248,7 @@ public class Fixture {
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
     alcanceCaracteristica.add(AlcanceCaracteristica.PREGUNTA_ADOPCION);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUNTA_INTERES_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, alcanceCaracteristica);
   }
 
@@ -264,6 +265,7 @@ public class Fixture {
     HashSet<AlcanceCaracteristica> alcanceCaracteristica = new HashSet<AlcanceCaracteristica>();
     alcanceCaracteristica.add(AlcanceCaracteristica.REGISTRO_MASCOTA);
     alcanceCaracteristica.add(AlcanceCaracteristica.PREGUNTA_ADOPCION);
+    alcanceCaracteristica.add(AlcanceCaracteristica.PREGUNTA_INTERES_ADOPCION);
     return new CaracteristicaChoice(BULLET, "Tamanio de la mascota", tamanios, alcanceCaracteristica);
   }
 

@@ -3,6 +3,7 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.exception.PreguntaObligatoriaNoContestadaException;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -16,7 +17,7 @@ public class PublicacionInteresAdopcion {
   private Boolean estaActiva;
 
   public PublicacionInteresAdopcion(Duenio interesado, List<Caracteristica> preguntas) {
-    if (!estanCompletasLasPreguntas(preguntas).get()) {
+    if (estanCompletasLasPreguntas(preguntas).get()) {
       this.estaActiva = true;
     }
     // TODO: Definir si aca se define el id o por PK con persistencia
@@ -38,15 +39,15 @@ public class PublicacionInteresAdopcion {
     this.filtrarPreguntasAdopcion(preguntas)
         .stream()
         .forEach(pregunta -> {
-              if (pregunta.getOpcionesSeleccionas().isEmpty()) {
-                estanCompletasLasPreguntas.set(false);
-                throw new PreguntaObligatoriaNoContestadaException("Falta contestar la pregunta " + pregunta.getDescripcion());
-              }
-            });
+          if (pregunta.getOpcionesSeleccionas().isEmpty()) {
+            estanCompletasLasPreguntas.set(false);
+            throw new PreguntaObligatoriaNoContestadaException("Falta contestar la pregunta " + pregunta.getDescripcion());
+          }
+        });
     return estanCompletasLasPreguntas;
   }
 
-  private List<Caracteristica> filtrarPreguntasAdopcion(List<Caracteristica> pregutas) {
+  private List<Caracteristica> filtrarPreguntasAdopcion(List<Caracteristica> preguntas) {
     return preguntas.stream()
         .filter(caracteristica -> caracteristica.getAlcanceCaracteristica()
             .stream()
