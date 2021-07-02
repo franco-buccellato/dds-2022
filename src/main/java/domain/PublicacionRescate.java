@@ -2,8 +2,9 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import domain.repositorios.RepositorioAsociaciones;
 import domain.repositorios.RepositorioPublicacionesRescate;
+import domain.repositorios.RepositorioAsociaciones;
+
 import java.util.Objects;
 
 public class PublicacionRescate {
