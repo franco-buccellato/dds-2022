@@ -4,13 +4,25 @@ import static domain.exception.Mensajes.NOT_NULO;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
+@Embeddable
 public class DatoPersonal {
   private String nombre;
   private String apellido;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo_identificacion")
   private TipoIdentificacion tipoIdentificacion;
+  @Column(name = "numero_identificacion")
   private String numeroIdentificacion;
+  @Column(name = "fecha_nacimiento")
   private LocalDate fechaNacimiento;
+
+  public DatoPersonal() {
+  }
 
   public DatoPersonal(
       String nombre,

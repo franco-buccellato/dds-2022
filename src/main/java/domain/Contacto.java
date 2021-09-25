@@ -3,14 +3,33 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
+@Entity
+@Table(name = "Contactos")
 public class Contacto {
+  @Id
+  @Column(name = "contacto_id")
+  @GeneratedValue
+  Long id;
   private String nombre;
   private String apellido;
   private String telefono;
   private String mail;
+  @Enumerated(EnumType.STRING)
   private Vinculo vinculo;
+  @Transient
   private MedioNotificacion medioNotificacion;
+
+  public Contacto() {
+  }
 
   public Contacto(
       String nombre,
