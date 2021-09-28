@@ -13,6 +13,8 @@
         <class>domain.Voluntario</class>
         <class>domain.Ubicacion</class>
         <class>domain.Asociacion</class>
+        <class>domain.Rescate</class>
+        <class>domain.PublicacionRescate</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

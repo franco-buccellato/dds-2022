@@ -8,10 +8,26 @@ import domain.templatesNotificacion.DuenioContactaRescatistaTemplate;
 import domain.repositorios.RepositorioAsociaciones;
 
 import java.util.Objects;
+import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "publicaciones_rescates")
 public class PublicacionRescate {
+  @Id
+  @Column(name = "publicacion_rescate_id")
+  @GeneratedValue
+  Long id;
+  @OneToOne
+  @JoinColumn(name = "rescate_id")
   private Rescate rescate;
+  //@ElementCollection
+  //@Column(name = "publicacion_rescate_estado")
+  @Enumerated(EnumType.STRING)
+  @Column(name = "ublicacion_rescate_estado")
   private EstadoPublicacion estado;
+  @ManyToOne
+  @JoinColumn(name = "asociacion_id")
   private Asociacion asociacion;
 
   public PublicacionRescate(Rescate rescate) {
