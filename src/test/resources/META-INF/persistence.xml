@@ -13,6 +13,20 @@
         <class>domain.Voluntario</class>
         <class>domain.Ubicacion</class>
         <class>domain.Asociacion</class>
+        <class>domain.Rescate</class>
+        <class>domain.RescateSinChapa</class>
+        <class>domain.RescateConChapa</class>
+        <class>domain.PublicacionRescate</class>
+        <class>domain.Mascota</class>
+        <class>domain.Caracteristica</class>
+        <class>domain.Duenio</class>
+        <class>domain.Caracteristica</class>
+        <class>domain.CaracteristicaChoice</class>
+        <class>domain.CaracteristicaInput</class>
+        <class>domain.TipoCaracteristica</class>
+        <class>domain.Opcion</class>
+        <class>domain.PublicacionAdopcion</class>
+        <class>domain.PublicacionInteresAdopcion</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

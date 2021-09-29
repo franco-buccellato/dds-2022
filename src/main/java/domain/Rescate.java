@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
 
-@MappedSuperclass
-@Table(name = "Rescates")
+@Entity(name = "rescates")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_rescate")
 public abstract class Rescate {
-
   @Id
   @Column(name="rescate_id")
   @GeneratedValue

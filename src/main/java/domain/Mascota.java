@@ -1,5 +1,7 @@
 package domain;
 
+import javax.persistence.*;
+
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.ArrayList;
@@ -7,15 +9,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Entity
 public class Mascota {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
   private TipoMascota tipoMascota;
   private String nombre;
   private String apodo;
   private Double edadAproximada;
   private Sexo sexo;
   private String descripcionFisica;
+  @ElementCollection()
   private List<String> fotos;
+  @OneToMany
   private List<Caracteristica> caracteristicas;
+  @Embedded
   private SituacionMascota situacionMascota;
 
   public Mascota(

@@ -4,30 +4,36 @@ import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.exception.PreguntaObligatoriaNoContestadaException;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
+@Entity(name = "publicaciones")
 public class PublicacionInteresAdopcion {
-  private final UUID idPublicacion;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+  @OneToOne
   private Duenio interesado;
+  @OneToMany
+  @JoinColumn(name = "publicacion_interes_id")
   private List<Caracteristica> preguntas;
+  @Column(name = "activa")
   private Boolean estaActiva;
 
   public PublicacionInteresAdopcion(Duenio interesado, List<Caracteristica> preguntas) {
     if (estanCompletasLasPreguntas(preguntas).get()) {
       this.estaActiva = true;
     }
-    // TODO: Definir si aca se define el id o por PK con persistencia
-    this.idPublicacion = UUID.randomUUID();
     this.interesado = Objects.requireNonNull(interesado, NOT_NULO.mensaje("interesado"));
     this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("preguntas"));
   }
 
-  public UUID getIdPublicacion() {
-    return idPublicacion;
+  public int getId() {
+    return id;
   }
 
   public Duenio getInteresado() {

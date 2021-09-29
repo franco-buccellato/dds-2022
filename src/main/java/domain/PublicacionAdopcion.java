@@ -5,20 +5,29 @@ import static domain.exception.Mensajes.NOT_NULO;
 import domain.exception.PreguntasAdopcionSinResponderException;
 import domain.templatesNotificacion.InteresadoEnAdoptarTemplate;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity(name = "publiaciones_adopcion")
 public class PublicacionAdopcion {
-  private final UUID idPublicacion;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+  @ManyToOne(cascade = CascadeType.ALL)
   private Duenio duenio;
+  @ManyToOne(cascade = CascadeType.ALL)
   private Mascota mascota;
+  @Column(name = "activa")
   private Boolean estaActiva;
+  @ManyToOne(cascade = CascadeType.ALL)
   private Asociacion asociacion;
+  @OneToMany
+  @JoinColumn(name = "publicacion_adopcion_id")
   private List<Caracteristica> preguntasAdopcion;
 
   public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<Caracteristica> preguntasAdopcion) {
-    this.idPublicacion = UUID.randomUUID();
     this.duenio = Objects.requireNonNull(duenio, NOT_NULO.mensaje("duenio"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.asociacion = Objects.requireNonNull(asociacion, NOT_NULO.mensaje("asociacion"));
@@ -30,8 +39,8 @@ public class PublicacionAdopcion {
     this.estaActiva = Boolean.TRUE;
   }
 
-  public UUID getIdPublicacion() {
-    return idPublicacion;
+  public int getId() {
+    return id;
   }
 
   public Mascota getMascota() {

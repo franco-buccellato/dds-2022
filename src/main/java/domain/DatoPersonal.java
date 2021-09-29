@@ -4,10 +4,7 @@ import static domain.exception.Mensajes.NOT_NULO;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Embeddable
 public class DatoPersonal {
