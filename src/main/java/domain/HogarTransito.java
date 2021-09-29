@@ -148,7 +148,7 @@ public class HogarTransito {
 
   List<String> caracteristicas;
 
-  public Boolean aceptaTamanioMascota(List<List<String>> caracteristicasMacotas) {
-    return patio || caracteristicasMacotas.stream().anyMatch(list -> list.contains("Chico"));
+  public Boolean aceptaTamanioMascota(String tamanioMascota) {
+    return patio || tamanioMascota.equals("Chico");
   }
 }

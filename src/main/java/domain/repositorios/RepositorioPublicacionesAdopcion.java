@@ -17,9 +17,9 @@ public class RepositorioPublicacionesAdopcion {
     return repositorioPublicaciones;
   }
 
-  public void agregarPublicacion(PublicacionAdopcion publicacion) {
-    publicacionesAdopcion.add(publicacion);
-  }
+//  public void agregarPublicacion(PublicacionAdopcion publicacion) {
+//    publicacionesAdopcion.add(publicacCaracteristicaChoiceion);
+//  }
 
   public void setPublicaciones(List<PublicacionAdopcion> publicaciones) {
     this.publicacionesAdopcion = publicaciones;
@@ -29,10 +29,10 @@ public class RepositorioPublicacionesAdopcion {
     return this.publicacionesAdopcion;
   }
 
-  public List<PublicacionAdopcion> getAdopcionesRecomendadas(PublicacionInteresAdopcion publicacionInteres) {
-    return this.publicacionesAdopcion
-            .stream()
-            .filter(publicacionAdopcion -> publicacionAdopcion.cumpleConCaracteristicas(publicacionInteres.getPreguntas()))
-            .collect(Collectors.toList());
-  }
+//  public List<PublicacionAdopcion> getAdopcionesRecomendadas(PublicacionInteresAdopcion publicacionInteres) {
+//    return this.publicacionesAdopcion
+//            .stream()
+//            .filter(publicacionAdopcion -> publicacionAdopcion.cumpleConComodidades(publicacionInteres.getPreguntas()))
+//            .collect(Collectors.toList());
+//  }
 }

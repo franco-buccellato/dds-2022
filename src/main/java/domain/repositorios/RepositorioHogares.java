@@ -3,13 +3,12 @@ package domain.repositorios;
 import static domain.TipoMascota.GATO;
 import static domain.TipoMascota.PERRO;
 
-import domain.HogarTransito;
-import domain.Mascota;
-import domain.Rescate;
-import domain.Ubicacion;
+import domain.*;
+
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RepositorioHogares {
   private List<HogarTransito> hogares;
@@ -24,8 +23,8 @@ public class RepositorioHogares {
         .stream()
         .filter(hayLugar()
             .and(tipoMascota(mascota))
-            .and(tamanioMascota(mascota))
-            .and(caracteristicasMascota(mascota))
+//            .and(tamanioMascota(mascota))
+//            .and(caracteristicasMascota(mascota))
             .and(distanciaEnRadio(rescate.getLugarEncuentro(), radioBusqueda)))
         .collect(Collectors.toList());
   }
@@ -34,10 +33,10 @@ public class RepositorioHogares {
     return hogarTransito ->  (hogarTransito.getLugaresDisponibles() > 0);
   }
 
-  private Predicate<HogarTransito> tamanioMascota(Mascota mascota) {
-    return hogarTransito ->
-        hogarTransito.aceptaTamanioMascota(mascota.getCaracteristicasSeleccionadas());
-  }
+//  private Predicate<HogarTransito> tamanioMascota(Mascota mascota) {
+//   return hogarTransito ->
+//        hogarTransito.aceptaTamanioMascota(mascota.getTamanio());
+//  }
 
   private Predicate<HogarTransito> tipoMascota(Mascota mascota) {
     return hogarTransito ->
@@ -45,19 +44,14 @@ public class RepositorioHogares {
       || (hogarTransito.getAdmisiones().getPerros() && mascota.getTipoMascota().equals(PERRO));
   }
 
-  private Predicate<HogarTransito> caracteristicasMascota(Mascota mascota) {
-    List<List<String>> caracteristicasSeleccionadas = mascota.getCaracteristicasSeleccionadas();
-    // TODO: Tech debt - Borrar cuando haya un repositorio de caracteristicas con los tamanios
-    caracteristicasSeleccionadas.removeIf(lista ->
-        lista.stream().anyMatch(item -> Arrays.asList("Chico", "Mediano", "Grande").contains(item))
-    );
-    return hogarTransito -> caracteristicasSeleccionadas
-        .stream()
-        .allMatch(caracteristicas ->
-            hogarTransito.getCaracteristicas().isEmpty()
-                || !Collections.disjoint(caracteristicas, hogarTransito.getCaracteristicas())
-        );
-  }
+//  private Predicate<HogarTransito> caracteristicasMascota(Mascota mascota) {
+//    return hogarTransito -> mascota.getCaracteristicasSeleccionadas()
+//        .stream()
+//        .allMatch(caracteristicas ->
+//            hogarTransito.getCaracteristicas().isEmpty()
+//                || !Collections.disjoint(caracteristicas, hogarTransito.getCaracteristicas())
+//        );
+//  }
 
   private Predicate<HogarTransito> distanciaEnRadio(
           Ubicacion lugarEncuentro, double kilometrosRadioBusqueda

@@ -2,9 +2,7 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Mascota {
@@ -108,12 +106,26 @@ public class Mascota {
     caracteristicas.add(caracteristica);
   }
 
-  public List<List<String>> getCaracteristicasSeleccionadas() {
-    List<List<String>> caracteristicasSeleccionadas = caracteristicas
-        .stream()
-        .map(Caracteristica::getOpcionesSeleccionas)
-        .collect(Collectors.toList());
-    caracteristicasSeleccionadas.removeIf(List::isEmpty);
-    return caracteristicasSeleccionadas;
-  }
+//  public List<List<String>> getCaracteristicasSeleccionadas() {
+//      List<List<String>> caracteristicasSeleccionadas = caracteristicas
+//          .stream()
+//          .map(caracteristica -> caracteristica.getOpcionesSeleccionas()
+//              .stream()
+//              .map(Opcion::getDescripcion)
+//              .flatMap(Collection::stream))
+//          .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande").contains(opcion))
+//          .collect(Collectors.toList());
+//      caracteristicasSeleccionadas.removeIf(List::isEmpty);
+//      return caracteristicasSeleccionadas;
+//  }
+
+//  public String getTamanio() {
+//    return caracteristicas
+//        .stream()
+//        .map(Caracteristica::getOpcionesSeleccionas)
+//        .flatMap(Collection::stream)
+//        .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande").contains(opcion))
+//        .findFirst()
+//        .get();
+//  }
 }

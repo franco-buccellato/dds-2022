@@ -33,11 +33,11 @@ public class RepositorioPublicacionesInteresAdopcion {
     interesado.notificarPublicacionesDeInteres(publicaciones);
   }
 
-  public void enviarSugerenciasAdopcion(RepositorioPublicacionesAdopcion publicacionesAdopcion) {
-    publicacionesInteresAdopcion
-        .stream()
-        .forEach(publicacionInteresAdopcion ->
-            notificarInteresado(publicacionInteresAdopcion.getInteresado(), publicacionesAdopcion.getAdopcionesRecomendadas(publicacionInteresAdopcion))
-        );
-  }
+//  public void enviarSugerenciasAdopcion(RepositorioPublicacionesAdopcion publicacionesAdopcion) {
+//    publicacionesInteresAdopcion
+//        .stream()
+//        .forEach(publicacionInteresAdopcion ->
+//            notificarInteresado(publicacionInteresAdopcion.getInteresado(), publicacionesAdopcion.getAdopcionesRecomendadas(publicacionInteresAdopcion))
+//        );
+//  }
 }

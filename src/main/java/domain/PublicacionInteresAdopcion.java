@@ -6,35 +6,27 @@ import domain.exception.PreguntaObligatoriaNoContestadaException;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class PublicacionInteresAdopcion {
-  private final UUID idPublicacion;
   private Duenio interesado;
-  private List<Caracteristica> preguntas;
+  private List<Pregunta> preguntas;
   private Boolean estaActiva;
 
-  public PublicacionInteresAdopcion(Duenio interesado, List<Caracteristica> preguntas) {
+  public PublicacionInteresAdopcion(Duenio interesado, List<Pregunta> preguntas) {
     if (estanCompletasLasPreguntas(preguntas).get()) {
       this.estaActiva = true;
     }
-    // TODO: Definir si aca se define el id o por PK con persistencia
-    this.idPublicacion = UUID.randomUUID();
     this.interesado = Objects.requireNonNull(interesado, NOT_NULO.mensaje("interesado"));
     this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("preguntas"));
-  }
-
-  public UUID getIdPublicacion() {
-    return idPublicacion;
   }
 
   public Duenio getInteresado() {
     return interesado;
   }
 
-  public List<Caracteristica> getPreguntas() {
+  public List<Pregunta> getPreguntas() {
     return preguntas;
   }
 
@@ -42,25 +34,17 @@ public class PublicacionInteresAdopcion {
     return estaActiva;
   }
 
-  private AtomicBoolean estanCompletasLasPreguntas(List<Caracteristica> preguntas) throws PreguntaObligatoriaNoContestadaException {
-    AtomicBoolean estanCompletasLasPreguntas = new AtomicBoolean(true);
+  private AtomicBoolean estanCompletasLasPreguntas(List<Pregunta> preguntas) throws PreguntaObligatoriaNoContestadaException {
+    AtomicBoolean estanCompletas = new AtomicBoolean(true);
     preguntas
         .stream()
         .forEach(pregunta -> {
           if (pregunta.getOpcionesSeleccionas().isEmpty()) {
-            estanCompletasLasPreguntas.set(false);
+            estanCompletas.set(false);
             throw new PreguntaObligatoriaNoContestadaException("Falta contestar la pregunta " + pregunta.getDescripcion());
           }
         });
-    return estanCompletasLasPreguntas;
-  }
-
-  private List<Caracteristica> filtrarPreguntasAdopcion(List<Caracteristica> preguntas) {
-    return preguntas.stream()
-        .filter(caracteristica -> caracteristica.getAlcanceCaracteristica()
-            .stream()
-            .anyMatch(alcanceCaracteristica -> alcanceCaracteristica == AlcanceCaracteristica.PREGUNTA_ADOPCION)
-        ).collect(Collectors.toList());
+    return estanCompletas;
   }
 
   public void enviarBotonDeBaja() {
@@ -70,5 +54,37 @@ public class PublicacionInteresAdopcion {
 
   public void anularPublicacion() {
     this.estaActiva = false;
+  }
+
+  public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
+    return cumpleConComodidades(publicacion.getComodidadesMascota())
+      && cumpleConPreferencias(publicacion.getMascota().getCaracteristicas());
+  }
+
+  public Boolean cumpleConComodidades(List<Pregunta> comodidades) {
+    return getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD)
+        .stream()
+        .allMatch(preguntaCumplir ->
+            comodidades
+                .stream()
+                .anyMatch(preguntaCumplir::tienenMismasOpciones)
+        );
+  }
+
+  public Boolean cumpleConPreferencias(List<Caracteristica> caracteristicas) {
+    return caracteristicas
+        .stream()
+        .allMatch(caracteristica ->
+            getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
+                .stream()
+                .anyMatch(pregunta -> caracteristica.tienenMismasOpciones(pregunta))
+        );
+  }
+
+  private List<Pregunta> getPreguntasSegun(AlcancePregunta alcance) {
+    return preguntas
+        .stream()
+        .filter(pregunta -> pregunta.getAlcancePregunta().equals(alcance))
+        .collect(Collectors.toList());
   }
 }

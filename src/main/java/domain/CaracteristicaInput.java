@@ -11,10 +11,9 @@ public class CaracteristicaInput extends Caracteristica {
   public CaracteristicaInput(
       TipoCaracteristica tipoCaracteristica,
       String descripcion,
-      Opcion input,
-      Set<AlcanceCaracteristica> alcanceCaracteristica
+      Opcion input
   ) {
-    super(tipoCaracteristica, descripcion, alcanceCaracteristica);
+    super(tipoCaracteristica, descripcion);
     this.input = Objects.requireNonNull(input, NOT_NULO.mensaje("input"));
   }
 
@@ -28,16 +27,14 @@ public class CaracteristicaInput extends Caracteristica {
   }
 
   @Override
-  public List<String> getOpcionesSeleccionas() {
+  public List<Opcion> getOpcionesSeleccionas() {
     if (this.input.getDescripcion() != "") {
-      return Arrays.asList(input.getDescripcion());
+      Opcion opcionInput = new Opcion(input.getDescripcion());
+      opcionInput.setSeleccionada(true);
+
+      return Collections.singletonList(opcionInput);
     }
     return Collections.emptyList();
-  }
-
-  @Override
-  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
-    return null;
   }
 
   @Override

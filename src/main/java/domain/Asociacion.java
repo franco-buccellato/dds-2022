@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Asociacion {
   private String nombre;
   private Ubicacion ubicacion;
-  private List<Caracteristica> preguntasAdopcion;
+  private List<Pregunta> preguntasAdopcion;
 
   public Asociacion(String nombre, Ubicacion ubicacion) {
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
@@ -27,15 +27,15 @@ public class Asociacion {
     return ubicacion;
   }
 
-  public List<Caracteristica> getPreguntasAdopcion() {
+  public List<Pregunta> getPreguntasAdopcion() {
     return preguntasAdopcion;
   }
 
-  public void setPreguntasAdopcion(List<Caracteristica> preguntasAdopcion) {
+  public void setPreguntasAdopcion(List<Pregunta> preguntasAdopcion) {
     this.preguntasAdopcion = preguntasAdopcion;
   }
 
-  public void addPreguntasAdopcion(Caracteristica caracteristica) {
-    this.preguntasAdopcion.add(caracteristica);
+  public void addPreguntasAdopcion(Pregunta pregunta) {
+    this.preguntasAdopcion.add(pregunta);
   }
 }
