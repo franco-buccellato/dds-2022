@@ -20,7 +20,7 @@ public abstract class Caracteristica {
   protected TipoCaracteristica tipoCaracteristica;
   protected String descripcion;
   @OneToMany
-  @JoinColumn(name = "caracteristica_id")
+  @JoinColumn(name = "opcion_id")
   protected List<Opcion> opciones;
   //protected Boolean obligatoria;
 

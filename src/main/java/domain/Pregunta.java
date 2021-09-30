@@ -1,14 +1,24 @@
 package domain;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
+@Entity
+@Table(name="Preguntas")
 public class Pregunta {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "pregunta_id")
+  protected int id;
   private String descripcion;
+  @OneToMany
+  @JoinColumn(name = "opcion_id")
   private List<Opcion> opciones;
+  @Transient
   private AlcancePregunta alcancePregunta;
 
   private Pregunta() {}

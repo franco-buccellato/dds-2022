@@ -266,9 +266,19 @@ public class Fixture {
     return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos);
   }
 
+  public Pregunta preguntaComportamientoConNiños() {
+    List<Opcion> comportamientos = Arrays.asList(comportamientoAmistoso, comportamientoManso, comportamientoAgresivo);
+    return new Pregunta("Comportamiento con los niños", comportamientos, AlcancePregunta.PREGUNTA_PREFERENCIA);
+  }
+
   public CaracteristicaChoice contextura() {
     List<Opcion> contexturas = Arrays.asList(contexturaDelgado, contexturaNormal, contexturaGordito);
     return new CaracteristicaChoice(BULLET, "Contextura", contexturas);
+  }
+
+  public Pregunta preguntaContextura() {
+    List<Opcion> contexturas = Arrays.asList(contexturaDelgado, contexturaNormal, contexturaGordito);
+    return new Pregunta("Contextura", contexturas, AlcancePregunta.PREGUNTA_PREFERENCIA);
   }
 
   public CaracteristicaChoice tamanio() {

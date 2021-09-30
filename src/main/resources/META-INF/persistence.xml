@@ -21,6 +21,7 @@
         <class>domain.Caracteristica</class>
         <class>domain.Duenio</class>
         <class>domain.Caracteristica</class>
+        <class>domain.Pregunta</class>
         <class>domain.CaracteristicaChoice</class>
         <class>domain.CaracteristicaInput</class>
         <class>domain.TipoCaracteristica</class>

@@ -9,10 +9,11 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "publiaciones_adopcion")
+@Entity(name = "publicaciones_adopcion")
 public class PublicacionAdopcion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "publicacion_adopcion_id")
   private int id;
   @ManyToOne(cascade = CascadeType.ALL)
   private Duenio duenio;

@@ -7,7 +7,7 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.util.*;
 
 @Entity
-@DiscriminatorValue("C")
+@DiscriminatorValue("I")
 public class CaracteristicaInput extends Caracteristica {
   @OneToOne
   private Opcion input;
