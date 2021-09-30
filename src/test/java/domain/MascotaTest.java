@@ -150,14 +150,14 @@ public class MascotaTest extends Fixture {
     assertEquals(2, gatoBenito.getCaracteristicas().size());
 
     CaracteristicaChoice castrado = estaCastrada();
-    Opcion opcionSeleccionada = (Opcion) castrado.getOpciones().get(0);
+    Opcion opcionSeleccionada = castrado.getOpciones().get(0);
     castrado.seleccionarOpcion(opcionSeleccionada, true);
     gatoBenito.setCaracteristicas(Collections.singletonList(castrado));
 
     assertEquals(1, gatoBenito.getCaracteristicas().size());
     assertEquals(castrado, gatoBenito.getCaracteristicas().get(0));
     assertEquals(BOOLEAN, gatoBenito.getCaracteristicas().get(0).getTipoCaracteristica());
-    assertTrue(gatoBenito.getCaracteristicas().get(0).getOpcionesSeleccionas().get(0).equals("Si"));
+    assertTrue(gatoBenito.getCaracteristicas().get(0).getOpcionesSeleccionas().get(0).getDescripcion().equals("Si"));
   }
 
   @Test

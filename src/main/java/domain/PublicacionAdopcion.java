@@ -49,8 +49,8 @@ public class PublicacionAdopcion {
   }
 
   private Boolean fueronTodasContestadas(List<Pregunta> comodidadesMascota) {
-    return !comodidadesMascota
+    return comodidadesMascota
         .stream()
-        .anyMatch(comodidad -> comodidad.getOpcionesSeleccionas().isEmpty());
+        .noneMatch(comodidad -> comodidad.getOpcionesSeleccionas().isEmpty());
   }
 }

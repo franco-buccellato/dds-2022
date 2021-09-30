@@ -4,6 +4,7 @@ import constants.Fixture;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,15 +13,15 @@ public class CaracteristicaTest extends Fixture {
   @Test
   public void puedoSetearCaracteristicaBooleana() {
     CaracteristicaChoice estaCastrada = estaCastrada();
-    Opcion opcionSeleccionada = (Opcion) estaCastrada.getOpciones().get(0);
+    Opcion opcionSeleccionada = estaCastrada.getOpciones().get(0);
 
     estaCastrada.seleccionarOpcion(opcionSeleccionada, true);
     assertTrue(opcionSeleccionada.getSeleccionada());
-    assertTrue(estaCastrada.getOpcionesSeleccionas().contains(opcionSeleccionada.getDescripcion()));
+    assertTrue(estaCastrada.getOpcionesSeleccionas().contains(opcionSeleccionada));
 
     estaCastrada.seleccionarOpcion(opcionSeleccionada, false);
     assertFalse(opcionSeleccionada.getSeleccionada());
-    assertFalse(estaCastrada.getOpcionesSeleccionas().contains(opcionSeleccionada.getDescripcion()));
+    assertFalse(estaCastrada.getOpcionesSeleccionas().contains(opcionSeleccionada));
   }
 
   @Test
@@ -29,7 +30,7 @@ public class CaracteristicaTest extends Fixture {
     String dato = "Ronca mucho cuando duerme";
     datoCurioso.setInput(new Opcion(dato));
 
-    assertTrue(datoCurioso.getOpcionesSeleccionas().get(0).equals(dato));
+    assertEquals(datoCurioso.getOpcionesSeleccionas().get(0).getDescripcion(), dato);
   }
   @Test
   public void puedoDejarOpcionalUnaCaracteristicaTexto(){
@@ -40,12 +41,12 @@ public class CaracteristicaTest extends Fixture {
   @Test
   public void puedoSetearUnaCaracteristicaMultipleChoice(){
     CaracteristicaChoice vacunas = vacunas();
-    int index1 = setOpcionRandom(vacunas.getOpciones());
-    int index2 = setOpcionRandom(vacunas.getOpciones());
     List<Opcion> opciones = vacunas.getOpciones();
+    opciones.get(0).setSeleccionada(true);
+    opciones.get(1).setSeleccionada(true);
 
-    assertEquals(vacunas.getOpcionesSeleccionas().get(0), opciones.get(index1).getDescripcion());
-    assertEquals(vacunas.getOpcionesSeleccionas().get(1), opciones.get(index2).getDescripcion());
+    assertEquals(vacunas.getOpcionesSeleccionas().get(0).getDescripcion(), opciones.get(0).getDescripcion());
+    assertEquals(vacunas.getOpcionesSeleccionas().get(1).getDescripcion(), opciones.get(1).getDescripcion());
   }
   @Test
   public void puedoSetearUnaCaracteristicaSingleChoice(){
@@ -53,6 +54,6 @@ public class CaracteristicaTest extends Fixture {
     int index = setOpcionRandom(comportamiento.getOpciones());
     List<Opcion> opciones = comportamiento.getOpciones();
 
-    assertEquals(comportamiento.getOpcionesSeleccionas().get(0), opciones.get(index).getDescripcion());
+    assertEquals(comportamiento.getOpcionesSeleccionas().get(0).getDescripcion(), opciones.get(index).getDescripcion());
   }
 }

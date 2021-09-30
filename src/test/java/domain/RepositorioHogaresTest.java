@@ -68,7 +68,7 @@ public class RepositorioHogaresTest extends Fixture {
     comportamientos.seleccionarOpcion(comportamientoManso, true);
     rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturas, comportamientos, tamanios));
 
-    assertEquals( 14, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
+    assertEquals( 13, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
   }
 
   @Test
@@ -77,7 +77,7 @@ public class RepositorioHogaresTest extends Fixture {
     comportamientos.seleccionarOpcion(comportamientoManso, true);
     rescatePerro.getMascota().setCaracteristicas(Arrays.asList(contexturas, comportamientos, tamanios));
 
-    assertEquals( 12, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
+    assertEquals( 11, repositorioHogares.getHogaresParaRescate(rescatePerro, 500).size());
   }
 
   @Test
@@ -123,7 +123,7 @@ public class RepositorioHogaresTest extends Fixture {
     comportamiento.seleccionarOpcion(comportamientoTranquilo, true);
     rescateGato.getMascota().setCaracteristicas(Arrays.asList(comportamiento, tamanios));
 
-    assertEquals( 15, repositorioHogares.getHogaresParaRescate(rescateGato, 500).size());
+    assertEquals( 14, repositorioHogares.getHogaresParaRescate(rescateGato, 500).size());
   }
 
   @Test

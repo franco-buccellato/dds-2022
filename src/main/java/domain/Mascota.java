@@ -114,12 +114,13 @@ public class Mascota {
   }
 
   public String getTamanio() {
-    return caracteristicas
+    Opcion tamanio = caracteristicas
         .stream()
         .map(Caracteristica::getOpcionesSeleccionas)
         .flatMap(Collection::stream)
         .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande").contains(opcion.getDescripcion()))
         .findFirst()
-        .get().getDescripcion();
+        .orElse(new Opcion(""));
+    return tamanio.getDescripcion();
   }
 }

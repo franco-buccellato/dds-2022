@@ -41,15 +41,4 @@ public class RepositorioCaracteristicasTest extends Fixture {
     repositorio.removeCaracteristicasDisponibles(repositorio.getCaracteristicasDisponibles().get(0));
     assertEquals(2, repositorio.getCaracteristicasDisponibles().size());
   }
-
-  @Test
-  public void TestObtenerCaracteristicasRegistroMascota() {
-    Assertions.assertEquals(Arrays.asList(vacunas), repositorio.getCaracteristicasRegistroMascota());
-  }
-
-  @Test
-  public void TestObtenerCaracteristicasPreguntasAdopcion() {
-    repositorio.addCaracteristicasDisponibles(contextura);
-    Assertions.assertEquals(Arrays.asList(contextura), repositorio.getCaracteristicasPreguntaAdopcion());
-  }
 }

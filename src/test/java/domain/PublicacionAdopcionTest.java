@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PublicacionAdopcionTest extends Fixture {
   private Duenio duenioMascostaEnAdopcion;
@@ -47,7 +45,7 @@ public class PublicacionAdopcionTest extends Fixture {
           duenioMascostaEnAdopcion,
           mascotaEnAdopcion,
           asociacionSinPreguntas,
-          this.preguntasAdopcion(repositorioCaracteristicas, asociacionConPreguntas)
+          this.preguntasAdopcion(asociacionConPreguntas)
       );
     });
   }
@@ -63,11 +61,11 @@ public class PublicacionAdopcionTest extends Fixture {
     Assertions.assertEquals(mascotaEnAdopcion, publicacionAdopcion.getMascota());
   }
 
-  public List<Caracteristica> preguntasRespondidas() {
-    CaracteristicaChoice contextura = contextura();
-    CaracteristicaChoice comportamientoConNiños = comportamientoConNiños();
-    CaracteristicaChoice vacunas = vacunas();
-    CaracteristicaChoice estaCastrada = estaCastrada();
+  public List<Pregunta> preguntasRespondidas() {
+    Pregunta contextura = preguntaContextura();
+    Pregunta comportamientoConNiños = preguntaComportamientoConNiños();
+    Pregunta vacunas = preguntaVacunas();
+    Pregunta estaCastrada = preguntaEstaCastrada();
     contextura.seleccionarOpcion(contextura.getOpciones().get(0), Boolean.TRUE);
     comportamientoConNiños.seleccionarOpcion(comportamientoConNiños.getOpciones().get(0), Boolean.TRUE);
     vacunas.seleccionarOpcion(vacunas.getOpciones().get(0), Boolean.TRUE);
@@ -75,10 +73,7 @@ public class PublicacionAdopcionTest extends Fixture {
     return Arrays.asList(contextura, comportamientoConNiños, vacunas, estaCastrada);
   }
 
-  private List<Caracteristica> preguntasAdopcion(RepositorioCaracteristicas repositorioCaracteristicas, Asociacion asociacionVinculada) {
-    return Stream.concat(
-        repositorioCaracteristicas.getCaracteristicasPreguntaAdopcion().stream(),
-        asociacionVinculada.getPreguntasAdopcion().stream())
-        .collect(Collectors.toList());
+  private List<Pregunta> preguntasAdopcion(Asociacion asociacionVinculada) {
+    return asociacionVinculada.getPreguntasAdopcion();
   }
 }
