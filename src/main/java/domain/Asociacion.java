@@ -23,7 +23,12 @@ public class Asociacion {
   @OneToOne
   @JoinColumn(name = "ubicacion_id")
   private Ubicacion ubicacion;
-  @Transient
+  @ManyToMany
+  @JoinTable(
+      name = "preguntas_adopcion",
+      joinColumns = @JoinColumn(name = "asociacion_id"),
+      inverseJoinColumns = @JoinColumn(name = "caracteristica_id")
+  )
   private List<Pregunta> preguntasAdopcion;
 
   public Asociacion(String nombre, Ubicacion ubicacion) {
