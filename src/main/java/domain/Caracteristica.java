@@ -11,8 +11,7 @@ public abstract class Caracteristica {
   protected String descripcion;
   protected List<Opcion> opciones;
 
-  public Caracteristica(TipoCaracteristica tipoCaracteristica,
-      String descripcion) {
+  public Caracteristica(TipoCaracteristica tipoCaracteristica, String descripcion) {
     this.tipoCaracteristica = Objects.requireNonNull(
         tipoCaracteristica,
         NOT_NULO.mensaje("tipoCaracteristica")
@@ -24,6 +23,11 @@ public abstract class Caracteristica {
   public Boolean tienenMismasOpciones(Pregunta pregunta) {
     return !this.getOpcionesSeleccionas().isEmpty()
         && pregunta.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
+  }
+
+  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
+    return !this.getOpcionesSeleccionas().isEmpty()
+        && caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
   }
 
   public TipoCaracteristica getTipoCaracteristica() {

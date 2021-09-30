@@ -34,7 +34,7 @@ public class CaracteristicaChoice extends Caracteristica {
   @Override
   public String toString() {
     return this.descripcion + " " + this.opciones.stream()
-        .filter(opcion -> opcion.getSeleccionada())
+        .filter(Opcion::getSeleccionada)
         .map(opcion -> opcion.getDescripcion() + "\n")
         .reduce(String::concat);
   }

@@ -106,26 +106,20 @@ public class Mascota {
     caracteristicas.add(caracteristica);
   }
 
-//  public List<List<String>> getCaracteristicasSeleccionadas() {
-//      List<List<String>> caracteristicasSeleccionadas = caracteristicas
-//          .stream()
-//          .map(caracteristica -> caracteristica.getOpcionesSeleccionas()
-//              .stream()
-//              .map(Opcion::getDescripcion)
-//              .flatMap(Collection::stream))
-//          .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande").contains(opcion))
-//          .collect(Collectors.toList());
-//      caracteristicasSeleccionadas.removeIf(List::isEmpty);
-//      return caracteristicasSeleccionadas;
-//  }
+  public List<Caracteristica> getCaracteristicasSeleccionadas() {
+      return caracteristicas
+          .stream()
+          .filter(caracteristica -> !caracteristica.getOpcionesSeleccionas().isEmpty())
+          .collect(Collectors.toList());
+  }
 
-//  public String getTamanio() {
-//    return caracteristicas
-//        .stream()
-//        .map(Caracteristica::getOpcionesSeleccionas)
-//        .flatMap(Collection::stream)
-//        .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande").contains(opcion))
-//        .findFirst()
-//        .get();
-//  }
+  public String getTamanio() {
+    return caracteristicas
+        .stream()
+        .map(Caracteristica::getOpcionesSeleccionas)
+        .flatMap(Collection::stream)
+        .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande").contains(opcion.getDescripcion()))
+        .findFirst()
+        .get().getDescripcion();
+  }
 }

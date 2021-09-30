@@ -351,7 +351,7 @@ public class Fixture {
 
   public PublicacionAdopcion publicacionAdopcion3() {
     Pregunta estaCastrado = preguntaEstaCastrada();
-    estaCastrado.seleccionarOpcion((Opcion) estaCastrado.getOpciones().get(0), true);
+    estaCastrado.seleccionarOpcion(estaCastrado.getOpciones().get(0), true);
 
     return new PublicacionAdopcion(
             duenio(),
