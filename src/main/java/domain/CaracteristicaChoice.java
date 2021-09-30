@@ -1,9 +1,19 @@
 package domain;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
+@DiscriminatorValue("C")
 public class CaracteristicaChoice extends Caracteristica {
+  @OneToMany
+  @JoinColumn(name = "caracteristica_id")
+  private List<Opcion> opciones;
+
   // Aplica para tipos CHECKBOX, BULLET, BOOLEAN donde los constraints se resuelven en otra capa
   public CaracteristicaChoice(
       TipoCaracteristica tipoCaracteristica,

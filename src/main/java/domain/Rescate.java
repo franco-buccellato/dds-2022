@@ -5,14 +5,30 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.*;
 
+@Entity(name = "rescates")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_rescate")
 public abstract class Rescate {
-
+  @Id
+  @Column(name="rescate_id")
+  @GeneratedValue
+  Long id;
+  @Transient
   private List<String> fotos;
+  @Column(name = "rescate_descripcion")
   private String descripcion;
+  @OneToOne
+  @JoinColumn(name = "ubicacion_id")
   private Ubicacion lugarEncuentro;
+  @Column(name = "fecha_nacimiento")
   private LocalDate fecha;
+  @OneToOne
+  @JoinColumn(name = "mascota_id")
   private Mascota mascota;
+  @OneToOne
+  @JoinColumn(name = "rescatista_id")
   private Rescatista rescatista;
 
   public Rescate(

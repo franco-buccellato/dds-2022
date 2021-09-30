@@ -6,16 +6,27 @@ import domain.repositorios.RepositorioDuenio;
 import domain.templatesNotificacion.PublicacionInteresTemplate;
 import domain.templatesNotificacion.RescatistaContactaDuenioTemplate;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
+@Entity
 public class Duenio {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+  @Embedded
   private DatoPersonal datoPersonal;
+  @OneToMany
+  @JoinColumn(name = "duenio_id")
   private List<Contacto> contactos;
+  @OneToMany
+  @JoinColumn(name = "duenio_id")
   private List<Mascota> mascotas;
+  @OneToOne
   private Usuario usuario;
+  @Transient
   private List<PublicacionAdopcion> ultimasPublicacionesInteres;
 
   public Duenio(

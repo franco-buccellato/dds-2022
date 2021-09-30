@@ -5,7 +5,11 @@ import domain.repositorios.RepositorioDuenio;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Objects;
+import javax.persistence.*;
 
+@Entity
+@DiscriminatorValue("C")
 public class RescateConChapa extends Rescate {
   public RescateConChapa(
       List<String> fotos,

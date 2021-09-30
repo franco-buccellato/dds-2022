@@ -1,15 +1,28 @@
 package domain;
 
+import javax.persistence.*;
+
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity(name = "caracteristicas")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo")
 public abstract class Caracteristica {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  protected int id;
+  @Embedded
+  @Column(name = "tipo_caracteristica")
   protected TipoCaracteristica tipoCaracteristica;
   protected String descripcion;
+  @OneToMany
+  @JoinColumn(name = "caracteristica_id")
   protected List<Opcion> opciones;
+  //protected Boolean obligatoria;
 
   public Caracteristica(TipoCaracteristica tipoCaracteristica, String descripcion) {
     this.tipoCaracteristica = Objects.requireNonNull(
@@ -20,9 +33,12 @@ public abstract class Caracteristica {
     this.opciones = new ArrayList<>();
   }
 
-  public Boolean tienenMismasOpciones(Pregunta pregunta) {
-    return !this.getOpcionesSeleccionas().isEmpty()
-        && pregunta.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
+  public int getId () {
+    return this.id;
+  }
+
+  public TipoCaracteristica getTipoCaracteristica() {
+    return tipoCaracteristica;
   }
 
   public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
@@ -30,8 +46,9 @@ public abstract class Caracteristica {
         && caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
   }
 
-  public TipoCaracteristica getTipoCaracteristica() {
-    return tipoCaracteristica;
+  public Boolean tienenMismasOpciones(Pregunta pregunta) {
+    return !this.getOpcionesSeleccionas().isEmpty()
+        && pregunta.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
   }
 
   public String getDescripcion() {
