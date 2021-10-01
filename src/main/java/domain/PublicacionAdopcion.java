@@ -23,8 +23,12 @@ public class PublicacionAdopcion {
   private Boolean estaActiva;
   @ManyToOne(cascade = CascadeType.ALL)
   private Asociacion asociacion;
-  @OneToMany
-  @JoinColumn(name = "publicacion_adopcion_id")
+  @ManyToMany
+  @JoinTable(
+      name = "preguntas_adopcion",
+      joinColumns = @JoinColumn(name = "asociacion_id"),
+      inverseJoinColumns = @JoinColumn(name = "pregunta_id")
+  )
   private List<Pregunta> preguntas;
 
   private PublicacionAdopcion() {}

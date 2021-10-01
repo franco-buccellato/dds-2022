@@ -21,11 +21,13 @@ public class PublicacionInteresAdopcion {
   @JoinTable(
       name = "preguntas_interes_adopcion",
       joinColumns = @JoinColumn(name = "publicacion_interes_id"),
-      inverseJoinColumns = @JoinColumn(name = "caracteristica_id")
+      inverseJoinColumns = @JoinColumn(name = "pregunta_id")
   )
   private List<Pregunta> preguntas;
   @Column(name = "activa")
   private Boolean estaActiva;
+
+  private PublicacionInteresAdopcion() {}
 
   public PublicacionInteresAdopcion(Duenio interesado, List<Pregunta> preguntas) {
     if (estanCompletasLasPreguntas(preguntas).get()) {
@@ -65,7 +67,6 @@ public class PublicacionInteresAdopcion {
   }
 
   public void enviarBotonDeBaja() {
-    // TODO: Definir template con boton
     this.interesado.contactoTitular().notificar(new Notificacion(null));
   }
 
