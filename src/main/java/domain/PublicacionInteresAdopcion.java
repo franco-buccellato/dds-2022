@@ -17,8 +17,12 @@ public class PublicacionInteresAdopcion {
   private int id;
   @OneToOne
   private Duenio interesado;
-  @OneToMany
-  @JoinColumn(name = "publicacion_interes_id")
+  @ManyToMany
+  @JoinTable(
+      name = "preguntas_interes_adopcion",
+      joinColumns = @JoinColumn(name = "publicacion_interes_id"),
+      inverseJoinColumns = @JoinColumn(name = "caracteristica_id")
+  )
   private List<Pregunta> preguntas;
   @Column(name = "activa")
   private Boolean estaActiva;
