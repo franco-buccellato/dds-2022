@@ -1,5 +1,8 @@
 # Grupo 20 - viernes-noche
 
+## DER - Entrega IV
+![der](https://github.com/dds-utn/2021-vi-no-grupo-20/blob/main/resources/DER.jpg)
+
 ## Diagrama de clases - Entrega III
 ![diagrama_3](https://github.com/dds-utn/2021-vi-no-grupo-20/blob/main/resources/diagrama%20de%20clases%20-%20Entrega%203.png)
 
