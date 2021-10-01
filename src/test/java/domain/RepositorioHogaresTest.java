@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import domain.*;
 import domain.repositorios.RepositorioHogares;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,7 +53,7 @@ public class RepositorioHogaresTest extends Fixture {
         rescatista()
     );
     contexturas = contextura();
-    comportamientos = comportamientoConNiños();
+    comportamientos = comportamientoConNinios();
     tamanios = tamanio();
     vacunas = vacunas();
     Opcion vacunaSeleccionada = (Opcion) vacunas.getOpciones().get(0);

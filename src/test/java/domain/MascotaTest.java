@@ -9,7 +9,6 @@ import constants.Fixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +28,7 @@ public class MascotaTest extends Fixture {
     Opcion vacunaSeleccionada = (Opcion) vacunas.getOpciones().get(0);
 
     vacunas.seleccionarOpcion(vacunaSeleccionada, true);
-    comportamiento = comportamientoConNiños();
+    comportamiento = comportamientoConNinios();
     comportamiento.seleccionarOpcion(comportamientoManso,true);
     caracteristicas = Arrays.asList(vacunas, comportamiento);
 

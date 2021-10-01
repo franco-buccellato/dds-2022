@@ -25,16 +25,16 @@ public class PublicacionAdopcion {
   private Asociacion asociacion;
   @OneToMany
   @JoinColumn(name = "publicacion_adopcion_id")
-  private List<Pregunta> comodidadesMascota;
+  private List<Pregunta> preguntas;
 
   private PublicacionAdopcion() {}
 
-  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<Pregunta> comodidadesMascota) {
+  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<Pregunta> preguntas) {
     this.duenio = Objects.requireNonNull(duenio, NOT_NULO.mensaje("duenio"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.asociacion = Objects.requireNonNull(asociacion, NOT_NULO.mensaje("asociacion"));
-    if (this.fueronTodasContestadas(comodidadesMascota)) {
-      this.comodidadesMascota = comodidadesMascota;
+    if (this.fueronTodasContestadas(preguntas)) {
+      this.preguntas = preguntas;
     } else {
       throw new PreguntasAdopcionSinResponderException("Para generar la publicacion deben contestarse todas las preguntas");
     }
@@ -62,13 +62,13 @@ public class PublicacionAdopcion {
         .notificar(new Notificacion(new InteresadoEnAdoptarTemplate(adoptante)));
   }
 
-  public List<Pregunta> getComodidadesMascota() {
-    return this.comodidadesMascota;
+  public List<Pregunta> getPreguntas() {
+    return this.preguntas;
   }
 
-  private Boolean fueronTodasContestadas(List<Pregunta> comodidadesMascota) {
-    return comodidadesMascota
+  private Boolean fueronTodasContestadas(List<Pregunta> preguntas) {
+    return preguntas
         .stream()
-        .noneMatch(comodidad -> comodidad.getOpcionesSeleccionas().isEmpty());
+        .noneMatch(pregunta -> pregunta.getOpcionesSeleccionas().isEmpty());
   }
 }

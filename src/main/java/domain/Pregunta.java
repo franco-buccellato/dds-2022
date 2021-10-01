@@ -43,8 +43,7 @@ public class Pregunta {
 
   public Boolean tienenMismasOpciones(Pregunta pregunta) {
     return !this.getOpcionesSeleccionas().isEmpty()
-        && this.equals(pregunta)
-        && pregunta.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
+        && this.getOpcionesSeleccionas().containsAll(pregunta.getOpcionesSeleccionas());
   }
 
   public AlcancePregunta getAlcancePregunta() {

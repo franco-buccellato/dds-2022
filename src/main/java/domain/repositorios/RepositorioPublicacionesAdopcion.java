@@ -17,9 +17,9 @@ public class RepositorioPublicacionesAdopcion {
     return repositorioPublicaciones;
   }
 
-//  public void agregarPublicacion(PublicacionAdopcion publicacion) {
-//    publicacionesAdopcion.add(publicacCaracteristicaChoiceion);
-//  }
+  public void agregarPublicacion(PublicacionAdopcion publicacion) {
+    publicacionesAdopcion.add(publicacion);
+  }
 
   public void setPublicaciones(List<PublicacionAdopcion> publicaciones) {
     this.publicacionesAdopcion = publicaciones;

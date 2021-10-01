@@ -48,7 +48,9 @@ public abstract class Caracteristica {
 
   public Boolean tienenMismasOpciones(Pregunta pregunta) {
     return !this.getOpcionesSeleccionas().isEmpty()
-        && pregunta.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
+        && this.getOpcionesSeleccionas()
+          .stream()
+          .allMatch(cOpcion -> pregunta.getOpcionesSeleccionas().stream().anyMatch(pOpcion -> cOpcion.getDescripcion().matches(pOpcion.getDescripcion())));
   }
 
   public String getDescripcion() {

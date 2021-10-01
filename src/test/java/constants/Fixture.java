@@ -261,12 +261,12 @@ public class Fixture {
     return new Pregunta( "Vacunas administradas", vacunas, AlcancePregunta.PREGUNTA_PREFERENCIA);
   }
 
-  public CaracteristicaChoice comportamientoConNiños() {
+  public CaracteristicaChoice comportamientoConNinios() {
     List<Opcion> comportamientos = Arrays.asList(comportamientoAmistoso, comportamientoManso, comportamientoAgresivo);
     return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos);
   }
 
-  public Pregunta preguntaComportamientoConNiños() {
+  public Pregunta preguntaComportamientoConNinios() {
     List<Opcion> comportamientos = Arrays.asList(comportamientoAmistoso, comportamientoManso, comportamientoAgresivo);
     return new Pregunta("Comportamiento con los niños", comportamientos, AlcancePregunta.PREGUNTA_PREFERENCIA);
   }
@@ -330,44 +330,60 @@ public class Fixture {
   }
 
   public PublicacionAdopcion publicacionAdopcion1() {
-    Pregunta comportamiento = preguntaComportamiento();
-    comportamiento.seleccionarOpcion(comportamientoTranquilo, true);
-    Pregunta tamanios = preguntaTamanio();
-    tamanios.seleccionarOpcion(tamanioChico, true);
+    List<Opcion> comportamientos = Arrays.asList(new Opcion("Tranquilo"), new Opcion("Pacifico"), new Opcion("Alborotado"));
+    comportamientos.get(0).setSeleccionada(true);
+
+    List<Opcion> tamanios = Arrays.asList(new Opcion("Grande"), new Opcion("Mediano"), new Opcion("Chico"));
+    tamanios.get(0).setSeleccionada(true);
+
+    List<Opcion> tipos = Arrays.asList(new Opcion("Gato"), new Opcion("Perro"));
+    tipos.get(1).setSeleccionada(true);
+    Mascota mascota = mascota1();
+    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Tipo mascota", tipos));
+    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Comportamiento", comportamientos));
+    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Tamanios", tamanios));
 
     return new PublicacionAdopcion(
             duenio(),
-            mascota1(),
+            mascota,
             asociacion(),
-            Arrays.asList(comportamiento, tamanios)
+            Collections.emptyList()
     );
   }
 
   public PublicacionAdopcion publicacionAdopcion2() {
-    Pregunta comportamiento = preguntaComportamiento();
-    comportamiento.seleccionarOpcion(comportamientoTranquilo, true);
-    Pregunta tamanios = preguntaTamanio();
-    tamanios.seleccionarOpcion(tamanioChico, true);
-    Pregunta tipos = preguntaTipoMascota();
-    tipos.seleccionarOpcion(tipoGato, true);
+    List<Opcion> tipos = Arrays.asList(new Opcion("Gato"), new Opcion("Perro"));
+    tipos.get(0).setSeleccionada(true);
+
+    List<Opcion> comportamientos = Arrays.asList(new Opcion("Tranquilo"), new Opcion("Pacifico"), new Opcion("Alborotado"));
+    comportamientos.get(0).setSeleccionada(true);
+
+    List<Opcion> tamanios = Arrays.asList(new Opcion("Grande"), new Opcion("Mediano"), new Opcion("Chico"));
+    tamanios.get(0).setSeleccionada(true);
+
+    Mascota mascota = mascota2();
+    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Tipo mascota", tipos));
+    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Comportamiento", comportamientos));
+    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Tamanios", tamanios));
 
     return new PublicacionAdopcion(
             duenio(),
-            mascota1(),
+            mascota,
             asociacion(),
-            Arrays.asList(comportamiento, tamanios, tipos)
+            Collections.emptyList()
     );
   }
 
   public PublicacionAdopcion publicacionAdopcion3() {
-    Pregunta estaCastrado = preguntaEstaCastrada();
-    estaCastrado.seleccionarOpcion(estaCastrado.getOpciones().get(0), true);
+    List<Opcion> opcionesBool = Arrays.asList(new Opcion("Si"), new Opcion("No"));
+    opcionesBool.get(0).setSeleccionada(true);
+    Pregunta estaCastrado = new Pregunta("Esta Castrada:", opcionesBool, AlcancePregunta.PREGUNTA_PREFERENCIA);
 
     return new PublicacionAdopcion(
             duenio(),
             mascota1(),
             asociacion(),
-            Arrays.asList(estaCastrado)
+            Collections.singletonList(estaCastrado)
             );
   }
 
@@ -389,7 +405,7 @@ public class Fixture {
 
   public PublicacionInteresAdopcion publicacionInteresAdopcion3() {
     Pregunta estaCastrado = preguntaEstaCastrada();
-    estaCastrado.seleccionarOpcion((Opcion) estaCastrado.getOpciones().get(0), true);
+    estaCastrado.seleccionarOpcion(estaCastrado.getOpciones().get(0), true);
     Pregunta tamanios = preguntaTamanio();
     tamanios.seleccionarOpcion(tamanioChico, true);
 

@@ -4,7 +4,6 @@ import constants.Fixture;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,7 +49,7 @@ public class CaracteristicaTest extends Fixture {
   }
   @Test
   public void puedoSetearUnaCaracteristicaSingleChoice(){
-    CaracteristicaChoice comportamiento = comportamientoConNiños();
+    CaracteristicaChoice comportamiento = comportamientoConNinios();
     int index = setOpcionRandom(comportamiento.getOpciones());
     List<Opcion> opciones = comportamiento.getOpciones();
 

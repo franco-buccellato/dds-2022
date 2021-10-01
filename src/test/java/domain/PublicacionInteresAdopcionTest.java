@@ -2,14 +2,12 @@ package domain;
 
 import constants.Fixture;
 import domain.exception.PreguntaObligatoriaNoContestadaException;
-import domain.exception.PreguntasAdopcionSinResponderException;
 import domain.repositorios.RepositorioCaracteristicas;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,7 +26,7 @@ public class PublicacionInteresAdopcionTest {
         fixture.estaCastrada(),
         fixture.contextura(),
         fixture.datosDeInteres(),
-        fixture.comportamientoConNiños()
+        fixture.comportamientoConNinios()
     ));
   }
 
@@ -64,10 +62,10 @@ public class PublicacionInteresAdopcionTest {
 
   private List<Pregunta> preguntasRespondidas() {
     Pregunta tamanio = fixture.preguntaTamanio();
-    Pregunta comportamientoConNiños = fixture.preguntaComportamientoConNiños();
+    Pregunta comportamientoConNinios = fixture.preguntaComportamientoConNinios();
     tamanio.seleccionarOpcion(tamanio.getOpciones().get(0), Boolean.TRUE);
-    comportamientoConNiños.seleccionarOpcion(comportamientoConNiños.getOpciones().get(0), Boolean.TRUE);
-    return Arrays.asList(tamanio, comportamientoConNiños);
+    comportamientoConNinios.seleccionarOpcion(comportamientoConNinios.getOpciones().get(0), Boolean.TRUE);
+    return Arrays.asList(tamanio, comportamientoConNinios);
   }
 
   private List<Pregunta> preguntas() {

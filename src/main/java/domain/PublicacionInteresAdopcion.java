@@ -28,7 +28,7 @@ public class PublicacionInteresAdopcion {
       this.estaActiva = true;
     }
     this.interesado = Objects.requireNonNull(interesado, NOT_NULO.mensaje("interesado"));
-    this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("preguntas"));
+    this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("comodidadesMascota"));
   }
 
   public int getId() {
@@ -39,7 +39,7 @@ public class PublicacionInteresAdopcion {
     return interesado;
   }
 
-  public List<Pregunta> getPreguntas() {
+  public List<Pregunta> getComodidadesMascota() {
     return preguntas;
   }
 
@@ -70,8 +70,8 @@ public class PublicacionInteresAdopcion {
   }
 
   public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
-    return cumpleConComodidades(publicacion.getComodidadesMascota())
-      && cumpleConPreferencias(publicacion.getMascota().getCaracteristicas());
+    return cumpleConPreferencias(publicacion.getMascota().getCaracteristicasSeleccionadas())
+        && cumpleConComodidades(publicacion.getPreguntas());
   }
 
   public Boolean cumpleConComodidades(List<Pregunta> comodidades) {
@@ -85,12 +85,10 @@ public class PublicacionInteresAdopcion {
   }
 
   public Boolean cumpleConPreferencias(List<Caracteristica> caracteristicas) {
-    return caracteristicas
+     return getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
         .stream()
-        .allMatch(caracteristica ->
-            getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
-                .stream()
-                .anyMatch(pregunta -> caracteristica.tienenMismasOpciones(pregunta))
+        .allMatch(
+            pregunta -> caracteristicas.stream().anyMatch(caracteristica -> caracteristica.tienenMismasOpciones(pregunta))
         );
   }
 

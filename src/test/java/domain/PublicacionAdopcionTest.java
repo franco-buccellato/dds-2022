@@ -17,9 +17,7 @@ public class PublicacionAdopcionTest extends Fixture {
   private Asociacion asociacionVinculada;
   private Asociacion asociacionSinPreguntas;
   private Asociacion asociacionConPreguntas;
-  private List<Caracteristica> preguntasAsociacion;
   private RepositorioCaracteristicas repositorioCaracteristicas;
-  private PublicacionAdopcion publicacionAdopcion;
 
   @BeforeEach
   public void iniciar() {
@@ -34,7 +32,7 @@ public class PublicacionAdopcionTest extends Fixture {
         estaCastrada(),
         contextura(),
         datosDeInteres(),
-        comportamientoConNiños()
+        comportamientoConNinios()
     ));
   }
 
@@ -63,7 +61,7 @@ public class PublicacionAdopcionTest extends Fixture {
 
   public List<Pregunta> preguntasRespondidas() {
     Pregunta contextura = preguntaContextura();
-    Pregunta comportamientoConNiños = preguntaComportamientoConNiños();
+    Pregunta comportamientoConNiños = preguntaComportamientoConNinios();
     Pregunta vacunas = preguntaVacunas();
     Pregunta estaCastrada = preguntaEstaCastrada();
     contextura.seleccionarOpcion(contextura.getOpciones().get(0), Boolean.TRUE);

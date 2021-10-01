@@ -1,9 +1,7 @@
 package domain;
 
 import constants.Fixture;
-import domain.Caracteristica;
 import domain.repositorios.RepositorioCaracteristicas;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +29,7 @@ public class RepositorioCaracteristicasTest extends Fixture {
   public void puedoAgregarCaracterisiticasDisponibles() {
     assertEquals(3, repositorio.getCaracteristicasDisponibles().size());
 
-    repositorio.addCaracteristicasDisponibles(comportamientoConNiños());
+    repositorio.addCaracteristicasDisponibles(comportamientoConNinios());
 
     assertEquals(4, repositorio.getCaracteristicasDisponibles().size());
   }
