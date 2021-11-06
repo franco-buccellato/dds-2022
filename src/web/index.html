@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Rescate de Patitas
+	</title>
+	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="icon" href="imagenes/icono-principal.png">
+	<meta charset="utf-8">
+	<meta name="keywords" content="Mascotas, Gato, Perro, Mascota perdida, adopción">
+	<meta name="description" content="Gestión de Mascotas perdidas, encontradas o propias">
+	<meta name="author" content="DDS2021">
+	<meta name="copyrigth" content= "DDS2021">
+	<meta name="robots" content="index">
+	<meta name="robots" content="follow">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+	<link rel = "preconnect" href = "https://fonts.gstatic.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://kit.fontawesome.com/a2beca5d14.js" crossorigin="anonymous"></script>
+
+</head>
+	<body>
+		<header id="principio">
+			<div class="encabezado">
+				<a href="index.html"><img class="logo-inicio" src="imagenes/icono-principal.png"></img></a>
+				<h1>Rescate de Patitas</h1>
+			</div>
+			<nav class="menu">
+				<ul class="menu__menu">
+					<li class="menu__menu__li"><i class="fas fa-home"></i>
+						<a href="index.html"><h3>Inicio</h3></a>
+					</li>
+					<li class="menu__menu__li"><i class="fas fa-paw"></i>
+						<a href="registrarMascota.html"><h3>Registrar mi Mascota</h3></a>
+					</li>
+					<li class="menu__menu__li"><i class="fas fa-paw"></i>
+						<a href="encontreMascota.html"><h3>Encontre una Mascota</h3></a>
+					</li>
+					<li class="menu__menu__li"><i class="fas fa-sign-in-alt"></i>
+						<a href="inicioSesion.html"><h3>Iniciar Sesión</h3></a>
+					</li>
+				</ul>
+				<ul class="menu__responsive">
+					<div class="menu__responsive-boton-container">
+						<div class="menu__responsive-boton fas fa-bars"></div>
+					</div>
+					<div class="menu__responsive__div">
+						<li class="menu__responsive__div__li"><i class="fas fa-home"></i>
+							<a href="index.html"><h2>Inicio</h2></a>
+						</li>
+						<li class="menu__responsive__div__li"><i class="fas fa-paw"></i>
+							<a href="registrarMascota.html"><h2>Registrar Mascota</h2></a>
+						</li>
+						<li class="menu__responsive__div__li"><i class="fas fa-paw"></i>
+							<a href="encontreMascota.html"><h2>Encontré Mascota</h2></a>
+						</li>
+						<li class="menu__responsive__div__li"><i class="fas fa-sign-in-alt"></i>
+							<a href="inicioSesion.html"><h2>Iniciar Sesión</h2></a>
+						</li>
+					</div>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<div class="banner">
+				<img src="imagenes/portada-transparente.png" width="100%" alt="Banner" title="Portada-Principal">
+			</div>
+			<div id="informacion">
+				<div class="container-informacion">
+					<div class="informacion-flex">
+						<h3>Sobre Nosotros: </h3>
+						<h4>¿Quienes somos?</h4>
+						<p>
+							Somos una organización que trata de tener un registro de todas las mascotas enlazandolas con sus dueños.
+							De esta manera al perderse una de las mascotas es mas fácil, rápido y sencillo encontrar a sus dueños.
+						</p>
+						<h4>¿Que podes hacer en esta Web App si tenes un mascota?</h4>
+						<p>
+							Podes registrarlas completando el formulario que se encuentra en el bóton de "Regsitrar mi Mascota" en el cual tenes que cargar desde sus caractetisticas
+							físicas hasta su personalidad. Tené en cuenta que para esto tenes que poseer un usuario y estar loguedado.
+						</p>
+						<h4>¿Y si encontraste un mascota?</h4>
+						<p>
+							Podes registrar que encontraste una mascota completando el formulario que se encuentra en el bóton de "Encontré una Mascota" en el cual tenes que cargar sus caractetisticas
+							físicas, fotos y demás información que ayude a sus dueños a identificarla facilmente. Tené en cuenta que para esto tenes que poseer un usuario y estar loguedado.
+						</p>
+						<h4>Pero.........¿Si posee una chapa Identificatoria con un código?</h4>
+						<p>
+							De esta manera es mas sencillo ya que cargando ese código en la página se encuentra a sus dueños inmediatamente.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="contacto">
+				<div class="contacto">
+					<form>
+						<div class="contacto__info">
+							<ul class="contacto__info__inputs">	
+								<li><label class="label-contacto">Ingrese su nombre:</label></li>
+								<li><input type="text" name="contacto__info__nombre" required="" class="input_text"></li>
+								<li><label class="label-contacto">Ingrese su apellido:</label></li>
+								<li><input type="text" name="contacto__info__apellido" required=""class="input_text"></li>
+								<li><label class="label-contacto">Ingrese su e-mail:</label></li>
+								<li><input type="email" name="contacto__info__mail" required=""class="input_text"></li>
+							</ul>
+						</div>
+						<div class="contacto__consulta">
+							<textarea class="contacto__consulta__texto" cols="40" rows="8" required=""></textarea>
+							<input type="submit" class="boton-submit">
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+		<footer>
+				<div class="footer">
+					<div class="footer__ubicacion">
+						<img src="imagenes/icono-principal.png" height="50px">
+						<div class="footer__ubicacion__contenido">	
+							<h6>Direccion de Prueba 123</h6>
+							<h6>Ciudad Autónoma de Bs.As.</h6>
+							<h6>Buenos Aires, Argentina</h6>
+						</div>
+					</div>
+					<div class="footer__contacto">
+						<h5>Contacto:</h5>
+						<div class="footer__contacto__contenido">
+							<h6>Móvil 1: +54 011 9999-9999</h6>
+							<h6>Móvil 2: +54 011 8888-8888</h6>
+							<h6>Mail: info@lasercom.com.ar</h6>
+						</div>
+					</div>
+					<div class="footer__redes">
+						<h5>Nuestras Redes:</h5>
+						<div class="footer__redes__contenido">
+							<div>
+								<a href="https://www.facebook.com/" target="_BLANK">
+									<img src="imagenes/facebook.png">
+								</a>
+								<a href="https://www.facebook.com/" target="_BLANK"><h6 class="boton_redes">Facebook</h6></a>
+							</div>
+							<div>
+								<a href="https://www.instagram.com/" target="_BLANK">
+									<img src="imagenes/instagram.png">
+								</a>
+								<a href="https://www.instagram.com/" target="_BLANK"><h6 class="boton_redes">Instagram</h6></a>
+							</div>
+							<div>
+								<a href="https://mercadolibre.com.ar" target="_BLANK">
+									<img src="imagenes/carrito.jpg">
+								</a>
+								<a href="https://mercadolibre.com.ar" target="_BLANK"><h6 class="boton_redes">Tienda Online</h6></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="copyright">
+				<p>Rescate de Patitas @Copyrigth - Todos los derechos reservados a DDS2021</p>
+			</div>
+		</footer>
+	</body>
+</html>
