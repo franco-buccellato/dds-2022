@@ -67,61 +67,28 @@
 				</ul>
 			</nav>
 		</header>
-		<section class="section-login">
-
-
-
-
-
-
-
-
-		</section>
-		<footer>
-				<div class="footer">
-					<div class="footer__ubicacion">
-						<img src="imagenes/icono-principal.png" height="50px">
-						<div class="footer__ubicacion__contenido">	
-							<h6>Direccion de Prueba 123</h6>
-							<h6>Ciudad Autónoma de Bs.As.</h6>
-							<h6>Buenos Aires, Argentina</h6>
+			<div id="login">
+				<div class="container-login">
+				<form action="/login" method="POST">
+					<form>
+						<div class="contacto__info">
+							<ul class="contacto__info__inputs">
+								<li><label class="label-contacto">Usuario:</label></li>
+								<li><input type="text" name="usuario" required="" class="input_text"></li>
+								<li><label class="label-contacto">Password:</label></li>
+								<li><input type="password" name="password" required=""class="input_text"></li>
+								<li><input type="submit" value="Ingresar" class="boton-submit"></li>
+							</ul>
 						</div>
-					</div>
-					<div class="footer__contacto">
-						<h5>Contacto:</h5>
-						<div class="footer__contacto__contenido">
-							<h6>Móvil 1: +54 011 9999-9999</h6>
-							<h6>Móvil 2: +54 011 8888-8888</h6>
-							<h6>Mail: info@lasercom.com.ar</h6>
-						</div>
-					</div>
-					<div class="footer__redes">
-						<h5>Nuestras Redes:</h5>
-						<div class="footer__redes__contenido">
-							<div>
-								<a href="https://www.facebook.com/" target="_BLANK">
-									<img src="imagenes/facebook.png">
-								</a>
-								<a href="https://www.facebook.com/" target="_BLANK"><h6 class="boton_redes">Facebook</h6></a>
+						<div id="informacion">
+							<div class="informacion-flex">
+								<p>
+									No posee usuario? <a href="/registro"><h2>Registrese</h2></a> 
+								</p>
 							</div>
-							<div>
-								<a href="https://www.instagram.com/" target="_BLANK">
-									<img src="imagenes/instagram.png">
-								</a>
-								<a href="https://www.instagram.com/" target="_BLANK"><h6 class="boton_redes">Instagram</h6></a>
-							</div>
-							<div>
-								<a href="https://mercadolibre.com.ar" target="_BLANK">
-									<img src="imagenes/carrito.jpg">
-								</a>
-								<a href="https://mercadolibre.com.ar" target="_BLANK"><h6 class="boton_redes">Tienda Online</h6></a>
-							</div>
-						</div>
-					</div>
+						</div>	
+					</form>
 				</div>
-			<div class="copyright">
-				<p>Rescate de Patitas @Copyrigth - Todos los derechos reservados a DDS2021</p>
 			</div>
-		</footer>
 	</body>
 </html>

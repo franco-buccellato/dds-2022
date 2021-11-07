@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 import servicio.impl.ValidadorClave;
 
 @Entity
-@Table(name="Usuarios")
+@Table(name = "Usuarios")
 public class Usuario {
   @Id
   @Column(name = "usuario_id")
@@ -46,5 +46,9 @@ public class Usuario {
 
   public TipoUsuario getTipoUsuario() {
     return tipoUsuario;
+  }
+
+  public Long getId() {
+    return id;
   }
 }
