@@ -1,29 +1,56 @@
 package domain;
 
-import javax.persistence.*;
-
 import static domain.exception.Mensajes.NOT_NULO;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.persistence.*;
 
-@Entity
+
+@Entity(name = "mascotas")
 public class Mascota {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo_mascota")
   private TipoMascota tipoMascota;
+
   private String nombre;
   private String apodo;
+
+  @Column(name = "edad_aproximada")
   private Double edadAproximada;
+
+  @Enumerated(EnumType.STRING)
   private Sexo sexo;
+
+  @Column(name = "descripcion_fisica")
   private String descripcionFisica;
-  @ElementCollection()
+
+  @ElementCollection
+  @CollectionTable(
+      name = "mascotas_fotos",
+      joinColumns = @JoinColumn(name = "mascota_id"),
+      uniqueConstraints = @UniqueConstraint(columnNames = {"mascota_id", "foto"})
+  )
+  @Column(name = "foto", nullable = false)
   private List<String> fotos;
+
   @OneToMany
   private List<Caracteristica> caracteristicas;
-  @Embedded
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "situacion_mascota")
   private SituacionMascota situacionMascota;
+
+  public Mascota() {
+  }
 
   public Mascota(
       TipoMascota tipoMascota,
@@ -99,27 +126,27 @@ public class Mascota {
     return caracteristicas;
   }
 
-  public void setCaracteristicas(List<Caracteristica> caracteristicas) {
-    this.caracteristicas = caracteristicas;
+  public void addCaracteristica(Caracteristica caracteristica) {
+    caracteristicas.add(caracteristica);
   }
 
-  public void setSituacionMascota(SituacionMascota situacionMascota) {
-    this.situacionMascota = situacionMascota;
+  public void setCaracteristicas(List<Caracteristica> caracteristicas) {
+    this.caracteristicas = caracteristicas;
   }
 
   public SituacionMascota getSituacionMascota() {
     return this.situacionMascota;
   }
 
-  public void addCaracteristica(Caracteristica caracteristica) {
-    caracteristicas.add(caracteristica);
+  public void setSituacionMascota(SituacionMascota situacionMascota) {
+    this.situacionMascota = situacionMascota;
   }
 
   public List<Caracteristica> getCaracteristicasSeleccionadas() {
-      return caracteristicas
-          .stream()
-          .filter(caracteristica -> !caracteristica.getOpcionesSeleccionas().isEmpty())
-          .collect(Collectors.toList());
+    return caracteristicas
+        .stream()
+        .filter(caracteristica -> !caracteristica.getOpcionesSeleccionas().isEmpty())
+        .collect(Collectors.toList());
   }
 
   public String getTamanio() {
@@ -127,9 +154,11 @@ public class Mascota {
         .stream()
         .map(Caracteristica::getOpcionesSeleccionas)
         .flatMap(Collection::stream)
-        .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande").contains(opcion.getDescripcion()))
+        .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande")
+                                .contains(opcion.getDescripcion()))
         .findFirst()
         .orElse(new Opcion(""));
+
     return tamanio.getDescripcion();
   }
 }
