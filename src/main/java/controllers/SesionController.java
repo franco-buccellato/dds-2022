@@ -48,4 +48,14 @@ public class SesionController {
     response.redirect("/");
     return null;
   }
+
+  public Void registrarMascota(Request request, Response response) {
+
+    return null;
+  }
+
+  public Void encontreMascota(Request request, Response response) {
+
+    return null;
+  }
 }

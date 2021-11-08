@@ -37,10 +37,18 @@
 						<a href="/"><h3>Inicio</h3></a>
 					</li>
 					<li class="menu__menu__li"><i class="fas fa-paw"></i>
-						<a href="registrarMascota.html"><h3>Registrar mi Mascota</h3></a>
+					    {{#if sesionIniciada}}
+						<a href="/registrarMascota"><h3>Registrar mi Mascota</h3></a>
+						{{else}}
+						<a href="/login"><h3>Registrar mi Mascota</h3></a>
+						{{/if}}
 					</li>
 					<li class="menu__menu__li"><i class="fas fa-paw"></i>
-						<a href="encontreMascota.html"><h3>Encontre una Mascota</h3></a>
+					    {{#if sesionIniciada}}
+						<a href="/encontreMascota"><h3>Encontre una Mascota</h3></a>
+						{{else}}
+						<a href="/login"><h3>Encontre una Mascota</h3></a>
+						{{/if}}
 					</li>
 					<li class="menu__menu__li"><i class="fas fa-sign-in-alt"></i>
 						{{#if sesionIniciada}}
@@ -59,10 +67,18 @@
 							<a href="/"><h2>Inicio</h2></a>
 						</li>
 						<li class="menu__responsive__div__li"><i class="fas fa-paw"></i>
-							<a href="registrarMascota.html"><h2>Registrar Mascota</h2></a>
+						    {{#if sesionIniciada}}
+							<a href="/registrarMascota"><h2>Registrar Mascota</h2></a>
+							{{else}}
+                            <a href="/login"><h2>Registrar mi Mascota</h2></a>
+                            {{/if}}
 						</li>
 						<li class="menu__responsive__div__li"><i class="fas fa-paw"></i>
-							<a href="encontreMascota.html"><h2>Encontré Mascota</h2></a>
+						    {{#if sesionIniciada}}
+							<a href="/encontreMascota"><h2>Encontré Mascota</h2></a>
+							{{else}}
+							<a href="/login"><h2>Encontré Mascota</h2></a>
+							{{/if}}
 						</li>
 						<li class="menu__responsive__div__li"><i class="fas fa-sign-in-alt"></i>
 							{{#if sesionIniciada}}

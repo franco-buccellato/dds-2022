@@ -591,5 +591,10 @@ footer div div div div a{
 	height: 30vw;
 }
 
+.registro__input__select {
+	display:block;
+	height:200px;
+	width:500px;
+}
 
 

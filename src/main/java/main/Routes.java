@@ -26,6 +26,8 @@ public class Routes {
     Spark.get("/login", sesionController::mostrarLogin, engine);
     Spark.post("/login", sesionController::iniciarSesion);
     Spark.get("/logout", sesionController::cerrarSesion);
+    Spark.get("/registrarMascota", sesionController::registrarMascota);
+    Spark.get("/encontreMascota", sesionController::encontreMascota);
 
     after((request, response) -> {
       PerThreadEntityManagers.getEntityManager();
