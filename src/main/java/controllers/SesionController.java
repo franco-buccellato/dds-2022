@@ -56,7 +56,7 @@ public class SesionController {
 
   public Void registrarMascota(Request request, Response response) throws IOException {
     //Obtengo el idUsuario y el tipo de usuario logueado
-    String idUsuario = request.session().attribute("idUsuario");
+    Long idUsuario = Long.parseLong(request.session().attribute("idUsuario"));
     String tipoUsuario = request.session().attribute("tipoUsuario");
 
     //Obtengo los datos completados en el form para la mascota
@@ -69,6 +69,7 @@ public class SesionController {
     String nombreMascota = request.queryParams("registro-nombre");
     String apodo = request.queryParams("registro-apodo");
     Double edad = Double.parseDouble(request.queryParams("registro-edad"));
+    //TODO: Ver si se puede hacer de una mejor manera
     Sexo sexo;
     if (request.queryParams("registro-sexo") == "MACHO") {
       sexo = Sexo.MACHO;
@@ -78,11 +79,11 @@ public class SesionController {
     String descripcionFisica = request.queryParams("registro-descripcion");
     String fotos = request.queryParams("registro-fotos");
     String caracteristicas = request.queryParams("registro-caracteristicas");
-    //String situacionMascota = SituacionMascota.EN_HOGAR_PROPIO;
 
+    //TODO: Ver lo de ArrayList
     List listaFotos = new ArrayList();
     listaFotos.add(fotos);
-
+    //TODO: Ver lo de ArrayList
     List listaCaracteristicas = new ArrayList();
     listaCaracteristicas.add(caracteristicas);
 
@@ -91,14 +92,17 @@ public class SesionController {
 
     //Obtengo el Usuario
     RepositorioUsuarios repositorioUsuarios = RepositorioUsuarios.getInstance();
-    Usuario usuario = repositorioUsuarios.getById(Integer.parseInt(idUsuario));
+    Usuario usuario = repositorioUsuarios.getById(idUsuario);
 
     //Obtener el duenio del repositorio de duenios a partir de su usuario
     RepositorioDuenio repositorioDuenio = RepositorioDuenio.getInstance();
-    if (repositorioDuenio.getDuenios().stream().filter(unDuenio -> unDuenio.getUsuario().getId().toString() == idUsuario).findFirst().get() == null) {
+    //Verifico si el usuario ya era duenio
+    if(repositorioDuenio.getDuenios().stream().filter(unDuenio -> unDuenio.getUsuario().getId() == idUsuario).findFirst().get() == null){
+      //Si no era duenio tengo que cargar sus datos personales completos
       //Obtengo los datos personales del duenio que va a registrar la mascota
       String nombreDuenio = request.queryParams("registro-nombreDuenio");
       String apellidoDuenio = request.queryParams("registro-apellido");
+      //TODO: Ver si se puede hacer de una mejor manera
       TipoIdentificacion tipoIdentificacion;
       if (request.queryParams("registro-tipoDocumento") == "DNI") {
         tipoIdentificacion = TipoIdentificacion.DNI;
@@ -117,6 +121,7 @@ public class SesionController {
       String apellidoContacto1 = request.queryParams("registro-apellidoContacto1");
       String telefonoContacto1 = request.queryParams("registro-telefonoContacto1");
       String mailContacto1 = request.queryParams("regsitro.mailContacto1");
+      //TODO: Ver si se puede hacer de una mejor manera
       Vinculo vinculoContacto1;
       if (request.queryParams("registro-vinculoContacto1") == "TITULAR") {
         vinculoContacto1 = Vinculo.TITULAR;
@@ -132,6 +137,7 @@ public class SesionController {
       String apellidoContacto2 = request.queryParams("registro-apellidoContacto1");
       String telefonoContacto2 = request.queryParams("registro-telefonoContacto1");
       String mailContacto2 = request.queryParams("regsitro.mailContacto1");
+      //TODO: Ver si se puede hacer de una mejor manera
       Vinculo vinculoContacto2;
       if (request.queryParams("registro-vinculoContacto2") == "TITULAR") {
         vinculoContacto2 = Vinculo.TITULAR;
@@ -154,7 +160,7 @@ public class SesionController {
     }
 
     //Obtengo el duenio del repositorio
-    Duenio duenio = repositorioDuenio.getDuenios().stream().filter(unDuenio -> unDuenio.getUsuario().getId().toString() == idUsuario).findFirst().get();
+    Duenio duenio = repositorioDuenio.getDuenios().stream().filter(unDuenio -> unDuenio.getUsuario().getId() == idUsuario).findFirst().get();
     //Agrego la mascota al duenio
     duenio.addMascota(mascota);
 

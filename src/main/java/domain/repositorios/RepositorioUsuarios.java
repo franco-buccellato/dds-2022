@@ -27,7 +27,7 @@ public class RepositorioUsuarios implements WithGlobalEntityManager {
         .getResultList();
   }
 
-  public Usuario getById(Integer id) {
+  public Usuario getById(Long id) {
     return entityManager().find(Usuario.class, id);
   }
 
