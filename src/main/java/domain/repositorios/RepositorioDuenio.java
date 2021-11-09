@@ -35,9 +35,6 @@ public class RepositorioDuenio {
     return duenios.stream().filter(duenio -> duenio.getMascotas().contains(mascota)).findFirst();
   }
 
-  public Duenio buscarDuenioAPartirDeIdUsuario(String idUsuario) {
-    return duenios.stream().filter(duenio -> duenio.getUsuario().getId().toString() == idUsuario).findFirst().get();
-  }
 }
 
 // TODO: Logica no va

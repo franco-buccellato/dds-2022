@@ -579,16 +579,66 @@ footer div div div div a{
 	}
 }
 
+
 .section-login {
-	height: 30vw;
+	padding-top: 15vw;
+	height: 45vw;
 }
 
 .section-encontre {
-	height: 30vw;
+	padding-top: 15vw;
+	height: 150vw;
 }
 
 .section-registrar {
-	height: 30vw;
+	padding-top: 15vw;
+	height: 235vw;
+}
+
+.section-creacion-usuario {
+	padding-top: 15vw;
+	height: 130vw;
+}
+
+.container__regsitro {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-content: flex-start;
+}
+
+.registro__label {
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	padding: 2vw 0 2vw 0;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.registro__input {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-content: flex-start;
+	width: 500px;
+	height: 30px;
+	color: #FF914D;
+}
+
+.registro__file {
+	width: 500px;
+	color: #FF914D;
+	padding: 1vw 0 1vw 0;
+}
+
+.boton-submit {
+	background-color: #FF914D;
+	color: #000;
+	font-weight: bold;
+	width: 500px;
+	padding: 1vw 0 1vw 0;
+	margin: 2vw 0 2vw 0;
 }
 
 .registro__input__select {
@@ -596,5 +646,3 @@ footer div div div div a{
 	height:200px;
 	width:500px;
 }
-
-
