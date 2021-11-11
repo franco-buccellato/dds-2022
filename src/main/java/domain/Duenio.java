@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 @Entity
+@Table(name = "Duenios")
 public class Duenio {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

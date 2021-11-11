@@ -4,6 +4,7 @@
 				<div class="registro">
 					<form>
 						<ul>
+						    {{#if esDuenio}}
 							<h3>Complete la siguiente información sobre usted:</h3>
 							<li><label class="registro__label">Ingrese su nombre completo:</label></li>
 							<li><input type="text" class="registro__input" id="registro-nombreDuenio" required></li>
@@ -109,6 +110,54 @@
 								</select>
 							</li>
 							<li><input type="submit" class="boton-submit" value="Registrar Mascota"></li>
+							{{#else}}
+                            <h3>Complete los siguientes datos de su mascota:</h3>
+                            <li><label class="registro__label">Seleccione tipo de Mascota:</label></li>
+                            <li>
+                                <select name="especie" class="registro__input" id="registro-especie" required>
+                                    <option>Seleccione la especie correspondiente</option>
+                                    <option value="PERRO">Perro</option>
+                                    <option value="GATO">Gato</option>
+                                </select>
+                            </li>
+                            <li><label class="registro__label">Ingrese el nombre:</label></li>
+                            <li><input type="text" class="registro__input" id="registro-nombre" required></li>
+                            <li><label class="registro__label">Ingrese el apodo:</label></li>
+                            <li><input type="text" class="registro__input" id="registro-apodo" required></li>
+                            <li><label class="registro__label">Ingrese la edad:</label></li>
+                            <li><input type="text" class="registro__input" id="registro-edad" required></li>
+                            <li><label class="registro__label">Seleccione el sexo:</label></li>
+                            <li>
+                                <select name="sexo" class="registro__input" id="registro-sexo" required>
+                                    <option>Seleccione el sexo correspondiente</option>
+                                    <option value="MACHO">Macho</option>
+                                    <option value="HEMBRA">Hembra</option>
+                                </select>
+                            </li>
+                            <li><label class="registro__label">Ingrese una descripción física:</label></li>
+                            <li><textarea class="registro__textarea" id="registro-descripcion" cols="63" rows="10" required></textarea></li>
+                            <li><label class="registro__label">Seleccione imagenes:</label></li>
+                            <li><input type="file" class="registro__file" id="registro-fotos" required></li>
+                            <li><label class="registro__label">Seleccione las caracteristicas que se asocien a su Mascota:</label></li>
+                            <li>
+                                <select multiple name="caracteristicas" class="registro__input__select" id="registro-caracteristicas" >
+                                    <option value="">Caracteristica 1</option>
+                                    <option value="">Caracteristica 2</option>
+                                    <option value="">Caracteristica 3</option>
+                                    <option value="">Caracteristica 4</option>
+                                    <option value="">Caracteristica 5</option>
+                                    <option value="">Caracteristica 6</option>
+                                    <option value="">Caracteristica 7</option>
+                                    <option value="">Caracteristica 8</option>
+                                    <option value="">Caracteristica 9</option>
+                                    <option value="">Caracteristica 10</option>
+                                    <option value="">Caracteristica 11</option>
+                                    <option value="">Caracteristica 12</option>
+                                    <option value="">Caracteristica 13</option>
+                                </select>
+                            </li>
+                            <li><input type="submit" class="boton-submit" value="Registrar Mascota"></li>
+							{{/if}}
 						</ul>
 					</form>
 				</div>

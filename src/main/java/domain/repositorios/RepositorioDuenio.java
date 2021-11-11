@@ -3,12 +3,14 @@ package domain.repositorios;
 import domain.Duenio;
 import domain.Mascota;
 import domain.Rescate;
+import domain.Usuario;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RepositorioDuenio {
+public class RepositorioDuenio implements WithGlobalEntityManager {
   private List<Duenio> duenios = new ArrayList<>();
   private static RepositorioDuenio INSTANCE = new RepositorioDuenio();
 
@@ -29,6 +31,22 @@ public class RepositorioDuenio {
 
   public void informarMascotaRescatada(Rescate rescate, Duenio elDuenio) {
     elDuenio.notificarMascotaEncontrada(rescate);
+  }
+
+  public void agregar(Duenio duenio) {
+    entityManager().persist(duenio);
+  }
+
+  public Duenio getDuenioByIdUsuario(Long id) {
+    return entityManager().createQuery("SELECT duenio FROM DUENIOS duenio WHERE duenio.usuario_id = :id", Duenio.class).setParameter("id",id).getSingleResult();
+  }
+
+  public List findWithName(String name) {
+    return entityManager().createQuery(
+        "SELECT c FROM Customer c WHERE c.name LIKE :custName")
+        .setParameter("custName", name)
+        .setMaxResults(10)
+        .getResultList();
   }
 
   public Optional<Duenio> findDuenioMascota(Mascota mascota) {
