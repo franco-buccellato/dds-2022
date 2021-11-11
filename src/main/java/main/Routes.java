@@ -1,11 +1,12 @@
 package main;
 
 import static spark.Spark.after;
+import static spark.Spark.before;
+import static spark.Spark.halt;
 
 import controllers.HomeController;
 import controllers.MascotaController;
 import controllers.SesionController;
-import controllers.MascotaController;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -23,6 +24,14 @@ public class Routes {
     SesionController sesionController = new SesionController();
     HomeController homeController = new HomeController();
     MascotaController mascotaController = new MascotaController();
+
+    before((request, response) -> {
+      boolean autenticado = request.session().attribute("idUsuario") != null;
+      if (!autenticado && (request.pathInfo().contains("registrarMascota")
+          || (request.pathInfo().contains("encontreMascota")))) {
+        halt(401, "Acceso denegado");
+      }
+    });
 
     Spark.get("/", homeController::getHome, engine);
     Spark.get("/login", sesionController::mostrarLogin, engine);

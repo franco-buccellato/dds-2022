@@ -16,19 +16,22 @@ import java.util.Objects;
 public class Duenio {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Long id;
   @Embedded
   private DatoPersonal datoPersonal;
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "duenio_id")
   private List<Contacto> contactos;
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "duenio_id")
   private List<Mascota> mascotas;
   @OneToOne
   private Usuario usuario;
   @Transient
   private List<PublicacionAdopcion> ultimasPublicacionesInteres;
+
+  public Duenio() {
+  }
 
   public Duenio(
       DatoPersonal datoPersonal,
