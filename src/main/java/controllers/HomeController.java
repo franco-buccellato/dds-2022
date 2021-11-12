@@ -6,10 +6,16 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class HomeController {
+public class HomeController extends BaseController {
   public ModelAndView getHome(Request request, Response response) {
     Map<String, Object> modelo = new HashMap<>();
-    modelo.put("sesionIniciada", request.session().attribute("idUsuario") != null);
+
+    boolean sesionIniciada = this.sesionIniciada(request);
+    modelo.put("sesionIniciada", sesionIniciada);
+
+    boolean usuarioCreadorCaracteristicas = this.usuarioCreadorCaracteristicas(request);
+    modelo.put("usuarioCreadorCaracteristicas", usuarioCreadorCaracteristicas);
+
     return new ModelAndView(modelo, "index.html.hbs");
   }
 }

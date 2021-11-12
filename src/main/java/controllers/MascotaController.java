@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
-public class MascotaController implements WithGlobalEntityManager, TransactionalOps {
+public class MascotaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
   public Void registrarMascota(Request request, Response response) throws IOException {
     RepositorioUsuarios repositorioUsuarios = RepositorioUsuarios.getInstance();
@@ -37,7 +37,15 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
     List<Caracteristica> listaCaracteristicas = new ArrayList<>();
     //listaCaracteristicas.add(caracteristicas);
     //Creo la mascota
-    Mascota mascota = new Mascota(tipoMascota, nombreMascota, apodo, edad, sexo, descripcionFisica, listaFotos, listaCaracteristicas, SituacionMascota.EN_HOGAR_PROPIO);
+    Mascota mascota = new Mascota(tipoMascota,
+                                  nombreMascota,
+                                  apodo,
+                                  edad,
+                                  sexo,
+                                  descripcionFisica,
+                                  listaFotos,
+                                  listaCaracteristicas,
+                                  SituacionMascota.EN_HOGAR_PROPIO);
     //Verifico si el usuario ya era duenio
     Duenio duenioExistente = repositorioDuenio.getDuenioByIdUsuario(idUsuario);
     if (duenioExistente == null) {
@@ -47,14 +55,24 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
       String telefonoContacto1 = request.queryParams("registro-telefonoContacto1");
       String mailContacto1 = request.queryParams("registro-mailContacto1");
       Vinculo vinculoContacto1 = Vinculo.valueOf(request.queryParams("registro-vinculoContacto1"));
-      Contacto contacto1 = new Contacto(nombreContacto1, apellidoContacto1, telefonoContacto1, mailContacto1, vinculoContacto1, new MedioNotificacionEmail());
+      Contacto contacto1 = new Contacto(nombreContacto1,
+                                        apellidoContacto1,
+                                        telefonoContacto1,
+                                        mailContacto1,
+                                        vinculoContacto1,
+                                        new MedioNotificacionEmail());
       //Obtengo los datos del Contacto 2
       String nombreContacto2 = request.queryParams("registro-nombreContacto2");
       String apellidoContacto2 = request.queryParams("registro-apellidoContacto2");
       String telefonoContacto2 = request.queryParams("registro-telefonoContacto2");
       String mailContacto2 = request.queryParams("registro-mailContacto2");
       Vinculo vinculoContacto2 = Vinculo.valueOf(request.queryParams("registro-vinculoContacto2"));
-      Contacto contacto2 = new Contacto(nombreContacto2, apellidoContacto2, telefonoContacto2, mailContacto2, vinculoContacto2, new MedioNotificacionEmail());
+      Contacto contacto2 = new Contacto(nombreContacto2,
+                                        apellidoContacto2,
+                                        telefonoContacto2,
+                                        mailContacto2,
+                                        vinculoContacto2,
+                                        new MedioNotificacionEmail());
       //Armos listas de Contactos
       List<Contacto> contactos = new ArrayList<>();
       contactos.add(contacto1);
@@ -67,10 +85,15 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
       //Obtengo los datos personales del duenio que va a registrar la mascota
       String nombreDuenio = request.queryParams("registro-nombreDuenio");
       String apellidoDuenio = request.queryParams("registro-apellido");
-      TipoIdentificacion tipoIdentificacion = TipoIdentificacion.valueOf(request.queryParams("registro-tipoDocumento"));
+      TipoIdentificacion tipoIdentificacion = TipoIdentificacion.valueOf(request.queryParams(
+          "registro-tipoDocumento"));
       String numeroDocumento = request.queryParams("registro-documento");
       LocalDate fechaNacimiento = LocalDate.parse(request.queryParams("registro-fechaNacimiento"));
-      DatoPersonal datosDuenio = new DatoPersonal(nombreDuenio, apellidoDuenio, tipoIdentificacion, numeroDocumento, fechaNacimiento);
+      DatoPersonal datosDuenio = new DatoPersonal(nombreDuenio,
+                                                  apellidoDuenio,
+                                                  tipoIdentificacion,
+                                                  numeroDocumento,
+                                                  fechaNacimiento);
       nuevoDuenio = new Duenio(datosDuenio, contactos, mascotas, usuarioActual);
       //Persistir nuevoDuenio
       withTransaction(() -> repositorioDuenio.agregar(nuevoDuenio));
@@ -87,10 +110,15 @@ public class MascotaController implements WithGlobalEntityManager, Transactional
 
   public ModelAndView formularioRegistrarMascota(Request request, Response response) {
     Map<String, Object> modelo = new HashMap<>();
-    RepositorioDuenio repositorioDuenio = RepositorioDuenio.getInstance();
-    Duenio duenioExistente = repositorioDuenio.getDuenioByIdUsuario(request.session().attribute("idUsuario"));
-    modelo.put("sesionIniciada", request.session().attribute("idUsuario") != null);
-    modelo.put("esDuenio", duenioExistente != null);
+    boolean sesionIniciada = this.sesionIniciada(request);
+    modelo.put("sesionIniciada", sesionIniciada);
+
+    boolean esDuenio = this.esDuenio(request);
+    modelo.put("esDuenio", esDuenio);
+
+    boolean usuarioCreadorCaracteristicas = this.usuarioCreadorCaracteristicas(request);
+    modelo.put("usuarioCreadorCaracteristicas", usuarioCreadorCaracteristicas);
+
     return new ModelAndView(modelo, "registroMascota.html.hbs");
   }
 

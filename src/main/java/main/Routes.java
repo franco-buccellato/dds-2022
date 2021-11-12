@@ -7,6 +7,7 @@ import static spark.Spark.halt;
 import controllers.HomeController;
 import controllers.MascotaController;
 import controllers.SesionController;
+import controllers.CaracteristicaController;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -24,11 +25,16 @@ public class Routes {
     SesionController sesionController = new SesionController();
     HomeController homeController = new HomeController();
     MascotaController mascotaController = new MascotaController();
+    CaracteristicaController caracteristicaController = new CaracteristicaController();
 
     before((request, response) -> {
       boolean autenticado = request.session().attribute("idUsuario") != null;
-      if (!autenticado && (request.pathInfo().contains("registrarMascota")
-          || (request.pathInfo().contains("encontreMascota")))) {
+      boolean authEndpoints =
+          (request.pathInfo().contains("registrarMascota"))
+          || (request.pathInfo().contains("encontreMascota"))
+          || (request.pathInfo().contains("caracteristicas/crear"));
+
+      if (!autenticado && authEndpoints) {
         halt(401, "Acceso denegado");
       }
     });
@@ -42,6 +48,8 @@ public class Routes {
     Spark.get("/encontreMascota", mascotaController::encontreMascota);
     Spark.get("/registro", sesionController::mostrarRegistroUsuario, engine);
     Spark.post("/registro", sesionController::registrarUsuario, engine);
+    Spark.get("crearCaracteristica", caracteristicaController::crear, engine);
+    Spark.post("crearCaracteristica", caracteristicaController::guardar);
 
     after((request, response) -> {
       PerThreadEntityManagers.getEntityManager();

@@ -1,0 +1,30 @@
+{{# partial "contenido" }}
+		<section class="section-registrar">
+			<div class="container__registro">
+				<div class="registro">
+				    <form action="/crearCaracteristica" method="POST">
+					<form>
+						<ul>
+							<h3>Complete información sobre la caracteristica</h3>
+							<li><label class="registro__label">Descripción de la característica</label></li>
+							<li><input type="text" name="registro-descripcion" class="registro__input" id="registro-descripcion" required></li>
+
+							<li><label class="registro__label">Tipo de Caracteristica</label></li>
+							<li>
+                                <select name="registro-tipoCaracteristica" class="registro__input" id="registro-tipoCaracteristica" required>
+                                    {{#each tipoCaracteristicas}}
+                                        <option value="{{this}}">{{this}}</option>
+                                    {{/each}}
+                                </select>
+							</li>
+							<li><input type="submit" class="boton-submit" value="Crear Caracteristica"></li>
+						</ul>
+					</form>
+				</div>
+			</div>
+		</section>
+{{/partial}}
+{{# partial "footer" }}
+{{/partial}}
+
+{{> layout.html.hbs }}

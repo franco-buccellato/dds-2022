@@ -36,6 +36,11 @@
 					<li class="menu__menu__li"><i class="fas fa-home"></i>
 						<a href="/"><h3>Inicio</h3></a>
 					</li>
+					{{#if usuarioCreadorCaracteristicas}}
+					<li class="menu__menu__li"><i class="fas fa-home"></i>
+					    <a href="/crearCaracteristica"><h3>Agregar Características</h3></a>
+					</li>
+					{{/if}}
 					<li class="menu__menu__li"><i class="fas fa-paw"></i>
 					    {{#if sesionIniciada}}
 						<a href="/registrarMascota"><h3>Registrar mi Mascota</h3></a>
