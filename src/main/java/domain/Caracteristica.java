@@ -10,30 +10,39 @@ import java.util.Objects;
 
 @Entity(name = "caracteristicas")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo")
+@DiscriminatorColumn(name = "tipo_caracteristica")
 public abstract class Caracteristica {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "caracteristica_id")
   protected int id;
-  @Embedded
+
+  @Enumerated(EnumType.STRING)
   @Column(name = "tipo_caracteristica")
   protected TipoCaracteristica tipoCaracteristica;
-  protected String descripcion;
-  @OneToMany
-  @JoinColumn(name = "opcion_id")
-  protected List<Opcion> opciones;
-  //protected Boolean obligatoria;
 
-  public Caracteristica(TipoCaracteristica tipoCaracteristica, String descripcion) {
+  protected String descripcion;
+
+  @OneToMany
+  @JoinColumn(name = "caracteristica_id")
+  protected List<OpcionNueva> opciones;
+
+  protected Boolean obligatoria;
+
+  public Caracteristica() {
+  }
+
+  public Caracteristica(TipoCaracteristica tipoCaracteristica, String descripcion, Boolean obligatoria) {
     this.tipoCaracteristica = Objects.requireNonNull(
         tipoCaracteristica,
         NOT_NULO.mensaje("tipoCaracteristica")
     );
     this.descripcion = descripcion;
     this.opciones = new ArrayList<>();
+    this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
   }
 
-  public int getId () {
+  public int getId() {
     return this.id;
   }
 
@@ -41,23 +50,13 @@ public abstract class Caracteristica {
     return tipoCaracteristica;
   }
 
-  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
-    return !this.getOpcionesSeleccionas().isEmpty()
-        && caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
-  }
-
-  public Boolean tienenMismasOpciones(Pregunta pregunta) {
-    return !this.getOpcionesSeleccionas().isEmpty()
-        && this.getOpcionesSeleccionas()
-          .stream()
-          .allMatch(cOpcion -> pregunta.getOpcionesSeleccionas().stream().anyMatch(pOpcion -> cOpcion.getDescripcion().matches(pOpcion.getDescripcion())));
-  }
-
   public String getDescripcion() {
     return descripcion;
   }
 
-  public abstract List<Opcion> getOpciones();
+  public abstract List<OpcionNueva> getOpciones();
 
-  public abstract List<Opcion> getOpcionesSeleccionas();
+  public abstract Boolean esRespuestaValida(String respuesta);
+
+  public abstract Boolean tieneMismasOpciones(Pregunta pregunta);
 }

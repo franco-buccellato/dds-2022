@@ -12,7 +12,7 @@ public class CaracteristicaTest extends Fixture {
   @Test
   public void puedoSetearCaracteristicaBooleana() {
     CaracteristicaChoice estaCastrada = estaCastrada();
-    Opcion opcionSeleccionada = estaCastrada.getOpciones().get(0);
+    OpcionNueva opcionSeleccionada = estaCastrada.getOpciones().get(0);
 
     estaCastrada.seleccionarOpcion(opcionSeleccionada, true);
     assertTrue(opcionSeleccionada.getSeleccionada());
@@ -37,6 +37,7 @@ public class CaracteristicaTest extends Fixture {
     datoCurioso.setInput(new Opcion(""));
     assertTrue(datoCurioso.getOpciones().get(0).getDescripcion().equals(""));
   }
+
   @Test
   public void puedoSetearUnaCaracteristicaMultipleChoice(){
     CaracteristicaChoice vacunas = vacunas();

@@ -3,13 +3,30 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.exception.RespuestaInvalidaException;
+
 import java.util.Objects;
+import javax.persistence.*;
 
+@Entity(name = "mascotas_caracteristicas")
 public class MascotaCaracteristica {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "mascota_caracteristica_id", nullable = false)
+  private Long id;
 
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "caracteristica_id")
   Caracteristica caracteristica;
 
   String respuesta;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public MascotaCaracteristica() {
   }
@@ -40,5 +57,27 @@ public class MascotaCaracteristica {
     if (!this.getCaracteristica().esRespuestaValida(respuesta)) {
       throw new RespuestaInvalidaException("La respuesta " + respuesta + " no es valida");
     }
+  }
+
+//  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
+//    return !this.getOpcionesSeleccionas().isEmpty()
+//           && caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
+//  }
+
+  public Boolean tienenMismasOpciones(Pregunta pregunta) {
+    return this.getCaracteristica().getDescripcion().equals(pregunta.getDescripcion())
+           && pregunta.getOpcionesSeleccionas().stream()
+               .anyMatch(opcion -> opcion.getDescripcion().matches(this.getRespuesta()));
+
+
+    return this.getCaracteristica().tieneMismasOpciones(pregunta);
+
+    return !this.getCaracteristica().getOpciones().isEmpty()
+           && this.getOpcionesSeleccionas()
+               .stream()
+               .allMatch(cOpcion -> pregunta.getOpcionesSeleccionas()
+                   .stream()
+                   .anyMatch(pOpcion -> cOpcion.getDescripcion()
+                       .matches(pOpcion.getDescripcion())));
   }
 }

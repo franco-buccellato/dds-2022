@@ -27,7 +27,8 @@ public class PublicacionInteresAdopcion {
   @Column(name = "activa")
   private Boolean estaActiva;
 
-  private PublicacionInteresAdopcion() {}
+  private PublicacionInteresAdopcion() {
+  }
 
   public PublicacionInteresAdopcion(Duenio interesado, List<Pregunta> preguntas) {
     if (estanCompletasLasPreguntas(preguntas).get()) {
@@ -75,25 +76,26 @@ public class PublicacionInteresAdopcion {
   }
 
   public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
-    return cumpleConPreferencias(publicacion.getMascota().getCaracteristicasSeleccionadas())
-        && cumpleConComodidades(publicacion.getPreguntas());
+    return cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
+           && cumpleConComodidades(publicacion.getPreguntas());
   }
 
   public Boolean cumpleConComodidades(List<Pregunta> comodidades) {
-    return getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD)
-        .stream()
-        .allMatch(preguntaCumplir ->
-            comodidades
-                .stream()
-                .anyMatch(preguntaCumplir::tienenMismasOpciones)
-        );
+    return true;
+//    return getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD)
+//        .stream()
+//        .allMatch(preguntaCumplir -> comodidades.stream()
+//            .anyMatch(preguntaCumplir::tienenMismasOpciones)
+//        );
   }
 
-  public Boolean cumpleConPreferencias(List<Caracteristica> caracteristicas) {
-     return getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
+  public Boolean cumpleConPreferencias(List<MascotaCaracteristica> mascotaCaracteristicas) {
+    return getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
         .stream()
         .allMatch(
-            pregunta -> caracteristicas.stream().anyMatch(caracteristica -> caracteristica.tienenMismasOpciones(pregunta))
+            pregunta -> mascotaCaracteristicas.stream().anyMatch(
+                mascotaCaracteristica -> mascotaCaracteristica.tienenMismasOpciones(pregunta)
+            )
         );
   }
 

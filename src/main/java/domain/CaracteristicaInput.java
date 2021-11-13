@@ -9,41 +9,34 @@ import java.util.*;
 @Entity
 @DiscriminatorValue("I")
 public class CaracteristicaInput extends Caracteristica {
-  @OneToOne
-  private Opcion input;
+
+  public CaracteristicaInput() {
+  }
 
   // Aplica para tipos TEXTO y NUMERO donde los constraints van a ser resueltos en otra capa
-  public CaracteristicaInput(
-      TipoCaracteristica tipoCaracteristica,
-      String descripcion,
-      Opcion input
-  ) {
-    super(tipoCaracteristica, descripcion);
-    this.input = Objects.requireNonNull(input, NOT_NULO.mensaje("input"));
-  }
-
-  public void setInput(Opcion input) {
-    this.input = input;
+  public CaracteristicaInput(TipoCaracteristica tipoCaracteristica, String descripcion) {
+    super(tipoCaracteristica, descripcion, false);
   }
 
   @Override
-  public List<Opcion> getOpciones() {
-    return Arrays.asList(input);
-  }
-
-  @Override
-  public List<Opcion> getOpcionesSeleccionas() {
-    if (this.input.getDescripcion() != "") {
-      Opcion opcionInput = new Opcion(input.getDescripcion());
-      opcionInput.setSeleccionada(true);
-
-      return Collections.singletonList(opcionInput);
-    }
+  public List<OpcionNueva> getOpciones() {
     return Collections.emptyList();
   }
 
   @Override
   public String toString() {
-    return this.descripcion + ": " + this.input.getDescripcion();
+    return this.getDescripcion();
+  }
+
+  @Override
+  public Boolean esRespuestaValida(String respuesta) {
+    return true;
+  }
+
+  @Override
+  public Boolean tieneMismasOpciones(Pregunta pregunta) {
+    return this.getDescripcion().equals(pregunta.getDescripcion())
+        &&
+    return null;
   }
 }

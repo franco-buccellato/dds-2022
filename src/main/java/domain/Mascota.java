@@ -15,6 +15,7 @@ import javax.persistence.*;
 public class Mascota {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "mascota_id")
   private int id;
 
   @Enumerated(EnumType.STRING)
@@ -42,8 +43,9 @@ public class Mascota {
   @Column(name = "foto", nullable = false)
   private List<String> fotos;
 
-  @OneToMany
-  private List<Caracteristica> caracteristicas;
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "mascota_id")
+  private List<MascotaCaracteristica> caracteristicas;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "situacion_mascota")
@@ -60,7 +62,7 @@ public class Mascota {
       Sexo sexo,
       String descripcionFisica,
       List<String> fotos,
-      List<Caracteristica> caracteristicas,
+      List<MascotaCaracteristica> caracteristicas,
       SituacionMascota situacionMascota
   ) {
     this.tipoMascota = Objects.requireNonNull(tipoMascota, NOT_NULO.mensaje("tipoMascota"));
@@ -122,15 +124,15 @@ public class Mascota {
     fotos.add(foto);
   }
 
-  public List<Caracteristica> getCaracteristicas() {
+  public List<MascotaCaracteristica> getCaracteristicas() {
     return caracteristicas;
   }
 
-  public void addCaracteristica(Caracteristica caracteristica) {
+  public void addCaracteristica(MascotaCaracteristica caracteristica) {
     caracteristicas.add(caracteristica);
   }
 
-  public void setCaracteristicas(List<Caracteristica> caracteristicas) {
+  public void setCaracteristicas(List<MascotaCaracteristica> caracteristicas) {
     this.caracteristicas = caracteristicas;
   }
 
@@ -149,16 +151,16 @@ public class Mascota {
         .collect(Collectors.toList());
   }
 
-  public String getTamanio() {
-    Opcion tamanio = caracteristicas
-        .stream()
-        .map(Caracteristica::getOpcionesSeleccionas)
-        .flatMap(Collection::stream)
-        .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande")
-                                .contains(opcion.getDescripcion()))
-        .findFirst()
-        .orElse(new Opcion(""));
-
-    return tamanio.getDescripcion();
-  }
+//  public String getTamanio() {
+//    Opcion tamanio = caracteristicas
+//        .stream()
+//        .map(Caracteristica::getOpcionesSeleccionas)
+//        .flatMap(Collection::stream)
+//        .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande")
+//            .contains(opcion.getDescripcion()))
+//        .findFirst()
+//        .orElse(new Opcion(""));
+//
+//    return tamanio.getDescripcion();
+//  }
 }

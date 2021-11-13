@@ -162,7 +162,9 @@ public class HogarTransito {
   }
 
   public Caracteristica getCaracteristica(String caracteristicaHogar) {
-    Opcion opcionCaracteristicaHogar = new Opcion(caracteristicaHogar);
-    return new CaracteristicaChoice(BULLET, caracteristicaHogar, Arrays.asList(opcionCaracteristicaHogar));
+    OpcionNueva opcionCaracteristicaHogar = new OpcionNueva(caracteristicaHogar);
+    return new CaracteristicaChoice(
+        BULLET, caracteristicaHogar, Arrays.asList(opcionCaracteristicaHogar), true
+    );
   }
 }

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "tipo_rescate")
 public abstract class Rescate {
   @Id
-  @Column(name="rescate_id")
+  @Column(name = "rescate_id")
   @GeneratedValue
   Long id;
   @Transient
@@ -30,6 +30,9 @@ public abstract class Rescate {
   @OneToOne
   @JoinColumn(name = "rescatista_id")
   private Rescatista rescatista;
+
+  public Rescate() {
+  }
 
   public Rescate(
       List<String> fotos,

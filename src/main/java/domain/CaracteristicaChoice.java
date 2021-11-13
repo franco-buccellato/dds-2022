@@ -10,42 +10,37 @@ import java.util.stream.Collectors;
 @Entity
 @DiscriminatorValue("C")
 public class CaracteristicaChoice extends Caracteristica {
-  @OneToMany
-  @JoinColumn(name = "caracteristica_id")
-  private List<Opcion> opciones;
+
+  public CaracteristicaChoice() {
+    super();
+  }
 
   // Aplica para tipos CHECKBOX, BULLET, BOOLEAN donde los constraints se resuelven en otra capa
   public CaracteristicaChoice(
       TipoCaracteristica tipoCaracteristica,
       String descripcion,
-      List<Opcion> opciones
+      List<OpcionNueva> opciones,
+      Boolean obligatoria
   ) {
-    super(tipoCaracteristica, descripcion);
+    super(tipoCaracteristica, descripcion, obligatoria);
     this.opciones = opciones;
   }
 
-  public void seleccionarOpcion(Opcion opcion, Boolean estado) {
-    opcion.setSeleccionada(estado);
-  }
-
   @Override
-  public List<Opcion> getOpciones() {
+  public List<OpcionNueva> getOpciones() {
     return opciones;
-  }
-
-  @Override
-  public List<Opcion> getOpcionesSeleccionas() {
-    return opciones
-        .stream()
-        .filter(Opcion::getSeleccionada)
-        .collect(Collectors.toList());
   }
 
   @Override
   public String toString() {
     return this.descripcion + " " + this.opciones.stream()
-        .filter(Opcion::getSeleccionada)
         .map(opcion -> opcion.getDescripcion() + "\n")
         .reduce(String::concat);
+  }
+
+  @Override
+  public Boolean esRespuestaValida(String respuesta) {
+    return this.getOpciones().stream()
+        .anyMatch(opcion -> opcion.getDescripcion().equals(respuesta));
   }
 }

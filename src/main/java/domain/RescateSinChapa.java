@@ -1,6 +1,7 @@
 package domain;
 
 import domain.repositorios.RepositorioHogares;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +16,10 @@ public class RescateSinChapa extends Rescate {
   List<HogarTransito> hogaresTransito;
   @Transient
   RepositorioHogares repositorioHogares;
+
+  public RescateSinChapa() {
+    super();
+  }
 
   public RescateSinChapa(
       List<String> fotos,

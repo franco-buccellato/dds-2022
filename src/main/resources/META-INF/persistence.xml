@@ -26,6 +26,7 @@
         <class>domain.CaracteristicaInput</class>
         <class>domain.TipoCaracteristica</class>
         <class>domain.Opcion</class>
+        <class>domain.OpcionNueva</class>
         <class>domain.PublicacionAdopcion</class>
         <class>domain.PublicacionInteresAdopcion</class>
 
