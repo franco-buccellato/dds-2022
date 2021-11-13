@@ -2,12 +2,21 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import domain.exception.PreguntaObligatoriaNoContestadaException;
-import domain.templatesNotificacion.InteresadoEnAdoptarTemplate;
-
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import domain.templatesNotificacion.InteresadoEnAdoptarTemplate;
 
 @Entity(name = "publicaciones_adopcion")
 public class PublicacionAdopcion {

@@ -1,19 +1,43 @@
 package constants;
 
 import static domain.Sexo.HEMBRA;
-import static domain.SituacionMascota.*;
-import static domain.TipoCaracteristica.*;
+import static domain.SituacionMascota.EN_HOGAR_PROPIO;
+import static domain.SituacionMascota.PERDIDA;
+import static domain.TipoCaracteristica.BOOLEAN;
+import static domain.TipoCaracteristica.BULLET;
+import static domain.TipoCaracteristica.CHECKBOX;
+import static domain.TipoCaracteristica.NUMBER;
+import static domain.TipoCaracteristica.TEXT;
 import static domain.TipoIdentificacion.DNI;
-import static domain.TipoMascota.*;
+import static domain.TipoMascota.GATO;
+import static domain.TipoMascota.PERRO;
 import static domain.TipoUsuario.VOLUNTARIO;
 import static domain.Vinculo.AMISTAD;
 import static org.mockito.Mockito.mock;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
-import domain.*;
+import domain.AlcancePregunta;
+import domain.Asociacion;
+import domain.CaracteristicaChoice;
+import domain.CaracteristicaInput;
+import domain.Contacto;
+import domain.DatoPersonal;
+import domain.Duenio;
+import domain.Mascota;
+import domain.MedioNotificacion;
+import domain.Opcion;
+import domain.Pregunta;
+import domain.Rescate;
+import domain.RescateConChapa;
+import domain.RescateSinChapa;
+import domain.Rescatista;
+import domain.Ubicacion;
+import domain.Usuario;
+import domain.Voluntario;
 
 public class Fixture {
   public final Opcion comportamientoTranquilo = new Opcion("Tranquilo");
