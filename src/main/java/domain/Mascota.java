@@ -144,12 +144,12 @@ public class Mascota {
     this.situacionMascota = situacionMascota;
   }
 
-  public List<Caracteristica> getCaracteristicasSeleccionadas() {
-    return caracteristicas
-        .stream()
-        .filter(caracteristica -> !caracteristica.getOpcionesSeleccionas().isEmpty())
-        .collect(Collectors.toList());
-  }
+//  public List<Caracteristica> getCaracteristicasSeleccionadas() {
+//    return caracteristicas
+//        .stream()
+//        .filter(caracteristica -> !caracteristica.getOpcionesSeleccionas().isEmpty())
+//        .collect(Collectors.toList());
+//  }
 
 //  public String getTamanio() {
 //    Opcion tamanio = caracteristicas

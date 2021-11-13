@@ -1,36 +1,31 @@
 package domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import static domain.exception.Mensajes.NOT_NULO;
 
-@Entity(name = "opciones")
+import java.util.Objects;
+import javax.persistence.*;
+
+@Entity(name = "opciones_nuevas")
 public class Opcion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  private String descripcion;
-  private Boolean seleccionada;
+  @Column(name = "opcion_nueva_id")
+  private Long id;
 
-  public Opcion(String descripcion) {
-    this.descripcion = descripcion;
-    this.seleccionada = false;
+  private String descripcion;
+
+  public Opcion() {
   }
 
-  public int getId() {
+  public Opcion(String descripcion) {
+    this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
+  }
+
+  public Long getId() {
     return this.id;
   }
 
   public String getDescripcion() {
     return descripcion;
-  }
-
-  public Boolean getSeleccionada() {
-    return seleccionada;
-  }
-
-  public void setSeleccionada(Boolean seleccionada) {
-    this.seleccionada = seleccionada;
   }
 }

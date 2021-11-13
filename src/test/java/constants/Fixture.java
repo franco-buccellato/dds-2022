@@ -16,35 +16,22 @@ import java.util.*;
 import domain.*;
 
 public class Fixture {
-  public final OpcionNueva comportamientoTranquilo = new OpcionNueva("Tranquilo");
-  public final OpcionNueva comportamientoPacifico = new OpcionNueva("Pacifico");
-  public final OpcionNueva comportamientoAlborotado = new OpcionNueva("Alborotado");
-  public final OpcionNueva comportamientoAgresivo = new OpcionNueva("Agresivo");
-  public final OpcionNueva comportamientoAmistoso = new OpcionNueva("Amistos");
-  public final OpcionNueva comportamientoManso = new OpcionNueva("Manso");
-  public final OpcionNueva tamanioGrande = new OpcionNueva("Grande");
-  public final OpcionNueva tamanioMediano = new OpcionNueva("Mediano");
-  public final OpcionNueva tamanioChico = new OpcionNueva("Chico");
-  public final OpcionNueva contexturaDelgado = new OpcionNueva("Delgado");
-  public final OpcionNueva contexturaNormal = new OpcionNueva("Normal");
-  public final OpcionNueva contexturaGordito = new OpcionNueva("Gordito");
-  public final OpcionNueva tipoGato = new OpcionNueva("Gato");
-  public final OpcionNueva tipoPerro = new OpcionNueva("Perro");
-
-  public final Opcion pcomportamientoTranquilo = new Opcion("Tranquilo");
-  public final Opcion pcomportamientoPacifico = new Opcion("Pacifico");
-  public final Opcion pcomportamientoAlborotado = new Opcion("Alborotado");
-  public final Opcion pcomportamientoAgresivo = new Opcion("Agresivo");
-  public final Opcion pcomportamientoAmistoso = new Opcion("Amistos");
-  public final Opcion pcomportamientoManso = new Opcion("Manso");
-  public final Opcion ptamanioGrande = new Opcion("Grande");
-  public final Opcion ptamanioMediano = new Opcion("Mediano");
-  public final Opcion ptamanioChico = new Opcion("Chico");
-  public final Opcion pcontexturaDelgado = new Opcion("Delgado");
-  public final Opcion pcontexturaNormal = new Opcion("Normal");
-  public final Opcion pcontexturaGordito = new Opcion("Gordito");
-  public final Opcion ptipoGato = new Opcion("Gato");
-  public final Opcion ptipoPerro = new Opcion("Perro");
+  public final Opcion comportamientoTranquilo = new Opcion("Tranquilo");
+  public final Opcion comportamientoPacifico = new Opcion("Pacifico");
+  public final Opcion comportamientoAlborotado = new Opcion("Alborotado");
+  public final Opcion comportamientoAgresivo = new Opcion("Agresivo");
+  public final Opcion comportamientoAmistoso = new Opcion("Amistos");
+  public final Opcion comportamientoManso = new Opcion("Manso");
+  public final Opcion tamanioGrande = new Opcion("Grande");
+  public final Opcion tamanioMediano = new Opcion("Mediano");
+  public final Opcion tamanioChico = new Opcion("Chico");
+  public final Opcion contexturaDelgado = new Opcion("Delgado");
+  public final Opcion contexturaNormal = new Opcion("Normal");
+  public final Opcion contexturaGordito = new Opcion("Gordito");
+  public final Opcion tipoGato = new Opcion("Gato");
+  public final Opcion tipoPerro = new Opcion("Perro");
+  public final Opcion si = new Opcion("Si");
+  public final Opcion no = new Opcion("No");
 
   public Rescatista rescatista() {
     return new Rescatista(datoPersonal(), contacto(), ubicacion1(), mock(Usuario.class));
@@ -246,24 +233,24 @@ public class Fixture {
   }
 
   public CaracteristicaChoice estaCastrada() {
-    List<OpcionNueva> opcionesBool = Arrays.asList(new OpcionNueva("Si"), new OpcionNueva("No"));
+    List<Opcion> opcionesBool = Arrays.asList(si, no);
 
     return new CaracteristicaChoice(BOOLEAN, "Esta Castrada:", opcionesBool, true);
   }
 
   public Pregunta preguntaEstaCastrada() {
-    List<Opcion> opcionesBool = Arrays.asList(new Opcion("Si"), new Opcion("No"));
+    List<Opcion> opcionesBool = Arrays.asList(si, no);
 
-    return new Pregunta("Esta Castrada:", opcionesBool, AlcancePregunta.PREGUNTA_PREFERENCIA);
+    return new Pregunta("Esta Castrada:", opcionesBool, AlcancePregunta.PREGUNTA_PREFERENCIA, true);
   }
 
   public CaracteristicaChoice vacunas() {
-    OpcionNueva moquillo = new OpcionNueva("Moquillo");
-    OpcionNueva hepatitis = new OpcionNueva("Hepatitis");
-    OpcionNueva parvovirosis = new OpcionNueva("Parvovirosis");
-    OpcionNueva rabia = new OpcionNueva("Rabia");
-    List<OpcionNueva> vacunas = Arrays.asList(moquillo, hepatitis, parvovirosis, rabia);
-    HashSet<AlcancePregunta> alcanceCaracteristica = new HashSet<AlcancePregunta>();
+    Opcion moquillo = new Opcion("Moquillo");
+    Opcion hepatitis = new Opcion("Hepatitis");
+    Opcion parvovirosis = new Opcion("Parvovirosis");
+    Opcion rabia = new Opcion("Rabia");
+    List<Opcion> vacunas = Arrays.asList(moquillo, hepatitis, parvovirosis, rabia);
+
     return new CaracteristicaChoice(CHECKBOX, "Vacunas administradas", vacunas, true);
   }
 
@@ -273,91 +260,111 @@ public class Fixture {
     Opcion parvovirosis = new Opcion("Parvovirosis");
     Opcion rabia = new Opcion("Rabia");
     List<Opcion> vacunas = Arrays.asList(moquillo, hepatitis, parvovirosis, rabia);
-    return new Pregunta("Vacunas administradas", vacunas, AlcancePregunta.PREGUNTA_PREFERENCIA);
+
+    return new Pregunta(
+        "Vacunas administradas",
+        vacunas,
+        AlcancePregunta.PREGUNTA_PREFERENCIA,
+        true
+    );
   }
 
   public CaracteristicaChoice comportamientoConNinios() {
-    List<OpcionNueva> comportamientos = Arrays.asList(
+    List<Opcion> comportamientos = Arrays.asList(
         comportamientoAmistoso,
         comportamientoManso,
         comportamientoAgresivo
     );
+
     return new CaracteristicaChoice(BULLET, "Comportamiento con los niños", comportamientos, true);
   }
 
   public Pregunta preguntaComportamientoConNinios() {
     List<Opcion> comportamientos = Arrays.asList(
-        pcomportamientoAmistoso,
-        pcomportamientoManso,
-        pcomportamientoAgresivo
+        comportamientoAmistoso,
+        comportamientoManso,
+        comportamientoAgresivo
     );
-    return new Pregunta("Comportamiento con los niños",
-                        comportamientos,
-                        AlcancePregunta.PREGUNTA_PREFERENCIA);
+
+    return new Pregunta(
+        "Comportamiento con los niños",
+        comportamientos,
+        AlcancePregunta.PREGUNTA_PREFERENCIA,
+        true
+    );
   }
 
   public CaracteristicaChoice contextura() {
-    List<OpcionNueva> contexturas = Arrays.asList(contexturaDelgado,
-                                                  contexturaNormal,
-                                                  contexturaGordito);
+    List<Opcion> contexturas = Arrays.asList(
+        contexturaDelgado,
+        contexturaNormal,
+        contexturaGordito
+    );
+
     return new CaracteristicaChoice(BULLET, "Contextura", contexturas, true);
   }
 
   public Pregunta preguntaContextura() {
     List<Opcion> contexturas = Arrays.asList(
-        pcontexturaDelgado,
-        pcontexturaNormal,
-        pcontexturaGordito
+        contexturaDelgado,
+        contexturaNormal,
+        contexturaGordito
     );
-    return new Pregunta("Contextura", contexturas, AlcancePregunta.PREGUNTA_PREFERENCIA);
+
+    return new Pregunta("Contextura", contexturas, AlcancePregunta.PREGUNTA_PREFERENCIA, true);
   }
 
   public CaracteristicaChoice tamanio() {
-    List<OpcionNueva> tamanios = Arrays.asList(tamanioGrande, tamanioMediano, tamanioChico);
+    List<Opcion> tamanios = Arrays.asList(tamanioGrande, tamanioMediano, tamanioChico);
+
     return new CaracteristicaChoice(BULLET, "Tamanio de la mascota", tamanios, true);
   }
 
   public Pregunta preguntaTamanio() {
-    List<Opcion> tamanios = Arrays.asList(ptamanioGrande, ptamanioMediano, ptamanioChico);
-    return new Pregunta("Tamanio de la mascota", tamanios, AlcancePregunta.PREGUNTA_PREFERENCIA);
+    List<Opcion> tamanios = Arrays.asList(tamanioGrande, tamanioMediano, tamanioChico);
+
+    return new Pregunta(
+        "Tamanio de la mascota",
+        tamanios,
+        AlcancePregunta.PREGUNTA_PREFERENCIA,
+        true
+    );
   }
 
   public CaracteristicaChoice comportamiento() {
-    List<OpcionNueva> comportamientos = Arrays.asList(
+    List<Opcion> comportamientos = Arrays.asList(
         comportamientoTranquilo,
         comportamientoPacifico,
         comportamientoAlborotado
     );
+
     return new CaracteristicaChoice(BULLET, "Comportamiento de la mascota", comportamientos, true);
   }
 
   public Pregunta preguntaComportamiento() {
     List<Opcion> comportamientos = Arrays.asList(
-        pcomportamientoTranquilo,
-        pcomportamientoPacifico,
-        pcomportamientoAlborotado
+        comportamientoTranquilo,
+        comportamientoPacifico,
+        comportamientoAlborotado
     );
-    return new Pregunta("Comportamiento de la mascota",
-                        comportamientos,
-                        AlcancePregunta.PREGUNTA_PREFERENCIA);
+
+    return new Pregunta(
+        "Comportamiento de la mascota",
+        comportamientos,
+        AlcancePregunta.PREGUNTA_PREFERENCIA,
+        true
+    );
   }
 
   public CaracteristicaChoice tipoMascota() {
-    List<OpcionNueva> tipos = Arrays.asList(tipoGato, tipoPerro);
+    List<Opcion> tipos = Arrays.asList(tipoGato, tipoPerro);
+
     return new CaracteristicaChoice(BULLET, "Tipo mascota", tipos, true);
   }
 
   public Pregunta preguntaTipoMascota() {
-    List<Opcion> tipos = Arrays.asList(ptipoGato, ptipoPerro);
-    return new Pregunta("Tipo mascota", tipos, AlcancePregunta.PREGUNTA_PREFERENCIA);
-  }
-
-  public static int setOpcionRandom(List<Opcion> opciones) {
-    Random random = new Random();
-    int index = random.nextInt(opciones.size());
-
-    opciones.get(index).setSeleccionada(true);
-    return index;
+    List<Opcion> tipos = Arrays.asList(tipoGato, tipoPerro);
+    return new Pregunta("Tipo mascota", tipos, AlcancePregunta.PREGUNTA_PREFERENCIA, true);
   }
 
   public Asociacion asociacion() {
@@ -365,102 +372,125 @@ public class Fixture {
   }
 
   public Asociacion asociacionConPreguntasAdopcion() {
-    Asociacion asociacion = new Asociacion("Asociacion Protectora de Animales",
-                                           this.ubicacionAsociacion3());
+    Asociacion asociacion = new Asociacion(
+        "Asociacion Protectora de Animales",
+        this.ubicacionAsociacion3()
+    );
     asociacion.setPreguntasAdopcion(Arrays.asList(preguntaEstaCastrada(), preguntaVacunas()));
+
     return asociacion;
   }
 
-//  public PublicacionAdopcion publicacionAdopcion1() {
-//    List<Opcion> comportamientos = Arrays.asList(new Opcion("Tranquilo"),
-//                                                 new Opcion("Pacifico"),
-//                                                 new Opcion("Alborotado"));
-//    comportamientos.get(0).setSeleccionada(true);
-//
-//    List<Opcion> tamanios = Arrays.asList(new Opcion("Grande"),
-//                                          new Opcion("Mediano"),
-//                                          new Opcion("Chico"));
-//    tamanios.get(0).setSeleccionada(true);
-//
-//    List<Opcion> tipos = Arrays.asList(new Opcion("Gato"), new Opcion("Perro"));
-//    tipos.get(1).setSeleccionada(true);
-//    Mascota mascota = mascota1();
-//    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Tipo mascota", tipos));
-//    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Comportamiento", comportamientos));
-//    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Tamanios", tamanios));
-//
-//    return new PublicacionAdopcion(
-//        duenio(),
-//        mascota,
-//        asociacion(),
-//        Collections.emptyList()
-//    );
-//  }
+  public PublicacionAdopcion publicacionAdopcion1() {
+    Mascota mascota = mascota1();
 
-//  public PublicacionAdopcion publicacionAdopcion2() {
-//    List<Opcion> tipos = Arrays.asList(new Opcion("Gato"), new Opcion("Perro"));
-//    tipos.get(0).setSeleccionada(true);
-//
-//    List<Opcion> comportamientos = Arrays.asList(new Opcion("Tranquilo"),
-//                                                 new Opcion("Pacifico"),
-//                                                 new Opcion("Alborotado"));
-//    comportamientos.get(0).setSeleccionada(true);
-//
-//    List<Opcion> tamanios = Arrays.asList(new Opcion("Grande"),
-//                                          new Opcion("Mediano"),
-//                                          new Opcion("Chico"));
-//    tamanios.get(0).setSeleccionada(true);
-//
-//    Mascota mascota = mascota2();
-//    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Tipo mascota", tipos));
-//    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Comportamiento", comportamientos));
-//    mascota.addCaracteristica(new CaracteristicaChoice(BULLET, "Tamanios", tamanios));
-//
-//    return new PublicacionAdopcion(
-//        duenio(),
-//        mascota,
-//        asociacion(),
-//        Collections.emptyList()
-//    );
-//  }
+    mascota.addCaracteristica(
+        new MascotaCaracteristica(tipoMascota(), tipoPerro.getDescripcion())
+    );
+    mascota.addCaracteristica(
+        new MascotaCaracteristica(comportamiento(), comportamientoTranquilo.getDescripcion())
+    );
+    mascota.addCaracteristica(
+        new MascotaCaracteristica(tamanio(), tamanioGrande.getDescripcion())
+    );
 
-//  public PublicacionAdopcion publicacionAdopcion3() {
-//    List<Opcion> opcionesBool = Arrays.asList(new Opcion("Si"), new Opcion("No"));
-//    opcionesBool.get(0).setSeleccionada(true);
-//    Pregunta estaCastrado = new Pregunta("Esta Castrada:",
-//                                         opcionesBool,
-//                                         AlcancePregunta.PREGUNTA_PREFERENCIA);
-//
-//    return new PublicacionAdopcion(
-//        duenio(),
-//        mascota1(),
-//        asociacion(),
-//        Collections.singletonList(estaCastrado)
-//    );
-//  }
+    return new PublicacionAdopcion(
+        duenio(),
+        mascota,
+        asociacion(),
+        Collections.emptyList()
+    );
+  }
+
+  public PublicacionAdopcion publicacionAdopcion2() {
+    Mascota mascota = mascota2();
+
+    mascota.addCaracteristica(
+        new MascotaCaracteristica(tipoMascota(), tipoGato.getDescripcion())
+    );
+    mascota.addCaracteristica(
+        new MascotaCaracteristica(comportamiento(), comportamientoTranquilo.getDescripcion())
+    );
+    mascota.addCaracteristica(
+        new MascotaCaracteristica(tamanio(), tamanioGrande.getDescripcion())
+    );
+
+    return new PublicacionAdopcion(
+        duenio(),
+        mascota,
+        asociacion(),
+        Collections.emptyList()
+    );
+  }
+
+  public PublicacionAdopcion publicacionAdopcion3() {
+    List<Opcion> opcionesBool = Arrays.asList(si, no);
+    Pregunta estaCastrado = new Pregunta(
+        "Esta Castrada:",
+        opcionesBool,
+        AlcancePregunta.PREGUNTA_PREFERENCIA,
+        true
+    );
+
+    PreguntaAdopcion pregunta = new PreguntaAdopcion(preguntaEstaCastrada(), si.getDescripcion());
+
+    return new PublicacionAdopcion(
+        duenio(),
+        mascota1(),
+        asociacion(),
+        Collections.singletonList(pregunta)
+    );
+  }
+
+  public PreguntaInteresAdopcion preguntaInteresAdopcionTipoGato() {
+    Pregunta tipos = preguntaTipoMascota();
+
+    return new PreguntaInteresAdopcion(tipos, tipoGato.getDescripcion());
+  }
+
+  public PreguntaInteresAdopcion preguntaInteresComportamientoTranquilo() {
+    Pregunta comportamiento = preguntaComportamiento();
+
+    return new PreguntaInteresAdopcion(comportamiento, comportamientoTranquilo.getDescripcion());
+  }
+
+  public PreguntaInteresAdopcion preguntaInteresAdopcionTamanioGrande() {
+    Pregunta tamanio = preguntaTamanio();
+
+    return new PreguntaInteresAdopcion(tamanio, tamanioGrande.getDescripcion());
+  }
+
+  public PreguntaInteresAdopcion preguntaInteresAdopcionTamanioChico() {
+    Pregunta tamanio = preguntaTamanio();
+
+    return new PreguntaInteresAdopcion(tamanio, tamanioChico.getDescripcion());
+  }
+
+  public PreguntaInteresAdopcion preguntaInteresAdopcionEstaCastradaSi() {
+    Pregunta estaCastrado = preguntaEstaCastrada();
+    String respuestaSi = estaCastrado.getOpciones().get(0).getDescripcion();
+
+    return new PreguntaInteresAdopcion(estaCastrado, respuestaSi);
+  }
 
   public PublicacionInteresAdopcion publicacionInteresAdopcion1() {
-    Pregunta tipos = preguntaTipoMascota();
-    tipos.seleccionarOpcion(ptipoGato, true);
+    PreguntaInteresAdopcion tipos = preguntaInteresAdopcionTipoGato();
 
     return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(tipos));
   }
 
-  public PublicacionInteresAdopcion publicacionInteresAdopcion2() {
-    Pregunta comportamiento = preguntaComportamiento();
-    comportamiento.seleccionarOpcion(pcomportamientoTranquilo, true);
-    Pregunta tamanios = preguntaTamanio();
-    tamanios.seleccionarOpcion(ptamanioGrande, true);
 
-    return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(comportamiento, tamanios));
+  public PublicacionInteresAdopcion publicacionInteresAdopcion2() {
+    PreguntaInteresAdopcion comportamiento = preguntaInteresComportamientoTranquilo();
+    PreguntaInteresAdopcion tamanio = preguntaInteresAdopcionTamanioGrande();
+
+    return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(comportamiento, tamanio));
   }
 
   public PublicacionInteresAdopcion publicacionInteresAdopcion3() {
-    Pregunta estaCastrado = preguntaEstaCastrada();
-    estaCastrado.seleccionarOpcion(estaCastrado.getOpciones().get(0), true);
-    Pregunta tamanios = preguntaTamanio();
-    tamanios.seleccionarOpcion(ptamanioChico, true);
+    PreguntaInteresAdopcion estaCastrado = preguntaInteresAdopcionEstaCastradaSi();
+    PreguntaInteresAdopcion tamanioChico = preguntaInteresAdopcionTamanioChico();
 
-    return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(estaCastrado, tamanios));
+    return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(estaCastrado, tamanioChico));
   }
 }

@@ -3,7 +3,6 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.exception.RespuestaInvalidaException;
-
 import java.util.Objects;
 import javax.persistence.*;
 
@@ -53,31 +52,15 @@ public class MascotaCaracteristica {
     this.chequearValidezRespuesta(respuesta);
   }
 
-  public void chequearValidezRespuesta(String respuesta) {
+  public void chequearValidezRespuesta(String respuesta) throws RespuestaInvalidaException {
     if (!this.getCaracteristica().esRespuestaValida(respuesta)) {
       throw new RespuestaInvalidaException("La respuesta " + respuesta + " no es valida");
     }
   }
 
-//  public Boolean tienenMismasOpciones(Caracteristica caracteristica) {
-//    return !this.getOpcionesSeleccionas().isEmpty()
-//           && caracteristica.getOpcionesSeleccionas().containsAll(this.getOpcionesSeleccionas());
-//  }
-
-  public Boolean tienenMismasOpciones(Pregunta pregunta) {
-    return this.getCaracteristica().getDescripcion().equals(pregunta.getDescripcion())
-           && pregunta.getOpcionesSeleccionas().stream()
-               .anyMatch(opcion -> opcion.getDescripcion().matches(this.getRespuesta()));
-
-
-    return this.getCaracteristica().tieneMismasOpciones(pregunta);
-
-    return !this.getCaracteristica().getOpciones().isEmpty()
-           && this.getOpcionesSeleccionas()
-               .stream()
-               .allMatch(cOpcion -> pregunta.getOpcionesSeleccionas()
-                   .stream()
-                   .anyMatch(pOpcion -> cOpcion.getDescripcion()
-                       .matches(pOpcion.getDescripcion())));
+  public Boolean tieneMismaRespuesta(PreguntaInteresAdopcion preguntaInteresAdopcion) {
+    return (this.getCaracteristica().getDescripcion().equals(
+        preguntaInteresAdopcion.getPregunta().getDescripcion()
+    )) && (this.getRespuesta().equals(preguntaInteresAdopcion.getRespuesta()));
   }
 }

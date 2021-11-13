@@ -2,40 +2,37 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import domain.exception.PreguntaObligatoriaNoContestadaException;
-
-import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
+import javax.persistence.*;
+
 
 @Entity(name = "publicaciones")
 public class PublicacionInteresAdopcion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "publicacion_id")
   private int id;
+
   @OneToOne
   private Duenio interesado;
-  @ManyToMany
-  @JoinTable(
-      name = "preguntas_interes_adopcion",
-      joinColumns = @JoinColumn(name = "publicacion_interes_id"),
-      inverseJoinColumns = @JoinColumn(name = "pregunta_id")
-  )
-  private List<Pregunta> preguntas;
+
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "publicacion_id")
+  private List<PreguntaInteresAdopcion> preguntas;
+
   @Column(name = "activa")
   private Boolean estaActiva;
 
-  private PublicacionInteresAdopcion() {
+  public PublicacionInteresAdopcion() {
   }
 
-  public PublicacionInteresAdopcion(Duenio interesado, List<Pregunta> preguntas) {
-    if (estanCompletasLasPreguntas(preguntas).get()) {
-      this.estaActiva = true;
-    }
+  public PublicacionInteresAdopcion(Duenio interesado, List<PreguntaInteresAdopcion> preguntas) {
     this.interesado = Objects.requireNonNull(interesado, NOT_NULO.mensaje("interesado"));
-    this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("comodidadesMascota"));
+    this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("preguntas"));
+    this.estaActiva = Boolean.TRUE;
+    this.enviarBotonDeBaja();
   }
 
   public int getId() {
@@ -46,25 +43,12 @@ public class PublicacionInteresAdopcion {
     return interesado;
   }
 
-  public List<Pregunta> getComodidadesMascota() {
+  public List<PreguntaInteresAdopcion> getPreguntas() {
     return preguntas;
   }
 
   public Boolean getEstaActiva() {
     return estaActiva;
-  }
-
-  private AtomicBoolean estanCompletasLasPreguntas(List<Pregunta> preguntas) throws PreguntaObligatoriaNoContestadaException {
-    AtomicBoolean estanCompletas = new AtomicBoolean(true);
-    preguntas
-        .stream()
-        .forEach(pregunta -> {
-          if (pregunta.getOpcionesSeleccionas().isEmpty()) {
-            estanCompletas.set(false);
-            throw new PreguntaObligatoriaNoContestadaException("Falta contestar la pregunta " + pregunta.getDescripcion());
-          }
-        });
-    return estanCompletas;
   }
 
   public void enviarBotonDeBaja() {
@@ -76,33 +60,34 @@ public class PublicacionInteresAdopcion {
   }
 
   public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
-    return cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
-           && cumpleConComodidades(publicacion.getPreguntas());
+    return this.cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
+           && this.cumpleConComodidades(publicacion.getPreguntas());
   }
 
-  public Boolean cumpleConComodidades(List<Pregunta> comodidades) {
-    return true;
-//    return getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD)
-//        .stream()
-//        .allMatch(preguntaCumplir -> comodidades.stream()
-//            .anyMatch(preguntaCumplir::tienenMismasOpciones)
-//        );
+  public Boolean cumpleConComodidades(List<PreguntaAdopcion> comodidades) {
+    List<PreguntaInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD);
+
+    return comodidades
+        .stream()
+        .allMatch(comodidad -> preguntasComodidad.stream()
+            .anyMatch(pregunta -> pregunta.tieneMismaRespuesta(comodidad))
+        );
   }
 
   public Boolean cumpleConPreferencias(List<MascotaCaracteristica> mascotaCaracteristicas) {
     return getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
         .stream()
         .allMatch(
-            pregunta -> mascotaCaracteristicas.stream().anyMatch(
-                mascotaCaracteristica -> mascotaCaracteristica.tienenMismasOpciones(pregunta)
+            preferencia -> mascotaCaracteristicas.stream().anyMatch(
+                mascotaCaracteristica -> mascotaCaracteristica.tieneMismaRespuesta(preferencia)
             )
         );
   }
 
-  private List<Pregunta> getPreguntasSegun(AlcancePregunta alcance) {
-    return preguntas
+  private List<PreguntaInteresAdopcion> getPreguntasSegun(AlcancePregunta alcance) {
+    return this.getPreguntas()
         .stream()
-        .filter(pregunta -> pregunta.getAlcancePregunta().equals(alcance))
+        .filter(pregunta -> pregunta.getPregunta().getAlcancePregunta().equals(alcance))
         .collect(Collectors.toList());
   }
 }

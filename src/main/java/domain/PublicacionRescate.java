@@ -18,14 +18,17 @@ public class PublicacionRescate {
   @Column(name = "publicacion_rescate_id")
   @GeneratedValue
   Long id;
+
   @OneToOne
   //@JoinColumn(name = "rescate_id")
   private Rescate rescate;
   //@ElementCollection
   //@Column(name = "publicacion_rescate_estado")
+
   @Enumerated(EnumType.STRING)
   @Column(name = "publicacion_rescate_estado")
   private EstadoPublicacion estado;
+
   @ManyToOne
   @JoinColumn(name = "asociacion_id")
   private Asociacion asociacion;

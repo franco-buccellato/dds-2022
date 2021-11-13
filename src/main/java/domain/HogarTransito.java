@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -162,7 +161,7 @@ public class HogarTransito {
   }
 
   public Caracteristica getCaracteristica(String caracteristicaHogar) {
-    OpcionNueva opcionCaracteristicaHogar = new OpcionNueva(caracteristicaHogar);
+    Opcion opcionCaracteristicaHogar = new Opcion(caracteristicaHogar);
     return new CaracteristicaChoice(
         BULLET, caracteristicaHogar, Arrays.asList(opcionCaracteristicaHogar), true
     );

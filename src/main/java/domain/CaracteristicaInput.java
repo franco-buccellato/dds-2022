@@ -2,8 +2,6 @@ package domain;
 
 import javax.persistence.*;
 
-import static domain.exception.Mensajes.NOT_NULO;
-
 import java.util.*;
 
 @Entity
@@ -19,7 +17,7 @@ public class CaracteristicaInput extends Caracteristica {
   }
 
   @Override
-  public List<OpcionNueva> getOpciones() {
+  public List<Opcion> getOpciones() {
     return Collections.emptyList();
   }
 
@@ -35,8 +33,6 @@ public class CaracteristicaInput extends Caracteristica {
 
   @Override
   public Boolean tieneMismasOpciones(Pregunta pregunta) {
-    return this.getDescripcion().equals(pregunta.getDescripcion())
-        &&
-    return null;
+    return this.getDescripcion().equals(pregunta.getDescripcion());
   }
 }

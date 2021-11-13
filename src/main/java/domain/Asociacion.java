@@ -3,10 +3,8 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.repositorios.RepositorioAsociaciones;
+
 import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
@@ -18,16 +16,19 @@ public class Asociacion {
   @Column(name = "asociacion_id")
   @GeneratedValue
   private int id;
+
   @Column(name = "asociacion_nombre")
   private String nombre;
+
   @OneToOne
   @JoinColumn(name = "ubicacion_id")
   private Ubicacion ubicacion;
+
   @ManyToMany
   @JoinTable(
       name = "preguntas_adopcion",
       joinColumns = @JoinColumn(name = "asociacion_id"),
-      inverseJoinColumns = @JoinColumn(name = "caracteristica_id")
+      inverseJoinColumns = @JoinColumn(name = "pregunta_id")
   )
   private List<Pregunta> preguntasAdopcion;
 
@@ -56,6 +57,10 @@ public class Asociacion {
 
   public void setPreguntasAdopcion(List<Pregunta> preguntasAdopcion) {
     this.preguntasAdopcion = preguntasAdopcion;
+  }
+
+  public void addPreguntaAdopcion(Pregunta pregunta) {
+    this.preguntasAdopcion.add(pregunta);
   }
 
   public void addPreguntasAdopcion(Pregunta pregunta) {

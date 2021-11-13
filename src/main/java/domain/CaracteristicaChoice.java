@@ -2,10 +2,7 @@ package domain;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @DiscriminatorValue("C")
@@ -19,7 +16,7 @@ public class CaracteristicaChoice extends Caracteristica {
   public CaracteristicaChoice(
       TipoCaracteristica tipoCaracteristica,
       String descripcion,
-      List<OpcionNueva> opciones,
+      List<Opcion> opciones,
       Boolean obligatoria
   ) {
     super(tipoCaracteristica, descripcion, obligatoria);
@@ -27,7 +24,7 @@ public class CaracteristicaChoice extends Caracteristica {
   }
 
   @Override
-  public List<OpcionNueva> getOpciones() {
+  public List<Opcion> getOpciones() {
     return opciones;
   }
 
@@ -40,7 +37,13 @@ public class CaracteristicaChoice extends Caracteristica {
 
   @Override
   public Boolean esRespuestaValida(String respuesta) {
-    return this.getOpciones().stream()
-        .anyMatch(opcion -> opcion.getDescripcion().equals(respuesta));
+    return this.getOpciones().stream().anyMatch(
+        opcion -> opcion.getDescripcion().equals(respuesta)
+    );
+  }
+
+  @Override
+  public Boolean tieneMismasOpciones(Pregunta pregunta) {
+    return null;
   }
 }

@@ -1,12 +1,11 @@
 package domain;
 
-import javax.persistence.*;
-
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.*;
 
 @Entity(name = "caracteristicas")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -25,7 +24,7 @@ public abstract class Caracteristica {
 
   @OneToMany
   @JoinColumn(name = "caracteristica_id")
-  protected List<OpcionNueva> opciones;
+  protected List<Opcion> opciones;
 
   protected Boolean obligatoria;
 
@@ -37,7 +36,7 @@ public abstract class Caracteristica {
         tipoCaracteristica,
         NOT_NULO.mensaje("tipoCaracteristica")
     );
-    this.descripcion = descripcion;
+    this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
     this.opciones = new ArrayList<>();
     this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
   }
@@ -54,7 +53,7 @@ public abstract class Caracteristica {
     return descripcion;
   }
 
-  public abstract List<OpcionNueva> getOpciones();
+  public abstract List<Opcion> getOpciones();
 
   public abstract Boolean esRespuestaValida(String respuesta);
 
