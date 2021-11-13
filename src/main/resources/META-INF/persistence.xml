@@ -27,7 +27,7 @@
         <class>domain.TipoCaracteristica</class>
         <class>domain.Opcion</class>
         <class>domain.PublicacionAdopcion</class>
-        <class>domain.PreguntaAdopcion</class>
+        <class>domain.PreguntaPublicacionAdopcion</class>
         <class>domain.PreguntaInteresAdopcion</class>
         <class>domain.PublicacionInteresAdopcion</class>
 

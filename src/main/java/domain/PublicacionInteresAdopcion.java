@@ -64,7 +64,7 @@ public class PublicacionInteresAdopcion {
            && this.cumpleConComodidades(publicacion.getPreguntas());
   }
 
-  public Boolean cumpleConComodidades(List<PreguntaAdopcion> comodidades) {
+  public Boolean cumpleConComodidades(List<PreguntaPublicacionAdopcion> comodidades) {
     List<PreguntaInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD);
 
     return comodidades

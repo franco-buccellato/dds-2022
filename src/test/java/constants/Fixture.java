@@ -432,7 +432,7 @@ public class Fixture {
         true
     );
 
-    PreguntaAdopcion pregunta = new PreguntaAdopcion(preguntaEstaCastrada(), si.getDescripcion());
+    PreguntaPublicacionAdopcion pregunta = new PreguntaPublicacionAdopcion(preguntaEstaCastrada(), si.getDescripcion());
 
     return new PublicacionAdopcion(
         duenio(),

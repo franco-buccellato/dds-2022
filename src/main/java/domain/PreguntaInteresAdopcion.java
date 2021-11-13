@@ -48,7 +48,7 @@ public class PreguntaInteresAdopcion {
     }
   }
 
-  public Boolean tieneMismaRespuesta(PreguntaAdopcion pregunta) {
+  public Boolean tieneMismaRespuesta(PreguntaPublicacionAdopcion pregunta) {
     return this.getPregunta().getDescripcion().equals(pregunta.getPregunta().getDescripcion())
            && this.getRespuesta().equals(pregunta.getRespuesta());
   }

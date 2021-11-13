@@ -7,12 +7,12 @@ import constants.Fixture;
 import domain.exception.RespuestaInvalidaException;
 import org.junit.jupiter.api.Test;
 
-public class PreguntaAdopcionTest extends Fixture {
+public class PreguntaPublicacionAdopcionTest extends Fixture {
 
   @Test
   public void noPuedoCrearPreguntasInteresAdopcionSinUnaPregunta() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new PreguntaAdopcion(null, "Respuesta");
+      new PreguntaPublicacionAdopcion(null, "Respuesta");
     });
 
     assertEquals(NOT_NULO.mensaje("pregunta"), exception.getMessage());
@@ -21,7 +21,7 @@ public class PreguntaAdopcionTest extends Fixture {
   @Test
   public void noPuedoCrearPreguntasInteresAdopcionSinUnaRespuesta() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new PreguntaAdopcion(this.preguntaTamanio(), null);
+      new PreguntaPublicacionAdopcion(this.preguntaTamanio(), null);
     });
 
     assertEquals(NOT_NULO.mensaje("respuesta"), exception.getMessage());
@@ -30,7 +30,7 @@ public class PreguntaAdopcionTest extends Fixture {
   @Test
   public void crearPreguntasInteresAdopcionConRespuestaFueraDeRangoLanzaExcepcion() {
     RespuestaInvalidaException exception = assertThrows(RespuestaInvalidaException.class, () -> {
-      new PreguntaAdopcion(this.preguntaComportamiento(), "demente");
+      new PreguntaPublicacionAdopcion(this.preguntaComportamiento(), "demente");
     });
 
     assertEquals("La respuesta demente no es valida", exception.getMessage());
@@ -38,7 +38,7 @@ public class PreguntaAdopcionTest extends Fixture {
 
   @Test
   public void puedoCrearPreguntaInteresAdopcionConPreguntaValida() {
-    PreguntaAdopcion preguntaAdopcion = new PreguntaAdopcion(
+    PreguntaPublicacionAdopcion preguntaAdopcion = new PreguntaPublicacionAdopcion(
         this.preguntaComportamiento(),
         comportamientoTranquilo.getDescripcion()
     );

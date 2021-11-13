@@ -8,7 +8,7 @@ import java.util.Objects;
 import javax.persistence.*;
 
 @Entity(name = "preguntas_adopcion")
-public class PreguntaAdopcion {
+public class PreguntaPublicacionAdopcion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "pregunta_adopcion_id")
@@ -21,10 +21,10 @@ public class PreguntaAdopcion {
   String respuesta;
 
 
-  public PreguntaAdopcion() {
+  public PreguntaPublicacionAdopcion() {
   }
 
-  public PreguntaAdopcion(Pregunta pregunta, String respuesta) {
+  public PreguntaPublicacionAdopcion(Pregunta pregunta, String respuesta) {
     this.pregunta = Objects.requireNonNull(pregunta, NOT_NULO.mensaje("pregunta"));
     this.respuesta = Objects.requireNonNull(respuesta, NOT_NULO.mensaje("respuesta"));
     this.chequearValidezRespuesta(respuesta);

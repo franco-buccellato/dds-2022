@@ -30,12 +30,12 @@ public class PublicacionAdopcion {
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "asociacion_id")
-  private List<PreguntaAdopcion> preguntas;
+  private List<PreguntaPublicacionAdopcion> preguntas;
 
   public PublicacionAdopcion() {
   }
 
-  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<PreguntaAdopcion> preguntas) {
+  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<PreguntaPublicacionAdopcion> preguntas) {
     this.duenio = Objects.requireNonNull(duenio, NOT_NULO.mensaje("duenio"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.asociacion = Objects.requireNonNull(asociacion, NOT_NULO.mensaje("asociacion"));
@@ -69,11 +69,11 @@ public class PublicacionAdopcion {
         .notificar(new Notificacion(new InteresadoEnAdoptarTemplate(adoptante)));
   }
 
-  public List<PreguntaAdopcion> getPreguntas() {
+  public List<PreguntaPublicacionAdopcion> getPreguntas() {
     return this.preguntas;
   }
 
-  public void chequearTodasPreguntasRespondidas(Asociacion asociacion, List<PreguntaAdopcion> preguntasAdopcion) {
+  public void chequearTodasPreguntasRespondidas(Asociacion asociacion, List<PreguntaPublicacionAdopcion> preguntasAdopcion) {
     boolean todasRespondidas = asociacion.getPreguntasAdopcion()
         .stream()
         .filter(Pregunta::getObligatoria)
