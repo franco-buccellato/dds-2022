@@ -20,7 +20,8 @@ public class Pregunta {
   @JoinColumn(name = "opcion_id")
   private List<Opcion> opciones;
 
-  @Transient
+  @Enumerated(EnumType.STRING)
+  @Column(name = "alcance_pregunta")
   private AlcancePregunta alcancePregunta;
 
   private Boolean obligatoria;
@@ -69,9 +70,15 @@ public class Pregunta {
 //        .collect(Collectors.toList());
 //  }
 
-  public Boolean esRespuestaValida(String respuesta) {
-    return this.getOpciones().stream().anyMatch(
-        opcion -> opcion.getDescripcion().equals(respuesta)
-    );
+  public Boolean esRespuestaValida(List<Opcion> opcionesSeleccionadas) {
+    return opcionesSeleccionadas
+        .stream()
+        .allMatch(
+            opcionSeleccionada -> this.getOpciones()
+                .stream()
+                .anyMatch(
+                    opcion -> opcion.getId().equals(opcionSeleccionada.getId())
+                )
+        );
   }
 }

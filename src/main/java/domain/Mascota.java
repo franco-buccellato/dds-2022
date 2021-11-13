@@ -3,11 +3,8 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import javax.persistence.*;
 
 
@@ -45,7 +42,7 @@ public class Mascota {
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "mascota_id")
-  private List<MascotaCaracteristica> caracteristicas;
+  private List<RespuestaCaracteristica> caracteristicas;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "situacion_mascota")
@@ -62,7 +59,7 @@ public class Mascota {
       Sexo sexo,
       String descripcionFisica,
       List<String> fotos,
-      List<MascotaCaracteristica> caracteristicas,
+      List<RespuestaCaracteristica> caracteristicas,
       SituacionMascota situacionMascota
   ) {
     this.tipoMascota = Objects.requireNonNull(tipoMascota, NOT_NULO.mensaje("tipoMascota"));
@@ -124,15 +121,15 @@ public class Mascota {
     fotos.add(foto);
   }
 
-  public List<MascotaCaracteristica> getCaracteristicas() {
+  public List<RespuestaCaracteristica> getCaracteristicas() {
     return caracteristicas;
   }
 
-  public void addCaracteristica(MascotaCaracteristica caracteristica) {
+  public void addCaracteristica(RespuestaCaracteristica caracteristica) {
     caracteristicas.add(caracteristica);
   }
 
-  public void setCaracteristicas(List<MascotaCaracteristica> caracteristicas) {
+  public void setCaracteristicas(List<RespuestaCaracteristica> caracteristicas) {
     this.caracteristicas = caracteristicas;
   }
 

@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity(name = "caracteristicas")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_caracteristica")
+@DiscriminatorColumn(name = "clase_caracteristica")
 public abstract class Caracteristica {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,7 +55,9 @@ public abstract class Caracteristica {
 
   public abstract List<Opcion> getOpciones();
 
-  public abstract Boolean esRespuestaValida(String respuesta);
+  public abstract Boolean esRespuestaValida(List<Opcion> opciones);
 
   public abstract Boolean tieneMismasOpciones(Pregunta pregunta);
+
+  public abstract String setRespuesta(List<Opcion> opciones);
 }

@@ -13,20 +13,20 @@ import java.util.Arrays;
 public class NotificacionTest {
   Fixture fixture;
   Notificacion notificacionDuenio, notificacionRescatista, notificacionPublicacionInteresAdopcion;
-
-  @BeforeEach
-  public void prepararDatos() {
-    fixture = new Fixture();
-    notificacionDuenio = new Notificacion(new DuenioContactaRescatistaTemplate(fixture.duenio()));
-    //notificacionRescatista = new Notificacion(new RescatistaContactaDuenioTemplate(fixture.rescateConChapa()));
-    notificacionPublicacionInteresAdopcion = new Notificacion(
-        new PublicacionInteresTemplate(
-            "lista_interes",
-            Arrays.asList(
-                fixture.publicacionAdopcion1(),
-                fixture.publicacionAdopcion2(),
-                fixture.publicacionAdopcion3())));
-  }
+//
+//  @BeforeEach
+//  public void prepararDatos() {
+//    fixture = new Fixture();
+//    notificacionDuenio = new Notificacion(new DuenioContactaRescatistaTemplate(fixture.duenio()));
+//    //notificacionRescatista = new Notificacion(new RescatistaContactaDuenioTemplate(fixture.rescateConChapa()));
+//    notificacionPublicacionInteresAdopcion = new Notificacion(
+//        new PublicacionInteresTemplate(
+//            "lista_interes",
+//            Arrays.asList(
+////                fixture.publicacionAdopcion1(),
+////                fixture.publicacionAdopcion2(),
+//                fixture.publicacionAdopcion3())));
+//  }
 
 //  @Test
 //  public void testDuenioNotificaRescatistaPorRescate() {

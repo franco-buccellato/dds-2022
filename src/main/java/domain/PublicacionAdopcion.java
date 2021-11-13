@@ -26,21 +26,22 @@ public class PublicacionAdopcion {
   private Boolean estaActiva;
 
   @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "asociacion_id")
   private Asociacion asociacion;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "asociacion_id")
-  private List<PreguntaAdopcion> preguntas;
+  @JoinColumn(name = "publicacion_adopcion_id")
+  private List<RespuestaPublicacionAdopcion> preguntasAdopcion;
 
   public PublicacionAdopcion() {
   }
 
-  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<PreguntaAdopcion> preguntas) {
+  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<RespuestaPublicacionAdopcion> preguntasAdopcion) {
     this.duenio = Objects.requireNonNull(duenio, NOT_NULO.mensaje("duenio"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.asociacion = Objects.requireNonNull(asociacion, NOT_NULO.mensaje("asociacion"));
-    this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("preguntas"));
-    this.chequearTodasPreguntasRespondidas(asociacion, preguntas);
+    this.preguntasAdopcion = Objects.requireNonNull(preguntasAdopcion, NOT_NULO.mensaje("preguntas"));
+//    this.chequearTodasPreguntasRespondidas(asociacion, preguntasAdopcion);
     this.estaActiva = Boolean.TRUE;
   }
 
@@ -69,22 +70,22 @@ public class PublicacionAdopcion {
         .notificar(new Notificacion(new InteresadoEnAdoptarTemplate(adoptante)));
   }
 
-  public List<PreguntaAdopcion> getPreguntas() {
-    return this.preguntas;
+  public List<RespuestaPublicacionAdopcion> getPreguntasAdopcion() {
+    return this.preguntasAdopcion;
   }
 
-  public void chequearTodasPreguntasRespondidas(Asociacion asociacion, List<PreguntaAdopcion> preguntasAdopcion) {
-    boolean todasRespondidas = asociacion.getPreguntasAdopcion()
-        .stream()
-        .filter(Pregunta::getObligatoria)
-        .allMatch(pregunta -> preguntasAdopcion.stream().anyMatch(
-            preguntaAdopcion -> preguntaAdopcion.esMismaPregunta(pregunta)
-        ));
-
-    if (!todasRespondidas) {
-      throw new PreguntaObligatoriaNoContestadaException(
-          "Es obligatorio responder todas las preguntas que la asociacion requiera"
-      );
-    }
-  }
+//  public void chequearTodasPreguntasRespondidas(Asociacion asociacion, List<RespuestaPublicacionAdopcion> preguntasAdopcion) {
+//    boolean todasRespondidas = asociacion.getPreguntasAdopcion()
+//        .stream()
+//        .filter(Pregunta::getObligatoria)
+//        .allMatch(pregunta -> preguntasAdopcion.stream().anyMatch(
+//            preguntaAdopcion -> preguntaAdopcion.esMismaPregunta(pregunta)
+//        ));
+//
+//    if (!todasRespondidas) {
+//      throw new PreguntaObligatoriaNoContestadaException(
+//          "Es obligatorio responder todas las preguntas que la asociacion requiera"
+//      );
+//    }
+//  }
 }

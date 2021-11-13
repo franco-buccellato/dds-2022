@@ -36,14 +36,25 @@ public class CaracteristicaChoice extends Caracteristica {
   }
 
   @Override
-  public Boolean esRespuestaValida(String respuesta) {
-    return this.getOpciones().stream().anyMatch(
-        opcion -> opcion.getDescripcion().equals(respuesta)
+  public Boolean esRespuestaValida(List<Opcion> opcionesSeleccionadas) {
+    return opcionesSeleccionadas
+        .stream()
+        .allMatch(
+            opcionSeleccionada -> this.getOpciones()
+              .stream()
+              .anyMatch(
+                  opcion -> opcion.getId().equals(opcionSeleccionada.getId())
+              )
     );
   }
 
   @Override
   public Boolean tieneMismasOpciones(Pregunta pregunta) {
+    return null;
+  }
+
+  @Override
+  public String setRespuesta(List<Opcion> opciones) {
     return null;
   }
 }

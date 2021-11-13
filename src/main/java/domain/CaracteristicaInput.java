@@ -27,12 +27,17 @@ public class CaracteristicaInput extends Caracteristica {
   }
 
   @Override
-  public Boolean esRespuestaValida(String respuesta) {
+  public Boolean esRespuestaValida(List<Opcion> opciones) {
     return true;
   }
 
   @Override
   public Boolean tieneMismasOpciones(Pregunta pregunta) {
     return this.getDescripcion().equals(pregunta.getDescripcion());
+  }
+
+  @Override
+  public String setRespuesta(List<Opcion> opciones) {
+    return opciones.get(0).getDescripcion();
   }
 }

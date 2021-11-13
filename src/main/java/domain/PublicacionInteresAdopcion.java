@@ -20,7 +20,7 @@ public class PublicacionInteresAdopcion {
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "publicacion_id")
-  private List<PreguntaInteresAdopcion> preguntas;
+  private List<RespuestaInteresAdopcion> preguntas;
 
   @Column(name = "activa")
   private Boolean estaActiva;
@@ -28,7 +28,7 @@ public class PublicacionInteresAdopcion {
   public PublicacionInteresAdopcion() {
   }
 
-  public PublicacionInteresAdopcion(Duenio interesado, List<PreguntaInteresAdopcion> preguntas) {
+  public PublicacionInteresAdopcion(Duenio interesado, List<RespuestaInteresAdopcion> preguntas) {
     this.interesado = Objects.requireNonNull(interesado, NOT_NULO.mensaje("interesado"));
     this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("preguntas"));
     this.estaActiva = Boolean.TRUE;
@@ -43,7 +43,7 @@ public class PublicacionInteresAdopcion {
     return interesado;
   }
 
-  public List<PreguntaInteresAdopcion> getPreguntas() {
+  public List<RespuestaInteresAdopcion> getPreguntas() {
     return preguntas;
   }
 
@@ -59,32 +59,32 @@ public class PublicacionInteresAdopcion {
     this.estaActiva = false;
   }
 
-  public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
-    return this.cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
-           && this.cumpleConComodidades(publicacion.getPreguntas());
-  }
+//  public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
+//    return this.cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
+//           && this.cumpleConComodidades(publicacion.getPreguntasAdopcion());
+//  }
 
-  public Boolean cumpleConComodidades(List<PreguntaAdopcion> comodidades) {
-    List<PreguntaInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD);
+//  public Boolean cumpleConComodidades(List<RespuestaPublicacionAdopcion> comodidades) {
+//    List<RespuestaInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD);
+//
+//    return comodidades
+//        .stream()
+//        .allMatch(comodidad -> preguntasComodidad.stream()
+//            .anyMatch(pregunta -> pregunta.tieneMismaRespuesta(comodidad))
+//        );
+//  }
 
-    return comodidades
-        .stream()
-        .allMatch(comodidad -> preguntasComodidad.stream()
-            .anyMatch(pregunta -> pregunta.tieneMismaRespuesta(comodidad))
-        );
-  }
-
-  public Boolean cumpleConPreferencias(List<MascotaCaracteristica> mascotaCaracteristicas) {
+  public Boolean cumpleConPreferencias(List<RespuestaCaracteristica> respuestaCaracteristicas) {
     return getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
         .stream()
         .allMatch(
-            preferencia -> mascotaCaracteristicas.stream().anyMatch(
-                mascotaCaracteristica -> mascotaCaracteristica.tieneMismaRespuesta(preferencia)
+            preferencia -> respuestaCaracteristicas.stream().anyMatch(
+                respuestaCaracteristica -> respuestaCaracteristica.tieneMismaRespuesta(preferencia)
             )
         );
   }
 
-  private List<PreguntaInteresAdopcion> getPreguntasSegun(AlcancePregunta alcance) {
+  private List<RespuestaInteresAdopcion> getPreguntasSegun(AlcancePregunta alcance) {
     return this.getPreguntas()
         .stream()
         .filter(pregunta -> pregunta.getPregunta().getAlcancePregunta().equals(alcance))
