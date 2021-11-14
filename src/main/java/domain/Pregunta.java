@@ -39,6 +39,12 @@ public abstract class Pregunta {
     this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
   }
 
+  public Pregunta(List<ObjetivoPregunta> objetivos, String descripcion, Boolean obligatoria) {
+    this.objetivos = Objects.requireNonNull(objetivos, NOT_NULO.mensaje("objetivos"));
+    this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
+    this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
+  }
+
   public Long getId() {
     return this.id;
   }
@@ -83,9 +89,9 @@ public abstract class Pregunta {
     this.obligatoria = obligatoria;
   }
 
-  public Boolean esMismaPregunta(Pregunta pregunta) {
-    return this.getId().equals(pregunta.getId());
-  }
+  public abstract Boolean esMismaPregunta(Pregunta pregunta);
+
+  public abstract Boolean sonMismasSelecciones(Opcion seleccion1, Opcion seleccion2);
 
   public abstract Boolean sonSeleccionesValidas(List<Opcion> selecciones);
 

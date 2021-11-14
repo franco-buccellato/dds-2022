@@ -65,7 +65,9 @@ public class PublicacionInteresAdopcion {
   }
 
   public Boolean cumpleConComodidades(List<SeleccionPublicacionAdopcion> comodidades) {
-    List<SeleccionInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_COMODIDAD);
+    List<SeleccionInteresAdopcion> preguntasComodidad = this.getSeleccionesSegunAlance(
+        AlcanceRespuesta.PUBLICACION_INTERES_ADOPCION_COMODIDAD
+    );
 
     return comodidades
         .stream()
@@ -75,17 +77,17 @@ public class PublicacionInteresAdopcion {
   }
 
   public Boolean cumpleConPreferencias(List<SeleccionCaracteristicaMascota> preferenciasMascota) {
-    return this.getPreguntasSegun(ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_PREFERENCIA)
+    return this.getSeleccionesSegunAlance(AlcanceRespuesta.PUBLICACION_INTERES_ADOPCION_PREFERENCIA)
         .stream()
         .allMatch(preferenciaPropia -> preferenciasMascota.stream().anyMatch(
             preferenciaMascota -> preferenciaMascota.esMismaPreguntaSeleccionada(preferenciaPropia))
         );
   }
 
-  private List<SeleccionInteresAdopcion> getPreguntasSegun(ObjetivoPregunta objetivoPregunta) {
+  private List<SeleccionInteresAdopcion> getSeleccionesSegunAlance(AlcanceRespuesta alcance) {
     return this.getSelecciones()
         .stream()
-        .filter(seleccion -> seleccion.getPregunta().getObjetivos().equals(objetivoPregunta))
+        .filter(seleccion -> seleccion.tieneMismoAlcance(alcance))
         .collect(Collectors.toList());
   }
 }

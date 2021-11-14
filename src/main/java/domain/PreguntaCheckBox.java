@@ -5,7 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("checkbox")
+@DiscriminatorValue(value = TipoPregunta.Values.CHECKBOX)
 public class PreguntaCheckBox extends Pregunta {
   public PreguntaCheckBox() {
   }
@@ -15,11 +15,22 @@ public class PreguntaCheckBox extends Pregunta {
   }
 
   @Override
+  public Boolean esMismaPregunta(Pregunta pregunta) {
+    return this.getId().equals(pregunta.getId());
+  }
+
+  @Override
+  public Boolean sonMismasSelecciones(Opcion seleccion1, Opcion seleccion2) {
+    return seleccion1.getId().equals(seleccion2.getId());
+  }
+
+  @Override
   public Boolean sonSeleccionesValidas(List<Opcion> selecciones) {
     return selecciones.size() > 0
-           && selecciones.stream().allMatch(
-               seleccion ->
-                   this.getOpciones().stream().anyMatch(opcion -> opcion.esMismaOpcion(seleccion))
+           &&
+           selecciones.stream().allMatch(
+               seleccion -> this.getOpciones().stream()
+                   .anyMatch(opcion -> opcion.esMismaOpcion(seleccion))
            );
   }
 }

@@ -66,9 +66,11 @@ public abstract class SeleccionPregunta {
   }
 
   public Boolean tieneMismasSelecciones(List<Opcion> selecciones) {
-    return this.getSelecciones().stream().allMatch(
-        seleccion -> selecciones.stream().anyMatch(
-            seleccion1 -> seleccion1.esMismaOpcion(seleccion)
+    Pregunta pregunta = this.getPregunta();
+
+    return this.getSelecciones().stream().anyMatch(
+        seleccionPropia -> selecciones.stream().anyMatch(
+            seleccionAjena -> pregunta.sonMismasSelecciones(seleccionPropia, seleccionAjena)
         )
     );
   }
@@ -87,5 +89,4 @@ public abstract class SeleccionPregunta {
         )
     );
   }
-
 }

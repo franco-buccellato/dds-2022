@@ -1,7 +1,10 @@
 package domain;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
+
+import static domain.exception.Mensajes.NOT_NULO;
 
 @Entity(name = "selecciones_interes_adopcion")
 public class SeleccionInteresAdopcion extends SeleccionPregunta {
@@ -22,10 +25,23 @@ public class SeleccionInteresAdopcion extends SeleccionPregunta {
   )
   private List<Opcion> selecciones;
 
+  @Enumerated(EnumType.STRING)
+  @Column(name = "alcance")
+  private AlcanceRespuesta alcance;
+
   public SeleccionInteresAdopcion() {
   }
 
-  public SeleccionInteresAdopcion(Pregunta pregunta, List<Opcion> selecciones) {
+  public SeleccionInteresAdopcion(Pregunta pregunta, List<Opcion> selecciones, AlcanceRespuesta alcance) {
     super(pregunta, selecciones);
+    this.alcance = Objects.requireNonNull(alcance, NOT_NULO.mensaje("alcance"));
+  }
+
+  public AlcanceRespuesta getAlcance() {
+    return alcance;
+  }
+
+  public Boolean tieneMismoAlcance(AlcanceRespuesta alcance) {
+    return this.getAlcance().equals(alcance);
   }
 }

@@ -9,6 +9,7 @@ import static domain.TipoUsuario.VOLUNTARIO;
 import static domain.Vinculo.AMISTAD;
 import static domain.ObjetivoPregunta.*;
 import static org.mockito.Mockito.mock;
+import static domain.AlcanceRespuesta.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -41,9 +42,7 @@ public class Fixture {
   public final List<ObjetivoPregunta> objetivosPreguntas = Arrays.asList(
       CARACTERISTICA_MASCOTA,
       PREGUNTA_ASOCIACION,
-      PUBLICACION_ADOPCION,
-      PUBLICACION_INTERES_ADOPCION_COMODIDAD,
-      PUBLICACION_INTERES_ADOPCION_PREFERENCIA
+      PUBLICACION_ADOPCION
   );
   public final List<Opcion> opcionesBool = Arrays.asList(si, no);
   public final List<Opcion> contexturas = Arrays.asList(
@@ -56,10 +55,17 @@ public class Fixture {
       comportamientoManso,
       comportamientoAgresivo
   );
-  public final List<Opcion> opcionesVacunas = Arrays.asList(moquillo,
-                                                            hepatitis,
-                                                            parvovirosis,
-                                                            rabia);
+  public final List<Opcion> tamanios = Arrays.asList(
+      tamanioGrande,
+      tamanioMediano,
+      tamanioChico
+  );
+  public final List<Opcion> opcionesVacunas = Arrays.asList(
+      moquillo,
+      hepatitis,
+      parvovirosis,
+      rabia
+  );
   public final PreguntaBullet estaCastrada = new PreguntaBullet(
       objetivosPreguntas,
       "Esta Castrada:",
@@ -69,13 +75,11 @@ public class Fixture {
   public final PreguntaText datosDeInteres = new PreguntaText(
       objetivosPreguntas,
       "Datos de interes",
-      Collections.emptyList(),
       true
   );
   public final PreguntaText visitasAlVeterinarioUltimoAnio = new PreguntaText(
       objetivosPreguntas,
       "Cantidad de consultas veterinarias",
-      Collections.emptyList(),
       true
   );
   public final PreguntaBullet contextura = new PreguntaBullet(
@@ -96,7 +100,12 @@ public class Fixture {
       opcionesVacunas,
       true
   );
-
+  public final PreguntaBullet tamanio = new PreguntaBullet(
+      objetivosPreguntas,
+      "Tamanio de la mascota",
+      tamanios,
+      true
+  );
 
   @BeforeEach
   public void generalSetup() {
@@ -127,6 +136,7 @@ public class Fixture {
     contextura.setId(4L);
     comportamientoConNinios.setId(5L);
     vacunas.setId(6L);
+    tamanio.setId(7L);
   }
 
   public Rescatista rescatista() {
@@ -320,12 +330,6 @@ public class Fixture {
     return new Duenio(datoPersonal(), Arrays.asList(contacto()), null, null);
   }
 
-  public PreguntaBullet tamanio() {
-    List<Opcion> tamanios = Arrays.asList(tamanioGrande, tamanioMediano, tamanioChico);
-
-    return new PreguntaBullet(objetivosPreguntas, "Tamanio de la mascota", tamanios, true);
-  }
-
   public PreguntaBullet comportamiento() {
     List<Opcion> comportamientos = Arrays.asList(
         comportamientoTranquilo,
@@ -371,7 +375,7 @@ public class Fixture {
         new SeleccionCaracteristicaMascota(comportamiento(), Arrays.asList(comportamientoTranquilo))
     );
     mascota.addCaracteristica(
-        new SeleccionCaracteristicaMascota(tamanio(), Arrays.asList(tamanioGrande))
+        new SeleccionCaracteristicaMascota(tamanio, Arrays.asList(tamanioGrande))
     );
 
     return new PublicacionAdopcion(
@@ -392,7 +396,7 @@ public class Fixture {
         new SeleccionCaracteristicaMascota(comportamiento(), Arrays.asList(comportamientoTranquilo))
     );
     mascota.addCaracteristica(
-        new SeleccionCaracteristicaMascota(tamanio(), Arrays.asList(tamanioGrande))
+        new SeleccionCaracteristicaMascota(tamanio, Arrays.asList(tamanioGrande))
     );
 
     return new PublicacionAdopcion(
@@ -412,7 +416,10 @@ public class Fixture {
         true
     );
 
-    SeleccionPublicacionAdopcion pregunta = new SeleccionPublicacionAdopcion(estaCastrado, Arrays.asList(si));
+    SeleccionPublicacionAdopcion pregunta = new SeleccionPublicacionAdopcion(
+        estaCastrado,
+        Arrays.asList(si)
+    );
 
     return new PublicacionAdopcion(
         duenio(),
@@ -425,31 +432,45 @@ public class Fixture {
   public SeleccionInteresAdopcion preguntaInteresAdopcionTipoGato() {
     Pregunta tipos = tipoMascota();
 
-    return new SeleccionInteresAdopcion(tipos, Arrays.asList(tipoGato));
+    return new SeleccionInteresAdopcion(
+        tipos,
+        Arrays.asList(tipoGato),
+        PUBLICACION_INTERES_ADOPCION_COMODIDAD
+    );
   }
 
   public SeleccionInteresAdopcion preguntaInteresComportamientoTranquilo() {
     Pregunta comportamiento = comportamiento();
 
-    return new SeleccionInteresAdopcion(comportamiento, Arrays.asList(comportamientoTranquilo));
+    return new SeleccionInteresAdopcion(
+        comportamiento,
+        Arrays.asList(comportamientoTranquilo),
+        PUBLICACION_INTERES_ADOPCION_COMODIDAD
+    );
   }
 
   public SeleccionInteresAdopcion preguntaInteresAdopcionTamanioGrande() {
-    Pregunta tamanio = tamanio();
-
-    return new SeleccionInteresAdopcion(tamanio, Arrays.asList(tamanioGrande));
+    return new SeleccionInteresAdopcion(
+        tamanio,
+        Arrays.asList(tamanioGrande),
+        PUBLICACION_INTERES_ADOPCION_COMODIDAD
+    );
   }
 
   public SeleccionInteresAdopcion preguntaInteresAdopcionTamanioChico() {
-    Pregunta tamanio = tamanio();
-
-    return new SeleccionInteresAdopcion(tamanio, Arrays.asList(tamanioChico));
+    return new SeleccionInteresAdopcion(
+        tamanio,
+        Arrays.asList(tamanioChico),
+        PUBLICACION_INTERES_ADOPCION_COMODIDAD
+    );
   }
 
   public SeleccionInteresAdopcion preguntaInteresAdopcionEstaCastradaSi() {
-    Pregunta estaCastrado = estaCastrada;
-
-    return new SeleccionInteresAdopcion(estaCastrado, Arrays.asList(si));
+    return new SeleccionInteresAdopcion(
+        estaCastrada,
+        Arrays.asList(si),
+        PUBLICACION_INTERES_ADOPCION_COMODIDAD
+    );
   }
 
   public PublicacionInteresAdopcion publicacionInteresAdopcion1() {
