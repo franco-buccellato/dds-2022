@@ -6,6 +6,7 @@ import domain.exception.RespuestaInvalidaException;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import javax.persistence.*;
 
 @Entity(name = "respuestas_caracteristicas")
@@ -39,6 +40,7 @@ public class RespuestaCaracteristica {
   }
 
   public RespuestaCaracteristica(Caracteristica caracteristica, List<Opcion> opcionesSeleccionadas) {
+    this.id = new Random().nextLong();
     this.chequearValidezOpcionesSeleccionadas(caracteristica, opcionesSeleccionadas);
     this.caracteristica = Objects.requireNonNull(
         caracteristica,
@@ -67,9 +69,10 @@ public class RespuestaCaracteristica {
   }
 
   public Boolean tieneMismaRespuesta(RespuestaInteresAdopcion respuestaInteresAdopcion) {
-    return (this.getCaracteristica().getDescripcion().equals(
-        respuestaInteresAdopcion.getPregunta().getDescripcion()
-    ));
-//        && (this.getRespuesta().equals(respuestaInteresAdopcion.getRespuesta()));
+    return this.opcionesSeleccionadas
+        .stream()
+        .allMatch(opcionSeleccionada -> respuestaInteresAdopcion.getOpcionesSeleccionadas().stream()
+            .anyMatch(pregunta -> pregunta.getId().equals(opcionSeleccionada.getId()))
+        );
   }
 }

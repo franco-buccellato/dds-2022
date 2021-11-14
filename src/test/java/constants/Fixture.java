@@ -381,116 +381,116 @@ public class Fixture {
     return asociacion;
   }
 
-//  public PublicacionAdopcion publicacionAdopcion1() {
-//    Mascota mascota = mascota1();
-//
-//    mascota.addCaracteristica(
-//        new RespuestaCaracteristica(tipoMascota(), tipoPerro.getDescripcion())
-//    );
-//    mascota.addCaracteristica(
-//        new RespuestaCaracteristica(comportamiento(), comportamientoTranquilo.getDescripcion())
-//    );
-//    mascota.addCaracteristica(
-//        new RespuestaCaracteristica(tamanio(), tamanioGrande.getDescripcion())
-//    );
-//
-//    return new PublicacionAdopcion(
-//        duenio(),
-//        mascota,
-//        asociacion(),
-//        Collections.emptyList()
-//    );
-//  }
-//
-//  public PublicacionAdopcion publicacionAdopcion2() {
-//    Mascota mascota = mascota2();
-//
-//    mascota.addCaracteristica(
-//        new RespuestaCaracteristica(tipoMascota(), tipoGato.getDescripcion())
-//    );
-//    mascota.addCaracteristica(
-//        new RespuestaCaracteristica(comportamiento(), comportamientoTranquilo.getDescripcion())
-//    );
-//    mascota.addCaracteristica(
-//        new RespuestaCaracteristica(tamanio(), tamanioGrande.getDescripcion())
-//    );
+  public PublicacionAdopcion publicacionAdopcion1() {
+    Mascota mascota = mascota1();
 
-//    return new PublicacionAdopcion(
-//        duenio(),
-//        mascota,
-//        asociacion(),
-//        Collections.emptyList()
-//    );
-//  }
+    mascota.addCaracteristica(
+        new RespuestaCaracteristica(tipoMascota(), Collections.singletonList(tipoPerro))
+    );
+    mascota.addCaracteristica(
+        new RespuestaCaracteristica(comportamiento(), Collections.singletonList(comportamientoTranquilo))
+    );
+    mascota.addCaracteristica(
+        new RespuestaCaracteristica(tamanio(), Collections.singletonList(tamanioGrande))
+    );
 
-//  public PublicacionAdopcion publicacionAdopcion3() {
-//    List<Opcion> opcionesBool = Arrays.asList(si, no);
-//    Pregunta estaCastrado = new Pregunta(
-//        "Esta Castrada:",
-//        opcionesBool,
-//        AlcancePregunta.PREGUNTA_PREFERENCIA,
-//        true
-//    );
-//
-//    RespuestaPublicacionAdopcion pregunta = new RespuestaPublicacionAdopcion(preguntaEstaCastrada(), si.getDescripcion());
-//
-//    return new PublicacionAdopcion(
-//        duenio(),
-//        mascota1(),
-//        asociacion(),
-//        Collections.singletonList(pregunta)
-//    );
-//  }
+    return new PublicacionAdopcion(
+        duenio(),
+        mascota,
+        asociacion(),
+        Collections.emptyList()
+    );
+  }
 
-//  public RespuestaInteresAdopcion preguntaInteresAdopcionTipoGato() {
-//    Pregunta tipos = preguntaTipoMascota();
-//
-//    return new RespuestaInteresAdopcion(tipos, tipoGato.getDescripcion());
-//  }
-//
-//  public RespuestaInteresAdopcion preguntaInteresComportamientoTranquilo() {
-//    Pregunta comportamiento = preguntaComportamiento();
-//
-//    return new RespuestaInteresAdopcion(comportamiento, comportamientoTranquilo.getDescripcion());
-//  }
-//
-//  public RespuestaInteresAdopcion preguntaInteresAdopcionTamanioGrande() {
-//    Pregunta tamanio = preguntaTamanio();
-//
-//    return new RespuestaInteresAdopcion(tamanio, tamanioGrande.getDescripcion());
-//  }
-//
-//  public RespuestaInteresAdopcion preguntaInteresAdopcionTamanioChico() {
-//    Pregunta tamanio = preguntaTamanio();
-//
-//    return new RespuestaInteresAdopcion(tamanio, tamanioChico.getDescripcion());
-//  }
-//
-//  public RespuestaInteresAdopcion preguntaInteresAdopcionEstaCastradaSi() {
-//    Pregunta estaCastrado = preguntaEstaCastrada();
-//    String respuestaSi = estaCastrado.getOpciones().get(0).getDescripcion();
-//
-//    return new RespuestaInteresAdopcion(estaCastrado, respuestaSi);
-//  }
-//
-//  public PublicacionInteresAdopcion publicacionInteresAdopcion1() {
-//    RespuestaInteresAdopcion tipos = preguntaInteresAdopcionTipoGato();
-//
-//    return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(tipos));
-//  }
-//
-//
-//  public PublicacionInteresAdopcion publicacionInteresAdopcion2() {
-//    RespuestaInteresAdopcion comportamiento = preguntaInteresComportamientoTranquilo();
-//    RespuestaInteresAdopcion tamanio = preguntaInteresAdopcionTamanioGrande();
-//
-//    return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(comportamiento, tamanio));
-//  }
-//
-//  public PublicacionInteresAdopcion publicacionInteresAdopcion3() {
-//    RespuestaInteresAdopcion estaCastrado = preguntaInteresAdopcionEstaCastradaSi();
-//    RespuestaInteresAdopcion tamanioChico = preguntaInteresAdopcionTamanioChico();
-//
-//    return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(estaCastrado, tamanioChico));
-//  }
+  public PublicacionAdopcion publicacionAdopcion2() {
+    Mascota mascota = mascota2();
+
+    mascota.addCaracteristica(
+        new RespuestaCaracteristica(tipoMascota(), Collections.singletonList(tipoGato))
+    );
+    mascota.addCaracteristica(
+        new RespuestaCaracteristica(comportamiento(), Collections.singletonList(comportamientoTranquilo))
+    );
+    mascota.addCaracteristica(
+        new RespuestaCaracteristica(tamanio(), Collections.singletonList(tamanioGrande))
+    );
+
+    return new PublicacionAdopcion(
+        duenio(),
+        mascota,
+        asociacion(),
+        Collections.emptyList()
+    );
+  }
+
+  public PublicacionAdopcion publicacionAdopcion3() {
+    List<Opcion> opcionesBool = Arrays.asList(si, no);
+    Pregunta estaCastrado = new Pregunta(
+        "Esta Castrada:",
+        opcionesBool,
+        AlcancePregunta.PREGUNTA_PREFERENCIA,
+        true
+    );
+
+    RespuestaPublicacionAdopcion pregunta = new RespuestaPublicacionAdopcion(preguntaEstaCastrada(), Collections.singletonList(si));
+
+    return new PublicacionAdopcion(
+        duenio(),
+        mascota1(),
+        asociacion(),
+        Collections.singletonList(pregunta)
+    );
+  }
+
+  public RespuestaInteresAdopcion preguntaInteresAdopcionTipoGato() {
+    Pregunta tipos = preguntaTipoMascota();
+
+    return new RespuestaInteresAdopcion(tipos, Collections.singletonList(tipoGato));
+  }
+
+  public RespuestaInteresAdopcion preguntaInteresComportamientoTranquilo() {
+    Pregunta comportamiento = preguntaComportamiento();
+
+    return new RespuestaInteresAdopcion(comportamiento, Collections.singletonList(comportamientoTranquilo));
+  }
+
+  public RespuestaInteresAdopcion preguntaInteresAdopcionTamanioGrande() {
+    Pregunta tamanio = preguntaTamanio();
+
+    return new RespuestaInteresAdopcion(tamanio, Collections.singletonList(tamanioGrande));
+  }
+
+  public RespuestaInteresAdopcion preguntaInteresAdopcionTamanioChico() {
+    Pregunta tamanio = preguntaTamanio();
+
+    return new RespuestaInteresAdopcion(tamanio, Collections.singletonList(tamanioChico));
+  }
+
+  public RespuestaInteresAdopcion preguntaInteresAdopcionEstaCastradaSi() {
+    Pregunta estaCastrado = preguntaEstaCastrada();
+    Opcion respuestaSi = estaCastrado.getOpciones().get(0);
+
+    return new RespuestaInteresAdopcion(estaCastrado, Collections.singletonList(respuestaSi));
+  }
+
+  public PublicacionInteresAdopcion publicacionInteresAdopcion1() {
+    RespuestaInteresAdopcion tipos = preguntaInteresAdopcionTipoGato();
+
+    return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(tipos));
+  }
+
+
+  public PublicacionInteresAdopcion publicacionInteresAdopcion2() {
+    RespuestaInteresAdopcion comportamiento = preguntaInteresComportamientoTranquilo();
+    RespuestaInteresAdopcion tamanio = preguntaInteresAdopcionTamanioGrande();
+
+    return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(comportamiento, tamanio));
+  }
+
+  public PublicacionInteresAdopcion publicacionInteresAdopcion3() {
+    RespuestaInteresAdopcion estaCastrado = preguntaInteresAdopcionEstaCastradaSi();
+    RespuestaInteresAdopcion tamanioChico = preguntaInteresAdopcionTamanioChico();
+
+    return new PublicacionInteresAdopcion(adoptante(), Arrays.asList(estaCastrado, tamanioChico));
+  }
 }

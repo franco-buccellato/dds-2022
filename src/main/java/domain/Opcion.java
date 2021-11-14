@@ -3,6 +3,7 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.Objects;
+import java.util.Random;
 import javax.persistence.*;
 
 @Entity(name = "opciones")
@@ -16,6 +17,7 @@ public class Opcion {
   public Opcion() {
   }
   public Opcion(String descripcion) {
+    this.id = new Random().nextLong();
     this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
   }
   public Long getId() {

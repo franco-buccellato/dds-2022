@@ -50,7 +50,11 @@ public class CaracteristicaChoice extends Caracteristica {
 
   @Override
   public Boolean tieneMismasOpciones(Pregunta pregunta) {
-    return null;
+    return this.getOpciones()
+        .stream()
+        .allMatch(opcion -> pregunta.getOpciones().stream()
+            .anyMatch(opcionPregunta -> opcionPregunta.getId().equals(opcion.getId()))
+        );
   }
 
   @Override

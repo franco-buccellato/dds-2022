@@ -7,6 +7,7 @@ import domain.templatesNotificacion.InteresadoEnAdoptarTemplate;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import javax.persistence.*;
 
 @Entity(name = "publicaciones_adopcion")
@@ -37,11 +38,12 @@ public class PublicacionAdopcion {
   }
 
   public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<RespuestaPublicacionAdopcion> preguntasAdopcion) {
+    this.chequearTodasPreguntasRespondidas(asociacion, preguntasAdopcion);
+    this.id = new Random().nextLong();
     this.duenio = Objects.requireNonNull(duenio, NOT_NULO.mensaje("duenio"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.asociacion = Objects.requireNonNull(asociacion, NOT_NULO.mensaje("asociacion"));
     this.preguntasAdopcion = Objects.requireNonNull(preguntasAdopcion, NOT_NULO.mensaje("preguntas"));
-//    this.chequearTodasPreguntasRespondidas(asociacion, preguntasAdopcion);
     this.estaActiva = Boolean.TRUE;
   }
 
@@ -74,18 +76,19 @@ public class PublicacionAdopcion {
     return this.preguntasAdopcion;
   }
 
-//  public void chequearTodasPreguntasRespondidas(Asociacion asociacion, List<RespuestaPublicacionAdopcion> preguntasAdopcion) {
-//    boolean todasRespondidas = asociacion.getPreguntasAdopcion()
-//        .stream()
-//        .filter(Pregunta::getObligatoria)
-//        .allMatch(pregunta -> preguntasAdopcion.stream().anyMatch(
-//            preguntaAdopcion -> preguntaAdopcion.esMismaPregunta(pregunta)
-//        ));
-//
-//    if (!todasRespondidas) {
-//      throw new PreguntaObligatoriaNoContestadaException(
-//          "Es obligatorio responder todas las preguntas que la asociacion requiera"
-//      );
-//    }
-//  }
+  public void chequearTodasPreguntasRespondidas(Asociacion asociacion, List<RespuestaPublicacionAdopcion> preguntasAdopcion) {
+    asociacion.getPreguntasAdopcion();
+    boolean todasRespondidas = asociacion.getPreguntasAdopcion()
+        .stream()
+        .filter(Pregunta::getObligatoria)
+        .allMatch(pregunta -> preguntasAdopcion.stream().anyMatch(
+            preguntaAdopcion -> preguntaAdopcion.esMismaPregunta(pregunta)
+        ));
+
+    if (!todasRespondidas) {
+      throw new PreguntaObligatoriaNoContestadaException(
+          "Es obligatorio responder todas las preguntas que la asociacion requiera"
+      );
+    }
+  }
 }

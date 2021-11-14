@@ -6,6 +6,7 @@ import domain.exception.RespuestaInvalidaException;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import javax.persistence.*;
 
 @Entity(name = "respuestas_publicacion_adopcion")
@@ -37,6 +38,7 @@ public class RespuestaPublicacionAdopcion {
   }
 
   public RespuestaPublicacionAdopcion(Pregunta pregunta, List<Opcion> opcionesSeleccionadas) {
+    this.id = new Random().nextLong();
     this.chequearValidezOpcionesSeleccionadas(pregunta, opcionesSeleccionadas);
     this.pregunta = Objects.requireNonNull(
         pregunta,
@@ -59,4 +61,7 @@ public class RespuestaPublicacionAdopcion {
     }
   }
 
+  public Boolean esMismaPregunta(Pregunta pregunta) {
+    return this.getPregunta().esMismaPregunta(pregunta);
+  }
 }

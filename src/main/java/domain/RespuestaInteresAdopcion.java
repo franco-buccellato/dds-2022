@@ -6,6 +6,7 @@ import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import javax.persistence.*;
 
 @Entity(name = "respuestas_interes_adopcion")
@@ -38,6 +39,7 @@ public class RespuestaInteresAdopcion {
   }
 
   public RespuestaInteresAdopcion(Pregunta pregunta, List<Opcion> opcionesSeleccionadas) {
+    this.id = new Random().nextLong();
     this.chequearValidezOpcionesSeleccionadas(pregunta, opcionesSeleccionadas);
     this.pregunta = Objects.requireNonNull(
         pregunta,
@@ -59,10 +61,13 @@ public class RespuestaInteresAdopcion {
       throw new RespuestaInvalidaException("Las opciones seleccionadas no son validas");
     }
   }
-//
-//  public Boolean tieneMismaRespuesta(RespuestaInteresAdopcion respuestaInteresAdopcion) {
-//    return (this.getPregunta().getDescripcion().equals(
-//        respuestaInteresAdopcion.getPregunta().getDescripcion()
-//    )) && (this.getRespuesta().equals(respuestaInteresAdopcion.getRespuesta()));
-//  }
+
+  public Boolean tieneMismaRespuesta(RespuestaPublicacionAdopcion respuestaPublicacionAdopcion) {
+    return this.getPregunta().esMismaPregunta(respuestaPublicacionAdopcion.getPregunta())
+      && this.opcionesSeleccionadas
+        .stream()
+        .allMatch(opcionSeleccionada -> respuestaPublicacionAdopcion.getOpcionesSeleccionadas().stream()
+            .anyMatch(pregunta -> pregunta.getId().equals(opcionSeleccionada.getId()))
+        );
+  }
 }

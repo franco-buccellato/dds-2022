@@ -3,6 +3,7 @@ package domain;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
@@ -12,7 +13,7 @@ public class Pregunta {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "pregunta_id")
-  protected int id;
+  protected Long id;
 
   private String descripcion;
 
@@ -30,12 +31,17 @@ public class Pregunta {
   }
 
   public Pregunta(String descripcion, List<Opcion> opciones, AlcancePregunta alcancePregunta, Boolean obligatoria) {
+    this.id = new Random().nextLong();
     this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
     this.opciones = Objects.requireNonNull(opciones, NOT_NULO.mensaje("opciones"));
     this.alcancePregunta = Objects.requireNonNull(
         alcancePregunta, NOT_NULO.mensaje("alcancePregunta")
     );
     this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
+  }
+
+  public Long getId() {
+    return this.id;
   }
 
   public String getDescripcion() {
@@ -58,17 +64,9 @@ public class Pregunta {
     this.obligatoria = obligatoria;
   }
 
-//  public Boolean tienenMismasOpciones(Pregunta pregunta) {
-//    return !this.getOpcionesSeleccionas().isEmpty()
-//           && this.getOpcionesSeleccionas().containsAll(pregunta.getOpcionesSeleccionas());
-//  }
-
-//  public List<OpcionNueva> getOpcionesSeleccionas() {
-//    return opciones
-//        .stream()
-//        .filter(Opcion::getSeleccionada)
-//        .collect(Collectors.toList());
-//  }
+  public Boolean esMismaPregunta(Pregunta pregunta) {
+    return this.getId().equals(pregunta.getId());
+  }
 
   public Boolean esRespuestaValida(List<Opcion> opcionesSeleccionadas) {
     return opcionesSeleccionadas

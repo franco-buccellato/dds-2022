@@ -2,9 +2,7 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import javax.persistence.*;
 
 @Entity(name = "caracteristicas")
@@ -14,7 +12,7 @@ public abstract class Caracteristica {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "caracteristica_id")
-  protected int id;
+  protected Long id;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "tipo_caracteristica")
@@ -32,6 +30,7 @@ public abstract class Caracteristica {
   }
 
   public Caracteristica(TipoCaracteristica tipoCaracteristica, String descripcion, Boolean obligatoria) {
+    this.id = new Random().nextLong();
     this.tipoCaracteristica = Objects.requireNonNull(
         tipoCaracteristica,
         NOT_NULO.mensaje("tipoCaracteristica")
@@ -41,7 +40,7 @@ public abstract class Caracteristica {
     this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
   }
 
-  public int getId() {
+  public Long getId() {
     return this.id;
   }
 

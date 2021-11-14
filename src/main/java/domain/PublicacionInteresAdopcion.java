@@ -59,20 +59,20 @@ public class PublicacionInteresAdopcion {
     this.estaActiva = false;
   }
 
-//  public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
-//    return this.cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
-//           && this.cumpleConComodidades(publicacion.getPreguntasAdopcion());
-//  }
+  public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
+    return this.cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
+           && this.cumpleConComodidades(publicacion.getPreguntasAdopcion());
+  }
 
-//  public Boolean cumpleConComodidades(List<RespuestaPublicacionAdopcion> comodidades) {
-//    List<RespuestaInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD);
-//
-//    return comodidades
-//        .stream()
-//        .allMatch(comodidad -> preguntasComodidad.stream()
-//            .anyMatch(pregunta -> pregunta.tieneMismaRespuesta(comodidad))
-//        );
-//  }
+  public Boolean cumpleConComodidades(List<RespuestaPublicacionAdopcion> comodidades) {
+    List<RespuestaInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD);
+
+    return comodidades
+        .stream()
+        .allMatch(comodidad -> preguntasComodidad.stream()
+            .anyMatch(pregunta -> pregunta.tieneMismaRespuesta(comodidad))
+        );
+  }
 
   public Boolean cumpleConPreferencias(List<RespuestaCaracteristica> respuestaCaracteristicas) {
     return getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
