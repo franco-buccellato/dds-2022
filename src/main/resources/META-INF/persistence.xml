@@ -18,18 +18,22 @@
         <class>domain.RescateConChapa</class>
         <class>domain.PublicacionRescate</class>
         <class>domain.Mascota</class>
-        <class>domain.Caracteristica</class>
         <class>domain.Duenio</class>
-        <class>domain.Caracteristica</class>
         <class>domain.Pregunta</class>
-        <class>domain.CaracteristicaChoice</class>
-        <class>domain.CaracteristicaInput</class>
         <class>domain.TipoCaracteristica</class>
         <class>domain.Opcion</class>
         <class>domain.PublicacionAdopcion</class>
-        <class>domain.RespuestaPublicacionAdopcion</class>
-        <class>domain.RespuestaInteresAdopcion</class>
         <class>domain.PublicacionInteresAdopcion</class>
+        <class>domain.Pregunta</class>
+        <class>domain.PreguntaBullet</class>
+        <class>domain.PreguntaCheckBox</class>
+        <class>domain.PreguntaNumber</class>
+        <class>domain.PreguntaText</class>
+        <class>domain.ObjetivoPregunta</class>
+        <class>domain.SeleccionPregunta</class>
+        <class>domain.SeleccionCaracteristicaMascota</class>
+        <class>domain.SeleccionInteresAdopcion</class>
+        <class>domain.SeleccionPublicacionAdopcion</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

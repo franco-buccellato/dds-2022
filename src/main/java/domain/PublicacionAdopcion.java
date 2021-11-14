@@ -2,13 +2,23 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import domain.exception.PreguntaObligatoriaNoContestadaException;
-import domain.templatesNotificacion.InteresadoEnAdoptarTemplate;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import domain.exception.PreguntaObligatoriaNoContestadaException;
+import domain.templatesNotificacion.InteresadoEnAdoptarTemplate;
 
 @Entity(name = "publicaciones_adopcion")
 public class PublicacionAdopcion {
@@ -32,18 +42,20 @@ public class PublicacionAdopcion {
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "publicacion_adopcion_id")
-  private List<RespuestaPublicacionAdopcion> preguntasAdopcion;
+  private List<SeleccionPublicacionAdopcion> seleccionesAdopcion;
 
   public PublicacionAdopcion() {
   }
 
-  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<RespuestaPublicacionAdopcion> preguntasAdopcion) {
-    this.chequearTodasPreguntasRespondidas(asociacion, preguntasAdopcion);
+  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<SeleccionPublicacionAdopcion> seleccionesAdopcion) {
+    this.chequearTodasPreguntasRespondidas(asociacion, seleccionesAdopcion);
     this.id = new Random().nextLong();
     this.duenio = Objects.requireNonNull(duenio, NOT_NULO.mensaje("duenio"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.asociacion = Objects.requireNonNull(asociacion, NOT_NULO.mensaje("asociacion"));
-    this.preguntasAdopcion = Objects.requireNonNull(preguntasAdopcion, NOT_NULO.mensaje("preguntas"));
+    this.seleccionesAdopcion = Objects.requireNonNull(
+        seleccionesAdopcion, NOT_NULO.mensaje("seleccionesAdopcion")
+    );
     this.estaActiva = Boolean.TRUE;
   }
 
@@ -72,17 +84,16 @@ public class PublicacionAdopcion {
         .notificar(new Notificacion(new InteresadoEnAdoptarTemplate(adoptante)));
   }
 
-  public List<RespuestaPublicacionAdopcion> getPreguntasAdopcion() {
-    return this.preguntasAdopcion;
+  public List<SeleccionPublicacionAdopcion> getSeleccionesAdopcion() {
+    return this.seleccionesAdopcion;
   }
 
-  public void chequearTodasPreguntasRespondidas(Asociacion asociacion, List<RespuestaPublicacionAdopcion> preguntasAdopcion) {
-    asociacion.getPreguntasAdopcion();
+  public void chequearTodasPreguntasRespondidas(Asociacion asociacion, List<SeleccionPublicacionAdopcion> seleccionesAdopcion) {
     boolean todasRespondidas = asociacion.getPreguntasAdopcion()
         .stream()
         .filter(Pregunta::getObligatoria)
-        .allMatch(pregunta -> preguntasAdopcion.stream().anyMatch(
-            preguntaAdopcion -> preguntaAdopcion.esMismaPregunta(pregunta)
+        .allMatch(pregunta -> seleccionesAdopcion.stream().anyMatch(
+            seleccionPublicacionAdopcion -> seleccionPublicacionAdopcion.esDeMismaPregunta(pregunta)
         ));
 
     if (!todasRespondidas) {

@@ -12,6 +12,7 @@ public class AsociacionTest extends Fixture {
 
   @BeforeEach
   void setup() {
+    super.generalSetup();
     ubicacion = ubicacion1();
   }
 

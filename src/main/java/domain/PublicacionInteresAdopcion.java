@@ -5,22 +5,32 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
-@Entity(name = "publicaciones")
+@Entity(name = "publicaciones_interes_adopcion")
 public class PublicacionInteresAdopcion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "publicacion_id")
+  @Column(name = "publicacion_interes_adopcion_id")
   private int id;
 
   @OneToOne
   private Duenio interesado;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "publicacion_id")
-  private List<RespuestaInteresAdopcion> preguntas;
+  @JoinColumn(name = "publicacion_interes_adopcion_id")
+  private List<SeleccionInteresAdopcion> selecciones;
 
   @Column(name = "activa")
   private Boolean estaActiva;
@@ -28,9 +38,9 @@ public class PublicacionInteresAdopcion {
   public PublicacionInteresAdopcion() {
   }
 
-  public PublicacionInteresAdopcion(Duenio interesado, List<RespuestaInteresAdopcion> preguntas) {
+  public PublicacionInteresAdopcion(Duenio interesado, List<SeleccionInteresAdopcion> selecciones) {
     this.interesado = Objects.requireNonNull(interesado, NOT_NULO.mensaje("interesado"));
-    this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("preguntas"));
+    this.selecciones = Objects.requireNonNull(selecciones, NOT_NULO.mensaje("selecciones"));
     this.estaActiva = Boolean.TRUE;
     this.enviarBotonDeBaja();
   }
@@ -43,8 +53,8 @@ public class PublicacionInteresAdopcion {
     return interesado;
   }
 
-  public List<RespuestaInteresAdopcion> getPreguntas() {
-    return preguntas;
+  public List<SeleccionInteresAdopcion> getSelecciones() {
+    return selecciones;
   }
 
   public Boolean getEstaActiva() {
@@ -61,33 +71,31 @@ public class PublicacionInteresAdopcion {
 
   public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
     return this.cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
-           && this.cumpleConComodidades(publicacion.getPreguntasAdopcion());
+           && this.cumpleConComodidades(publicacion.getSeleccionesAdopcion());
   }
 
-  public Boolean cumpleConComodidades(List<RespuestaPublicacionAdopcion> comodidades) {
-    List<RespuestaInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD);
+  public Boolean cumpleConComodidades(List<SeleccionPublicacionAdopcion> comodidades) {
+    List<SeleccionInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_COMODIDAD);
 
     return comodidades
         .stream()
         .allMatch(comodidad -> preguntasComodidad.stream()
-            .anyMatch(pregunta -> pregunta.tieneMismaRespuesta(comodidad))
+            .anyMatch(pregunta -> pregunta.esMismaPreguntaSeleccionada(comodidad))
         );
   }
 
-  public Boolean cumpleConPreferencias(List<RespuestaCaracteristica> respuestaCaracteristicas) {
-    return getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
+  public Boolean cumpleConPreferencias(List<SeleccionCaracteristicaMascota> preferenciasMascota) {
+    return this.getPreguntasSegun(ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_PREFERENCIA)
         .stream()
-        .allMatch(
-            preferencia -> respuestaCaracteristicas.stream().anyMatch(
-                respuestaCaracteristica -> respuestaCaracteristica.tieneMismaRespuesta(preferencia)
-            )
+        .allMatch(preferenciaPropia -> preferenciasMascota.stream().anyMatch(
+            preferenciaMascota -> preferenciaMascota.esMismaPreguntaSeleccionada(preferenciaPropia))
         );
   }
 
-  private List<RespuestaInteresAdopcion> getPreguntasSegun(AlcancePregunta alcance) {
-    return this.getPreguntas()
+  private List<SeleccionInteresAdopcion> getPreguntasSegun(ObjetivoPregunta objetivoPregunta) {
+    return this.getSelecciones()
         .stream()
-        .filter(pregunta -> pregunta.getPregunta().getAlcancePregunta().equals(alcance))
+        .filter(seleccion -> seleccion.getPregunta().getObjetivos().equals(objetivoPregunta))
         .collect(Collectors.toList());
   }
 }

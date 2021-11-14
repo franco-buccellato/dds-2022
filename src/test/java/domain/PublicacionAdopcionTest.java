@@ -1,15 +1,16 @@
 package domain;
 
-import constants.Fixture;
-import domain.exception.PreguntaObligatoriaNoContestadaException;
-import domain.repositorios.RepositorioCaracteristicas;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import constants.Fixture;
+import domain.exception.PreguntaObligatoriaNoContestadaException;
+import domain.repositorios.RepositorioCaracteristicas;
 
 public class PublicacionAdopcionTest extends Fixture {
   private Duenio duenioMascostaEnAdopcion;
@@ -22,6 +23,7 @@ public class PublicacionAdopcionTest extends Fixture {
 
   @BeforeEach
   public void iniciar() {
+    super.generalSetup();
     this.mascotaEnAdopcion = mascota1();
     this.duenioMascostaEnAdopcion = duenio();
     this.duenioMascostaEnAdopcion.addMascota(mascotaEnAdopcion);
@@ -30,10 +32,10 @@ public class PublicacionAdopcionTest extends Fixture {
     this.asociacionSinPreguntas = asociacion();
     this.asociacionConPreguntas = asociacionConPreguntasAdopcion();
     this.repositorioCaracteristicas = new RepositorioCaracteristicas(Arrays.asList(
-        estaCastrada(),
-        contextura(),
-        datosDeInteres(),
-        comportamientoConNinios()
+        estaCastrada,
+        contextura,
+        datosDeInteres,
+        comportamientoConNinios
     ));
   }
 
@@ -44,36 +46,56 @@ public class PublicacionAdopcionTest extends Fixture {
           duenioMascostaEnAdopcion,
           mascotaEnAdopcion,
           asociacionConPreguntas,
-          Collections.emptyList()
+          this.preguntasAdopcion()
       );
     });
   }
 
   @Test
   public void TestPuedoCrearPublicacionAdopcion() {
-    List<RespuestaPublicacionAdopcion> respuestas = preguntasRespondidas(asociacionConPreguntas);
-
     PublicacionAdopcion publicacionAdopcion = new PublicacionAdopcion(
         duenioMascostaEnAdopcion,
         mascotaEnAdopcion,
-        asociacionConPreguntas,
-        respuestas
+        asociacionSinPreguntas,
+        this.preguntasRespondidas()
     );
     Assertions.assertEquals(mascotaEnAdopcion, publicacionAdopcion.getMascota());
   }
 
-  public List<RespuestaPublicacionAdopcion> preguntasRespondidas(Asociacion asociacion) {
-    Pregunta comportamiento = preguntaComportamiento();
-    RespuestaPublicacionAdopcion RespuestaComportamiento = new RespuestaPublicacionAdopcion(comportamiento, Collections.singletonList(comportamiento.getOpciones().get(0)));
-    Pregunta pregunta1 = asociacion.getPreguntasAdopcion().get(0);
-    RespuestaPublicacionAdopcion Respuesta1 = new RespuestaPublicacionAdopcion(pregunta1, Collections.singletonList(pregunta1.getOpciones().get(0)));
-    Pregunta pregunta2 = asociacion.getPreguntasAdopcion().get(1);
-    RespuestaPublicacionAdopcion Respuesta2 = new RespuestaPublicacionAdopcion(pregunta2, Collections.singletonList(pregunta2.getOpciones().get(0)));
+  public List<SeleccionPublicacionAdopcion> preguntasRespondidas() {
+    SeleccionPublicacionAdopcion contexturaSeleccionada = new SeleccionPublicacionAdopcion(
+        contextura,
+        Arrays.asList(contexturas.get(0))
+    );
 
-    return Arrays.asList(RespuestaComportamiento, Respuesta1, Respuesta2);
+    SeleccionPublicacionAdopcion comportamientoSeleccionado = new SeleccionPublicacionAdopcion(
+        comportamientoConNinios,
+        Arrays.asList(comportamientos.get(0))
+    );
+
+    SeleccionPublicacionAdopcion vacunasSeleccionadas = new SeleccionPublicacionAdopcion(
+        vacunas,
+        opcionesVacunas.stream().limit(2).collect(Collectors.toList())
+    );
+
+    SeleccionPublicacionAdopcion estaCastradaSeleccionada = new SeleccionPublicacionAdopcion(
+        estaCastrada,
+        Arrays.asList(opcionesBool.get(0))
+    );
+
+    return Arrays.asList(
+        contexturaSeleccionada,
+        comportamientoSeleccionado,
+        vacunasSeleccionadas,
+        estaCastradaSeleccionada
+    );
   }
 
-  private List<Pregunta> preguntasAdopcion(Asociacion asociacionVinculada) {
-    return asociacionVinculada.getPreguntasAdopcion();
+  private List<SeleccionPublicacionAdopcion> preguntasAdopcion() {
+
+    return Arrays.asList(new SeleccionPublicacionAdopcion(
+        estaCastrada,
+        Arrays.asList(estaCastrada.getOpciones().get(0))
+    ));
   }
 }
