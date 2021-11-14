@@ -2,9 +2,7 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import javax.persistence.*;
 
 
@@ -13,7 +11,7 @@ public class Mascota {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "mascota_id")
-  private int id;
+  private Long id;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "tipo_mascota")
@@ -42,7 +40,7 @@ public class Mascota {
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "mascota_id")
-  private List<RespuestaCaracteristica> caracteristicas;
+  private List<SeleccionCaracteristicaMascota> caracteristicas;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "situacion_mascota")
@@ -59,7 +57,7 @@ public class Mascota {
       Sexo sexo,
       String descripcionFisica,
       List<String> fotos,
-      List<RespuestaCaracteristica> caracteristicas,
+      List<SeleccionCaracteristicaMascota> caracteristicas,
       SituacionMascota situacionMascota
   ) {
     this.tipoMascota = Objects.requireNonNull(tipoMascota, NOT_NULO.mensaje("tipoMascota"));
@@ -79,6 +77,14 @@ public class Mascota {
         ? new ArrayList<>()
         : caracteristicas;
     this.situacionMascota = situacionMascota;
+  }
+
+  public Long getId() {
+    return this.id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public TipoMascota getTipoMascota() {
@@ -121,15 +127,15 @@ public class Mascota {
     fotos.add(foto);
   }
 
-  public List<RespuestaCaracteristica> getCaracteristicas() {
+  public List<SeleccionCaracteristicaMascota> getCaracteristicas() {
     return caracteristicas;
   }
 
-  public void addCaracteristica(RespuestaCaracteristica caracteristica) {
+  public void addCaracteristica(SeleccionCaracteristicaMascota caracteristica) {
     caracteristicas.add(caracteristica);
   }
 
-  public void setCaracteristicas(List<RespuestaCaracteristica> caracteristicas) {
+  public void setCaracteristicas(List<SeleccionCaracteristicaMascota> caracteristicas) {
     this.caracteristicas = caracteristicas;
   }
 
@@ -141,23 +147,15 @@ public class Mascota {
     this.situacionMascota = situacionMascota;
   }
 
-//  public List<Caracteristica> getCaracteristicasSeleccionadas() {
-//    return caracteristicas
-//        .stream()
-//        .filter(caracteristica -> !caracteristica.getOpcionesSeleccionas().isEmpty())
-//        .collect(Collectors.toList());
-//  }
+  public String getTamanio() {
+    Opcion tamanio = this.getCaracteristicas()
+        .stream()
+        .map(SeleccionPregunta::getSelecciones)
+        .flatMap(Collection::stream)
+        .filter(Opcion::esOpcionTamanio)
+        .findFirst()
+        .orElse(new Opcion(""));
 
-//  public String getTamanio() {
-//    Opcion tamanio = caracteristicas
-//        .stream()
-//        .map(Caracteristica::getOpcionesSeleccionas)
-//        .flatMap(Collection::stream)
-//        .filter(opcion -> Arrays.asList("Chico", "Mediano", "Grande")
-//            .contains(opcion.getDescripcion()))
-//        .findFirst()
-//        .orElse(new Opcion(""));
-//
-//    return tamanio.getDescripcion();
-//  }
+    return tamanio.getDescripcion();
+  }
 }

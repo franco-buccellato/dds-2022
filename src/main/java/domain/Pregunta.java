@@ -1,53 +1,78 @@
 package domain;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
-
 import static domain.exception.Mensajes.NOT_NULO;
 
-@Entity
-@Table(name = "preguntas")
-public class Pregunta {
+import java.util.List;
+import java.util.Objects;
+import javax.persistence.*;
+
+@Entity(name = "preguntas")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_input")
+public abstract class Pregunta {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "pregunta_id")
-  protected int id;
+  private Long id;
+
+  @ElementCollection(targetClass = ObjetivoPregunta.class, fetch = FetchType.EAGER)
+  @CollectionTable(name = "preguntas_objetivos", joinColumns = @JoinColumn(name = "pregunta_id"))
+  @Column(name = "objetivo", nullable = false)
+  @Enumerated(EnumType.STRING)
+  private List<ObjetivoPregunta> objetivos;
 
   private String descripcion;
 
   @OneToMany
-  @JoinColumn(name = "opcion_id")
+  @JoinColumn(name = "pregunta_id")
   private List<Opcion> opciones;
-
-  @Enumerated(EnumType.STRING)
-  @Column(name = "alcance_pregunta")
-  private AlcancePregunta alcancePregunta;
 
   private Boolean obligatoria;
 
-  private Pregunta() {
+  public Pregunta() {
   }
 
-  public Pregunta(String descripcion, List<Opcion> opciones, AlcancePregunta alcancePregunta, Boolean obligatoria) {
+  public Pregunta(List<ObjetivoPregunta> objetivos, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
+    this.objetivos = Objects.requireNonNull(objetivos, NOT_NULO.mensaje("objetivos"));
     this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
     this.opciones = Objects.requireNonNull(opciones, NOT_NULO.mensaje("opciones"));
-    this.alcancePregunta = Objects.requireNonNull(
-        alcancePregunta, NOT_NULO.mensaje("alcancePregunta")
-    );
     this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
+  }
+
+  public Long getId() {
+    return this.id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public List<ObjetivoPregunta> getObjetivos() {
+    return objetivos;
+  }
+
+  public void addObjetivo(ObjetivoPregunta objetivo) {
+    this.getObjetivos().add(objetivo);
   }
 
   public String getDescripcion() {
     return descripcion;
   }
 
+  public void setDescripcion(String descripcion) {
+    this.descripcion = descripcion;
+  }
+
   public List<Opcion> getOpciones() {
     return opciones;
   }
 
-  public AlcancePregunta getAlcancePregunta() {
-    return alcancePregunta;
+  public void setOpciones(List<Opcion> opciones) {
+    this.opciones = opciones;
+  }
+
+  public void addOpcion(Opcion opcion) {
+    this.getOpciones().add(opcion);
   }
 
   public Boolean getObligatoria() {
@@ -58,27 +83,10 @@ public class Pregunta {
     this.obligatoria = obligatoria;
   }
 
-//  public Boolean tienenMismasOpciones(Pregunta pregunta) {
-//    return !this.getOpcionesSeleccionas().isEmpty()
-//           && this.getOpcionesSeleccionas().containsAll(pregunta.getOpcionesSeleccionas());
-//  }
-
-//  public List<OpcionNueva> getOpcionesSeleccionas() {
-//    return opciones
-//        .stream()
-//        .filter(Opcion::getSeleccionada)
-//        .collect(Collectors.toList());
-//  }
-
-  public Boolean esRespuestaValida(List<Opcion> opcionesSeleccionadas) {
-    return opcionesSeleccionadas
-        .stream()
-        .allMatch(
-            opcionSeleccionada -> this.getOpciones()
-                .stream()
-                .anyMatch(
-                    opcion -> opcion.getId().equals(opcionSeleccionada.getId())
-                )
-        );
+  public Boolean esMismaPregunta(Pregunta pregunta) {
+    return this.getId().equals(pregunta.getId());
   }
+
+  public abstract Boolean sonSeleccionesValidas(List<Opcion> selecciones);
+
 }

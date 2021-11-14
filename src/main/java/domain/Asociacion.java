@@ -62,8 +62,4 @@ public class Asociacion {
   public void addPreguntaAdopcion(Pregunta pregunta) {
     this.preguntasAdopcion.add(pregunta);
   }
-
-  public void addPreguntasAdopcion(Pregunta pregunta) {
-    this.preguntasAdopcion.add(pregunta);
-  }
 }

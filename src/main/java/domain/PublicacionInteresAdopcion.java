@@ -8,19 +8,19 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 
 
-@Entity(name = "publicaciones")
+@Entity(name = "publicaciones_interes_adopcion")
 public class PublicacionInteresAdopcion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "publicacion_id")
+  @Column(name = "publicacion_interes_adopcion_id")
   private int id;
 
   @OneToOne
   private Duenio interesado;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "publicacion_id")
-  private List<RespuestaInteresAdopcion> preguntas;
+  @JoinColumn(name = "publicacion_interes_adopcion_id")
+  private List<SeleccionInteresAdopcion> selecciones;
 
   @Column(name = "activa")
   private Boolean estaActiva;
@@ -28,9 +28,9 @@ public class PublicacionInteresAdopcion {
   public PublicacionInteresAdopcion() {
   }
 
-  public PublicacionInteresAdopcion(Duenio interesado, List<RespuestaInteresAdopcion> preguntas) {
+  public PublicacionInteresAdopcion(Duenio interesado, List<SeleccionInteresAdopcion> selecciones) {
     this.interesado = Objects.requireNonNull(interesado, NOT_NULO.mensaje("interesado"));
-    this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("preguntas"));
+    this.selecciones = Objects.requireNonNull(selecciones, NOT_NULO.mensaje("selecciones"));
     this.estaActiva = Boolean.TRUE;
     this.enviarBotonDeBaja();
   }
@@ -43,8 +43,8 @@ public class PublicacionInteresAdopcion {
     return interesado;
   }
 
-  public List<RespuestaInteresAdopcion> getPreguntas() {
-    return preguntas;
+  public List<SeleccionInteresAdopcion> getSelecciones() {
+    return selecciones;
   }
 
   public Boolean getEstaActiva() {
@@ -59,35 +59,33 @@ public class PublicacionInteresAdopcion {
     this.estaActiva = false;
   }
 
-//  public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
-//    return this.cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
-//           && this.cumpleConComodidades(publicacion.getPreguntasAdopcion());
-//  }
+  public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
+    return this.cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
+           && this.cumpleConComodidades(publicacion.getSeleccionesAdopcion());
+  }
 
-//  public Boolean cumpleConComodidades(List<RespuestaPublicacionAdopcion> comodidades) {
-//    List<RespuestaInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD);
-//
-//    return comodidades
-//        .stream()
-//        .allMatch(comodidad -> preguntasComodidad.stream()
-//            .anyMatch(pregunta -> pregunta.tieneMismaRespuesta(comodidad))
-//        );
-//  }
+  public Boolean cumpleConComodidades(List<SeleccionPublicacionAdopcion> comodidades) {
+    List<SeleccionInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_COMODIDAD);
 
-  public Boolean cumpleConPreferencias(List<RespuestaCaracteristica> respuestaCaracteristicas) {
-    return getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
+    return comodidades
         .stream()
-        .allMatch(
-            preferencia -> respuestaCaracteristicas.stream().anyMatch(
-                respuestaCaracteristica -> respuestaCaracteristica.tieneMismaRespuesta(preferencia)
-            )
+        .allMatch(comodidad -> preguntasComodidad.stream()
+            .anyMatch(pregunta -> pregunta.esMismaPreguntaSeleccionada(comodidad))
         );
   }
 
-  private List<RespuestaInteresAdopcion> getPreguntasSegun(AlcancePregunta alcance) {
-    return this.getPreguntas()
+  public Boolean cumpleConPreferencias(List<SeleccionCaracteristicaMascota> preferenciasMascota) {
+    return this.getPreguntasSegun(ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_PREFERENCIA)
         .stream()
-        .filter(pregunta -> pregunta.getPregunta().getAlcancePregunta().equals(alcance))
+        .allMatch(preferenciaPropia -> preferenciasMascota.stream().anyMatch(
+            preferenciaMascota -> preferenciaMascota.esMismaPreguntaSeleccionada(preferenciaPropia))
+        );
+  }
+
+  private List<SeleccionInteresAdopcion> getPreguntasSegun(ObjetivoPregunta objetivoPregunta) {
+    return this.getSelecciones()
+        .stream()
+        .filter(seleccion -> seleccion.getPregunta().getObjetivos().equals(objetivoPregunta))
         .collect(Collectors.toList());
   }
 }
