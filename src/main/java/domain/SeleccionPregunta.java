@@ -22,9 +22,9 @@ public abstract class SeleccionPregunta {
   }
 
   public SeleccionPregunta(Pregunta pregunta, List<Opcion> selecciones) {
-    this.chequearSeleccionesValidas(pregunta, selecciones);
     this.pregunta = Objects.requireNonNull(pregunta, NOT_NULO.mensaje("pregunta"));
     this.selecciones = Objects.requireNonNull(selecciones, NOT_NULO.mensaje("selecciones"));
+    this.chequearSeleccionesValidas(pregunta, selecciones);
   }
 
   public Long getId() {

@@ -1,5 +1,6 @@
 package domain;
 
+import static domain.ObjetivoPregunta.PUBLICACION_ADOPCION;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.List;
@@ -43,6 +44,7 @@ public class PublicacionAdopcion {
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "publicacion_adopcion_id")
   private List<SeleccionPublicacionAdopcion> seleccionesAdopcion;
+  private ObjetivoPregunta objetivoPreguntas;
 
   public PublicacionAdopcion() {
   }
@@ -57,6 +59,7 @@ public class PublicacionAdopcion {
         seleccionesAdopcion, NOT_NULO.mensaje("seleccionesAdopcion")
     );
     this.estaActiva = Boolean.TRUE;
+    this.objetivoPreguntas = PUBLICACION_ADOPCION;
   }
 
   public Long getId() {
@@ -77,6 +80,10 @@ public class PublicacionAdopcion {
 
   public Asociacion getAsociacion() {
     return this.asociacion;
+  }
+
+  public ObjetivoPregunta getObjetivoPreguntas() {
+    return this.objetivoPreguntas;
   }
 
   public void notificarInteresAdopcionDe(Duenio adoptante) {

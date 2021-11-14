@@ -100,9 +100,12 @@ public abstract class Pregunta {
   }
 
   public Boolean esMismaPregunta(Pregunta pregunta) {
-    return this.getId().equals(pregunta.getId());
+    return this.equals(pregunta);
   }
 
   public abstract Boolean sonSeleccionesValidas(List<Opcion> selecciones);
 
+  public Boolean cumpleObjetivo(ObjetivoPregunta objetivo) {
+    return this.getObjetivos().contains(objetivo);
+  }
 }

@@ -22,8 +22,6 @@ public class PublicacionRescate {
   @OneToOne
   //@JoinColumn(name = "rescate_id")
   private Rescate rescate;
-  //@ElementCollection
-  //@Column(name = "publicacion_rescate_estado")
 
   @Enumerated(EnumType.STRING)
   @Column(name = "publicacion_rescate_estado")

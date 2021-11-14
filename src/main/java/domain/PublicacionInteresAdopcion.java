@@ -1,5 +1,7 @@
 package domain;
 
+import static domain.ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_COMODIDAD;
+import static domain.ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_PREFERENCIA;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.List;
@@ -75,7 +77,7 @@ public class PublicacionInteresAdopcion {
   }
 
   public Boolean cumpleConComodidades(List<SeleccionPublicacionAdopcion> comodidades) {
-    List<SeleccionInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_COMODIDAD);
+    List<SeleccionInteresAdopcion> preguntasComodidad = this.getPreguntasSegun(PUBLICACION_INTERES_ADOPCION_COMODIDAD);
 
     return comodidades
         .stream()
@@ -85,7 +87,7 @@ public class PublicacionInteresAdopcion {
   }
 
   public Boolean cumpleConPreferencias(List<SeleccionCaracteristicaMascota> preferenciasMascota) {
-    return this.getPreguntasSegun(ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_PREFERENCIA)
+    return this.getPreguntasSegun(PUBLICACION_INTERES_ADOPCION_PREFERENCIA)
         .stream()
         .allMatch(preferenciaPropia -> preferenciasMascota.stream().anyMatch(
             preferenciaMascota -> preferenciaMascota.esMismaPreguntaSeleccionada(preferenciaPropia))
