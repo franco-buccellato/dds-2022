@@ -20,11 +20,12 @@
         <class>domain.Mascota</class>
         <class>domain.Duenio</class>
         <class>domain.Pregunta</class>
-        <class>domain.TipoCaracteristica</class>
+        <class>domain.TipoPregunta</class>
         <class>domain.Opcion</class>
         <class>domain.PublicacionAdopcion</class>
         <class>domain.PublicacionInteresAdopcion</class>
         <class>domain.Pregunta</class>
+        <class>domain.TipoPregunta</class>
         <class>domain.PreguntaBullet</class>
         <class>domain.PreguntaCheckBox</class>
         <class>domain.PreguntaNumber</class>
@@ -33,6 +34,7 @@
         <class>domain.SeleccionPregunta</class>
         <class>domain.SeleccionCaracteristicaMascota</class>
         <class>domain.SeleccionInteresAdopcion</class>
+        <class>domain.AlcanceRespuesta</class>
         <class>domain.SeleccionPublicacionAdopcion</class>
 
         <properties>

@@ -6,13 +6,23 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("number")
+@DiscriminatorValue(value = TipoPregunta.Values.NUMBER)
 public class PreguntaNumber extends Pregunta {
   public PreguntaNumber() {
   }
 
-  public PreguntaNumber(List<ObjetivoPregunta> objetivos, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
-    super(objetivos, descripcion, opciones, obligatoria);
+  public PreguntaNumber(List<ObjetivoPregunta> objetivos, String descripcion, Boolean obligatoria) {
+    super(objetivos, descripcion, obligatoria);
+  }
+
+  @Override
+  public Boolean esMismaPregunta(Pregunta pregunta) {
+    return this.getDescripcion().equals(pregunta.getDescripcion());
+  }
+
+  @Override
+  public Boolean sonMismasSelecciones(Opcion seleccion1, Opcion seleccion2) {
+    return seleccion1.getDescripcion().equals(seleccion2.getDescripcion());
   }
 
   @Override

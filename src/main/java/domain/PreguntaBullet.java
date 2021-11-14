@@ -5,7 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("bullet")
+@DiscriminatorValue(value = TipoPregunta.Values.BULLET)
 public class PreguntaBullet extends Pregunta {
 
   public PreguntaBullet() {
@@ -13,6 +13,16 @@ public class PreguntaBullet extends Pregunta {
 
   public PreguntaBullet(List<ObjetivoPregunta> objetivos, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
     super(objetivos, descripcion, opciones, obligatoria);
+  }
+
+  @Override
+  public Boolean esMismaPregunta(Pregunta pregunta) {
+    return this.getId().equals(pregunta.getId());
+  }
+
+  @Override
+  public Boolean sonMismasSelecciones(Opcion seleccion1, Opcion seleccion2) {
+    return seleccion1.getId().equals(seleccion2.getId());
   }
 
   @Override

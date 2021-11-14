@@ -2,13 +2,12 @@ package controllers;
 
 import static spark.Spark.halt;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import domain.TipoCaracteristica;
+import domain.TipoPregunta;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -26,7 +25,7 @@ public class CaracteristicaController extends BaseController {
     boolean sesionIniciada = this.sesionIniciada(request);
     modelo.put("sesionIniciada", sesionIniciada);
 
-    List<TipoCaracteristica> tipoCaracteristicas = Arrays.asList(TipoCaracteristica.values());
+    List<TipoPregunta> tipoCaracteristicas = Arrays.asList(TipoPregunta.values());
     modelo.put("tipoCaracteristicas", tipoCaracteristicas);
 
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");

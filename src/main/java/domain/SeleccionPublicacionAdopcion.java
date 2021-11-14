@@ -1,7 +1,10 @@
 package domain;
 
-import java.util.List;
 import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
+
+import static domain.exception.Mensajes.NOT_NULO;
 
 @Entity(name = "selecciones_publicaciones_adopciones")
 public class SeleccionPublicacionAdopcion extends SeleccionPregunta {
@@ -28,4 +31,6 @@ public class SeleccionPublicacionAdopcion extends SeleccionPregunta {
   public SeleccionPublicacionAdopcion(Pregunta pregunta, List<Opcion> selecciones) {
     super(pregunta, selecciones);
   }
+
+
 }

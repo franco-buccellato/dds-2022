@@ -12,7 +12,7 @@
 //import java.util.stream.Collectors;
 //import java.util.stream.Stream;
 //
-//public class PublicacionInteresAdopcionTest {
+//public class PublicacionInteresAdopcionTest extends Fixture {
 //  private Fixture fixture;
 //  private Duenio interesadoAdoptar;
 //  private RepositorioCaracteristicas repositorioCaracteristicas;
@@ -20,55 +20,63 @@
 //
 //  @BeforeEach
 //  public void iniciar() {
-//    this.fixture = new Fixture();
-//    this.interesadoAdoptar = fixture.adoptante();
+//    this.interesadoAdoptar = adoptante();
 //    this.repositorioCaracteristicas = new RepositorioCaracteristicas(Arrays.asList(
-//        fixture.estaCastrada(),
-//        fixture.contextura(),
-//        fixture.datosDeInteres(),
-//        fixture.comportamientoConNinios()
+//        estaCastrada,
+//        contextura,
+//        datosDeInteres,
+//        comportamientoConNinios
 //    ));
 //  }
 //
-// @Test
-// public void TestNoPuedoCrearLaPublicacionInteresAdopcionSinResponderPreguntasObligatorias() {
-//   Assertions.assertThrows(PreguntaObligatoriaNoContestadaException.class, () -> {
-//     new PublicacionInteresAdopcion(
-//         interesadoAdoptar,
-//         this.preguntas()
-//     );
-//   });
-// }
-//
-// @Test
-// public void TestPuedoCrearPublicacionInteresAdopcion() {
-//   publicacionInteresAdopcion = new PublicacionInteresAdopcion(
-//       interesadoAdoptar,
-//       this.preguntasRespondidas()
-//   );
-//   Assertions.assertTrue(publicacionInteresAdopcion.getEstaActiva());
-// }
-//
-// @Test
-// public void TestUnaVezCreadaLaPublicacionInteresAdopcionPuedoDarlaDeBaja() {
-//   publicacionInteresAdopcion = new PublicacionInteresAdopcion(
-//       interesadoAdoptar,
-//       this.preguntasRespondidas()
-//   );
-//   Assertions.assertTrue(publicacionInteresAdopcion.getEstaActiva());
-//   publicacionInteresAdopcion.anularPublicacion();
-//   Assertions.assertFalse(publicacionInteresAdopcion.getEstaActiva());
-// }
-//
-//  private List<Pregunta> preguntasRespondidas() {
-//    Pregunta tamanio = fixture.preguntaTamanio();
-//    Pregunta comportamientoConNinios = fixture.preguntaComportamientoConNinios();
-//    tamanio.seleccionarOpcion(tamanio.getOpciones().get(0), Boolean.TRUE);
-//    comportamientoConNinios.seleccionarOpcion(comportamientoConNinios.getOpciones().get(0), Boolean.TRUE);
-//    return Arrays.asList(tamanio, comportamientoConNinios);
+//  @Test
+//  public void TestNoPuedoCrearLaPublicacionInteresAdopcionSinResponderPreguntasObligatorias() {
+//    Assertions.assertThrows(PreguntaObligatoriaNoContestadaException.class, () -> {
+//      new PublicacionInteresAdopcion(
+//          interesadoAdoptar,
+//          preguntas()
+//      );
+//    });
 //  }
 //
-//  private List<Pregunta> preguntas() {
-//    return Stream.concat(this.preguntasRespondidas().stream(), Stream.of(fixture.preguntaContextura())).collect(Collectors.toList());
+//  @Test
+//  public void TestPuedoCrearPublicacionInteresAdopcion() {
+//    publicacionInteresAdopcion = new PublicacionInteresAdopcion(
+//        interesadoAdoptar,
+//        preguntasRespondidas()
+//    );
+//    Assertions.assertTrue(publicacionInteresAdopcion.getEstaActiva());
+//  }
+//
+//  @Test
+//  public void TestUnaVezCreadaLaPublicacionInteresAdopcionPuedoDarlaDeBaja() {
+//    publicacionInteresAdopcion = new PublicacionInteresAdopcion(
+//        interesadoAdoptar,
+//        this.preguntasRespondidas()
+//    );
+//    Assertions.assertTrue(publicacionInteresAdopcion.getEstaActiva());
+//    publicacionInteresAdopcion.anularPublicacion();
+//    Assertions.assertFalse(publicacionInteresAdopcion.getEstaActiva());
+//  }
+//
+//  private List<SeleccionInteresAdopcion> preguntasRespondidas() {
+//    SeleccionInteresAdopcion respuestaTamanio = new SeleccionInteresAdopcion(
+//        tamanio,
+//        Arrays.asList(tamanioGrande),
+//        AlcanceRespuesta.PUBLICACION_INTERES_ADOPCION_COMODIDAD
+//    );
+//
+//    SeleccionInteresAdopcion respuestaComportamiento = new SeleccionInteresAdopcion(
+//        comportamientoConNinios,
+//        Arrays.asList(comportamientoTranquilo),
+//        AlcanceRespuesta.PUBLICACION_INTERES_ADOPCION_COMODIDAD
+//    );
+//
+//    return Arrays.asList(respuestaTamanio, respuestaComportamiento);
+//  }
+//
+//  private List<SeleccionInteresAdopcion> preguntas() {
+//    return Stream.concat(this.preguntasRespondidas().stream(),
+//                         Stream.of(fixture.preguntaContextura())).collect(Collectors.toList());
 //  }
 //}
