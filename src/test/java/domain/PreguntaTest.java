@@ -14,7 +14,7 @@ public class PreguntaTest extends Fixture {
   public void puedoSaberSiSeleccionesSonvalidas() {
     List<Opcion> opcionSeleccionadaValida = Collections.singletonList(estaCastrada.getOpciones().get(0));
     List<Opcion> opcionSeleccionadaVariasInvalida = Arrays.asList(estaCastrada.getOpciones().get(0), estaCastrada.getOpciones().get(1));
-    List<Opcion> opcionSeleccionadaOpcionInvalida = Collections.singletonList(tamanio().getOpciones().get(0));
+    List<Opcion> opcionSeleccionadaOpcionInvalida = Collections.singletonList(tamanio.getOpciones().get(0));
 
     Assertions.assertTrue(estaCastrada.sonSeleccionesValidas(opcionSeleccionadaValida));
     Assertions.assertFalse(estaCastrada.sonSeleccionesValidas(Collections.emptyList()));

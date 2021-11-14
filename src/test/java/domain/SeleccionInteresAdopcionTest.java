@@ -1,5 +1,6 @@
 package domain;
 
+import static domain.AlcanceRespuesta.PUBLICACION_INTERES_ADOPCION_COMODIDAD;
 import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +15,7 @@ public class SeleccionInteresAdopcionTest extends Fixture {
   @Test
   public void noPuedoCrearPreguntasInteresAdopcionSinUnaPregunta() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new SeleccionInteresAdopcion(null, opcionesVacunas);
+      new SeleccionInteresAdopcion(null, opcionesVacunas, PUBLICACION_INTERES_ADOPCION_COMODIDAD);
     });
 
     assertEquals(NOT_NULO.mensaje("pregunta"), exception.getMessage());
@@ -23,7 +24,7 @@ public class SeleccionInteresAdopcionTest extends Fixture {
   @Test
   public void noPuedoCrearPreguntasInteresAdopcionSinUnaRespuesta() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new SeleccionInteresAdopcion(vacunas, null);
+      new SeleccionInteresAdopcion(vacunas, null, PUBLICACION_INTERES_ADOPCION_COMODIDAD);
     });
 
     assertEquals(NOT_NULO.mensaje("selecciones"), exception.getMessage());
@@ -32,7 +33,7 @@ public class SeleccionInteresAdopcionTest extends Fixture {
   @Test
   public void crearPreguntasInteresAdopcionConRespuestaFueraDeRangoLanzaExcepcion() {
     SeleccionInvalidaExcepction exception = assertThrows(SeleccionInvalidaExcepction.class, () -> {
-      new SeleccionInteresAdopcion(vacunas, Collections.singletonList(tamanioGrande));
+      new SeleccionInteresAdopcion(vacunas, Collections.singletonList(tamanioGrande), PUBLICACION_INTERES_ADOPCION_COMODIDAD);
     });
 
     assertEquals("La opcion seleccionada no está disponible", exception.getMessage());
@@ -42,7 +43,8 @@ public class SeleccionInteresAdopcionTest extends Fixture {
   public void puedoCrearPreguntaInteresAdopcionConPreguntaValida() {
     SeleccionInteresAdopcion respuestaInteresAdopcion = new SeleccionInteresAdopcion(
         comportamientoConNinios,
-        Collections.singletonList(comportamientoConNinios.getOpciones().get(0))
+        Collections.singletonList(comportamientoConNinios.getOpciones().get(0)),
+        PUBLICACION_INTERES_ADOPCION_COMODIDAD
     );
 
     assertTrue(

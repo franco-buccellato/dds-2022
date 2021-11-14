@@ -3,8 +3,6 @@ package constants;
 import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
 import static domain.ObjetivoPregunta.PREGUNTA_ASOCIACION;
 import static domain.ObjetivoPregunta.PUBLICACION_ADOPCION;
-import static domain.ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_COMODIDAD;
-import static domain.ObjetivoPregunta.PUBLICACION_INTERES_ADOPCION_PREFERENCIA;
 import static domain.Sexo.HEMBRA;
 import static domain.SituacionMascota.EN_HOGAR_PROPIO;
 import static domain.SituacionMascota.PERDIDA;
