@@ -4,9 +4,9 @@
 	<title>
 		Rescate de Patitas
 	</title>
-	<link rel="stylesheet" type="text/css" href="css/estilos.css">
-	<link rel="stylesheet" type="text/css" href="css/normalize.css">
-	<link rel="icon" href="imagenes/icono-principal.png">
+	<link rel="stylesheet" type="text/css" href="/css/estilos.css">
+	<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+	<link rel="icon" href="/imagenes/icono-principal.png">
 	<meta charset="utf-8">
 	<meta name="keywords" content="Mascotas, Gato, Perro, Mascota perdida, adopción">
 	<meta name="description" content="Gestión de Mascotas perdidas, encontradas o propias">
@@ -28,7 +28,7 @@
 <body>
 		<header id="principio">
 			<div class="encabezado">
-				<a href="/"><img class="logo-inicio" src="imagenes/icono-principal.png"></img></a>
+				<a href="/"><img class="logo-inicio" src="/imagenes/icono-principal.png"></img></a>
 				<h1>Rescate de Patitas</h1>
 			</div>
 			<nav class="menu">
@@ -38,9 +38,9 @@
 					</li>
 					{{#if usuarioCreadorCaracteristicas}}
 					<li class="menu__menu__li"><i class="fas fa-home"></i>
-					    <a href="/crearCaracteristica"><h3>Agregar Características</h3></a>
+					    <a href="/caracteristicas/crear"><h3>Agregar Características</h3></a>
 					</li>
-					{{/if}}
+					{{else}}
 					<li class="menu__menu__li"><i class="fas fa-paw"></i>
 					    {{#if sesionIniciada}}
 						<a href="/registrarMascota"><h3>Registrar mi Mascota</h3></a>
@@ -62,6 +62,7 @@
                         <a href="/login"><h3>Iniciar Sesión</h3></a>
                         {{/if}}
 					</li>
+				    {{/if}}
 				</ul>
 				<ul class="menu__responsive">
 					<div class="menu__responsive-boton-container">
@@ -71,6 +72,12 @@
 						<li class="menu__responsive__div__li"><i class="fas fa-home"></i>
 							<a href="/"><h2>Inicio</h2></a>
 						</li>
+
+                        {{#if usuarioCreadorCaracteristicas}}
+                        <li class="menu__menu__li"><i class="fas fa-home"></i>
+                            <a href="/caracteristicas/crear"><h3>Agregar Características</h3></a>
+                        </li>
+                        {{else}}
 						<li class="menu__responsive__div__li"><i class="fas fa-paw"></i>
 						    {{#if sesionIniciada}}
 							<a href="/registrarMascota"><h2>Registrar Mascota</h2></a>
@@ -92,6 +99,7 @@
                             <a href="/login"><h3>Iniciar Sesión</h3></a>
                             {{/if}}
 						</li>
+					    {{/if}}
 					</div>
 				</ul>
 			</nav>
@@ -104,7 +112,7 @@
 		<footer>
         				<div class="footer">
         					<div class="footer__ubicacion">
-        						<img src="imagenes/icono-principal.png" height="50px">
+        						<img src="/imagenes/icono-principal.png" height="50px">
         						<div class="footer__ubicacion__contenido">
         							<h6>Direccion de Prueba 123</h6>
         							<h6>Ciudad Autónoma de Bs.As.</h6>
@@ -124,19 +132,19 @@
         						<div class="footer__redes__contenido">
         							<div>
         								<a href="https://www.facebook.com/" target="_BLANK">
-        									<img src="imagenes/facebook.png">
+        									<img src="/imagenes/facebook.png">
         								</a>
         								<a href="https://www.facebook.com/" target="_BLANK"><h6 class="boton_redes">Facebook</h6></a>
         							</div>
         							<div>
         								<a href="https://www.instagram.com/" target="_BLANK">
-        									<img src="imagenes/instagram.png">
+        									<img src="/imagenes/instagram.png">
         								</a>
         								<a href="https://www.instagram.com/" target="_BLANK"><h6 class="boton_redes">Instagram</h6></a>
         							</div>
         							<div>
         								<a href="https://mercadolibre.com.ar" target="_BLANK">
-        									<img src="imagenes/carrito.jpg">
+        									<img src="/imagenes/carrito.jpg">
         								</a>
         								<a href="https://mercadolibre.com.ar" target="_BLANK"><h6 class="boton_redes">Tienda Online</h6></a>
         							</div>

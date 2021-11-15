@@ -1,28 +1,86 @@
 {{# partial "contenido" }}
-		<section class="section-registrar">
-			<div class="container__registro">
-				<div class="registro">
-				    <form action="/crearCaracteristica" method="POST">
-					<form>
-						<ul>
-							<h3>Complete información sobre la caracteristica</h3>
-							<li><label class="registro__label">Descripción de la característica</label></li>
-							<li><input type="text" name="registro-descripcion" class="registro__input" id="registro-descripcion" required></li>
+    <section class="section-registrar">
+        <div class="container__registro">
+            <div class="registro">
+                <form action="/caracteristicas" method="POST">
+                    <ul>
+                        <h3>Complete información sobre la caracteristica</h3>
+                        <li>
+                            <label class="registro__label">Descripción de la característica:</label>
+                        </li>
+                        <li>
+                            <input type="text"
+                                   name="registro-descripcion"
+                                   class="registro__input"
+                                   id="registro-descripcion"
+                                   required
+                            >
+                        </li>
 
-							<li><label class="registro__label">Tipo de Caracteristica</label></li>
-							<li>
-                                <select name="registro-tipoCaracteristica" class="registro__input" id="registro-tipoCaracteristica" required>
-                                    {{#each tipoCaracteristicas}}
-                                        <option value="{{this}}">{{this}}</option>
-                                    {{/each}}
-                                </select>
-							</li>
-							<li><input type="submit" class="boton-submit" value="Crear Caracteristica"></li>
-						</ul>
-					</form>
-				</div>
-			</div>
-		</section>
+                        <li>
+                            <label class="registro__label">Obligatoria:</label>
+                        </li>
+                        <li>
+                            <select
+                                    name="registro-obligatoria"
+                                    class="registro__input"
+                                    id="registro-obligatoria"
+                                    required
+                            >
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </li>
+
+                        <li>
+                            <label class="registro__label">Tipo de Caracteristica:</label>
+                        </li>
+                        <li>
+                            <select
+                                    name="registro-tipoCaracteristica"
+                                    class="registro__input"
+                                    id="registro-tipoCaracteristica"
+                                    required
+                                    onchange="setOpcionesAgregables(this.value)"
+                            >
+                                {{#each tipoCaracteristicas}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
+                        </li>
+                    </ul>
+                    <div>
+                        <input type="submit" class="boton-submit" value="Crear Caracteristica">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+    <script>
+
+        const setOpcionesAgregables = (value) => {
+            const opcionesAgregables = ["BULLET", "CHECKBOX"].includes(value)
+
+            if (!opcionesAgregables) {
+                return
+            }
+
+            const html = `
+                <li>
+                    <label class="registro__label">Opcion:</label>
+                    <input type="text"
+                           name="registro-descripcion"
+                           class="registro__input"
+                           id="registro-descripcion"
+                           required
+                    >
+                </li>
+            `
+
+            document.querySelector('li[select]').append(html)
+        }
+    </script>
 {{/partial}}
 {{# partial "footer" }}
 {{/partial}}

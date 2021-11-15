@@ -48,8 +48,8 @@ public class Routes {
     Spark.get("/encontreMascota", mascotaController::encontreMascota);
     Spark.get("/registro", sesionController::mostrarRegistroUsuario, engine);
     Spark.post("/registro", sesionController::registrarUsuario, engine);
-    Spark.get("crearCaracteristica", caracteristicaController::crear, engine);
-    Spark.post("crearCaracteristica", caracteristicaController::guardar);
+    Spark.get("/caracteristicas/crear", caracteristicaController::crear, engine);
+    Spark.post("/caracteristicas", caracteristicaController::guardar);
 
     after((request, response) -> {
       PerThreadEntityManagers.getEntityManager();

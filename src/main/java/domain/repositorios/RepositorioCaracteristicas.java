@@ -7,8 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RepositorioCaracteristicas {
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+
+public class RepositorioCaracteristicas implements WithGlobalEntityManager {
   private List<Pregunta> caracteristicasDisponibles;
+  private static RepositorioCaracteristicas INSTANCE = new RepositorioCaracteristicas();
+
+  public RepositorioCaracteristicas() {
+  }
+
+  public static RepositorioCaracteristicas getInstance() {
+    return INSTANCE;
+  }
 
   public RepositorioCaracteristicas(List<Pregunta> caracteristicas) {
     this.caracteristicasDisponibles = new ArrayList<>(caracteristicas);
@@ -27,5 +37,9 @@ public class RepositorioCaracteristicas {
 
   public void removeCaracteristicasDisponibles(Pregunta caracteristica) {
     this.caracteristicasDisponibles.remove(caracteristica);
+  }
+
+  public void agregar(Pregunta pregunta) {
+    entityManager().persist(pregunta);
   }
 }
