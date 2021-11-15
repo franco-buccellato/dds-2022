@@ -30,7 +30,7 @@ public class MascotaTest extends Fixture {
     super.generalSetup();
     vacunas = seleccionVacunas();
     comportamiento = seleccionComportamientoConNinios();
-    caracteristicas = Arrays.asList(vacunas, comportamiento);
+    caracteristicas = Arrays.asList(vacunas, comportamiento, respuestaTamanioChico());
 
     fotos = new ArrayList<>(Collections.singletonList("unaFoto"));
 
@@ -203,5 +203,10 @@ public class MascotaTest extends Fixture {
         "Datos de interes",
         perroPepe.getCaracteristicas().get(1).getPregunta().getDescripcion()
     );
+  }
+
+  @Test
+  public void puedoTraerElTamanioDeUnaMascota() {
+    assertEquals(tamanioChico.getDescripcion(), gatoBenito.getTamanio());
   }
 }
