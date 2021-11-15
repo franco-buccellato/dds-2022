@@ -1,6 +1,10 @@
 package domain;
 
+import static domain.exception.Mensajes.NOT_NULO;
+
 import java.util.List;
+import java.util.Objects;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -12,12 +16,8 @@ public class PreguntaBullet extends Pregunta {
   }
 
   public PreguntaBullet(List<ObjetivoPregunta> objetivos, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
-    super(objetivos, descripcion, opciones, obligatoria);
-  }
-
-  @Override
-  public Boolean esMismaPregunta(Pregunta pregunta) {
-    return this.getId().equals(pregunta.getId());
+    super(objetivos, descripcion, obligatoria);
+    this.opciones = Objects.requireNonNull(opciones, NOT_NULO.mensaje("opciones"));
   }
 
   @Override

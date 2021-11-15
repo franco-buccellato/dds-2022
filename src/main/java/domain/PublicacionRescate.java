@@ -20,7 +20,7 @@ public class PublicacionRescate {
   Long id;
 
   @OneToOne
-  //@JoinColumn(name = "rescate_id")
+  @JoinColumn(name = "rescate_id")
   private Rescate rescate;
 
   @Enumerated(EnumType.STRING)

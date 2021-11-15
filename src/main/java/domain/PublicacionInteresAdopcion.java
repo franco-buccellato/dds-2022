@@ -23,14 +23,14 @@ public class PublicacionInteresAdopcion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "publicacion_interes_adopcion_id")
-  private int id;
+  private Long id;
 
   @OneToOne
   private Duenio interesado;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "publicacion_interes_adopcion_id")
-  private List<SeleccionInteresAdopcion> selecciones;
+  private List<RespuestaInteresAdopcion> selecciones;
 
   @Column(name = "activa")
   private Boolean estaActiva;
@@ -38,22 +38,27 @@ public class PublicacionInteresAdopcion {
   public PublicacionInteresAdopcion() {
   }
 
-  public PublicacionInteresAdopcion(Duenio interesado, List<SeleccionInteresAdopcion> selecciones) {
+  public PublicacionInteresAdopcion(Duenio interesado, List<RespuestaInteresAdopcion> selecciones) {
     this.interesado = Objects.requireNonNull(interesado, NOT_NULO.mensaje("interesado"));
     this.selecciones = Objects.requireNonNull(selecciones, NOT_NULO.mensaje("selecciones"));
     this.estaActiva = Boolean.TRUE;
-    this.enviarBotonDeBaja();
+//    TODO levantar preguntas asociacion
+//    TODO Definir comportamiento boton y habilitar
+//    this.enviarBotonDeBaja();
   }
 
-  public int getId() {
+  public Long getId() {
     return id;
+  }
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public Duenio getInteresado() {
     return interesado;
   }
 
-  public List<SeleccionInteresAdopcion> getSelecciones() {
+  public List<RespuestaInteresAdopcion> getSelecciones() {
     return selecciones;
   }
 
@@ -62,7 +67,8 @@ public class PublicacionInteresAdopcion {
   }
 
   public void enviarBotonDeBaja() {
-    this.interesado.contactoTitular().notificar(new Notificacion(null));
+    // TODO definir template
+    this.getInteresado().contactoTitular().notificar(new Notificacion(null));
   }
 
   public void anularPublicacion() {
@@ -74,9 +80,9 @@ public class PublicacionInteresAdopcion {
            && this.cumpleConComodidades(publicacion.getSeleccionesAdopcion());
   }
 
-  public Boolean cumpleConComodidades(List<SeleccionPublicacionAdopcion> comodidades) {
-    List<SeleccionInteresAdopcion> preguntasComodidad = this.getSeleccionesSegunAlance(
-        AlcanceRespuesta.PUBLICACION_INTERES_ADOPCION_COMODIDAD
+  public Boolean cumpleConComodidades(List<RespuestaPublicacionAdopcion> comodidades) {
+    List<RespuestaInteresAdopcion> preguntasComodidad = this.getSeleccionesSegunObjetivo(
+        ObjetivoPregunta.PREGUNTA_ASOCIACION_COMODIDAD
     );
 
     return comodidades
@@ -86,18 +92,18 @@ public class PublicacionInteresAdopcion {
         );
   }
 
-  public Boolean cumpleConPreferencias(List<SeleccionCaracteristicaMascota> preferenciasMascota) {
-    return this.getSeleccionesSegunAlance(AlcanceRespuesta.PUBLICACION_INTERES_ADOPCION_PREFERENCIA)
+  public Boolean cumpleConPreferencias(List<RespuestaCaracteristicaMascota> preferenciasMascota) {
+    return this.getSeleccionesSegunObjetivo(ObjetivoPregunta.PREGUNTA_ASOCIACION_PREFERENCIAS)
         .stream()
         .allMatch(preferenciaPropia -> preferenciasMascota.stream().anyMatch(
             preferenciaMascota -> preferenciaMascota.esMismaPreguntaSeleccionada(preferenciaPropia))
         );
   }
 
-  private List<SeleccionInteresAdopcion> getSeleccionesSegunAlance(AlcanceRespuesta alcance) {
+  private List<RespuestaInteresAdopcion> getSeleccionesSegunObjetivo(ObjetivoPregunta alcance) {
     return this.getSelecciones()
         .stream()
-        .filter(seleccion -> seleccion.tieneMismoAlcance(alcance))
+        .filter(seleccion -> seleccion.tieneMismoObjetivo(alcance))
         .collect(Collectors.toList());
   }
 }

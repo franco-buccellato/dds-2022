@@ -4,7 +4,6 @@ import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -28,31 +27,23 @@ public abstract class Pregunta {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "pregunta_id")
-  private Long id;
+  protected Long id;
 
   @ElementCollection(targetClass = ObjetivoPregunta.class, fetch = FetchType.EAGER)
   @CollectionTable(name = "preguntas_objetivos", joinColumns = @JoinColumn(name = "pregunta_id"))
   @Column(name = "objetivo", nullable = false)
   @Enumerated(EnumType.STRING)
-  private List<ObjetivoPregunta> objetivos;
+  protected List<ObjetivoPregunta> objetivos;
 
-  private String descripcion;
+  protected String descripcion;
 
   @OneToMany
   @JoinColumn(name = "pregunta_id")
-  private List<Opcion> opciones;
+  protected List<Opcion> opciones;
 
-  private Boolean obligatoria;
+  protected Boolean obligatoria;
 
   public Pregunta() {
-  }
-
-  public Pregunta(List<ObjetivoPregunta> objetivos, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
-    this.id = new Random().nextLong();
-    this.objetivos = Objects.requireNonNull(objetivos, NOT_NULO.mensaje("objetivos"));
-    this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
-    this.opciones = Objects.requireNonNull(opciones, NOT_NULO.mensaje("opciones"));
-    this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
   }
 
   public Pregunta(List<ObjetivoPregunta> objetivos, String descripcion, Boolean obligatoria) {
@@ -105,7 +96,9 @@ public abstract class Pregunta {
     this.obligatoria = obligatoria;
   }
 
-  public abstract Boolean esMismaPregunta(Pregunta pregunta);
+  public Boolean esMismaPregunta(Pregunta pregunta) {
+    return this.equals(pregunta);
+  };
 
   public abstract Boolean sonMismasSelecciones(Opcion seleccion1, Opcion seleccion2);
 

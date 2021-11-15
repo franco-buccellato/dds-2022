@@ -31,11 +31,10 @@
         <class>domain.PreguntaNumber</class>
         <class>domain.PreguntaText</class>
         <class>domain.ObjetivoPregunta</class>
-        <class>domain.SeleccionPregunta</class>
-        <class>domain.SeleccionCaracteristicaMascota</class>
-        <class>domain.SeleccionInteresAdopcion</class>
-        <class>domain.AlcanceRespuesta</class>
-        <class>domain.SeleccionPublicacionAdopcion</class>
+        <class>domain.RespuestaPregunta</class>
+        <class>domain.RespuestaCaracteristicaMascota</class>
+        <class>domain.RespuestaInteresAdopcion</class>
+        <class>domain.RespuestaPublicacionAdopcion</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

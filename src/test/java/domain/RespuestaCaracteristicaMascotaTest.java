@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
-public class SeleccionCaracteristicaMascotaTest extends Fixture {
+public class RespuestaCaracteristicaMascotaTest extends Fixture {
 
   @Test
   public void noPuedoCrearSeleccionCaracteristicaMascotaSinPregunta() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new SeleccionCaracteristicaMascota(null, opcionesVacunas);
+      new RespuestaCaracteristicaMascota(null, opcionesVacunas);
     });
 
     assertEquals(NOT_NULO.mensaje("pregunta"), exception.getMessage());
@@ -23,7 +23,7 @@ public class SeleccionCaracteristicaMascotaTest extends Fixture {
   @Test
   public void noPuedoCrearSeleccionCaracteristicaMascotaSinopciones() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new SeleccionCaracteristicaMascota(this.comportamiento(), null);
+      new RespuestaCaracteristicaMascota(this.comportamiento(), null);
     });
 
     assertEquals(NOT_NULO.mensaje("selecciones"), exception.getMessage());
@@ -32,7 +32,7 @@ public class SeleccionCaracteristicaMascotaTest extends Fixture {
   @Test
   public void crearMascotaCaracteristicaConCaracteristicaFueraDeRangoLanzaException() {
     SeleccionInvalidaExcepction exception = assertThrows(SeleccionInvalidaExcepction.class, () -> {
-      new SeleccionCaracteristicaMascota(this.comportamiento(), Collections.singletonList(moquillo));
+      new RespuestaCaracteristicaMascota(this.comportamiento(), Collections.singletonList(moquillo));
     });
 
     assertEquals("La opcion seleccionada no está disponible", exception.getMessage());
@@ -40,7 +40,7 @@ public class SeleccionCaracteristicaMascotaTest extends Fixture {
 
   @Test
   public void puedoCrearMascotaCaracteristicaConCaracteristicaChoiceValida() {
-    SeleccionCaracteristicaMascota respuestaCaracteristica = new SeleccionCaracteristicaMascota(
+    RespuestaCaracteristicaMascota respuestaCaracteristica = new RespuestaCaracteristicaMascota(
         this.comportamiento(),
         Collections.singletonList(comportamientoTranquilo)
     );
@@ -52,7 +52,7 @@ public class SeleccionCaracteristicaMascotaTest extends Fixture {
 
   @Test
   public void puedoCrearMascotaCaracteristicaConCaracteristicaInput() {
-    SeleccionCaracteristicaMascota respuestaCaracteristica = new SeleccionCaracteristicaMascota(
+    RespuestaCaracteristicaMascota respuestaCaracteristica = new RespuestaCaracteristicaMascota(
         datosDeInteres,
         Collections.singletonList(new Opcion("Le gusta jugar a la pelota"))
     );

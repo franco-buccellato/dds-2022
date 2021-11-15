@@ -7,7 +7,11 @@ public class Notificacion {
     this.templateNotificacion = templateNotificacion;
   }
 
+  public TemplateNotificacion getTemplateNotificacion() {
+    return this.templateNotificacion;
+  }
+
   public String getMensaje() {
-    return templateNotificacion.aplicarTemplate();
+    return this.getTemplateNotificacion().aplicarTemplate();
   }
 }

@@ -21,6 +21,7 @@ public class PreguntaTest extends Fixture {
     Assertions.assertFalse(estaCastrada.sonSeleccionesValidas(opcionSeleccionadaVariasInvalida));
     Assertions.assertFalse(estaCastrada.sonSeleccionesValidas(opcionSeleccionadaOpcionInvalida));
   }
+
   @Test
   public void puedoSaberSiPreguntasSonLasMismas() {
     Pregunta preguntaEstaCastradaAsociacion = asociacionConPreguntasAdopcion().getPreguntasAdopcion().get(0);

@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -12,11 +13,6 @@ public class PreguntaText extends Pregunta {
 
   public PreguntaText(List<ObjetivoPregunta> objetivos, String descripcion, Boolean obligatoria) {
     super(objetivos, descripcion, obligatoria);
-  }
-
-  @Override
-  public Boolean esMismaPregunta(Pregunta pregunta) {
-    return this.getDescripcion().equals(pregunta.getDescripcion());
   }
 
   @Override

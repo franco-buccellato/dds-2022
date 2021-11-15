@@ -40,7 +40,7 @@ public class Mascota {
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "mascota_id")
-  private List<SeleccionCaracteristicaMascota> caracteristicas;
+  private List<RespuestaCaracteristicaMascota> caracteristicas;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "situacion_mascota")
@@ -57,7 +57,7 @@ public class Mascota {
       Sexo sexo,
       String descripcionFisica,
       List<String> fotos,
-      List<SeleccionCaracteristicaMascota> caracteristicas,
+      List<RespuestaCaracteristicaMascota> caracteristicas,
       SituacionMascota situacionMascota
   ) {
     this.tipoMascota = Objects.requireNonNull(tipoMascota, NOT_NULO.mensaje("tipoMascota"));
@@ -127,15 +127,15 @@ public class Mascota {
     fotos.add(foto);
   }
 
-  public List<SeleccionCaracteristicaMascota> getCaracteristicas() {
+  public List<RespuestaCaracteristicaMascota> getCaracteristicas() {
     return caracteristicas;
   }
 
-  public void addCaracteristica(SeleccionCaracteristicaMascota caracteristica) {
+  public void addCaracteristica(RespuestaCaracteristicaMascota caracteristica) {
     caracteristicas.add(caracteristica);
   }
 
-  public void setCaracteristicas(List<SeleccionCaracteristicaMascota> caracteristicas) {
+  public void setCaracteristicas(List<RespuestaCaracteristicaMascota> caracteristicas) {
     this.caracteristicas = caracteristicas;
   }
 
@@ -150,7 +150,7 @@ public class Mascota {
   public String getTamanio() {
     Opcion tamanio = this.getCaracteristicas()
         .stream()
-        .map(SeleccionPregunta::getSelecciones)
+        .map(RespuestaPregunta::getSelecciones)
         .flatMap(Collection::stream)
         .filter(Opcion::esOpcionTamanio)
         .findFirst()

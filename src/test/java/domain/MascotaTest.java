@@ -20,9 +20,9 @@ import constants.Fixture;
 public class MascotaTest extends Fixture {
   private Mascota perroPepe;
   private Mascota gatoBenito;
-  SeleccionCaracteristicaMascota vacunas;
-  SeleccionCaracteristicaMascota comportamiento;
-  List<SeleccionCaracteristicaMascota> caracteristicas;
+  RespuestaCaracteristicaMascota vacunas;
+  RespuestaCaracteristicaMascota comportamiento;
+  List<RespuestaCaracteristicaMascota> caracteristicas;
   List<String> fotos;
 
   @BeforeEach
@@ -148,7 +148,7 @@ public class MascotaTest extends Fixture {
   public void puedoActualizarCaracteristicasDeMascota() {
     assertEquals(2, gatoBenito.getCaracteristicas().size());
 
-    SeleccionCaracteristicaMascota castrado = seleccionEstaCastrado();
+    RespuestaCaracteristicaMascota castrado = seleccionEstaCastrado();
     gatoBenito.setCaracteristicas(Collections.singletonList(castrado));
 
     assertEquals(1, gatoBenito.getCaracteristicas().size());
@@ -194,7 +194,7 @@ public class MascotaTest extends Fixture {
     perroPepe.addCaracteristica(vacunas);
     assertEquals(1, perroPepe.getCaracteristicas().size());
 
-    SeleccionCaracteristicaMascota datoDeInteres = seleccionDatoDeInteres();
+    RespuestaCaracteristicaMascota datoDeInteres = seleccionDatoDeInteres();
     perroPepe.addCaracteristica(datoDeInteres);
 
     assertEquals(2, perroPepe.getCaracteristicas().size());

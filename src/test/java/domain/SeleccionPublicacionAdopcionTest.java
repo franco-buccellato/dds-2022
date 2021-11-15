@@ -14,7 +14,7 @@ public class SeleccionPublicacionAdopcionTest extends Fixture {
   @Test
   public void noPuedoCrearPreguntasInteresAdopcionSinUnaPregunta() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new SeleccionPublicacionAdopcion(null, Collections.singletonList(moquillo));
+      new RespuestaPublicacionAdopcion(null, Collections.singletonList(moquillo));
     });
 
     assertEquals(NOT_NULO.mensaje("pregunta"), exception.getMessage());
@@ -23,7 +23,7 @@ public class SeleccionPublicacionAdopcionTest extends Fixture {
   @Test
   public void noPuedoCrearPreguntasInteresAdopcionSinUnaRespuesta() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new SeleccionPublicacionAdopcion(tamanio, null);
+      new RespuestaPublicacionAdopcion(tamanio, null);
     });
 
     assertEquals(NOT_NULO.mensaje("selecciones"), exception.getMessage());
@@ -32,7 +32,7 @@ public class SeleccionPublicacionAdopcionTest extends Fixture {
   @Test
   public void crearPreguntasInteresAdopcionConRespuestaFueraDeRangoLanzaExcepcion() {
     SeleccionInvalidaExcepction exception = assertThrows(SeleccionInvalidaExcepction.class, () -> {
-      new SeleccionPublicacionAdopcion(tamanio, Collections.singletonList(moquillo));
+      new RespuestaPublicacionAdopcion(tamanio, Collections.singletonList(moquillo));
     });
 
     assertEquals("La opcion seleccionada no está disponible", exception.getMessage());
@@ -40,7 +40,7 @@ public class SeleccionPublicacionAdopcionTest extends Fixture {
 
   @Test
   public void puedoCrearPreguntaInteresAdopcionConPreguntaValida() {
-    SeleccionPublicacionAdopcion respuestaPublicacionAdopcion = new SeleccionPublicacionAdopcion(
+    RespuestaPublicacionAdopcion respuestaPublicacionAdopcion = new RespuestaPublicacionAdopcion(
         tamanio,
         Collections.singletonList(tamanioChico)
     );

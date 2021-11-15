@@ -1,11 +1,9 @@
 package domain;
 
-import static domain.ObjetivoPregunta.PUBLICACION_ADOPCION;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,6 +30,7 @@ public class PublicacionAdopcion {
   private Duenio duenio;
 
   @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "mascota_id")
   private Mascota mascota;
 
   @Column(name = "activa")
@@ -43,23 +42,20 @@ public class PublicacionAdopcion {
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "publicacion_adopcion_id")
-  private List<SeleccionPublicacionAdopcion> seleccionesAdopcion;
-  private ObjetivoPregunta objetivoPreguntas;
+  private List<RespuestaPublicacionAdopcion> seleccionesAdopcion;
 
   public PublicacionAdopcion() {
   }
 
-  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<SeleccionPublicacionAdopcion> seleccionesAdopcion) {
-    this.chequearTodasPreguntasRespondidas(asociacion, seleccionesAdopcion);
-    this.id = new Random().nextLong();
+  public PublicacionAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<RespuestaPublicacionAdopcion> seleccionesAdopcion) {
     this.duenio = Objects.requireNonNull(duenio, NOT_NULO.mensaje("duenio"));
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.asociacion = Objects.requireNonNull(asociacion, NOT_NULO.mensaje("asociacion"));
     this.seleccionesAdopcion = Objects.requireNonNull(
-        seleccionesAdopcion, NOT_NULO.mensaje("seleccionesAdopcion")
-    );
-    this.estaActiva = Boolean.TRUE;
-    this.objetivoPreguntas = PUBLICACION_ADOPCION;
+      seleccionesAdopcion, NOT_NULO.mensaje("seleccionesAdopcion")
+      );
+      this.estaActiva = Boolean.TRUE;
+    this.chequearTodasPreguntasRespondidas(asociacion, seleccionesAdopcion);
   }
 
   public Long getId() {
@@ -82,20 +78,16 @@ public class PublicacionAdopcion {
     return this.asociacion;
   }
 
-  public ObjetivoPregunta getObjetivoPreguntas() {
-    return this.objetivoPreguntas;
-  }
-
   public void notificarInteresAdopcionDe(Duenio adoptante) {
     this.duenio.contactoTitular()
         .notificar(new Notificacion(new InteresadoEnAdoptarTemplate(adoptante)));
   }
 
-  public List<SeleccionPublicacionAdopcion> getSeleccionesAdopcion() {
+  public List<RespuestaPublicacionAdopcion> getSeleccionesAdopcion() {
     return this.seleccionesAdopcion;
   }
 
-  public void chequearTodasPreguntasRespondidas(Asociacion asociacion, List<SeleccionPublicacionAdopcion> seleccionesAdopcion) {
+  public void chequearTodasPreguntasRespondidas(Asociacion asociacion, List<RespuestaPublicacionAdopcion> seleccionesAdopcion) {
     boolean todasRespondidas = asociacion.getPreguntasAdopcion()
         .stream()
         .filter(Pregunta::getObligatoria)

@@ -1,6 +1,0 @@
-package domain;
-
-public enum AlcanceRespuesta {
-  PUBLICACION_INTERES_ADOPCION_COMODIDAD,
-  PUBLICACION_INTERES_ADOPCION_PREFERENCIA,
-}

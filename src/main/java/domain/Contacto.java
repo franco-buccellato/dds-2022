@@ -76,12 +76,16 @@ public class Contacto {
     return vinculo;
   }
 
+  public MedioNotificacion getMedioNotificacion() {
+    return this.medioNotificacion;
+  }
+
   public void setMedioNotificacion(MedioNotificacion medioNotificacion) {
     this.medioNotificacion = medioNotificacion;
   }
 
   public void notificar(Notificacion notificacion) {
-    medioNotificacion.notificar(this, notificacion.getMensaje());
+    this.getMedioNotificacion().notificar(this, notificacion.getMensaje());
   }
 
   @Override

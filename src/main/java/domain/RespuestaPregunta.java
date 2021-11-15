@@ -11,17 +11,17 @@ import java.util.Objects;
 import javax.persistence.*;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class SeleccionPregunta {
+public abstract class RespuestaPregunta {
   private Long id;
 
   private Pregunta pregunta;
 
   private List<Opcion> selecciones;
 
-  public SeleccionPregunta() {
+  public RespuestaPregunta() {
   }
 
-  public SeleccionPregunta(Pregunta pregunta, List<Opcion> selecciones) {
+  public RespuestaPregunta(Pregunta pregunta, List<Opcion> selecciones) {
     this.pregunta = Objects.requireNonNull(pregunta, NOT_NULO.mensaje("pregunta"));
     this.selecciones = Objects.requireNonNull(selecciones, NOT_NULO.mensaje("selecciones"));
     this.chequearSeleccionesValidas(pregunta, selecciones);
@@ -75,9 +75,9 @@ public abstract class SeleccionPregunta {
     );
   }
 
-  public Boolean esMismaPreguntaSeleccionada(SeleccionPregunta seleccionPregunta) {
-    return this.esDeMismaPregunta(seleccionPregunta.getPregunta())
-           && this.tieneMismasSelecciones(seleccionPregunta.getSelecciones());
+  public Boolean esMismaPreguntaSeleccionada(RespuestaPregunta respuestaPregunta) {
+    return this.esDeMismaPregunta(respuestaPregunta.getPregunta())
+           && this.tieneMismasSelecciones(respuestaPregunta.getSelecciones());
   }
 
   public Boolean esSeleccionDeTamanio() {

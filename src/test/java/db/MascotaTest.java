@@ -2,13 +2,10 @@
 //
 //import static org.junit.jupiter.api.Assertions.*;
 //
-//import domain.Caracteristica;
-//import domain.CaracteristicaChoice;
 //import domain.Mascota;
 //import domain.Opcion;
 //import domain.Sexo;
 //import domain.SituacionMascota;
-//import domain.TipoCaracteristica;
 //import domain.TipoMascota;
 //import org.junit.jupiter.api.AfterEach;
 //import org.junit.jupiter.api.BeforeEach;

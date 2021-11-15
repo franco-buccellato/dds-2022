@@ -5,8 +5,12 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity(name = "opciones")
 public class Opcion {
@@ -20,7 +24,6 @@ public class Opcion {
   }
 
   public Opcion(String descripcion) {
-    this.id = new Random().nextLong();
     this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
   }
 

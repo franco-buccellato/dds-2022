@@ -62,23 +62,23 @@ public class PublicacionAdopcionTest extends Fixture {
     Assertions.assertEquals(mascotaEnAdopcion, publicacionAdopcion.getMascota());
   }
 
-  public List<SeleccionPublicacionAdopcion> preguntasRespondidas() {
-    SeleccionPublicacionAdopcion contexturaSeleccionada = new SeleccionPublicacionAdopcion(
+  public List<RespuestaPublicacionAdopcion> preguntasRespondidas() {
+    RespuestaPublicacionAdopcion contexturaSeleccionada = new RespuestaPublicacionAdopcion(
         contextura,
         Arrays.asList(contexturas.get(0))
     );
 
-    SeleccionPublicacionAdopcion comportamientoSeleccionado = new SeleccionPublicacionAdopcion(
+    RespuestaPublicacionAdopcion comportamientoSeleccionado = new RespuestaPublicacionAdopcion(
         comportamientoConNinios,
         Arrays.asList(comportamientos.get(0))
     );
 
-    SeleccionPublicacionAdopcion vacunasSeleccionadas = new SeleccionPublicacionAdopcion(
+    RespuestaPublicacionAdopcion vacunasSeleccionadas = new RespuestaPublicacionAdopcion(
         vacunas,
         opcionesVacunas.stream().limit(2).collect(Collectors.toList())
     );
 
-    SeleccionPublicacionAdopcion estaCastradaSeleccionada = new SeleccionPublicacionAdopcion(
+    RespuestaPublicacionAdopcion estaCastradaSeleccionada = new RespuestaPublicacionAdopcion(
         estaCastrada,
         Arrays.asList(opcionesBool.get(0))
     );
@@ -91,9 +91,9 @@ public class PublicacionAdopcionTest extends Fixture {
     );
   }
 
-  private List<SeleccionPublicacionAdopcion> preguntasAdopcion() {
+  private List<RespuestaPublicacionAdopcion> preguntasAdopcion() {
 
-    return Arrays.asList(new SeleccionPublicacionAdopcion(
+    return Arrays.asList(new RespuestaPublicacionAdopcion(
         estaCastrada,
         Arrays.asList(estaCastrada.getOpciones().get(0))
     ));

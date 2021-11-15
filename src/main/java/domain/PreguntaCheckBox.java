@@ -1,6 +1,10 @@
 package domain;
 
+import static domain.exception.Mensajes.NOT_NULO;
+
 import java.util.List;
+import java.util.Objects;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -11,8 +15,8 @@ public class PreguntaCheckBox extends Pregunta {
   }
 
   public PreguntaCheckBox(List<ObjetivoPregunta> objetivos, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
-    super(objetivos, descripcion, opciones, obligatoria);
-  }
+    super(objetivos, descripcion, obligatoria);
+    this.opciones = Objects.requireNonNull(opciones, NOT_NULO.mensaje("opciones"));  }
 
   @Override
   public Boolean esMismaPregunta(Pregunta pregunta) {
