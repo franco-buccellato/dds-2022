@@ -37,7 +37,7 @@
 						<a href="/"><h3>Inicio</h3></a>
 					</li>
 					{{#if usuarioCreadorCaracteristicas}}
-					<li class="menu__menu__li"><i class="fas fa-home"></i>
+					<li class="menu__menu__li"><i class="fas fa-highlighter"></i>
 					    <a href="/caracteristicas/crear"><h3>Agregar Características</h3></a>
 					</li>
 					{{else}}
@@ -55,14 +55,15 @@
 						<a href="/login"><h3>Encontre una Mascota</h3></a>
 						{{/if}}
 					</li>
-					<li class="menu__menu__li"><i class="fas fa-sign-in-alt"></i>
+                    {{/if}}
+
+                    <li class="menu__menu__li"><i class="fas fa-sign-in-alt"></i>
 						{{#if sesionIniciada}}
                         <a href="/logout"><h3>Cerrar Sesión</h3></a>
                         {{else}}
                         <a href="/login"><h3>Iniciar Sesión</h3></a>
                         {{/if}}
 					</li>
-				    {{/if}}
 				</ul>
 				<ul class="menu__responsive">
 					<div class="menu__responsive-boton-container">
@@ -74,7 +75,7 @@
 						</li>
 
                         {{#if usuarioCreadorCaracteristicas}}
-                        <li class="menu__menu__li"><i class="fas fa-home"></i>
+                        <li class="menu__menu__li"><i class="fas fa-highlighter"></i>
                             <a href="/caracteristicas/crear"><h3>Agregar Características</h3></a>
                         </li>
                         {{else}}
@@ -92,14 +93,15 @@
 							<a href="/login"><h2>Encontré Mascota</h2></a>
 							{{/if}}
 						</li>
-						<li class="menu__responsive__div__li"><i class="fas fa-sign-in-alt"></i>
+                        {{/if}}
+
+                        <li class="menu__responsive__div__li"><i class="fas fa-sign-in-alt"></i>
 							{{#if sesionIniciada}}
                             <a href="/logout"><h3>Cerrar Sesión</h3></a>
                             {{else}}
                             <a href="/login"><h3>Iniciar Sesión</h3></a>
                             {{/if}}
 						</li>
-					    {{/if}}
 					</div>
 				</ul>
 			</nav>

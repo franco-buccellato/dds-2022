@@ -6,37 +6,47 @@
                     <div class="crear_caracteristica">
                         <h2>Complete nueva caracteristica</h2>
                         <div>
-                            <label class="registro__label" style="display:inline-block; width: 150px">Descripción:</label>
-                            <input type="text" name="registro-descripcion" class="registro__input" id="registro-descripcion" style="display:inline-block" required>
+                            <label class="registro__label"
+                                   style="display:inline-block; width: 150px">Descripción:</label>
+                            <input type="text" name="descripcion" class="registro__input"
+                                   id="descripcion" style="display:inline-block" required>
                         </div>
                         <div>
-                            <label class="registro__label" style="display:inline-block;  width: 150px">Obligatoria:</label>
-                            <select name="registro-obligatoria" class="registro__input" id="registro-obligatoria" style="display:inline-block" required>
+                            <label class="registro__label"
+                                   style="display:inline-block;  width: 150px">Obligatoria:</label>
+                            <select name="obligatoria" class="registro__input" id="obligatoria"
+                                    style="display:inline-block" required>
                                 <option value="SI">SI</option>
                                 <option value="NO">NO</option>
                             </select>
                         </div>
                         <div>
-                            <label class="registro__label" style="display:inline-block;  width: 150px">Tipo de Caracteristica:</label>
-                                <select
-                                        name="registro-tipoCaracteristica"
-                                        class="registro__input"
-                                        id="registro-tipoCaracteristica"
-                                        required
-                                        onchange="setOpcionesAgregables(this.value)"
-                                        style="display:inline-block">
-                                        <option disabled selected> Seleccionar tipo...</option>
-
-                                    {{#each tipoCaracteristicas}}
-                                        <option value="{{this}}">{{this}}</option>
-                                    {{/each}}
-                                </select>
+                            <label class="registro__label" style="display:inline-block;  width: 150px">Tipo de
+                                Caracteristica:</label>
+                            <select
+                                    name="tipoCaracteristica"
+                                    class="registro__input"
+                                    id="tipoCaracteristica"
+                                    required
+                                    onchange="setOpcionesAgregables(this.value)"
+                                    style="display:inline-block">
+                                {{#each tipoCaracteristicas}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
                         </div>
                     </div>
                     <div>
                         <input type="submit" class="boton-submit" value="Crear Caracteristica">
                     </div>
                     <hr>
+                    <div id="informacion">
+                        <div class="informacion-flex">
+                            <p>
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
                     <div class="caracteristicas_cargadas">
                         {{!-- TODO: Cargar lo que existe --}}
                         <h2></br>Caracteristicas Disponibles</h2></br>
@@ -50,37 +60,82 @@
     </section>
     <script>
         let caracteristicas = document.querySelector('div.crear_caracteristica');
-        const opcion = `
-                    <label class="registro__label" style="display:inline-block;  width: 150px">Opcion:</label>
-                    <input type="text"
-                           name="registro-descripcion"
-                           class="registro__input"
-                           id="registro-descripcion"
-                           style="display:inline-block"
-                           value=
-                    >
-                    <button onclick=salvarYagregarOpcion(this)>+</button>
-            `
+
+        let opciones = 0;
+
+        const opcion = (numero) => `
+            <label class="registro__label" style="display:inline-block;  width: 150px">Opcion ${numero}:</label>
+            <input type="text"
+                   name="opcion-${numero}"
+                   class="registro__input"
+                   id="opcion-${numero}"
+                   style="display:inline-block"
+            >`
+
+        const agregarOpcionBoton = `
+            <button onclick=salvarYagregarOpcion(this)><i class="fas fa-plus"></i></button>
+        `
+
+        const sacarOpcionBoton = `
+            <button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>
+        `
+
         const reiniciarCaracteristicas = () => {
             caracteristicas.querySelector('ul')?.remove();
             caracteristicas.append(document.createElement('ul'));
+            opciones = 0;
         }
+
         const salvarYagregarOpcion = (element) => {
             const input = element.parentElement.querySelector('input');
             input.setAttribute('value', input.value);
-            agregarOpcion(opcion);
+
+            caracteristicas.querySelectorAll('li').forEach((item) => {
+                const input = item.lastElementChild
+                input.setAttribute('value', input.value);
+            })
+
+            agregarOpcion();
         }
-        const agregarOpcion = (opcion) => {
-            caracteristicas.querySelector('ul').innerHTML += `<li>${opcion}</li>`
+
+        const agregarOpcion = () => {
+            opciones++
+            caracteristicas.querySelector('ul').innerHTML += `<li>${opcion(opciones)}</li>`
+            renderBotonesOpciones();
         }
+
+        const eliminarOpcion = (element) => {
+            opciones--;
+            element.parentElement?.remove()
+            renderBotonesOpciones()
+        }
+
+        const renderBotonesOpciones = () => {
+            caracteristicas.querySelectorAll('li').forEach((item, index) => {
+                if (opciones === 1) {
+                    item.innerHTML += agregarOpcionBoton;
+                    return;
+                }
+
+                if (opciones === ++index) {
+                    item.innerHTML += agregarOpcionBoton + sacarOpcionBoton;
+                    return;
+                }
+
+                item.querySelectorAll('button')?.forEach(button => button.remove())
+            })
+        }
+
         const setOpcionesAgregables = (value) => {
             const opcionesAgregables = ["BULLET", "CHECKBOX"].includes(value);
 
             reiniciarCaracteristicas();
+
             if (!opcionesAgregables) {
                 return;
             }
-            agregarOpcion(opcion);
+
+            agregarOpcion();
         }
     </script>
 {{/partial}}
