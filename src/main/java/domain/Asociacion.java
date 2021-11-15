@@ -15,7 +15,7 @@ public class Asociacion {
   @Id
   @Column(name = "asociacion_id")
   @GeneratedValue
-  private int id;
+  private Long id;
 
   @Column(name = "asociacion_nombre")
   private String nombre;
@@ -32,6 +32,9 @@ public class Asociacion {
   )
   private List<Pregunta> preguntasAdopcion;
 
+  public Asociacion() {
+  }
+
   public Asociacion(String nombre, Ubicacion ubicacion) {
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
     this.ubicacion = Objects.requireNonNull(ubicacion, NOT_NULO.mensaje("ubicacion"));
@@ -39,8 +42,12 @@ public class Asociacion {
     RepositorioAsociaciones.getRepositorioAsociaciones().addAsociacion(this);
   }
 
-  public int getId() {
+  public Long getId() {
     return this.id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getNombre() {

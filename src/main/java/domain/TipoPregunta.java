@@ -17,9 +17,9 @@ public enum TipoPregunta {
   }
 
   public static class Values {
-    public static final String TEXT = "Texto";
-    public static final String CHECKBOX = "Checkbox";
-    public static final String BULLET = "Bullet";
-    public static final String NUMBER = "Numero";
+    public static final String TEXT = "TEXTO";
+    public static final String CHECKBOX = "CHECKBOX";
+    public static final String BULLET = "BULLET";
+    public static final String NUMBER = "NUMERO";
   }
 }

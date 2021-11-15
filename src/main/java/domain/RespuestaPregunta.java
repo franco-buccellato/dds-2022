@@ -2,7 +2,7 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import domain.exception.SeleccionInvalidaExcepction;
+import domain.exception.SeleccionInvalidaException;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -57,8 +57,12 @@ public abstract class RespuestaPregunta {
     boolean esValido = pregunta.sonSeleccionesValidas(selecciones);
 
     if (!esValido) {
-      throw new SeleccionInvalidaExcepction("La opcion seleccionada no está disponible");
+      throw new SeleccionInvalidaException("La opcion seleccionada no está disponible");
     }
+  }
+
+  public boolean estaEnRespuestasPosibles(Pregunta pregunta) {
+    return pregunta.incluyeAlgunaSeleccion(this.getSelecciones());
   }
 
   public Boolean esDeMismaPregunta(Pregunta seleccionada) {

@@ -5,21 +5,8 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+
 @Entity(name = "preguntas")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_input")
@@ -37,7 +24,7 @@ public abstract class Pregunta {
 
   protected String descripcion;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "pregunta_id")
   protected List<Opcion> opciones;
 
@@ -98,7 +85,7 @@ public abstract class Pregunta {
 
   public Boolean esMismaPregunta(Pregunta pregunta) {
     return this.equals(pregunta);
-  };
+  }
 
   public abstract Boolean sonMismasSelecciones(Opcion seleccion1, Opcion seleccion2);
 
@@ -106,5 +93,13 @@ public abstract class Pregunta {
 
   public Boolean cumpleObjetivo(ObjetivoPregunta objetivo) {
     return this.getObjetivos().contains(objetivo);
+  }
+
+  public Boolean incluyeAlgunaSeleccion(List<Opcion> selecciones) {
+    return this.getOpciones().stream().anyMatch(
+        opcion -> selecciones.stream().anyMatch(
+            seleccion -> seleccion.esMismaOpcion(opcion)
+        )
+    );
   }
 }

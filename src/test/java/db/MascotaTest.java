@@ -20,6 +20,7 @@ public class MascotaTest extends AbstractPersistenceTest implements WithGlobalEn
 
   @BeforeEach
   public void iniciarTransaccion() {
+    fixture.generalSetup();
     tran = entityManager().getTransaction();
     tran.begin();
   }

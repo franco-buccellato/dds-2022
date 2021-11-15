@@ -10,11 +10,11 @@ public class RespuestaPublicacionAdopcion extends RespuestaPregunta {
   @Column(name = "respuesta_publicacion_adopcion_id")
   private Long id;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "pregunta_id")
   private Pregunta pregunta;
 
-  @ManyToMany
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinTable(
       name = "opciones_adopciones",
       joinColumns = @JoinColumn(name = "respuesta_publicacion_adopcion_id"),
