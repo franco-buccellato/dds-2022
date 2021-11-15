@@ -57,15 +57,20 @@
                            class="registro__input"
                            id="registro-descripcion"
                            style="display:inline-block"
-                           required
+                           value=
                     >
+                    <button onclick=salvarYagregarOpcion(this)>+</button>
             `
-        const opcionMultiple = `${opcion} <button onclick=agregarOpcionCaracteristica(opcionMultiple)>+</button>`
         const reiniciarCaracteristicas = () => {
             caracteristicas.querySelector('ul')?.remove();
             caracteristicas.append(document.createElement('ul'));
         }
-        const agregarOpcionCaracteristica = (opcion) => {
+        const salvarYagregarOpcion = (element) => {
+            const input = element.parentElement.querySelector('input');
+            input.setAttribute('value', input.value);
+            agregarOpcion(opcion);
+        }
+        const agregarOpcion = (opcion) => {
             caracteristicas.querySelector('ul').innerHTML += `<li>${opcion}</li>`
         }
         const setOpcionesAgregables = (value) => {
@@ -73,10 +78,9 @@
 
             reiniciarCaracteristicas();
             if (!opcionesAgregables) {
-                agregarOpcionCaracteristica(opcion);
                 return;
             }
-            agregarOpcionCaracteristica(opcionMultiple);
+            agregarOpcion(opcion);
         }
     </script>
 {{/partial}}
