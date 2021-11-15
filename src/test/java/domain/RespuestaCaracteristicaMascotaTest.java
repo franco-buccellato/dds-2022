@@ -23,7 +23,7 @@ public class RespuestaCaracteristicaMascotaTest extends Fixture {
   @Test
   public void noPuedoCrearSeleccionCaracteristicaMascotaSinopciones() {
     NullPointerException exception = assertThrows(NullPointerException.class, () -> {
-      new RespuestaCaracteristicaMascota(this.comportamiento(), null);
+      new RespuestaCaracteristicaMascota(comportamiento, null);
     });
 
     assertEquals(NOT_NULO.mensaje("selecciones"), exception.getMessage());
@@ -32,7 +32,7 @@ public class RespuestaCaracteristicaMascotaTest extends Fixture {
   @Test
   public void crearMascotaCaracteristicaConCaracteristicaFueraDeRangoLanzaException() {
     SeleccionInvalidaExcepction exception = assertThrows(SeleccionInvalidaExcepction.class, () -> {
-      new RespuestaCaracteristicaMascota(this.comportamiento(), Collections.singletonList(moquillo));
+      new RespuestaCaracteristicaMascota(comportamiento, Collections.singletonList(moquillo));
     });
 
     assertEquals("La opcion seleccionada no está disponible", exception.getMessage());
@@ -41,7 +41,7 @@ public class RespuestaCaracteristicaMascotaTest extends Fixture {
   @Test
   public void puedoCrearMascotaCaracteristicaConCaracteristicaChoiceValida() {
     RespuestaCaracteristicaMascota respuestaCaracteristica = new RespuestaCaracteristicaMascota(
-        this.comportamiento(),
+        comportamiento,
         Collections.singletonList(comportamientoTranquilo)
     );
 

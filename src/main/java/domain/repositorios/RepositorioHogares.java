@@ -21,40 +21,41 @@ public class RepositorioHogares {
     return hogares
         .stream()
         .filter(hayLugar()
-            .and(tipoMascota(mascota))
-//            .and(tamanioMascota(mascota))
-//            .and(caracteristicasMascota(mascota))
-            .and(distanciaEnRadio(rescate.getLugarEncuentro(), radioBusqueda)))
+                    .and(tipoMascota(mascota))
+                    .and(tamanioMascota(mascota))
+                    .and(caracteristicasMascota(mascota))
+                    .and(distanciaEnRadio(rescate.getLugarEncuentro(), radioBusqueda)))
         .collect(Collectors.toList());
   }
 
   private Predicate<HogarTransito> hayLugar() {
-    return hogarTransito ->  (hogarTransito.getLugaresDisponibles() > 0);
+    return hogarTransito -> (hogarTransito.getLugaresDisponibles() > 0);
   }
 
-//  private Predicate<HogarTransito> tamanioMascota(Mascota mascota) {
-//   return hogarTransito ->
-//        hogarTransito.aceptaTamanioMascota(mascota.getTamanio());
-//  }
+  private Predicate<HogarTransito> tamanioMascota(Mascota mascota) {
+    return hogarTransito ->
+        hogarTransito.aceptaTamanioMascota(mascota.getTamanio());
+  }
 
   private Predicate<HogarTransito> tipoMascota(Mascota mascota) {
     return hogarTransito ->
         (hogarTransito.getAdmisiones().getGatos() && mascota.getTipoMascota().equals(GATO))
-      || (hogarTransito.getAdmisiones().getPerros() && mascota.getTipoMascota().equals(PERRO));
+        || (hogarTransito.getAdmisiones().getPerros() && mascota.getTipoMascota().equals(PERRO));
   }
 
-//  private Predicate<HogarTransito> caracteristicasMascota(Mascota mascota) {
-//    return hogarTransito -> mascota.getCaracteristicasSeleccionadas()
-//        .stream()
-//        .allMatch(caracteristica ->
-//            hogarTransito.getCaracteristicas().isEmpty() || hogarTransito.getCaracteristicas()
-//                .stream()
-//                .anyMatch(caracteristica::tienenMismasOpciones)
-//        );
-//  }
+  private Predicate<HogarTransito> caracteristicasMascota(Mascota mascota) {
+    return hogarTransito -> mascota.getCaracteristicas()
+        .stream()
+        .allMatch(caracteristica ->
+                      hogarTransito.getCaracteristicas().isEmpty()
+                      || hogarTransito.getCaracteristicas()
+                          .stream()
+                          .anyMatch(caracteristica::estaEnRespuestasPosibles)
+        );
+  }
 
   private Predicate<HogarTransito> distanciaEnRadio(
-          Ubicacion lugarEncuentro, double kilometrosRadioBusqueda
+      Ubicacion lugarEncuentro, double kilometrosRadioBusqueda
   ) {
     return hogarTransito ->
         hogarTransito.getUbicacion().distanciaA(lugarEncuentro) <= kilometrosRadioBusqueda;

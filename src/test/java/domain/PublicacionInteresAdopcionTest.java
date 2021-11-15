@@ -50,9 +50,4 @@ public class PublicacionInteresAdopcionTest extends Fixture {
 
     return Arrays.asList(respuestaTamanio, respuestaComportamiento);
   }
-
-//  private List<SeleccionInteresAdopcion> preguntas() {
-//    return Stream.concat(this.preguntasRespondidas().stream(),
-//                         Stream.of(contextura)).collect(Collectors.toList());
-//  }
 }

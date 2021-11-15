@@ -87,13 +87,19 @@ public abstract class Pregunta {
     return this.equals(pregunta);
   }
 
-  ;
-
   public abstract Boolean sonMismasSelecciones(Opcion seleccion1, Opcion seleccion2);
 
   public abstract Boolean sonSeleccionesValidas(List<Opcion> selecciones);
 
   public Boolean cumpleObjetivo(ObjetivoPregunta objetivo) {
     return this.getObjetivos().contains(objetivo);
+  }
+
+  public Boolean incluyeAlgunaSeleccion(List<Opcion> selecciones) {
+    return this.getOpciones().stream().anyMatch(
+        opcion -> selecciones.stream().anyMatch(
+            seleccion -> seleccion.esMismaOpcion(opcion)
+        )
+    );
   }
 }

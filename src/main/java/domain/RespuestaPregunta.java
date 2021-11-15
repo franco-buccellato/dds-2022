@@ -61,6 +61,10 @@ public abstract class RespuestaPregunta {
     }
   }
 
+  public boolean estaEnRespuestasPosibles(Pregunta pregunta) {
+    return pregunta.incluyeAlgunaSeleccion(this.getSelecciones());
+  }
+
   public Boolean esDeMismaPregunta(Pregunta seleccionada) {
     return this.getPregunta().esMismaPregunta(seleccionada);
   }
