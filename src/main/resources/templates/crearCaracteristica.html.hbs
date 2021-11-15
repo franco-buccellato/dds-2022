@@ -3,82 +3,80 @@
         <div class="container__registro">
             <div class="registro">
                 <form action="/caracteristicas" method="POST">
-                    <ul>
-                        <h3>Complete información sobre la caracteristica</h3>
-                        <li>
-                            <label class="registro__label">Descripción de la característica:</label>
-                        </li>
-                        <li>
-                            <input type="text"
-                                   name="registro-descripcion"
-                                   class="registro__input"
-                                   id="registro-descripcion"
-                                   required
-                            >
-                        </li>
-
-                        <li>
-                            <label class="registro__label">Obligatoria:</label>
-                        </li>
-                        <li>
-                            <select
-                                    name="registro-obligatoria"
-                                    class="registro__input"
-                                    id="registro-obligatoria"
-                                    required
-                            >
+                    <div class="crear_caracteristica">
+                        <h2>Complete nueva caracteristica</h2>
+                        <div>
+                            <label class="registro__label" style="display:inline-block; width: 150px">Descripción:</label>
+                            <input type="text" name="registro-descripcion" class="registro__input" id="registro-descripcion" style="display:inline-block" required>
+                        </div>
+                        <div>
+                            <label class="registro__label" style="display:inline-block;  width: 150px">Obligatoria:</label>
+                            <select name="registro-obligatoria" class="registro__input" id="registro-obligatoria" style="display:inline-block" required>
                                 <option value="SI">SI</option>
                                 <option value="NO">NO</option>
                             </select>
-                        </li>
+                        </div>
+                        <div>
+                            <label class="registro__label" style="display:inline-block;  width: 150px">Tipo de Caracteristica:</label>
+                                <select
+                                        name="registro-tipoCaracteristica"
+                                        class="registro__input"
+                                        id="registro-tipoCaracteristica"
+                                        required
+                                        onchange="setOpcionesAgregables(this.value)"
+                                        style="display:inline-block">
+                                        <option disabled selected> Seleccionar tipo...</option>
 
-                        <li>
-                            <label class="registro__label">Tipo de Caracteristica:</label>
-                        </li>
-                        <li>
-                            <select
-                                    name="registro-tipoCaracteristica"
-                                    class="registro__input"
-                                    id="registro-tipoCaracteristica"
-                                    required
-                                    onchange="setOpcionesAgregables(this.value)"
-                            >
-                                {{#each tipoCaracteristicas}}
-                                    <option value="{{this}}">{{this}}</option>
-                                {{/each}}
-                            </select>
-                        </li>
-                    </ul>
+                                    {{#each tipoCaracteristicas}}
+                                        <option value="{{this}}">{{this}}</option>
+                                    {{/each}}
+                                </select>
+                        </div>
+                    </div>
                     <div>
                         <input type="submit" class="boton-submit" value="Crear Caracteristica">
                     </div>
-
+                    <hr>
+                    <div class="caracteristicas_cargadas">
+                        {{!-- TODO: Cargar lo que existe --}}
+                        <h2></br>Caracteristicas Disponibles</h2></br>
+                        <div>Caracteristica1</div>
+                        <div>Caracteristica2</div>
+                        <div>Caracteristica3</div>
+                    </div>
                 </form>
             </div>
         </div>
     </section>
     <script>
-
-        const setOpcionesAgregables = (value) => {
-            const opcionesAgregables = ["BULLET", "CHECKBOX"].includes(value)
-
-            if (!opcionesAgregables) {
-                return
-            }
-
-            const html = `
-                <li>
-                    <label class="registro__label">Opcion:</label>
+        let caracteristicas = document.querySelector('div.crear_caracteristica');
+        const opcion = `
+                    <label class="registro__label" style="display:inline-block;  width: 150px">Opcion:</label>
                     <input type="text"
                            name="registro-descripcion"
                            class="registro__input"
                            id="registro-descripcion"
+                           style="display:inline-block"
                            required
                     >
-                </li>
             `
+        const opcionMultiple = `${opcion} <button onclick=agregarOpcionCaracteristica(opcionMultiple)>+</button>`
+        const reiniciarCaracteristicas = () => {
+            caracteristicas.querySelector('ul')?.remove();
+            caracteristicas.append(document.createElement('ul'));
+        }
+        const agregarOpcionCaracteristica = (opcion) => {
+            caracteristicas.querySelector('ul').innerHTML += `<li>${opcion}</li>`
+        }
+        const setOpcionesAgregables = (value) => {
+            const opcionesAgregables = ["BULLET", "CHECKBOX"].includes(value);
 
-            document.querySelector('li[select]').append(html)
+            reiniciarCaracteristicas();
+            if (!opcionesAgregables) {
+                agregarOpcionCaracteristica(opcion);
+                return;
+            }
+            agregarOpcionCaracteristica(opcionMultiple);
         }
     </script>
 {{/partial}}
