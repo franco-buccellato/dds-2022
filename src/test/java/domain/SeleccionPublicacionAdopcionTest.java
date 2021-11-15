@@ -4,7 +4,7 @@ import static domain.exception.Mensajes.NOT_NULO;
 import static org.junit.jupiter.api.Assertions.*;
 
 import constants.Fixture;
-import domain.exception.SeleccionInvalidaExcepction;
+import domain.exception.SeleccionInvalidaException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -31,7 +31,7 @@ public class SeleccionPublicacionAdopcionTest extends Fixture {
 
   @Test
   public void crearPreguntasInteresAdopcionConRespuestaFueraDeRangoLanzaExcepcion() {
-    SeleccionInvalidaExcepction exception = assertThrows(SeleccionInvalidaExcepction.class, () -> {
+    SeleccionInvalidaException exception = assertThrows(SeleccionInvalidaException.class, () -> {
       new RespuestaPublicacionAdopcion(tamanio, Collections.singletonList(moquillo));
     });
 

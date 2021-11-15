@@ -1,7 +1,7 @@
 package domain.exception;
 
-public class SeleccionInvalidaExcepction extends RuntimeException {
-  public SeleccionInvalidaExcepction(String mensaje) {
+public class SeleccionInvalidaException extends RuntimeException {
+  public SeleccionInvalidaException(String mensaje) {
     super(mensaje);
   }
 }

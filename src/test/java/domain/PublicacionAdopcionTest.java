@@ -70,7 +70,7 @@ public class PublicacionAdopcionTest extends Fixture {
 
     RespuestaPublicacionAdopcion comportamientoSeleccionado = new RespuestaPublicacionAdopcion(
         comportamientoConNinios,
-        Arrays.asList(comportamientos.get(0))
+        Arrays.asList(comportamientosConNinios.get(0))
     );
 
     RespuestaPublicacionAdopcion vacunasSeleccionadas = new RespuestaPublicacionAdopcion(

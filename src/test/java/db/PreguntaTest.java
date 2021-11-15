@@ -33,11 +33,20 @@ public class PreguntaTest extends AbstractPersistenceTest implements WithGlobalE
   }
 
   @Test
-  public void puedoPersistirUnaPregunta(){
-    Pregunta preguntaBullet = new PreguntaBullet(Collections.singletonList(CARACTERISTICA_MASCOTA),"Una Pregunta Bullet", Collections.singletonList(fixture.tamanioChico), true);
+  public void puedoPersistirUnaPregunta() {
+    Pregunta preguntaBullet = new PreguntaBullet(
+        Collections.singletonList(CARACTERISTICA_MASCOTA),
+        "Una Pregunta Bullet",
+        Collections.singletonList(fixture.tamanioChico),
+        true
+    );
     entityManager().persist(preguntaBullet);
 
-    assertEquals("Una Pregunta Bullet", entityManager().createQuery("from preguntas ", Pregunta.class)
-        .getSingleResult().getDescripcion());
+    assertEquals(
+        "Una Pregunta Bullet",
+        entityManager().createQuery("from preguntas ", Pregunta.class)
+            .getSingleResult()
+            .getDescripcion()
+    );
   }
 }
