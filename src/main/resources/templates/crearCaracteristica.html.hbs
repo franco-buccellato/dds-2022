@@ -50,16 +50,17 @@
     </section>
     <script>
         let caracteristicas = document.querySelector('div.crear_caracteristica');
-        const opcion = `
+        const opcion = (id) => `
                     <label class="registro__label" style="display:inline-block;  width: 150px">Opcion:</label>
                     <input type="text"
                            name="registro-descripcion"
                            class="registro__input"
-                           id="registro-descripcion"
+                           id="registro-opcion${id}"
                            style="display:inline-block"
                            value=
                     >
-                    <button onclick=salvarYagregarOpcion(this)>+</button>
+                    <button onclick=this.parentElement.remove()> Eliminar </button>
+                    <button onclick=salvarYagregarOpcion(this)> Agregar </button>
             `
         const reiniciarCaracteristicas = () => {
             caracteristicas.querySelector('ul')?.remove();
@@ -71,16 +72,16 @@
             agregarOpcion(opcion);
         }
         const agregarOpcion = (opcion) => {
-            caracteristicas.querySelector('ul').innerHTML += `<li>${opcion}</li>`
+            const idOpcion = caracteristicas.querySelectorAll('li').length + 1;
+            caracteristicas.querySelector('ul').innerHTML += `<li>${opcion(idOpcion)}</li>`
         }
         const setOpcionesAgregables = (value) => {
             const opcionesAgregables = ["BULLET", "CHECKBOX"].includes(value);
 
             reiniciarCaracteristicas();
-            if (!opcionesAgregables) {
-                return;
+            if (opcionesAgregables) {
+                agregarOpcion(opcion);
             }
-            agregarOpcion(opcion);
         }
     </script>
 {{/partial}}
