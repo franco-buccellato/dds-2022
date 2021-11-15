@@ -40,7 +40,7 @@ public class Opcion {
   }
 
   public Boolean esMismaOpcion(Opcion opcion) {
-    return this.getId().equals(opcion.getId());
+    return this.equals(opcion);
   }
 
   public Boolean esOpcionTamanio() {

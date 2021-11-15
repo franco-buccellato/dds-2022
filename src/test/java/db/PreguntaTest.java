@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PreguntaTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
   EntityTransaction tran;
-  Fixture fixture;
+  Fixture fixture = new Fixture();
 
   @BeforeEach
   public void iniciarTransaccion() {
@@ -34,10 +34,10 @@ public class PreguntaTest extends AbstractPersistenceTest implements WithGlobalE
 
   @Test
   public void puedoPersistirUnaPregunta(){
-    PreguntaBullet preguntaBullet = new PreguntaBullet(Collections.singletonList(CARACTERISTICA_MASCOTA),"Una Pregunta Bullet", Collections.singletonList(fixture.tamanioChico), true);
+    Pregunta preguntaBullet = new PreguntaBullet(Collections.singletonList(CARACTERISTICA_MASCOTA),"Una Pregunta Bullet", Collections.singletonList(fixture.tamanioChico), true);
     entityManager().persist(preguntaBullet);
 
-    assertEquals("Una Pregunta Bullet", entityManager().createQuery("from preguntas ", PreguntaBullet.class)
+    assertEquals("Una Pregunta Bullet", entityManager().createQuery("from preguntas ", Pregunta.class)
         .getSingleResult().getDescripcion());
   }
 }
