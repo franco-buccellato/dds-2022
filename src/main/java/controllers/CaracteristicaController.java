@@ -37,19 +37,10 @@ public class CaracteristicaController extends BaseController implements WithGlob
     Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
     RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
 
-    String test = request.queryParams("opcion-1");
-    System.out.println("TEST: " + test);
-
-    String test2 = request.queryParams("opcion-inexistente");
-    System.out.println("TEST 2: " + test2);
-    System.out.println("IS NULL: " + Objects.isNull(test2));
-
     int i = 1;
     String descripcionOpcion;
     List<Opcion> opciones = new ArrayList<>();
-
     while (!Objects.isNull(descripcionOpcion = request.queryParams("opcion-" + i))) {
-      System.out.println(descripcionOpcion);
       opciones.add(new Opcion(descripcionOpcion));
       i++;
     }
