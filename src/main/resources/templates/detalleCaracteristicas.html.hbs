@@ -4,7 +4,7 @@
             <div class="registro">
                 <form action="/caracteristicas" method="POST">
                     <div class="crear_caracteristica">
-                        <h2>Complete nueva caracteristica</h2>
+                        <h2>Edite caracteristica</h2>
                         <div>
                             <label class="registro__label"
                                    style="display:inline-block; width: 150px">Descripción:</label>
@@ -21,23 +21,27 @@
                             </select>
                         </div>
                         <div>
-                            <label class="registro__label" style="display:inline-block;  width: 150px">Tipo de
+                            <label class="registro__label" style="display:inline-block;  width: 150px" disabled>Tipo de
                                 Caracteristica:</label>
-                            <select
-                                    name="tipoCaracteristica"
-                                    class="registro__input"
-                                    id="tipoCaracteristica"
-                                    required
-                                    onchange="setOpcionesAgregables(this.value)"
-                                    style="display:inline-block">
-                                {{#each tipoCaracteristicas}}
-                                    <option value="{{this}}">{{this}}</option>
-                                {{/each}}
-                            </select>
+
+                            <ul>
+                                  {{#opciones}}
+                                        <li>
+                                            <label class="registro__label" style="display:inline-block;  width: 150px">Opcion ${numero}:</label>
+                                            <input type="text"
+                                                name="opcion-${{{id}}}"
+                                                class="registro__input"
+                                                id="opcion-${{{id}}}"
+                                                style="display:inline-block"
+                                                value={{descripcion}}
+                                            >
+                                        </li>
+                                  {{/opciones}}
+                            </ul>
                         </div>
                     </div>
                     <div>
-                        <input type="submit" class="boton-submit" value="Crear Caracteristica">
+                        <input type="submit" class="boton-submit" value="Salvar Caracteristica">
                     </div>
                     <div id="informacion">
                         <div class="informacion-flex">
@@ -71,12 +75,6 @@
         const sacarOpcionBoton = `
             <button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>
         `
-
-        const reiniciarCaracteristicas = () => {
-            caracteristicas.querySelector('ul')?.remove();
-            caracteristicas.append(document.createElement('ul'));
-            opciones = 0;
-        }
 
         const salvarYagregarOpcion = (element) => {
             const input = element.parentElement.querySelector('input');
@@ -116,16 +114,6 @@
 
                 item.querySelectorAll('button')?.forEach(button => button.remove())
             })
-        }
-
-        const setOpcionesAgregables = (value) => {
-            const opcionesAgregables = ["BULLET", "CHECKBOX"].includes(value);
-
-            reiniciarCaracteristicas();
-
-            if (opcionesAgregables) {
-                agregarOpcion();
-            }
         }
     </script>
 {{/partial}}

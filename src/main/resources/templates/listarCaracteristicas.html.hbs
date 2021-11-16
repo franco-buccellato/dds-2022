@@ -1,0 +1,37 @@
+{{# partial "contenido" }}
+    <section class="section-registrar">
+        <div class="container__registro">
+            <div class="registro">
+                    <div class="crear_caracteristica">
+                        <div>
+                            <form action="/caracteristicas/crear">
+                                <input type="submit" class="boton-submit" value="Agregar Caracteristica">
+                            </form>
+                        </div>
+                        <h2></br>Caracteristicas Disponibles</h2></br>
+                         {{#caracteristicasDisponibles}}
+                             <a href="/caracteristicas/{{id}}"
+                                onMouseOver="this.style.border=1"
+                                onMouseOut="this.style.border=0">
+                                 <div style="padding: 10px">
+                                       <label>{{descripcion}}</label>
+                                       <div>
+                                            {{#opciones}}
+                                                <div>{{descripcion}}</div>
+                                            {{/opciones}}
+                                       </div>
+                                 </div>
+                             </a>
+                             </br>
+                        {{/caracteristicasDisponibles}}
+                    </div>
+            </div>
+        </div>
+    </section>
+    <script>
+    </script>
+{{/partial}}
+{{# partial "footer" }}
+{{/partial}}
+
+{{> layout.html.hbs }}

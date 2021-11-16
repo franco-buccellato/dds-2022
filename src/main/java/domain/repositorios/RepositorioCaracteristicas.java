@@ -26,7 +26,6 @@ public class RepositorioCaracteristicas implements WithGlobalEntityManager {
   }
 
   public List<Pregunta> getCaracteristicasDisponibles() {
-    System.out.println(this.caracteristicasDisponibles);
     return caracteristicasDisponibles.stream()
         .filter(caracteristica -> caracteristica.getObjetivos().contains(
             ObjetivoPregunta.CARACTERISTICA_MASCOTA)

@@ -2,12 +2,21 @@ package controllers;
 
 import static spark.Spark.halt;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
-import domain.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import domain.ObjetivoPregunta;
+import domain.Opcion;
+import domain.Pregunta;
+import domain.TipoPregunta;
+import domain.TipoPreguntaFactory;
 import domain.exception.TipoPreguntaInexistenteException;
 import domain.repositorios.RepositorioCaracteristicas;
 import spark.ModelAndView;
@@ -16,11 +25,14 @@ import spark.Response;
 
 public class CaracteristicaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
-  // public ModelAndView getCaracteristicas(Request request, Response response) {
-  //   Map<String, Object> modelo = this.setMetadata(request);
+   public ModelAndView getCaracteristicas(Request request, Response response) {
+    Map<String, Object> modelo = this.setMetadata(request);
 
-  //   return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
-  // }
+    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
+    modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listarPregruntasDisponibles());
+
+    return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
+  }
 
   public ModelAndView mostrarCrearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
@@ -62,7 +74,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
 
     } finally {
       modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listarPregruntasDisponibles());
-      return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
+      return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
     }
   }
 
