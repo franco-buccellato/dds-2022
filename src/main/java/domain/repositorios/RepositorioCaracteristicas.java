@@ -4,13 +4,14 @@ import domain.ObjetivoPregunta;
 import domain.Pregunta;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 public class RepositorioCaracteristicas implements WithGlobalEntityManager {
-  private List<Pregunta> caracteristicasDisponibles;
+  private List<Pregunta> caracteristicasDisponibles = Collections.emptyList();
   private static RepositorioCaracteristicas INSTANCE = new RepositorioCaracteristicas();
 
   public RepositorioCaracteristicas() {
@@ -25,6 +26,7 @@ public class RepositorioCaracteristicas implements WithGlobalEntityManager {
   }
 
   public List<Pregunta> getCaracteristicasDisponibles() {
+    System.out.println(this.caracteristicasDisponibles);
     return caracteristicasDisponibles.stream()
         .filter(caracteristica -> caracteristica.getObjetivos().contains(
             ObjetivoPregunta.CARACTERISTICA_MASCOTA)
@@ -41,5 +43,9 @@ public class RepositorioCaracteristicas implements WithGlobalEntityManager {
 
   public void agregar(Pregunta pregunta) {
     entityManager().persist(pregunta);
+  }
+
+  public List<Pregunta> listarPregruntasDisponibles() {
+    return entityManager().createQuery("from preguntas ", Pregunta.class).getResultList();
   }
 }

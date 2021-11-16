@@ -48,11 +48,16 @@
                         </div>
                     </div>
                     <div class="caracteristicas_cargadas">
-                        {{!-- TODO: Cargar lo que existe --}}
                         <h2></br>Caracteristicas Disponibles</h2></br>
-                        <div>Caracteristica1</div>
-                        <div>Caracteristica2</div>
-                        <div>Caracteristica3</div>
+                         {{#caracteristicasDisponibles}}
+                             <div>
+                                   <label>{{descripcion}} {{tipo_input}} </label>
+                                   {{#opciones}}
+                                        <li>{{descripcion}}</li>
+                                   {{/opciones}}
+                             </div>
+                             </br>
+                        {{/caracteristicasDisponibles}}
                     </div>
                 </form>
             </div>
@@ -131,7 +136,7 @@
 
             reiniciarCaracteristicas();
 
-            if (!opcionesAgregables) {
+            if (opcionesAgregables) {
                 agregarOpcion();
             }
         }

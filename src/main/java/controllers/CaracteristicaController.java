@@ -2,14 +2,14 @@ package controllers;
 
 import static spark.Spark.halt;
 
-import domain.*;
-import domain.exception.TipoPreguntaInexistenteException;
-import domain.repositorios.RepositorioCaracteristicas;
-
 import java.util.*;
 
+import domain.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
+import domain.exception.TipoPreguntaInexistenteException;
+import domain.repositorios.RepositorioCaracteristicas;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -24,6 +24,8 @@ public class CaracteristicaController extends BaseController implements WithGlob
 
   public ModelAndView mostrarCrearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
+    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
+    modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listarPregruntasDisponibles());
 
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
@@ -58,10 +60,10 @@ public class CaracteristicaController extends BaseController implements WithGlob
 
       modelo.put("error", exception.getMessage());
 
+    } finally {
+      modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listarPregruntasDisponibles());
       return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
     }
-
-    return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
 
   public Map<String, Object> setMetadata(Request request) {
