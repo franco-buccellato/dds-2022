@@ -1,0 +1,50 @@
+{{# partial "contenido" }}
+<section>
+    <div id="form_rescatista">
+        <div class="container-con_chapa">            
+            <form method="post" enctype="multipart/form-data">
+                <h2>Rescatista</h2>
+                <label class="registro__label" for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre"><br>
+                <label class="registro__label" for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido"><br>
+                <label class="registro__label" for="fnacimiento">Fecha Nacimiento</label>
+                <input type="date" id="fnacimiento" name="fnacimiento"><br>
+                <label class="registro__label" for="tip_doc">Tipo Documento</label>
+                <select id="tip_doc" name="tip_doc">
+                    {{#tipos_documentos}}
+                    <option value={{label}}>{{label}}</option>
+                    {{/tipos_documentos}}
+                </select><br>
+                <label class="registro__label" for="ndoc">Nro. Documento</label>
+                <input type="number" id="ndoc" name="ndoc"><br>
+                <label class="registro__label" for="r_dir">Direcci&oacute;n</label>
+                <input type="text" id="r_dir" name="dir"><br>
+                <label class="registro__label" for="number">C&oacute;digo Postal</label>
+                <input type="text" id="r_cp" name="cp"><br>
+                <label class="registro__label" for="loc">Localidad</label>
+                <input type="text" id="r_loc" name="loc"><br>
+                <label class="registro__label" for="tel">Tel&eacute;fono</label>
+                <input type="text" id="tel" name="tel"><br>
+                <label class="registro__label" for="email">Email</label>
+                <input type="text" id="email" name="email"><br><br>
+                <h2>Mascota</h2>
+                <label class="registro__label" for="desc">Descripci&oacute;n</label>
+                <input type="text" id="desc" name="desc"><br>
+                <label class="registro__label" for="m_dir">Direcci&oacute;n encuentro</label>
+                <input type="text" id="m_dir" name="dir"><br>
+                <label class="registro__label" for="number">C&oacute;digo Postal</label>
+                <input type="text" id="m_cp" name="cp"><br>
+                <label class="registro__label" for="loc">Localidad</label>
+                <input type="text" id="m_loc" name="loc"><br>
+                <label class="registro__label" for="foto">Foto</label>
+                <input type="file" id="foto" name="foto"><br>
+                <label class="registro__label" for="chapa">QR Chapa</label>
+                <input type="file" id="chapa" name="chapa" accept=".png"><br><br><br>
+                <input type="submit" value="Registrar Rescate"><br>
+            </form>
+        </div>
+    </div>
+</section>    
+{{/partial}}
+{{> layout.html.hbs }}

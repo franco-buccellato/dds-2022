@@ -1,5 +1,9 @@
 package domain;
 
+import org.hibernate.annotations.Cascade;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.ArrayList;
@@ -42,7 +46,7 @@ public class Mascota {
   @Column(name = "foto", nullable = false)
   private List<String> fotos;
 
-  @OneToMany
+  @OneToMany//(cascade = CascadeType.ALL)
   private List<Caracteristica> caracteristicas;
 
   @Enumerated(EnumType.STRING)
@@ -161,4 +165,25 @@ public class Mascota {
 
     return tamanio.getDescripcion();
   }
+
+  public JSONObject toJson() {
+    JSONObject jsonMascota = new JSONObject();
+    jsonMascota.put("id", this.id);
+    jsonMascota.put("tipo_mascota", this.tipoMascota.getLabel());
+    jsonMascota.put("nombre", this.nombre);
+    jsonMascota.put("apodo", this.apodo);
+    jsonMascota.put("edad", this.edadAproximada);
+    jsonMascota.put("sexo", this.sexo.getLabel());
+    jsonMascota.put("descripcion", this.descripcionFisica);
+    JSONArray jsonCaracteristicas = new JSONArray();
+    jsonCaracteristicas.addAll(this.caracteristicas);
+    jsonMascota.put("caracteristicas", this.caracteristicas.stream().map(caracteristica -> caracteristica.toJson()).collect(Collectors.toList()));
+
+    return jsonMascota;
+  }
+
+  public int getId() {
+    return this.id;
+  }
+
 }

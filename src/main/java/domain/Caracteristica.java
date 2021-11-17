@@ -1,5 +1,7 @@
 package domain;
 
+import org.json.simple.JSONObject;
+
 import javax.persistence.*;
 
 import static domain.exception.Mensajes.NOT_NULO;
@@ -7,6 +9,7 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity(name = "caracteristicas")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -19,7 +22,7 @@ public abstract class Caracteristica {
   @Column(name = "tipo_caracteristica")
   protected TipoCaracteristica tipoCaracteristica;
   protected String descripcion;
-  @OneToMany
+  @OneToMany()
   @JoinColumn(name = "opcion_id")
   protected List<Opcion> opciones;
   //protected Boolean obligatoria;
@@ -60,4 +63,12 @@ public abstract class Caracteristica {
   public abstract List<Opcion> getOpciones();
 
   public abstract List<Opcion> getOpcionesSeleccionas();
+
+  public JSONObject toJson() {
+    JSONObject jsonCaracteristica = new JSONObject();
+    jsonCaracteristica.put("tipo_caracteristica", this.tipoCaracteristica.toString());
+    jsonCaracteristica.put("descripcion", this.descripcion);
+    jsonCaracteristica.put("opciones", this.getOpciones().stream().map(opcion -> opcion.toJson()).collect(Collectors.toList()));
+    return jsonCaracteristica;
+  }
 }

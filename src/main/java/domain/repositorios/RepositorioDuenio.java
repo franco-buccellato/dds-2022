@@ -7,6 +7,8 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -61,8 +63,9 @@ public class RepositorioDuenio implements WithGlobalEntityManager {
 //        .getResultList();
 //  }
 
-  public Optional<Duenio> findDuenioMascota(Mascota mascota) {
-    return duenios.stream().filter(duenio -> duenio.getMascotas().contains(mascota)).findFirst();
+  public Optional<Duenio> findDuenioMascota(Mascota mascota) {    Query query = entityManager().createNativeQuery("select top 1 d.id from Duenios as d INNER JOIN mascotas as m ON d.id = m.duenio_id WHERE m.id = :mascota_id");
+    query.setParameter("mascota_id", mascota.getId());
+    return Optional.ofNullable(this.getById(((BigInteger) query.getSingleResult()).longValue()));
   }
 
 }

@@ -1,5 +1,8 @@
 package domain;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import javax.persistence.*;
 
 import static domain.exception.Mensajes.NOT_NULO;
@@ -9,7 +12,7 @@ import java.util.*;
 @Entity
 @DiscriminatorValue("I")
 public class CaracteristicaInput extends Caracteristica {
-  @OneToOne
+  @OneToOne//(cascade = CascadeType.PERSIST)
   private Opcion input;
 
   // Aplica para tipos TEXTO y NUMERO donde los constraints van a ser resueltos en otra capa

@@ -1,5 +1,7 @@
 package domain;
 
+import domain.exception.NoSePudoEnviarMailException;
+
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.Objects;
@@ -25,8 +27,6 @@ public class Contacto {
   private String mail;
   @Enumerated(EnumType.STRING)
   private Vinculo vinculo;
-  @Transient
-  private MedioNotificacion medioNotificacion;
 
   public Contacto() {
   }
@@ -36,15 +36,13 @@ public class Contacto {
       String apellido,
       String telefono,
       String mail,
-      Vinculo vinculo,
-      MedioNotificacion medioNotificacion
+      Vinculo vinculo
   ) {
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
     this.apellido = Objects.requireNonNull(apellido, NOT_NULO.mensaje("apellido"));
     this.telefono = telefono;
     this.mail = mail;
     this.vinculo = vinculo;
-    this.medioNotificacion = medioNotificacion;
   }
 
   //  Getters y setters
@@ -76,12 +74,12 @@ public class Contacto {
     return vinculo;
   }
 
-  public void setMedioNotificacion(MedioNotificacion medioNotificacion) {
-    this.medioNotificacion = medioNotificacion;
-  }
-
   public void notificar(Notificacion notificacion) {
-    medioNotificacion.notificar(this, notificacion.getMensaje());
+    try {
+      MedioNotificacionEmail.getInstance().notificar(this, notificacion.getMensaje());
+    } catch(NoSePudoEnviarMailException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   @Override

@@ -97,8 +97,7 @@ public class Fixture {
       "Gonzalez",
       "494949",
       "pedro@g.com",
-      AMISTAD,
-      medioNotificacion
+      AMISTAD
     );
   }
 

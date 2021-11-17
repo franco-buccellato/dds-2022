@@ -1,6 +1,9 @@
 package domain;
 
 import domain.exception.NoSePudoEnviarMailException;
+import domain.exception.NoSePuedenObtenerEmailCredentials;
+import domain.repositorios.RepositorioDuenio;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -15,10 +18,19 @@ import javax.mail.internet.MimeMessage;
 
 public class MedioNotificacionEmail implements MedioNotificacion {
   private Properties emailCredentials;
+  private static MedioNotificacionEmail INSTANCE = new MedioNotificacionEmail();
 
-  public MedioNotificacionEmail() throws IOException {
+  private MedioNotificacionEmail() {
     emailCredentials = new Properties();
-    emailCredentials.loadFromXML(new FileInputStream("resources/email/credentials.xml"));
+    try {
+      emailCredentials.loadFromXML(new FileInputStream("resources/email/credentials.xml"));
+    } catch (IOException e) {
+      throw new NoSePuedenObtenerEmailCredentials(e.getMessage());
+    }
+  }
+
+  public static MedioNotificacionEmail getInstance() {
+    return INSTANCE;
   }
 
   @Override

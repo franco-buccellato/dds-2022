@@ -28,7 +28,8 @@ public class RescateConChapa extends Rescate {
     Optional<Duenio> elDuenio = RepositorioDuenio.getInstance().findDuenioMascota(this.getMascota());
     if (!elDuenio.isPresent()) {
       throw new MascotaSinDuenioException("La mascota buscada no tiene duenio");
+    } else {
+      elDuenio.get().notificarMascotaEncontrada(this);
     }
-    RepositorioDuenio.getInstance().informarMascotaRescatada(this, elDuenio.get());
   }
 }

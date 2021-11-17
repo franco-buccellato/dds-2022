@@ -1,5 +1,7 @@
 package domain;
 
+import org.json.simple.JSONObject;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,5 +34,12 @@ public class Opcion {
 
   public void setSeleccionada(Boolean seleccionada) {
     this.seleccionada = seleccionada;
+  }
+
+  public JSONObject toJson() {
+    JSONObject jsonOpcion = new JSONObject();
+    jsonOpcion.put("descripcion", this.descripcion);
+    jsonOpcion.put("seleccionada", this.seleccionada.toString());
+    return jsonOpcion;
   }
 }

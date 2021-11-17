@@ -1,6 +1,8 @@
 package domain;
 
 import constants.Fixture;
+import domain.repositorios.RepositorioDuenio;
+import domain.repositorios.RepositorioMascotas;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -49,8 +51,7 @@ public class DuenioTest extends Fixture {
 
   @Test
   void puedoActualizarElContactoDeUnDuenio() throws IOException {
-    MedioNotificacion email = new MedioNotificacionEmail();
-    Contacto nuevoContacto = new Contacto("Pedro", "Perez", "11123123123", "pedro@perez.com", Vinculo.FAMILIAR, email);
+    Contacto nuevoContacto = new Contacto("Pedro", "Perez", "11123123123", "pedro@perez.com", Vinculo.FAMILIAR);
     duenio.setContactos(Arrays.asList(nuevoContacto));
 
     assertNotEquals(contacto, duenio.getContactos().get(0));

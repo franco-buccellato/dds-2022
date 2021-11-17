@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.zxing.WriterException;
 import domain.*;
 import domain.exception.PasswordDebilException;
 import domain.repositorios.RepositorioDuenio;
@@ -9,6 +10,7 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import utilidades.QRCodeGenerator;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -16,7 +18,8 @@ import java.util.*;
 
 public class MascotaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
-  public Void registrarMascota(Request request, Response response) throws IOException {
+  public ModelAndView registrarMascota(Request request, Response response) throws IOException, WriterException {
+    Map<String, Object> modelo = new HashMap<>();
     RepositorioUsuarios repositorioUsuarios = RepositorioUsuarios.getInstance();
     Long idUsuario = request.session().attribute("idUsuario");
     Usuario usuarioActual = repositorioUsuarios.getById(idUsuario);
@@ -30,6 +33,7 @@ public class MascotaController extends BaseController implements WithGlobalEntit
     Sexo sexo = Sexo.valueOf(request.queryParams("registro-sexo"));
     String descripcionFisica = request.queryParams("registro-descripcion");
     String fotos = request.queryParams("registro-fotos");
+    System.out.println("foto: " + request.queryParams("registro-fotos"));
     List<String> listaFotos = new ArrayList<>();
     listaFotos.add(fotos);
     String caracteristicas = request.queryParams("registro-caracteristicas");
@@ -59,8 +63,7 @@ public class MascotaController extends BaseController implements WithGlobalEntit
                                         apellidoContacto1,
                                         telefonoContacto1,
                                         mailContacto1,
-                                        vinculoContacto1,
-                                        new MedioNotificacionEmail());
+                                        vinculoContacto1);
       //Obtengo los datos del Contacto 2
       String nombreContacto2 = request.queryParams("registro-nombreContacto2");
       String apellidoContacto2 = request.queryParams("registro-apellidoContacto2");
@@ -71,8 +74,7 @@ public class MascotaController extends BaseController implements WithGlobalEntit
                                         apellidoContacto2,
                                         telefonoContacto2,
                                         mailContacto2,
-                                        vinculoContacto2,
-                                        new MedioNotificacionEmail());
+                                        vinculoContacto2);
       //Armos listas de Contactos
       List<Contacto> contactos = new ArrayList<>();
       contactos.add(contacto1);
@@ -98,6 +100,7 @@ public class MascotaController extends BaseController implements WithGlobalEntit
       //Persistir nuevoDuenio
       withTransaction(() -> repositorioDuenio.agregar(nuevoDuenio));
     } else {
+      System.out.println(duenioExistente.getUsuario());
       //Agrego la mascota al duenio
       duenioExistente.addMascota(mascota);
       //Persistir duenio
@@ -105,6 +108,9 @@ public class MascotaController extends BaseController implements WithGlobalEntit
     }
     //Redireccionar a la misma página
     response.redirect("/registrarMascota");
+
+    modelo.put("qr_image", QRCodeGenerator.generarQRCode(mascota.toJson(), String.valueOf(mascota.getId())));
+
     return null;
   }
 
@@ -122,9 +128,8 @@ public class MascotaController extends BaseController implements WithGlobalEntit
     return new ModelAndView(modelo, "registroMascota.html.hbs");
   }
 
-  public Void encontreMascota(Request request, Response response) {
-
-    return null;
+  public ModelAndView encontreMascota(Request request, Response response) {
+    return new ModelAndView(null, "encontre_mascota.html.hbs");
   }
 
 }

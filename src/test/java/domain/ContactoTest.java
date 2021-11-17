@@ -19,7 +19,7 @@ class ContactoTest {
   @BeforeEach
   void setup() {
     MedioNotificacion medioNotificacion = mock(MedioNotificacion.class);
-    contacto = new Contacto("Juan", "Perez", "11123123123", "juan@perez.com", TITULAR, medioNotificacion);
+    contacto = new Contacto("Juan", "Perez", "11123123123", "juan@perez.com", TITULAR);
   }
 
   @Test
@@ -48,7 +48,6 @@ class ContactoTest {
     String mensaje = "Mensaje #" + System.currentTimeMillis();
     Notificacion notificacion = new Notificacion(new MensajePruebaTemplate(mensaje));
 
-    contacto.setMedioNotificacion(new MedioNotificacionEmail());
     contacto.setMail(emailTo);
     contacto.notificar(notificacion);
 

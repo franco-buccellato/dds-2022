@@ -1,16 +1,16 @@
 package domain;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
 @DiscriminatorValue("C")
 public class CaracteristicaChoice extends Caracteristica {
-  @OneToMany
+  @OneToMany//(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "caracteristica_id")
   private List<Opcion> opciones;
 

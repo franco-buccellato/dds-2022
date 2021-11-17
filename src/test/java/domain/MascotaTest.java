@@ -5,14 +5,22 @@ import static domain.TipoCaracteristica.*;
 import static domain.TipoMascota.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.google.zxing.WriterException;
 import constants.Fixture;
+import domain.repositorios.RepositorioMascotas;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utilidades.QRCodeGenerator;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class MascotaTest extends Fixture {
   private Mascota perroPepe;
@@ -210,4 +218,18 @@ public class MascotaTest extends Fixture {
     setOpcionRandom(contextura.getOpciones());
     assertEquals(2, perroPepe.getCaracteristicasSeleccionadas().size());
   }
+
+  @Test
+  public void mascotaAJSON() throws IOException, WriterException {
+//    perroPepe.addCaracteristica(vacunas());
+//    perroPepe.getCaracteristicas().stream().filter(caracteristica -> caracteristica.getDescripcion().equals("Vacunas administradas")).findFirst().get().getOpciones().stream().forEach(opcion -> opcion.setSeleccionada(Boolean.TRUE));
+//    perroPepe.addCaracteristica(estaCastrada());
+    RepositorioMascotas.getInstace().guardarMascota(perroPepe);
+    System.out.println(perroPepe.toJson());
+    QRCodeGenerator.generarQRCode(perroPepe.toJson(), String.valueOf(perroPepe.getId()));
+    BufferedImage bufferedImage = ImageIO.read(new File("src/main/resources/public/imagenes/QR_out/QR_Code-1.png"));
+    System.out.println("Id mascota:" + RepositorioMascotas.getInstace().getByQR(bufferedImage).getId());
+  }
+
+
 }
