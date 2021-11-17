@@ -58,7 +58,7 @@
             </div>
         </div>
     </section>
-    <script>
+    <script type="text/javascript">
         let caracteristicas = document.querySelector('div.detalle_caracteristica');
         const opcion = `
             <label class="registro__label" style="display:inline-block;  width: 150px"></label>
@@ -67,6 +67,7 @@
                    class="registro__input"
                    id="opcion"
                    style="display:inline-block"
+                   required
             >`
         const agregarOpcionBoton = `
             <button onclick=salvarYagregarOpcion(this)><i class="fas fa-plus"></i></button>
