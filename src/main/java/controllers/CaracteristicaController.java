@@ -42,9 +42,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
 
-  public ModelAndView crearCaracteristica(Request request, Response response) {
-    Map<String, Object> modelo = this.setMetadata(request);
-
+  public Void crearCaracteristica(Request request, Response response) {
     TipoPregunta tipoPregunta = TipoPregunta.valueOf(request.queryParams("tipoCaracteristica"));
     List<ObjetivoPregunta> objetivos = Arrays.asList(ObjetivoPregunta.CARACTERISTICA_MASCOTA);
     String descripcion = request.queryParams("descripcion");
@@ -67,15 +65,10 @@ public class CaracteristicaController extends BaseController implements WithGlob
       withTransaction(() -> {
         repositorioPreguntas.agregar(pregunta);
       });
-
+      response.redirect("/caracteristicas");
     } catch (TipoPreguntaInexistenteException | NullPointerException exception) {
-
-      modelo.put("error", exception.getMessage());
-
-    } finally {
-      modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
-      return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
     }
+    return null;
   }
 
   public Object getDetalleCaracteristica(Request request, Response response, TemplateEngine engine) {
@@ -93,9 +86,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
     }
   }
 
-  public ModelAndView actualizarCaracteristica(Request request, Response response) {
-    Map<String, Object> modelo = this.setMetadata(request);
-
+  public Void actualizarCaracteristica(Request request, Response response) {
     Long id = Long.valueOf(request.params(":id"));
     String descripcion = request.queryParams("descripcion");
     Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
@@ -111,12 +102,10 @@ public class CaracteristicaController extends BaseController implements WithGlob
 
     try {
       repositorioPreguntas.actualizarPregunta(id, descripcion, opciones, obligatoria);
+      response.redirect("/caracteristicas");
     } catch (TipoPreguntaInexistenteException | NullPointerException exception) {
-      modelo.put("error", exception.getMessage());
-    } finally {
-      modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
-      return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
     }
+    return null;
   }
 
   public Map<String, Object> setMetadata(Request request) {
