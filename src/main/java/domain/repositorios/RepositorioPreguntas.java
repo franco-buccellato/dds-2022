@@ -7,11 +7,8 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityTransaction;
 
+import domain.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-
-import domain.ObjetivoPregunta;
-import domain.Opcion;
-import domain.Pregunta;
 
 public class RepositorioPreguntas implements WithGlobalEntityManager {
   private List<Pregunta> caracteristicasDisponibles = Collections.emptyList();
@@ -50,8 +47,15 @@ public class RepositorioPreguntas implements WithGlobalEntityManager {
 
   public List<Pregunta> listar() {
     return entityManager().createQuery(
-        "from preguntas p join p.objetivos t where t = 'CARACTERISTICA_MASCOTA'"
-        , Pregunta.class)
+        "from preguntas p join p.objetivos t where t = 'CARACTERISTICA_MASCOTA'", Pregunta.class
+    ).getResultList();
+  }
+
+  public List<Pregunta> listarSegunTipo(TipoPregunta tipoPregunta) {
+    return entityManager().createQuery(
+            "from preguntas p where p.tipoPregunta = :tipoPregunta",
+            Pregunta.class
+        ).setParameter("tipoPregunta", tipoPregunta)
         .getResultList();
   }
 
@@ -63,10 +67,10 @@ public class RepositorioPreguntas implements WithGlobalEntityManager {
     EntityTransaction tx = entityManager().getTransaction();
     tx.begin();
     Pregunta pregunta = this.buscar(idPregunta);
-    if(descripcion != null) {
+    if (descripcion != null) {
       pregunta.setDescripcion(descripcion);
     }
-    if(opciones != null && !opciones.isEmpty()) {
+    if (opciones != null && !opciones.isEmpty()) {
       pregunta.setOpciones(opciones);
     }
     pregunta.setObligatoria(obligatoria);
