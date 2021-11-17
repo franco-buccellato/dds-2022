@@ -19,12 +19,12 @@ public class TipoPreguntaFactory {
 
     switch (tipoPregunta) {
       case NUMBER: {
-        pregunta = new PreguntaText(objetivos, descripcion, obligatoria);
+        pregunta = new PreguntaNumber(objetivos, descripcion, obligatoria);
         break;
       }
 
       case TEXT: {
-        pregunta = new PreguntaNumber(objetivos, descripcion, obligatoria);
+        pregunta = new PreguntaText(objetivos, descripcion, obligatoria);
         break;
       }
 

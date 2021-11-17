@@ -15,9 +15,11 @@ public abstract class Pregunta {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "pregunta_id")
   protected Long id;
+
   @Column(name = "tipo", nullable = false)
   @Enumerated(EnumType.STRING)
   protected TipoPregunta tipoPregunta;
+
   @ElementCollection(targetClass = ObjetivoPregunta.class, fetch = FetchType.EAGER)
   @CollectionTable(name = "preguntas_objetivos", joinColumns = @JoinColumn(name = "pregunta_id"))
   @Column(name = "objetivo", nullable = false)

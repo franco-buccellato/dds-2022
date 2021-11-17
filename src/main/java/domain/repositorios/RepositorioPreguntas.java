@@ -1,30 +1,30 @@
 package domain.repositorios;
 
-import domain.ObjetivoPregunta;
-import domain.Opcion;
-import domain.Pregunta;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-
 import javax.persistence.EntityTransaction;
 
-public class RepositorioCaracteristicas implements WithGlobalEntityManager {
-  private List<Pregunta> caracteristicasDisponibles = Collections.emptyList();
-  private static RepositorioCaracteristicas INSTANCE = new RepositorioCaracteristicas();
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
-  public RepositorioCaracteristicas() {
+import domain.ObjetivoPregunta;
+import domain.Opcion;
+import domain.Pregunta;
+
+public class RepositorioPreguntas implements WithGlobalEntityManager {
+  private List<Pregunta> caracteristicasDisponibles = Collections.emptyList();
+  private static final RepositorioPreguntas INSTANCE = new RepositorioPreguntas();
+
+  public RepositorioPreguntas() {
   }
 
-  public static RepositorioCaracteristicas getInstance() {
+  public static RepositorioPreguntas getInstance() {
     return INSTANCE;
   }
 
-  public RepositorioCaracteristicas(List<Pregunta> caracteristicas) {
+  public RepositorioPreguntas(List<Pregunta> caracteristicas) {
     this.caracteristicasDisponibles = new ArrayList<>(caracteristicas);
   }
 
@@ -46,6 +46,7 @@ public class RepositorioCaracteristicas implements WithGlobalEntityManager {
   public void agregar(Pregunta pregunta) {
     entityManager().persist(pregunta);
   }
+
 
   public List<Pregunta> listar() {
     return entityManager().createQuery(

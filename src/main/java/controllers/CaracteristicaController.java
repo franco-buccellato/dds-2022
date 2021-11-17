@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -19,26 +18,26 @@ import domain.Pregunta;
 import domain.TipoPregunta;
 import domain.TipoPreguntaFactory;
 import domain.exception.TipoPreguntaInexistenteException;
-import domain.repositorios.RepositorioCaracteristicas;
+import domain.repositorios.RepositorioPreguntas;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.TemplateEngine;
 
 public class CaracteristicaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
-  RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
+  RepositorioPreguntas repositorioPreguntas = RepositorioPreguntas.getInstance();
 
   public ModelAndView getCaracteristicas(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 
-    modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listar());
+    modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
 
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
   public ModelAndView mostrarCrearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
-    modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listar());
+    modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
 
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
@@ -66,7 +65,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
       );
 
       withTransaction(() -> {
-        repositorioCaracteristicas.agregar(pregunta);
+        repositorioPreguntas.agregar(pregunta);
       });
 
     } catch (TipoPreguntaInexistenteException | NullPointerException exception) {
@@ -74,7 +73,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
       modelo.put("error", exception.getMessage());
 
     } finally {
-      modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listar());
+      modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
       return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
     }
   }
@@ -83,7 +82,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
     Map<String, Object> modelo = this.setMetadata(request);
     String id = request.params(":id");
     try{
-      Pregunta caracteristica = repositorioCaracteristicas.buscar(Long.valueOf(id));
+      Pregunta caracteristica = repositorioPreguntas.buscar(Long.valueOf(id));
       if(caracteristica != null) {
         modelo.put("caracteristica", caracteristica);
         return engine.render(new ModelAndView(modelo, "detalleCaracteristicas.html.hbs"));
@@ -111,11 +110,11 @@ public class CaracteristicaController extends BaseController implements WithGlob
     }
 
     try {
-      repositorioCaracteristicas.actualizarPregunta(id, descripcion, opciones, obligatoria);
+      repositorioPreguntas.actualizarPregunta(id, descripcion, opciones, obligatoria);
     } catch (TipoPreguntaInexistenteException | NullPointerException exception) {
       modelo.put("error", exception.getMessage());
     } finally {
-      modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listar());
+      modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
       return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
     }
   }

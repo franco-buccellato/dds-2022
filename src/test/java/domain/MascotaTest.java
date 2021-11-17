@@ -146,7 +146,7 @@ public class MascotaTest extends Fixture {
 
   @Test
   public void puedoActualizarCaracteristicasDeMascota() {
-    assertEquals(2, gatoBenito.getCaracteristicas().size());
+    assertEquals(3, gatoBenito.getCaracteristicas().size());
 
     RespuestaCaracteristicaMascota castrado = seleccionEstaCastrado();
     gatoBenito.setCaracteristicas(Collections.singletonList(castrado));
