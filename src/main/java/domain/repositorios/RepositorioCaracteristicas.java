@@ -44,7 +44,14 @@ public class RepositorioCaracteristicas implements WithGlobalEntityManager {
     entityManager().persist(pregunta);
   }
 
-  public List<Pregunta> listarPregruntasDisponibles() {
-    return entityManager().createQuery("from preguntas ", Pregunta.class).getResultList();
+  public List<Pregunta> listar() {
+    return entityManager().createQuery(
+        "from preguntas p join p.objetivos t where t = 'CARACTERISTICA_MASCOTA'"
+        , Pregunta.class)
+        .getResultList();
+  }
+
+  public Pregunta buscar(Long id) {
+    return entityManager().find(Pregunta.class, id);
   }
 }

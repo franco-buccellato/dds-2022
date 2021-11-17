@@ -22,22 +22,20 @@ import domain.repositorios.RepositorioCaracteristicas;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.TemplateEngine;
 
 public class CaracteristicaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
-
    public ModelAndView getCaracteristicas(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 
-    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
-    modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listarPregruntasDisponibles());
+    modelo.put("caracteristicasDisponibles", RepositorioCaracteristicas.getInstance().listar());
 
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
   public ModelAndView mostrarCrearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
-    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
-    modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listarPregruntasDisponibles());
+    modelo.put("caracteristicasDisponibles", RepositorioCaracteristicas.getInstance().listar());
 
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
@@ -73,8 +71,23 @@ public class CaracteristicaController extends BaseController implements WithGlob
       modelo.put("error", exception.getMessage());
 
     } finally {
-      modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listarPregruntasDisponibles());
+      modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listar());
       return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
+    }
+  }
+
+  public Object getDetalleCaracteristica(Request request, Response response, TemplateEngine engine) {
+    Map<String, Object> modelo = this.setMetadata(request);
+    String id = request.params(":id");
+    try{
+      Pregunta caracteristica = RepositorioCaracteristicas.getInstance().buscar(Long.valueOf(id));
+      if(caracteristica != null) {
+        modelo.put("caracteristica", caracteristica);
+        return engine.render(new ModelAndView(modelo, "detalleCaracteristicas.html.hbs"));
+      }
+      return null;
+    } catch(NumberFormatException | NullPointerException exception){
+      return "Bad Request";
     }
   }
 
