@@ -18,26 +18,27 @@ import domain.Pregunta;
 import domain.TipoPregunta;
 import domain.TipoPreguntaFactory;
 import domain.exception.TipoPreguntaInexistenteException;
-import domain.repositorios.RepositorioCaracteristicas;
+import domain.repositorios.RepositorioPreguntas;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 public class CaracteristicaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
-   public ModelAndView getCaracteristicas(Request request, Response response) {
+  public ModelAndView getCaracteristicas(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 
-    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
-    modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listarPregruntasDisponibles());
+    RepositorioPreguntas repositorioPreguntas = RepositorioPreguntas.getInstance();
+    modelo.put(
+        "caracteristicasDisponibles",
+        repositorioPreguntas.listarPreguntasDisponibles()
+    );
 
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
   public ModelAndView mostrarCrearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
-    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
-    modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listarPregruntasDisponibles());
 
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
@@ -49,7 +50,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
     List<ObjetivoPregunta> objetivos = Arrays.asList(ObjetivoPregunta.CARACTERISTICA_MASCOTA);
     String descripcion = request.queryParams("descripcion");
     Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
-    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
+    RepositorioPreguntas repositorioPreguntas = RepositorioPreguntas.getInstance();
 
     int i = 1;
     String descripcionOpcion;
@@ -65,17 +66,22 @@ public class CaracteristicaController extends BaseController implements WithGlob
       );
 
       withTransaction(() -> {
-        repositorioCaracteristicas.agregar(pregunta);
+        repositorioPreguntas.agregar(pregunta);
       });
 
     } catch (TipoPreguntaInexistenteException | NullPointerException exception) {
 
       modelo.put("error", exception.getMessage());
 
-    } finally {
-      modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listarPregruntasDisponibles());
-      return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
+      return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
     }
+
+    modelo.put(
+        "caracteristicasDisponibles",
+        repositorioPreguntas.listarPreguntasDisponibles()
+    );
+
+    return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
   public Map<String, Object> setMetadata(Request request) {

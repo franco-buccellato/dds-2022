@@ -1,7 +1,7 @@
 package domain;
 
 import constants.Fixture;
-import domain.repositorios.RepositorioCaracteristicas;
+import domain.repositorios.RepositorioPreguntas;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,12 +9,12 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RepositorioCaracteristicasTest extends Fixture {
-  private RepositorioCaracteristicas repositorio;
+public class RepositorioPreguntasTest extends Fixture {
+  private RepositorioPreguntas repositorio;
 
   @BeforeEach
   private void setup() {
-    repositorio = new RepositorioCaracteristicas(Arrays.asList(estaCastrada, datosDeInteres, vacunas));
+    repositorio = new RepositorioPreguntas(Arrays.asList(estaCastrada, datosDeInteres, vacunas));
   }
 
   @Test

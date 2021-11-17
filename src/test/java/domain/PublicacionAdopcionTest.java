@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import constants.Fixture;
 import domain.exception.PreguntaObligatoriaNoContestadaException;
-import domain.repositorios.RepositorioCaracteristicas;
+import domain.repositorios.RepositorioPreguntas;
 
 public class PublicacionAdopcionTest extends Fixture {
   private Duenio duenioMascostaEnAdopcion;
@@ -19,7 +19,7 @@ public class PublicacionAdopcionTest extends Fixture {
   private Asociacion asociacionVinculada;
   private Asociacion asociacionSinPreguntas;
   private Asociacion asociacionConPreguntas;
-  private RepositorioCaracteristicas repositorioCaracteristicas;
+  private RepositorioPreguntas repositorioPreguntas;
 
   @BeforeEach
   public void iniciar() {
@@ -31,7 +31,7 @@ public class PublicacionAdopcionTest extends Fixture {
     this.asociacionVinculada = asociacion();
     this.asociacionSinPreguntas = asociacion();
     this.asociacionConPreguntas = asociacionConPreguntasAdopcion();
-    this.repositorioCaracteristicas = new RepositorioCaracteristicas(Arrays.asList(
+    this.repositorioPreguntas = new RepositorioPreguntas(Arrays.asList(
         estaCastrada,
         contextura,
         datosDeInteres,

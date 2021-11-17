@@ -10,18 +10,18 @@ import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
-public class RepositorioCaracteristicas implements WithGlobalEntityManager {
+public class RepositorioPreguntas implements WithGlobalEntityManager {
   private List<Pregunta> caracteristicasDisponibles = Collections.emptyList();
-  private static RepositorioCaracteristicas INSTANCE = new RepositorioCaracteristicas();
+  private static final RepositorioPreguntas INSTANCE = new RepositorioPreguntas();
 
-  public RepositorioCaracteristicas() {
+  public RepositorioPreguntas() {
   }
 
-  public static RepositorioCaracteristicas getInstance() {
+  public static RepositorioPreguntas getInstance() {
     return INSTANCE;
   }
 
-  public RepositorioCaracteristicas(List<Pregunta> caracteristicas) {
+  public RepositorioPreguntas(List<Pregunta> caracteristicas) {
     this.caracteristicasDisponibles = new ArrayList<>(caracteristicas);
   }
 
@@ -44,7 +44,7 @@ public class RepositorioCaracteristicas implements WithGlobalEntityManager {
     entityManager().persist(pregunta);
   }
 
-  public List<Pregunta> listarPregruntasDisponibles() {
+  public List<Pregunta> listarPreguntasDisponibles() {
     return entityManager().createQuery("from preguntas ", Pregunta.class).getResultList();
   }
 }
