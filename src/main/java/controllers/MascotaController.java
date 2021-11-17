@@ -107,11 +107,12 @@ public class MascotaController extends BaseController implements WithGlobalEntit
       withTransaction(() -> repositorioDuenio.agregar(duenioExistente));
     }
     //Redireccionar a la misma página
-    response.redirect("/registrarMascota");
+    //response.redirect("/registrarMascota");
 
-    modelo.put("qr_image", QRCodeGenerator.generarQRCode(mascota.toJson(), String.valueOf(mascota.getId())));
 
-    return null;
+    modelo.put("QR", "imagenes/QR_out/QR_Code-" + String.valueOf(mascota.getId()) + ".png");
+
+    return new ModelAndView(modelo, "registroMascotaConfirmado.html.hbs");
   }
 
   public ModelAndView formularioRegistrarMascota(Request request, Response response) {

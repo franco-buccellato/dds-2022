@@ -91,4 +91,67 @@ public class RescateController extends BaseController implements WithGlobalEntit
     response.redirect("/encontreMascota");
     return null;
   }
+
+  public ModelAndView registroRescateSinChapa(Request request, Response response) {
+    Map<String, Object> modelo = new HashMap<>();
+    boolean sesionIniciada = this.sesionIniciada(request);
+    modelo.put("sesionIniciada", sesionIniciada);
+    modelo.put("tipos_documentos", TipoIdentificacion.values());
+    return new ModelAndView(modelo, "mascota_sin_chapa.html.hbs");
+  }
+
+  public Void guardarRescateSinChapa(Request request, Response response) {
+    Map<String, Object> modelo = new HashMap<>();
+    boolean sesionIniciada = this.sesionIniciada(request);
+    modelo.put("sesionIniciada", sesionIniciada);
+    Long idUsuario = request.session().attribute("idUsuario");
+    Usuario usuarioActual = RepositorioUsuarios.getInstance().getById(idUsuario);
+
+    Contacto contactoRescatista = new Contacto(
+        request.queryParams("nombre"),
+        request.queryParams("apellido"),
+        request.queryParams("tel"),
+        request.queryParams("email"),
+        Vinculo.TITULAR
+    );
+    Ubicacion ubicacionRescatista = new Ubicacion(
+        request.queryParams("r_dir"),
+        request.queryParams("r_cp"),
+        request.queryParams("r_loc")
+    );
+    Ubicacion ubicacionRescate = new Ubicacion(
+        request.queryParams("m_dir"),
+        request.queryParams("m_cp"),
+        request.queryParams("m_loc")
+    );
+    Rescatista rescatista = new Rescatista(
+        new DatoPersonal(
+            request.queryParams("nombre"),
+            request.queryParams("apellido"),
+            TipoIdentificacion.valueOf(request.queryParams("tip_doc")),
+            request.queryParams("ndoc"),
+            LocalDate.parse(request.queryParams("fnacimiento"))
+        ),
+        contactoRescatista,
+        ubicacionRescatista,
+        usuarioActual
+    );
+    RescateSinChapa rescateConChapa = new RescateSinChapa(
+        Arrays.asList(request.queryParams("foto")),
+        request.queryParams("desc"),
+        ubicacionRescate,
+        LocalDate.now(),
+        new Mascota(),
+        rescatista
+    );
+    withTransaction(() -> {
+      persist(ubicacionRescate);
+      persist(ubicacionRescatista);
+      persist(contactoRescatista);
+      persist(rescatista);
+      persist(rescateConChapa);
+    });
+    response.redirect("/encontreMascota");
+    return null;
+  }
 }

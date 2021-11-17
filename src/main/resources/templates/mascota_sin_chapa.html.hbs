@@ -1,1 +1,48 @@
+{{# partial "contenido" }}
+<section>
+    <div id="form_rescatista">
+        <div class="container-con_chapa">            
+            <form method="post" enctype="multipart/form-data">
+                <h2>Rescatista</h2>
+                <label class="registro__label" for="nombre">Nombre</label>
+                <input required type="text" id="nombre" name="nombre" autofocus><br>
+                <label class="registro__label" for="apellido">Apellido</label>
+                <input required type="text" id="apellido" name="apellido"><br>
+                <label class="registro__label" for="fnacimiento">Fecha Nacimiento</label>
+                <input required type="date" id="fnacimiento" name="fnacimiento"><br>
+                <label class="registro__label" for="tip_doc">Tipo Documento</label>
+                <select id="tip_doc" name="tip_doc">
+                    {{#tipos_documentos}}
+                    <option value={{label}}>{{label}}</option>
+                    {{/tipos_documentos}}
+                </select><br>
+                <label class="registro__label" for="ndoc">Nro. Documento</label>
+                <input required type="number" id="ndoc" name="ndoc"><br>
+                <label class="registro__label" for="r_dir">Direcci&oacute;n</label>
+                <input required type="text" id="r_dir" name="dir"><br>
+                <label class="registro__label" for="number">C&oacute;digo Postal</label>
+                <input required type="text" id="r_cp" name="cp"><br>
+                <label class="registro__label" for="loc">Localidad</label>
+                <input required type="text" id="r_loc" name="loc"><br>
+                <label class="registro__label" for="tel">Tel&eacute;fono</label>
+                <input required type="text" id="tel" name="tel"><br>
+                <label class="registro__label" for="email">Email</label>
+                <input required type="text" id="email" name="email"><br><br>
+                <h2>Mascota</h2>
+                <label class="registro__label" for="desc">Descripci&oacute;n</label>
+                <textarea class="contacto__consulta__texto" cols="40" rows="8" id="desc" name="desc"></textarea><br>
+                <label class="registro__label" for="m_dir">Direcci&oacute;n encuentro</label>
+                <input required type="text" id="m_dir" name="dir"><br>
+                <label class="registro__label" for="number">C&oacute;digo Postal</label>
+                <input required type="text" id="m_cp" name="cp"><br>
+                <label class="registro__label" for="loc">Localidad</label>
+                <input required type="text" id="m_loc" name="loc"><br>
+                <label class="registro__label" for="foto">Foto</label>
+                <input required type="file" id="foto" name="foto"><br>               
+                <input type="submit" class="boton-submit" style="color:black;" value="Registrar Rescate"><br>
+            </form>
+        </div>
+    </div>
+</section>    
+{{/partial}}
 {{> layout.html.hbs }}
