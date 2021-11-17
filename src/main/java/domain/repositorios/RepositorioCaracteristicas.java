@@ -1,6 +1,7 @@
 package domain.repositorios;
 
 import domain.ObjetivoPregunta;
+import domain.Opcion;
 import domain.Pregunta;
 
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+
+import javax.persistence.EntityTransaction;
 
 public class RepositorioCaracteristicas implements WithGlobalEntityManager {
   private List<Pregunta> caracteristicasDisponibles = Collections.emptyList();
@@ -53,5 +56,20 @@ public class RepositorioCaracteristicas implements WithGlobalEntityManager {
 
   public Pregunta buscar(Long id) {
     return entityManager().find(Pregunta.class, id);
+  }
+
+  public void actualizarPregunta(Long idPregunta, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
+    EntityTransaction tx = entityManager().getTransaction();
+    tx.begin();
+    Pregunta pregunta = this.buscar(idPregunta);
+    if(descripcion != null) {
+      pregunta.setDescripcion(descripcion);
+    }
+    if(opciones != null && !opciones.isEmpty()) {
+      pregunta.setOpciones(opciones);
+    }
+    pregunta.setObligatoria(obligatoria);
+    tx.commit();
+    entityManager().persist(pregunta);
   }
 }

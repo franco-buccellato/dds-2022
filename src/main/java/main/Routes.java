@@ -53,6 +53,7 @@ public class Routes {
     Spark.get("/caracteristicas/crear", caracteristicaController::mostrarCrearCaracteristica, engine);
     Spark.get("/caracteristicas/:id", (request, response) -> caracteristicaController.getDetalleCaracteristica(request, response, engine));
     Spark.post("/caracteristicas", caracteristicaController::crearCaracteristica, engine);
+    Spark.post("/caracteristicas/:id", caracteristicaController::actualizarCaracteristica, engine);
 
     after((request, response) -> {
       PerThreadEntityManagers.getEntityManager();

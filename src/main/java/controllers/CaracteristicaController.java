@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -25,17 +26,19 @@ import spark.Response;
 import spark.TemplateEngine;
 
 public class CaracteristicaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
-   public ModelAndView getCaracteristicas(Request request, Response response) {
+  RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
+
+  public ModelAndView getCaracteristicas(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 
-    modelo.put("caracteristicasDisponibles", RepositorioCaracteristicas.getInstance().listar());
+    modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listar());
 
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
   public ModelAndView mostrarCrearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
-    modelo.put("caracteristicasDisponibles", RepositorioCaracteristicas.getInstance().listar());
+    modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listar());
 
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
@@ -47,14 +50,14 @@ public class CaracteristicaController extends BaseController implements WithGlob
     List<ObjetivoPregunta> objetivos = Arrays.asList(ObjetivoPregunta.CARACTERISTICA_MASCOTA);
     String descripcion = request.queryParams("descripcion");
     Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
-    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getInstance();
 
-    int i = 1;
-    String descripcionOpcion;
     List<Opcion> opciones = new ArrayList<>();
-    while (!Objects.isNull(descripcionOpcion = request.queryParams("opcion-" + i))) {
-      opciones.add(new Opcion(descripcionOpcion));
-      i++;
+    List<String> paramsOpciones = request.queryParams()
+        .stream()
+        .filter(paramName -> paramName.contains("opcion"))
+        .collect(Collectors.toList());
+    for(String opcion : paramsOpciones) {
+      opciones.add(new Opcion(request.queryParams(opcion)));
     }
 
     try {
@@ -80,7 +83,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
     Map<String, Object> modelo = this.setMetadata(request);
     String id = request.params(":id");
     try{
-      Pregunta caracteristica = RepositorioCaracteristicas.getInstance().buscar(Long.valueOf(id));
+      Pregunta caracteristica = repositorioCaracteristicas.buscar(Long.valueOf(id));
       if(caracteristica != null) {
         modelo.put("caracteristica", caracteristica);
         return engine.render(new ModelAndView(modelo, "detalleCaracteristicas.html.hbs"));
@@ -88,6 +91,32 @@ public class CaracteristicaController extends BaseController implements WithGlob
       return null;
     } catch(NumberFormatException | NullPointerException exception){
       return "Bad Request";
+    }
+  }
+
+  public ModelAndView actualizarCaracteristica(Request request, Response response) {
+    Map<String, Object> modelo = this.setMetadata(request);
+
+    Long id = Long.valueOf(request.params(":id"));
+    String descripcion = request.queryParams("descripcion");
+    Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
+
+    List<Opcion> opciones = new ArrayList<>();
+    List<String> paramsOpciones = request.queryParams()
+        .stream()
+        .filter(paramName -> paramName.contains("opcion"))
+        .collect(Collectors.toList());
+    for(String opcion : paramsOpciones) {
+      opciones.add(new Opcion(request.queryParams(opcion)));
+    }
+
+    try {
+      repositorioCaracteristicas.actualizarPregunta(id, descripcion, opciones, obligatoria);
+    } catch (TipoPreguntaInexistenteException | NullPointerException exception) {
+      modelo.put("error", exception.getMessage());
+    } finally {
+      modelo.put("caracteristicasDisponibles", repositorioCaracteristicas.listar());
+      return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
     }
   }
 

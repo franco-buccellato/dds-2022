@@ -2,7 +2,7 @@
     <section class="section-registrar">
         <div class="container__registro">
             <div class="registro">
-                <form action="/caracteristicas/{{id}}" method="POST">
+                <form action="/caracteristicas/{{caracteristica.id}}" method="POST">
                     <div class="detalle_caracteristica">
                         <h2>Edite caracteristica</h2>
                         <div>
@@ -22,21 +22,25 @@
                         </div>
                         <div>
                             <label class="registro__label" style="display:inline-block;  width: 150px">Tipo de
-                                Caracteristica:</label>
+                                Caracteristica: </label>
                             <label name="tipoCaracteristica" class="registro__input" id="tipoCaracteristica" style="display:inline-block;"> {{caracteristica.tipoPregunta}} </label>
                             <ul>
-                                  {{#caracteristica.opciones}}
+                                  {{#each caracteristica.opciones}}
                                         <li>
-                                            <label class="registro__label" style="display:inline-block;  width: 150px">Opcion:</label>
+                                            <label class="registro__label" style="display:inline-block;  width: 150px">Opcion {{@index}}:</label>
                                             <input type="text"
-                                                name="opcion-${{{id}}}"
+                                                name="opcion-{{@index}}"
                                                 class="registro__input"
-                                                id="opcion-${{{id}}}"
+                                                id="opcion-{{@index}}"
                                                 style="display:inline-block"
                                                 value={{descripcion}}
                                             >
+                                            {{#if @index}}
+                                            <button onclick=salvarYagregarOpcion(this)><i class="fas fa-plus"></i></button>
+                                            {{/if}}
+                                            <button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>
                                         </li>
-                                  {{/caracteristica.opciones}}
+                                  {{/each}}
                             </ul>
                         </div>
                     </div>
@@ -55,66 +59,69 @@
         </div>
     </section>
     <script>
-//         let caracteristicas = document.querySelector('div.crear_caracteristica');
-//
-//         let opciones = 0;
-//
-//         const opcion = (numero) => `
-//             <label class="registro__label" style="display:inline-block;  width: 150px">Opcion ${numero}:</label>
-//             <input type="text"
-//                    name="opcion-${numero}"
-//                    class="registro__input"
-//                    id="opcion-${numero}"
-//                    style="display:inline-block"
-//             >`
-//
-//         const agregarOpcionBoton = `
-//             <button onclick=salvarYagregarOpcion(this)><i class="fas fa-plus"></i></button>
-//         `
-//
-//         const sacarOpcionBoton = `
-//             <button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>
-//         `
-//
-//         const salvarYagregarOpcion = (element) => {
-//             const input = element.parentElement.querySelector('input');
-//             input.setAttribute('value', input.value);
-//
-//             caracteristicas.querySelectorAll('li').forEach((item) => {
-//                 const input = item.lastElementChild
-//                 input.setAttribute('value', input.value);
-//             })
-//
-//             agregarOpcion();
-//         }
-//
-//         const agregarOpcion = () => {
-//             opciones++
-//             caracteristicas.querySelector('ul').innerHTML += `<li>${opcion(opciones)}</li>`
-//             renderBotonesOpciones();
-//         }
-//
-//         const eliminarOpcion = (element) => {
-//             opciones--;
-//             element.parentElement?.remove()
-//             renderBotonesOpciones()
-//         }
-//
-//         const renderBotonesOpciones = () => {
-//             caracteristicas.querySelectorAll('li').forEach((item, index) => {
-//                 if (opciones === 1) {
-//                     item.innerHTML += agregarOpcionBoton;
-//                     return;
-//                 }
-//
-//                 if (opciones === ++index) {
-//                     item.innerHTML += agregarOpcionBoton + sacarOpcionBoton;
-//                     return;
-//                 }
-//
-//                 item.querySelectorAll('button')?.forEach(button => button.remove())
-//             })
-//         }
+        let caracteristicas = document.querySelector('div.detalle_caracteristica');
+        const opcion = `
+            <label class="registro__label" style="display:inline-block;  width: 150px"></label>
+            <input type="text"
+                   name="opcion"
+                   class="registro__input"
+                   id="opcion"
+                   style="display:inline-block"
+            >`
+        const agregarOpcionBoton = `
+            <button onclick=salvarYagregarOpcion(this)><i class="fas fa-plus"></i></button>
+        `
+
+        const sacarOpcionBoton = `
+            <button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>
+        `
+
+        const salvarYagregarOpcion = (element) => {
+            const input = element.parentElement.querySelector('input');
+            input.setAttribute('value', input.value);
+
+            caracteristicas.querySelectorAll('li').forEach((item) => {
+                const input = item.lastElementChild
+                input.setAttribute('value', input.value);
+            })
+
+            agregarOpcion();
+        }
+
+        const agregarOpcion = () => {
+            caracteristicas.querySelector('ul').innerHTML += `<li>${opcion}</li>`
+            renameItems();
+            renderBotonesOpciones();
+        }
+
+        const eliminarOpcion = (element) => {
+            element.parentElement?.remove()
+            renameItems();
+            renderBotonesOpciones()
+        }
+        const renameItems = () => {
+          caracteristicas.querySelectorAll('li').forEach((item, index) => {
+                        const input = item.querySelector('input');
+                        input.setAttribute('value', input.value);
+                        input.setAttribute('id', `opcion-${index + 1}`);
+                        item.querySelector('label').innerText = `Opcion ${index + 1}`;
+          })
+        }
+        const renderBotonesOpciones = () => {
+            const lis = caracteristicas.querySelectorAll('li');
+            lis.forEach((li, index) => {
+                li.querySelectorAll('button')?.forEach(button => button.remove())
+                if (index === 0 && lis.length === 1) {
+                    li.innerHTML += agregarOpcionBoton;
+                    return;
+                }
+                if (lis.length === (index + 1)) {
+                    li.innerHTML += agregarOpcionBoton + sacarOpcionBoton;
+                    return;
+                }
+                li.innerHTML += sacarOpcionBoton
+            })
+        }
     </script>
 {{/partial}}
 {{# partial "footer" }}
