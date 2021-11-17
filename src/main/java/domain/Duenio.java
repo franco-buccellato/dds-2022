@@ -5,28 +5,34 @@ import static domain.exception.Mensajes.NOT_NULO;
 import domain.repositorios.RepositorioDuenio;
 import domain.templatesNotificacion.PublicacionInteresTemplate;
 import domain.templatesNotificacion.RescatistaContactaDuenioTemplate;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.*;
+
 @Entity
 @Table(name = "Duenios")
 public class Duenio {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @Embedded
   private DatoPersonal datoPersonal;
+
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "duenio_id")
   private List<Contacto> contactos;
+
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "duenio_id")
   private List<Mascota> mascotas;
+
   @OneToOne
+  @JoinColumn(name = "usuario_id")
   private Usuario usuario;
+
   @Transient
   private List<PublicacionAdopcion> ultimasPublicacionesInteres;
 
@@ -48,6 +54,14 @@ public class Duenio {
   }
 
   //  Getters y setters
+  public Long getId() {
+    return this.id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   public DatoPersonal getDatoPersonal() {
     return datoPersonal;
   }
@@ -89,16 +103,16 @@ public class Duenio {
     this.ultimasPublicacionesInteres = publicaciones;
 
     PublicacionInteresTemplate template = publicaciones.isEmpty()
-            ? new PublicacionInteresTemplate("lista_interes", publicaciones)
-            : new PublicacionInteresTemplate("lista_interes_vacia", null);
+        ? new PublicacionInteresTemplate("lista_interes", publicaciones)
+        : new PublicacionInteresTemplate("lista_interes_vacia", null);
     contactoTitular().notificar(new Notificacion(template));
   }
 
   public Contacto contactoTitular() {
     return this.getContactos()
-               .stream()
-               .filter(contacto -> contacto.getVinculo().equals(Vinculo.TITULAR))
-               .findFirst()
-               .get();
+        .stream()
+        .filter(contacto -> contacto.getVinculo().equals(Vinculo.TITULAR))
+        .findFirst()
+        .get();
   }
 }

@@ -3,10 +3,10 @@ package main;
 import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
 import static domain.ObjetivoPregunta.PREGUNTA_ASOCIACION_PREFERENCIAS;
 
+import domain.*;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
-
-import domain.*;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -17,9 +17,36 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
   }
 
   public void run() {
+    Usuario userDuenio = new Usuario("duenio", "duenio2021", TipoUsuario.ESTANDAR);
+
     withTransaction(() -> {
       persist(new Usuario("user", "user2021", TipoUsuario.ESTANDAR));
       persist(new Usuario("admin", "admin2021", TipoUsuario.ADMINISTRADOR));
+      persist(userDuenio);
+
+      persist(
+          new Duenio(
+              new DatoPersonal(
+                  "Juan",
+                  "Perez",
+                  TipoIdentificacion.DNI,
+                  "99999999",
+                  LocalDate.of(1960, 12, 12)
+              ),
+              Arrays.asList(
+                  new Contacto(
+                      "Jose",
+                      "Perez",
+                      "4444-4444",
+                      "jp@gmail.com",
+                      Vinculo.FAMILIAR,
+                      null
+                  )
+              ),
+              null,
+              userDuenio
+          )
+      );
       persist(TipoPreguntaFactory.makePregunta(
           TipoPregunta.BULLET,
           Collections.singletonList(CARACTERISTICA_MASCOTA),

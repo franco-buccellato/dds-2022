@@ -58,4 +58,10 @@ public class RepositorioDuenioTest extends Fixture {
 
     verify(duenioMock).notificarMascotaEncontrada(rescateMock);
   }
+
+  @Test
+  void AlBuscarPorUsuarioInexistenteTraeNull() {
+    Duenio duenio = RepositorioDuenio.getInstance().getDuenioByIdUsuario(1L);
+    assertNull(duenio);
+  }
 }

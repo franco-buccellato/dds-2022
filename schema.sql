@@ -17,7 +17,7 @@
         nombre varchar(255),
         numero_identificacion varchar(255),
         tipo_identificacion varchar(255),
-        usuario_usuario_id bigint,
+        usuario_id bigint,
         primary key (id)
     )
 
@@ -190,8 +190,8 @@
         references Duenios (id)
 
     alter table Duenios 
-        add constraint FK_n9uy7404hnbj138puccctebi7 
-        foreign key (usuario_usuario_id) 
+        add constraint FK_t0ofydwaf7x56d6vr9ged1qi7 
+        foreign key (usuario_id) 
         references Usuarios (usuario_id)
 
     alter table Rescatistas 

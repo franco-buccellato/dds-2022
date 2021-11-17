@@ -6,9 +6,9 @@ import domain.Rescate;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class RepositorioDuenio implements WithGlobalEntityManager {
@@ -44,25 +44,20 @@ public class RepositorioDuenio implements WithGlobalEntityManager {
 
   public Duenio getDuenioByIdUsuario(Long userId) {
     try {
-      Query query = entityManager().createNativeQuery("select d.id, d.apellido from duenios d where d.usuario_usuario_id = :userId", Duenio.class);
-      query.setParameter("userId", userId);
-      Long idDuenio = (Long) query.getParameterValue("userId");
-      return getById(idDuenio);
+      return entityManager().createQuery("from Duenio d where d.usuario.id = :userId", Duenio.class)
+          .setParameter("userId", userId)
+          .getSingleResult();
     } catch (NoResultException e) {
       return null;
     }
   }
 
-//  public List findWithName(String name) {
-//    return entityManager().createQuery(
-//        "SELECT c FROM Customer c WHERE c.name LIKE :custName")
-//        .setParameter("custName", name)
-//        .setMaxResults(10)
-//        .getResultList();
-//  }
-
   public Optional<Duenio> findDuenioMascota(Mascota mascota) {
     return duenios.stream().filter(duenio -> duenio.getMascotas().contains(mascota)).findFirst();
+  }
+
+  public List<Duenio> listar() {
+    return entityManager().createQuery("from Duenio", Duenio.class).getResultList();
   }
 
 }
