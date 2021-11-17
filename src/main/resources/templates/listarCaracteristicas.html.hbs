@@ -2,7 +2,7 @@
     <section class="section-registrar">
         <div class="container__registro">
             <div class="registro">
-                    <div class="crear_caracteristica">
+                    <div class="listar_caracteristica">
                         <div>
                             <form action="/caracteristicas/crear">
                                 <input type="submit" class="boton-submit" value="Agregar Caracteristica">
@@ -14,10 +14,10 @@
                                 onMouseOver="this.style.border=1"
                                 onMouseOut="this.style.border=0">
                                  <div style="padding: 10px">
-                                       <label>{{descripcion}}</label>
+                                       <label> {{descripcion}} ( {{tipoPregunta}} {{#if obligatoria}}- Obligatoria {{/if}})</label>
                                        <div>
                                             {{#opciones}}
-                                                <div>{{descripcion}}</div>
+                                                <li>{{descripcion}}</li>
                                             {{/opciones}}
                                        </div>
                                  </div>

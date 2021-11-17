@@ -6,6 +6,8 @@ import java.util.Objects;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import static domain.TipoPregunta.NUMBER;
+
 @Entity
 @DiscriminatorValue(value = TipoPregunta.Values.NUMBER)
 public class PreguntaNumber extends Pregunta {
@@ -13,7 +15,7 @@ public class PreguntaNumber extends Pregunta {
   }
 
   public PreguntaNumber(List<ObjetivoPregunta> objetivos, String descripcion, Boolean obligatoria) {
-    super(objetivos, descripcion, obligatoria);
+    super(NUMBER, objetivos, descripcion, obligatoria);
   }
 
   @Override

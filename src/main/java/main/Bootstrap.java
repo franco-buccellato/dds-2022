@@ -1,14 +1,15 @@
 package main;
 
-import domain.*;
-import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
+import static domain.ObjetivoPregunta.PREGUNTA_ASOCIACION_PREFERENCIAS;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
+import domain.*;
+import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
   public static void main(String[] args) {
@@ -54,8 +55,15 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
       ));
       persist(TipoPreguntaFactory.makePregunta(
           TipoPregunta.TEXT,
-          Collections.singletonList(CARACTERISTICA_MASCOTA),
+          Arrays.asList(CARACTERISTICA_MASCOTA, PREGUNTA_ASOCIACION_PREFERENCIAS),
           "Dato de Interes",
+          false,
+          null
+      ));
+      persist(TipoPreguntaFactory.makePregunta(
+          TipoPregunta.NUMBER,
+          Collections.singletonList(PREGUNTA_ASOCIACION_PREFERENCIAS),
+          "Edad en anios",
           true,
           null
       ));

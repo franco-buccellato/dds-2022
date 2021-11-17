@@ -108,6 +108,7 @@
         pregunta_id bigint not null auto_increment,
         descripcion varchar(255),
         obligatoria bit,
+        tipo varchar(255) not null,
         primary key (pregunta_id)
     )
 

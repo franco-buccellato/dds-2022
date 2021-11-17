@@ -16,6 +16,10 @@ public abstract class Pregunta {
   @Column(name = "pregunta_id")
   protected Long id;
 
+  @Column(name = "tipo", nullable = false)
+  @Enumerated(EnumType.STRING)
+  protected TipoPregunta tipoPregunta;
+
   @ElementCollection(targetClass = ObjetivoPregunta.class, fetch = FetchType.EAGER)
   @CollectionTable(name = "preguntas_objetivos", joinColumns = @JoinColumn(name = "pregunta_id"))
   @Column(name = "objetivo", nullable = false)
@@ -33,7 +37,8 @@ public abstract class Pregunta {
   public Pregunta() {
   }
 
-  public Pregunta(List<ObjetivoPregunta> objetivos, String descripcion, Boolean obligatoria) {
+  public Pregunta(TipoPregunta tipoPregunta, List<ObjetivoPregunta> objetivos, String descripcion, Boolean obligatoria) {
+    this.tipoPregunta = Objects.requireNonNull(tipoPregunta, NOT_NULO.mensaje("tipo"));
     this.objetivos = Objects.requireNonNull(objetivos, NOT_NULO.mensaje("objetivos"));
     this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
     this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
@@ -45,6 +50,10 @@ public abstract class Pregunta {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public TipoPregunta getTipoPregunta() {
+    return this.tipoPregunta;
   }
 
   public List<ObjetivoPregunta> getObjetivos() {
@@ -84,7 +93,7 @@ public abstract class Pregunta {
   }
 
   public Boolean esMismaPregunta(Pregunta pregunta) {
-    return this.equals(pregunta);
+    return this.getId().equals(pregunta.getId());
   }
 
   public abstract Boolean sonMismasSelecciones(Opcion seleccion1, Opcion seleccion2);

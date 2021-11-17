@@ -1,5 +1,6 @@
 package domain;
 
+import static domain.TipoPregunta.CHECKBOX;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class PreguntaCheckBox extends Pregunta {
   }
 
   public PreguntaCheckBox(List<ObjetivoPregunta> objetivos, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
-    super(objetivos, descripcion, obligatoria);
+    super(CHECKBOX, objetivos, descripcion, obligatoria);
     this.opciones = Objects.requireNonNull(opciones, NOT_NULO.mensaje("opciones"));  }
 
   @Override

@@ -22,6 +22,7 @@ import domain.repositorios.RepositorioPreguntas;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.TemplateEngine;
 
 public class CaracteristicaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
@@ -29,16 +30,14 @@ public class CaracteristicaController extends BaseController implements WithGlob
     Map<String, Object> modelo = this.setMetadata(request);
 
     RepositorioPreguntas repositorioPreguntas = RepositorioPreguntas.getInstance();
-    modelo.put(
-        "caracteristicasDisponibles",
-        repositorioPreguntas.listarPreguntasDisponibles()
-    );
+    modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
 
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
   public ModelAndView mostrarCrearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
+    modelo.put("caracteristicasDisponibles", RepositorioPreguntas.getInstance().listar());
 
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
@@ -74,14 +73,27 @@ public class CaracteristicaController extends BaseController implements WithGlob
       modelo.put("error", exception.getMessage());
 
       return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
+    } finally {
+      modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
     }
 
-    modelo.put(
-        "caracteristicasDisponibles",
-        repositorioPreguntas.listarPreguntasDisponibles()
-    );
-
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
+
+  }
+
+  public Object getDetalleCaracteristica(Request request, Response response, TemplateEngine engine) {
+    Map<String, Object> modelo = this.setMetadata(request);
+    String id = request.params(":id");
+    try {
+      Pregunta caracteristica = RepositorioPreguntas.getInstance().buscar(Long.valueOf(id));
+      if (caracteristica != null) {
+        modelo.put("caracteristica", caracteristica);
+        return engine.render(new ModelAndView(modelo, "detalleCaracteristicas.html.hbs"));
+      }
+      return null;
+    } catch (NumberFormatException | NullPointerException exception) {
+      return "Bad Request";
+    }
   }
 
   public Map<String, Object> setMetadata(Request request) {

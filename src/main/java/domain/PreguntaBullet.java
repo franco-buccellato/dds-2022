@@ -1,5 +1,6 @@
 package domain;
 
+import static domain.TipoPregunta.BULLET;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class PreguntaBullet extends Pregunta {
   }
 
   public PreguntaBullet(List<ObjetivoPregunta> objetivos, String descripcion, List<Opcion> opciones, Boolean obligatoria) {
-    super(objetivos, descripcion, obligatoria);
+    super(BULLET, objetivos, descripcion, obligatoria);
     this.opciones = Objects.requireNonNull(opciones, NOT_NULO.mensaje("opciones"));
   }
 
