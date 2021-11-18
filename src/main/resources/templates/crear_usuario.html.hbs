@@ -1,27 +1,26 @@
 {{# partial "contenido" }}
-			<div id="login">
-				<div class="container-login">
-				<form action="/registro" method="POST">
-					<form>
-						<div class="contacto__info">
-							<ul class="contacto__info__inputs">
-								<li><label class="label-contacto">Ingrese Usuario:</label></li>
-								<li><input type="text" name="usuario" required="" class="input_text"></li>
-								<li><label class="label-contacto">Ingrese Password:</label></li>
-								<li><input type="password" name="password" required=""class="input_text"></li>
-								<li><input type="submit" value="Registrar" class="boton-submit"></li>
-							</ul>
-						</div>
-						<div id="informacion">
-                            <div class="informacion-flex">
-                        		<p>
-                        		    {{passwordDebil}}
-                        		</p>
-                        	</div>
-                       	</div>
-					</form>
-				</div>
-			</div>
+    <div id="login">
+        <div class="container-login">
+            <form action="/registro" method="POST">
+                <div class="contacto__info">
+                    <ul class="contacto__info__inputs">
+                        <li><label class="label-contacto">Ingrese Usuario:</label></li>
+                        <li><input type="text" name="usuario" required="" class="input_text"></li>
+                        <li><label class="label-contacto">Ingrese Password:</label></li>
+                        <li><input type="password" name="password" required="" class="input_text" minlength="8"></li>
+                        <li><input type="submit" value="Registrar" class="boton-submit"></li>
+                    </ul>
+                </div>
+                <div id="informacion">
+                    <div class="informacion-flex">
+                        <p>
+                            {{passwordDebil}}
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {{/partial}}
 {{# partial "footer" }}
 {{/partial}}

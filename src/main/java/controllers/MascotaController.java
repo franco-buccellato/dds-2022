@@ -1,9 +1,7 @@
 package controllers;
 
 import domain.*;
-import domain.repositorios.RepositorioDuenio;
-import domain.repositorios.RepositorioPreguntas;
-import domain.repositorios.RepositorioUsuarios;
+import domain.repositorios.*;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.ModelAndView;
@@ -13,6 +11,7 @@ import spark.Response;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MascotaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
@@ -78,31 +77,73 @@ public class MascotaController extends BaseController implements WithGlobalEntit
       duenio = new Duenio(datosDuenio, Arrays.asList(contacto1, contacto2), null, usuario);
     }
 
-    List<Opcion> opciones = new ArrayList<>();
     List<String> paramsOpciones = request.queryParams()
         .stream()
         .filter(paramName -> paramName.contains("respuesta"))
         .collect(Collectors.toList());
 
-    for (String opcion : paramsOpciones) {
-      System.out.println(opcion);
-      System.out.println(request.queryParams(opcion));
+    HashMap<Long, List<String>> respuestas = new HashMap<>();
 
+    for (String opcion : paramsOpciones) {
       String[] spliteado = opcion.split("-");
+      Long preguntaId = Long.valueOf(spliteado[1]);
 
       if (spliteado.length == 3) {
-        List<String> respuestas = paramsOpciones.stream()
-            .filter(param -> param.split("-")[2].equals(spliteado[2]))
-            .map(param -> request.queryParams(param))
-            .collect(Collectors.toList());
+        List<String> respuesta = respuestas.get(preguntaId);
+        if (respuesta == null) {
+          respuesta = new ArrayList<>();
+        }
+        respuesta.add(spliteado[2]);
+        respuestas.put(preguntaId, respuesta);
 
-        System.out.println(respuestas);
-
-        break;
+        continue;
       }
 
-      opciones.add(new Opcion(request.queryParams(opcion)));
+      respuestas.put(preguntaId, Collections.singletonList(request.queryParams(opcion)));
     }
+
+    List<RespuestaCaracteristicaMascota> respuestasCaracteristicas = new ArrayList<>();
+
+    respuestas.forEach((idPregunta, respuesta) -> {
+      System.out.println(idPregunta);
+      System.out.println(respuesta);
+
+      Pregunta pregunta = RepositorioPreguntas.getInstance().buscar(idPregunta);
+      System.out.println(pregunta);
+      System.out.println(pregunta.getId());
+      System.out.println(pregunta.getDescripcion());
+
+      List<Opcion> opciones = new ArrayList<>();
+
+      respuesta.forEach(res -> {
+        Opcion opcion;
+        try {
+          opcion = RepositorioOpciones.getInstance().buscar(Long.valueOf(res));
+
+          if (opcion == null) {
+            opcion = new Opcion(res);
+          }
+
+        } catch (NumberFormatException e) {
+          opcion = new Opcion(res);
+        }
+
+        opciones.add(opcion);
+      });
+
+      RespuestaCaracteristicaMascota respuestaCaracteristicaMascota = new RespuestaCaracteristicaMascota(
+          pregunta,
+          opciones
+      );
+
+      System.out.println("PREGUNTA ID");
+      System.out.println(respuestaCaracteristicaMascota.getPregunta().getId());
+      withTransaction(
+          () -> RepositorioRespuestasCaracteristicas.getInstance()
+              .insertar(respuestaCaracteristicaMascota)
+      );
+      respuestasCaracteristicas.add(respuestaCaracteristicaMascota);
+    });
 
     TipoMascota tipoMascota = TipoMascota.valueOf(request.queryParams("registro-especie"));
     String nombreMascota = request.queryParams("registro-nombre");
@@ -119,7 +160,7 @@ public class MascotaController extends BaseController implements WithGlobalEntit
         sexo,
         descripcionFisica,
         fotos,
-        null,
+        respuestasCaracteristicas,
         SituacionMascota.EN_HOGAR_PROPIO
     );
 
