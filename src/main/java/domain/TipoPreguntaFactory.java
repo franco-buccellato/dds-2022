@@ -1,7 +1,6 @@
 package domain;
 
 import domain.exception.TipoPreguntaInexistenteException;
-
 import java.util.List;
 
 public class TipoPreguntaFactory {

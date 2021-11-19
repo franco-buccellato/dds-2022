@@ -1,11 +1,11 @@
 package domain;
 
-import java.util.List;
+import static domain.TipoPregunta.TEXT;
 
+import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import static domain.TipoPregunta.TEXT;
 
 @Entity
 @DiscriminatorValue(value = TipoPregunta.Values.TEXT)

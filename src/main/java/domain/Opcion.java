@@ -5,7 +5,6 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +17,7 @@ public class Opcion {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "opcion_id")
   private Long id;
+
   private String descripcion;
 
   public Opcion() {

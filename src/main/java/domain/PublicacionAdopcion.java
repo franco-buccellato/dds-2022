@@ -2,9 +2,10 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
+import domain.exception.PreguntaObligatoriaNoContestadaException;
+import domain.templatesNotificacion.InteresadoEnAdoptarTemplate;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import domain.exception.PreguntaObligatoriaNoContestadaException;
-import domain.templatesNotificacion.InteresadoEnAdoptarTemplate;
-
 @Entity(name = "publicaciones_adopcion")
 public class PublicacionAdopcion {
   @Id
@@ -27,6 +25,7 @@ public class PublicacionAdopcion {
   private Long id;
 
   @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "duenio_id")
   private Duenio duenio;
 
   @ManyToOne(cascade = CascadeType.ALL)
@@ -52,9 +51,9 @@ public class PublicacionAdopcion {
     this.mascota = Objects.requireNonNull(mascota, NOT_NULO.mensaje("mascota"));
     this.asociacion = Objects.requireNonNull(asociacion, NOT_NULO.mensaje("asociacion"));
     this.seleccionesAdopcion = Objects.requireNonNull(
-      seleccionesAdopcion, NOT_NULO.mensaje("seleccionesAdopcion")
-      );
-      this.estaActiva = Boolean.TRUE;
+        seleccionesAdopcion, NOT_NULO.mensaje("seleccionesAdopcion")
+    );
+    this.estaActiva = Boolean.TRUE;
     this.chequearTodasPreguntasRespondidas(asociacion, seleccionesAdopcion);
   }
 

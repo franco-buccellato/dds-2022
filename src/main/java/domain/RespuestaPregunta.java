@@ -3,19 +3,42 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.exception.SeleccionInvalidaException;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
+@Entity(name = "respuestas")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class RespuestaPregunta {
+  @Id
+  @GeneratedValue(strategy = GenerationType.TABLE)
+  @Column(name = "respuesta_id")
   private Long id;
 
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "pregunta_id")
   private Pregunta pregunta;
 
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinTable(
+      name = "opciones_respuestas",
+      joinColumns = @JoinColumn(name = "respuesta_id"),
+      inverseJoinColumns = @JoinColumn(name = "opcion_id")
+  )
   private List<Opcion> selecciones;
 
   public RespuestaPregunta() {

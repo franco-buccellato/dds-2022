@@ -3,37 +3,37 @@ package domain;
 import java.math.BigDecimal;
 
 import org.codehaus.jackson.annotate.JsonProperty;
-
-import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "ubicaciones")
 public class Ubicacion {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ubicacion_id")
-  @GeneratedValue
   Long id;
 
   @JsonProperty("direccion")
-  @Column(name = "ubicacion_direccion")
+  @Column(name = "direccion")
   private String direccion;
-  @Column(name = "ubicacion_codigo_postal")
+
+  @Column(name = "codigo_postal")
   private String codigoPostal;
-  @Column(name = "ubicacion_localidad")
+
+  @Column(name = "localidad")
   private String localidad;
+
   @JsonProperty("lat")
-  @Column(name = "ubicacion_latitud")
+  @Column(name = "latitud")
   private BigDecimal latitud;
+
   @JsonProperty("long")
-  @Column(name = "ubicacion_longitud")
+  @Column(name = "longitud")
   private BigDecimal longitud;
 
   public Ubicacion() {

@@ -2,12 +2,11 @@ package domain;
 
 import domain.exception.MascotaSinDuenioException;
 import domain.repositorios.RepositorioDuenio;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("C")

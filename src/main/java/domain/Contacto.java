@@ -8,23 +8,27 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "Contactos")
+@Table(name = "contactos")
 public class Contacto {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "contacto_id")
-  @GeneratedValue
   Long id;
+
   private String nombre;
   private String apellido;
   private String telefono;
   private String mail;
+
   @Enumerated(EnumType.STRING)
   private Vinculo vinculo;
+
   @Transient
   private MedioNotificacion medioNotificacion;
 
@@ -91,8 +95,8 @@ public class Contacto {
   @Override
   public String toString() {
     return "Nombre: " + this.nombre
-        + "\nApellido: " + this.apellido
-        + "\nTel: " + this.telefono
-        + "\nMail: " + this.mail;
+           + "\nApellido: " + this.apellido
+           + "\nTel: " + this.telefono
+           + "\nMail: " + this.mail;
   }
 }

@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import servicio.Funcion;
 
-import javax.persistence.Enumerated;
-
 public enum TipoUsuario {
   ESTANDAR(null),
   VOLUNTARIO(Arrays.asList(Funcion.APROBAR_PUBLICACION)),

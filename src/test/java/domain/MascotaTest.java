@@ -91,7 +91,7 @@ public class MascotaTest extends Fixture {
       new Mascota(PERRO, "Pedro", "Pepe", null, Sexo.MACHO, "Tiene pulgas", null, null, null);
     });
 
-    assertEquals(NOT_NULO.mensaje("edadAproximada"), exception.getMessage());
+    assertEquals(NOT_NULO.mensaje("edad"), exception.getMessage());
   }
 
   @Test

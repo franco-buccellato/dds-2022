@@ -105,14 +105,7 @@ public class MascotaController extends BaseController implements WithGlobalEntit
     List<RespuestaCaracteristicaMascota> respuestasCaracteristicas = new ArrayList<>();
 
     respuestas.forEach((idPregunta, respuesta) -> {
-      System.out.println(idPregunta);
-      System.out.println(respuesta);
-
       Pregunta pregunta = RepositorioPreguntas.getInstance().buscar(idPregunta);
-      System.out.println(pregunta);
-      System.out.println(pregunta.getId());
-      System.out.println(pregunta.getDescripcion());
-
       List<Opcion> opciones = new ArrayList<>();
 
       respuesta.forEach(res -> {
@@ -134,13 +127,6 @@ public class MascotaController extends BaseController implements WithGlobalEntit
       RespuestaCaracteristicaMascota respuestaCaracteristicaMascota = new RespuestaCaracteristicaMascota(
           pregunta,
           opciones
-      );
-
-      System.out.println("PREGUNTA ID");
-      System.out.println(respuestaCaracteristicaMascota.getPregunta().getId());
-      withTransaction(
-          () -> RepositorioRespuestasCaracteristicas.getInstance()
-              .insertar(respuestaCaracteristicaMascota)
       );
       respuestasCaracteristicas.add(respuestaCaracteristicaMascota);
     });
