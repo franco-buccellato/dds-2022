@@ -37,7 +37,9 @@ public class PublicacionRescateTest extends Fixture {
     fecha = LocalDate.of(2021, 5, 4);
     mascota = mascota1();
     rescatista = rescatista();
-
+    asociacion1 = new Asociacion("Asociacion1", ubicacionAsociacion1());
+    asociacion2 = new Asociacion("Asociacion2", ubicacionAsociacion2());
+    asociacion3 = new Asociacion("Asociacion3", ubicacionAsociacion3());
     rescate = new RescateSinChapa(
         fotos,
         descripcion,
@@ -48,9 +50,7 @@ public class PublicacionRescateTest extends Fixture {
     );
     publicacionRescate = new PublicacionRescate(rescate);
 
-    asociacion1 = new Asociacion("Asociacion1", ubicacionAsociacion1());
-    asociacion2 = new Asociacion("Asociacion2", ubicacionAsociacion2());
-    asociacion3 = new Asociacion("Asociacion3", ubicacionAsociacion3());
+
     RepositorioAsociaciones repositorioAsociacionesTest = RepositorioAsociaciones.getRepositorioAsociaciones();
     repositorioAsociacionesTest.setAsociaciones(new ArrayList<>(Arrays.asList(
         asociacion1,

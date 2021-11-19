@@ -1,42 +1,52 @@
 {{# partial "contenido" }}
     <section class="section-registrar">
-        <div class="container__registro">
-            <div class="registro">
-                    <div class="listar_caracteristica">
-                        <div>
-                            <form action="/caracteristicas/crear">
-                                <input type="submit" class="boton-submit" value="Agregar Caracteristica">
-                            </form>
-                        </div>
-                        <h2></br>Caracteristicas Disponibles</h2></br>
-                         {{#caracteristicasDisponibles}}
-                             <a href="/caracteristicas/{{id}}"
-                                onMouseOver="this.style.border=1"
-                                onMouseOut="this.style.border=0">
-                                 <div style="padding: 10px">
-                                       <label> {{descripcion}} ( {{tipoPregunta}} {{#if obligatoria}}- Obligatoria {{/if}})</label>
-                                       <div>
-                                            {{#opciones}}
-                                                <li>{{descripcion}}</li>
-                                            {{/opciones}}
-                                       </div>
-                                 </div>
-                             </a>
-                             </br>
-                        {{/caracteristicasDisponibles}}
-                    </div>
+        {{#if success}}
+            <div id="success">
+                <div class="informacion-flex">
+                    <p>
+                        {{success}}
+                    </p>
+                </div>
             </div>
-            <div id="informacion">
+        {{/if}}
+        {{#if error}}
+            <div id="error">
                 <div class="informacion-flex">
                     <p>
                         {{error}}
                     </p>
                 </div>
             </div>
+        {{/if}}
+        <div class="container__registro">
+            <div class="registro">
+                <div class="listar_caracteristica">
+                    <div>
+                        <form action="/caracteristicas/crear">
+                            <input type="submit" class="boton-submit" value="Agregar Caracteristica">
+                        </form>
+                    </div>
+                    <h2></br>Caracteristicas Disponibles</h2></br>
+                    {{#caracteristicasDisponibles}}
+                        <a href="/caracteristicas/{{id}}"
+                           onMouseOver="this.style.border=1"
+                           onMouseOut="this.style.border=0">
+                            <div style="padding: 10px">
+                                <label> {{descripcion}} ( {{tipoPregunta}} {{#if obligatoria}}
+                                    - Obligatoria {{/if}})</label>
+                                <div>
+                                    {{#opciones}}
+                                        <li>{{descripcion}}</li>
+                                    {{/opciones}}
+                                </div>
+                            </div>
+                        </a>
+                        </br>
+                    {{/caracteristicasDisponibles}}
+                </div>
+            </div>
         </div>
     </section>
-    <script>
-    </script>
 {{/partial}}
 {{# partial "footer" }}
 {{/partial}}

@@ -4,12 +4,11 @@ import static spark.Spark.after;
 import static spark.Spark.before;
 import static spark.Spark.halt;
 
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
-
 import controllers.CaracteristicaController;
 import controllers.HomeController;
 import controllers.MascotaController;
 import controllers.SesionController;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -51,9 +50,9 @@ public class Routes {
     Spark.post("/registro", sesionController::registrarUsuario, engine);
     Spark.get("/caracteristicas", caracteristicaController::getCaracteristicas, engine);
     Spark.get("/caracteristicas/crear", caracteristicaController::mostrarCrearCaracteristica, engine);
-    Spark.get("/caracteristicas/:id", (request, response) -> caracteristicaController.getDetalleCaracteristica(request, response, engine));
-    Spark.post("/caracteristicas", caracteristicaController::crearCaracteristica);
-    Spark.post("/caracteristicas/:id", caracteristicaController::actualizarCaracteristica);
+    Spark.get("/caracteristicas/:id", caracteristicaController::getDetalleCaracteristica, engine);
+    Spark.post("/caracteristicas", caracteristicaController::crearCaracteristica, engine);
+    Spark.post("/caracteristicas/:id", caracteristicaController::actualizarCaracteristica, engine);
 
     after((request, response) -> {
       PerThreadEntityManagers.getEntityManager();
