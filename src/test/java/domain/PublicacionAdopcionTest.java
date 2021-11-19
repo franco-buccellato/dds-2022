@@ -1,25 +1,21 @@
 package domain;
 
+import constants.Fixture;
+import domain.exception.PreguntaObligatoriaNoContestadaException;
+import domain.repositorios.RepositorioPreguntas;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import constants.Fixture;
-import domain.exception.PreguntaObligatoriaNoContestadaException;
-import domain.repositorios.RepositorioPreguntas;
 
 public class PublicacionAdopcionTest extends Fixture {
   private Duenio duenioMascostaEnAdopcion;
-  private Duenio interesadoAdoptar;
   private Mascota mascotaEnAdopcion;
-  private Asociacion asociacionVinculada;
   private Asociacion asociacionSinPreguntas;
   private Asociacion asociacionConPreguntas;
-  private RepositorioPreguntas repositorioPreguntas;
 
   @BeforeEach
   public void iniciar() {
@@ -27,11 +23,11 @@ public class PublicacionAdopcionTest extends Fixture {
     this.mascotaEnAdopcion = mascota1();
     this.duenioMascostaEnAdopcion = duenio();
     this.duenioMascostaEnAdopcion.addMascota(mascotaEnAdopcion);
-    this.interesadoAdoptar = adoptante();
-    this.asociacionVinculada = asociacion();
+    Duenio interesadoAdoptar = adoptante();
+    Asociacion asociacionVinculada = asociacion();
     this.asociacionSinPreguntas = asociacion();
     this.asociacionConPreguntas = asociacionConPreguntasAdopcion();
-    this.repositorioPreguntas = new RepositorioPreguntas(Arrays.asList(
+    RepositorioPreguntas repositorioPreguntas = new RepositorioPreguntas(Arrays.asList(
         estaCastrada,
         contextura,
         datosDeInteres,

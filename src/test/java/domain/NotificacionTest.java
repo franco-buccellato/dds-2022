@@ -3,12 +3,10 @@ package domain;
 import constants.Fixture;
 import domain.templatesNotificacion.DuenioContactaRescatistaTemplate;
 import domain.templatesNotificacion.PublicacionInteresTemplate;
-import domain.templatesNotificacion.RescatistaContactaDuenioTemplate;
-import org.junit.jupiter.api.Assertions;
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 
 public class NotificacionTest {
   Fixture fixture;

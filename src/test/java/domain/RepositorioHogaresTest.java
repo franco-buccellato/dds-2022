@@ -2,6 +2,8 @@ package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import constants.Fixture;
+import domain.repositorios.RepositorioHogares;
 import java.math.BigDecimal;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -9,12 +11,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-
-import domain.repositorios.RepositorioHogares;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import constants.Fixture;
 import servicio.HogarTransitoServicio;
 
 public class RepositorioHogaresTest extends Fixture {

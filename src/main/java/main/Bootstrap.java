@@ -3,7 +3,16 @@ package main;
 import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
 import static domain.ObjetivoPregunta.PREGUNTA_ASOCIACION_PREFERENCIAS;
 
-import domain.*;
+import domain.Contacto;
+import domain.DatoPersonal;
+import domain.Duenio;
+import domain.Opcion;
+import domain.TipoIdentificacion;
+import domain.TipoPregunta;
+import domain.TipoPreguntaFactory;
+import domain.TipoUsuario;
+import domain.Usuario;
+import domain.Vinculo;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;

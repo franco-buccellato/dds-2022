@@ -1,13 +1,14 @@
 package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import constants.Fixture;
 import domain.exception.SeleccionInvalidaException;
-import org.junit.jupiter.api.Test;
-
 import java.util.Collections;
+import org.junit.jupiter.api.Test;
 
 public class RespuestaInteresAdopcionTest extends Fixture {
 
@@ -46,7 +47,9 @@ public class RespuestaInteresAdopcionTest extends Fixture {
     );
 
     assertTrue(
-        respuestaInteresAdopcion.getPregunta().getOpciones().contains(comportamientoConNinios.getOpciones().get(0))
+        respuestaInteresAdopcion.getPregunta()
+            .getOpciones()
+            .contains(comportamientoConNinios.getOpciones().get(0))
     );
   }
 }
