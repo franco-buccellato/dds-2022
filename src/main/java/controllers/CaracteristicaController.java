@@ -19,10 +19,7 @@ import domain.TipoPregunta;
 import domain.TipoPreguntaFactory;
 import domain.exception.TipoPreguntaInexistenteException;
 import domain.repositorios.RepositorioPreguntas;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.TemplateEngine;
+import spark.*;
 
 public class CaracteristicaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
   RepositorioPreguntas repositorioPreguntas = RepositorioPreguntas.getInstance();
@@ -49,22 +46,15 @@ public class CaracteristicaController extends BaseController implements WithGlob
     Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
 
     List<Opcion> opciones = new ArrayList<>();
-    List<String> paramsOpciones = request.queryParams()
-        .stream()
-        .filter(paramName -> paramName.contains("opcion"))
-        .collect(Collectors.toList());
-    for(String opcion : paramsOpciones) {
-      opciones.add(new Opcion(request.queryParams(opcion)));
-    }
+    QueryParamsMap paramsOpciones = request.queryMap().get("opcion");
+    Arrays.stream(paramsOpciones.values())
+        .forEach(value -> opciones.add(new Opcion(value)));
 
     try {
       Pregunta pregunta = TipoPreguntaFactory.makePregunta(
           tipoPregunta, objetivos, descripcion, obligatoria, opciones
       );
-
-      withTransaction(() -> {
-        repositorioPreguntas.agregar(pregunta);
-      });
+      withTransaction(() -> repositorioPreguntas.agregar(pregunta));
       response.redirect("/caracteristicas");
     } catch (TipoPreguntaInexistenteException | NullPointerException exception) {
     }
@@ -92,13 +82,9 @@ public class CaracteristicaController extends BaseController implements WithGlob
     Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
 
     List<Opcion> opciones = new ArrayList<>();
-    List<String> paramsOpciones = request.queryParams()
-        .stream()
-        .filter(paramName -> paramName.contains("opcion"))
-        .collect(Collectors.toList());
-    for(String opcion : paramsOpciones) {
-      opciones.add(new Opcion(request.queryParams(opcion)));
-    }
+    QueryParamsMap paramsOpciones = request.queryMap().get("opcion");
+    Arrays.stream(paramsOpciones.values())
+        .forEach(value -> opciones.add(new Opcion(value)));
 
     try {
       repositorioPreguntas.actualizarPregunta(id, descripcion, opciones, obligatoria);

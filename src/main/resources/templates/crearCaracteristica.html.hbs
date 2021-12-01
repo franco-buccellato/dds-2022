@@ -20,7 +20,7 @@
                                 <option value="NO">NO</option>
                             </select>
                         </div>
-                        <div>
+                        <div class="registro__opciones">
                             <label class="registro__label" style="display:inline-block;  width: 150px">Tipo de
                                 Caracteristica:</label>
                             <select
@@ -35,6 +35,7 @@
                                 {{/each}}
                             </select>
                         </div>
+{{!--                         <button onclick=crearOpcion()><i class="fas fa-plus"></i></button> --}}
                     </div>
                     <div>
                         <input type="submit" class="boton-submit" value="Crear Caracteristica">
@@ -51,82 +52,50 @@
         </div>
     </section>
     <script type="text/javascript">
-        let caracteristicas = document.querySelector('div.crear_caracteristica');
-
-        let opciones = 0;
-
-        const opcion = (numero) => `
-            <label class="registro__label" style="display:inline-block;  width: 150px">Opcion ${numero}:</label>
-            <input type="text"
-                   name="opcion-${numero}"
-                   class="registro__input"
-                   id="opcion-${numero}"
-                   style="display:inline-block"
-                   required
-            >`
-
+        const caracteristicas = document.querySelector('div.registro__opciones');
         const agregarOpcionBoton = `
-            <button onclick=salvarYagregarOpcion(this)><i class="fas fa-plus"></i></button>
+            <button class="agregar" onclick=crearOpcion()><i class="fas fa-plus"></i></button>
         `
-
         const sacarOpcionBoton = `
             <button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>
         `
-
-        const reiniciarCaracteristicas = () => {
-            caracteristicas.querySelector('ul')?.remove();
-            caracteristicas.append(document.createElement('ul'));
-            opciones = 0;
-        }
-
-        const salvarYagregarOpcion = (element) => {
-            const input = element.parentElement.querySelector('input');
-            input.setAttribute('value', input.value);
-
-            caracteristicas.querySelectorAll('li').forEach((item) => {
-                const input = item.lastElementChild
-                input.setAttribute('value', input.value);
-            })
-
-            agregarOpcion();
-        }
-
-        const agregarOpcion = () => {
-            opciones++
-            caracteristicas.querySelector('ul').innerHTML += `<li>${opcion(opciones)}</li>`
-            renderBotonesOpciones();
-        }
-
-        const eliminarOpcion = (element) => {
-            opciones--;
-            element.parentElement?.remove()
-            renderBotonesOpciones()
-        }
-
-        const renderBotonesOpciones = () => {
-            caracteristicas.querySelectorAll('li').forEach((item, index) => {
-                if (opciones === 1) {
-                    item.innerHTML += agregarOpcionBoton;
-                    return;
-                }
-
-                if (opciones === ++index) {
-                    item.innerHTML += agregarOpcionBoton + sacarOpcionBoton;
-                    return;
-                }
-
-                item.querySelectorAll('button')?.forEach(button => button.remove())
-            })
-        }
-
+        const opcion = (numero) => `
+            <label class="registro__label" style="display:inline-block;  width: 150px">Opcion ${numero}:</label>
+            <input type="text"
+                  name="opcion"
+                  class="registro__input"
+                  id="opcion-${numero}"
+                  style="display:inline-block"
+                  required
+            >`
         const setOpcionesAgregables = (value) => {
-            const opcionesAgregables = ["BULLET", "CHECKBOX"].includes(value);
+                const opcionesAgregables = ["BULLET", "CHECKBOX"].includes(value);
 
-            reiniciarCaracteristicas();
-
-            if (opcionesAgregables) {
-                agregarOpcion();
-            }
+                reiniciarCaracteristicas();
+                if (opcionesAgregables) {
+                    crearOpcion()
+                    caracteristicas.insertAdjacentHTML('beforeend', agregarOpcionBoton);
+                }
+        }
+        const crearOpcion = () => {
+            const numeroOpcion = caracteristicas.querySelectorAll('li').length + 1;
+            var nuevaOpcion = document.createElement('li');
+            nuevaOpcion.innerHTML = opcion(numeroOpcion) + sacarOpcionBoton;
+            caracteristicas.querySelector('ul').appendChild(nuevaOpcion);
+        }
+        const reiniciarCaracteristicas = () => {
+           document.querySelector('button.agregar')?.remove();
+           caracteristicas.querySelector('ul')?.remove();
+           caracteristicas.append(document.createElement('ul'));
+        }
+        const eliminarOpcion = (element) => {
+            element.parentElement?.remove();
+            renderNumeroOpcion();
+        }
+        const renderNumeroOpcion = () => {
+            caracteristicas.querySelectorAll('ul label').forEach((item, index) => {
+                item.innerText = `Opcion ${index + 1}:`;
+            })
         }
     </script>
 {{/partial}}

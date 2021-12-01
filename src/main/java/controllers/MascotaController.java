@@ -1,19 +1,29 @@
 package controllers;
 
-import domain.*;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
+import domain.Mascota;
+import domain.Pregunta;
+import domain.Sexo;
+import domain.SituacionMascota;
+import domain.TipoMascota;
+import domain.TipoPregunta;
+import domain.Usuario;
 import domain.repositorios.RepositorioDuenio;
 import domain.repositorios.RepositorioPreguntas;
 import domain.repositorios.RepositorioUsuarios;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.ModelAndView;
+import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class MascotaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
@@ -22,87 +32,63 @@ public class MascotaController extends BaseController implements WithGlobalEntit
 
     Usuario usuario = RepositorioUsuarios.getInstance()
         .getById(request.session().attribute("idUsuario"));
-
-    Duenio duenio = repositorioDuenio.getDuenioByIdUsuario(usuario.getId());
-
-    if (duenio == null) {
-      String nombreDuenio = request.queryParams("registro-nombreDuenio");
-      String apellidoDuenio = request.queryParams("registro-apellido");
-      TipoIdentificacion tipoIdentificacion = TipoIdentificacion.valueOf(
-          request.queryParams("registro-tipoDocumento")
-      );
-      String numeroDocumento = request.queryParams("registro-documento");
-      LocalDate fechaNacimiento = LocalDate.parse(request.queryParams("registro-fechaNacimiento"));
-      DatoPersonal datosDuenio = new DatoPersonal(
-          nombreDuenio,
-          apellidoDuenio,
-          tipoIdentificacion,
-          numeroDocumento,
-          fechaNacimiento
-      );
-
-      List<Contacto> contactos = new ArrayList<>();
-      List<String> contactoParams = request.queryParams()
-          .stream()
-          .filter(paramName -> paramName.contains("contacto"))
-          .collect(Collectors.toList());
-
-      String nombreContacto1 = request.queryParams("registro-nombreContacto1");
-      String apellidoContacto1 = request.queryParams("registro-apellidoContacto1");
-      String telefonoContacto1 = request.queryParams("registro-telefonoContacto1");
-      String mailContacto1 = request.queryParams("registro-mailContacto1");
-      Vinculo vinculoContacto1 = Vinculo.valueOf(request.queryParams("registro-vinculoContacto1"));
-      Contacto contacto1 = new Contacto(
-          nombreContacto1,
-          apellidoContacto1,
-          telefonoContacto1,
-          mailContacto1,
-          vinculoContacto1,
-          new MedioNotificacionEmail()
-      );
-
-      String nombreContacto2 = request.queryParams("registro-nombreContacto2");
-      String apellidoContacto2 = request.queryParams("registro-apellidoContacto2");
-      String telefonoContacto2 = request.queryParams("registro-telefonoContacto2");
-      String mailContacto2 = request.queryParams("registro-mailContacto2");
-      Vinculo vinculoContacto2 = Vinculo.valueOf(request.queryParams("registro-vinculoContacto2"));
-      Contacto contacto2 = new Contacto(
-          nombreContacto2,
-          apellidoContacto2,
-          telefonoContacto2,
-          mailContacto2,
-          vinculoContacto2,
-          new MedioNotificacionEmail()
-      );
-
-      duenio = new Duenio(datosDuenio, Arrays.asList(contacto1, contacto2), null, usuario);
-    }
-
-    List<Opcion> opciones = new ArrayList<>();
-    List<String> paramsOpciones = request.queryParams()
-        .stream()
-        .filter(paramName -> paramName.contains("respuesta"))
-        .collect(Collectors.toList());
-
-    for (String opcion : paramsOpciones) {
-      System.out.println(opcion);
-      System.out.println(request.queryParams(opcion));
-
-      String[] spliteado = opcion.split("-");
-
-      if (spliteado.length == 3) {
-        List<String> respuestas = paramsOpciones.stream()
-            .filter(param -> param.split("-")[2].equals(spliteado[2]))
-            .map(param -> request.queryParams(param))
-            .collect(Collectors.toList());
-
-        System.out.println(respuestas);
-
-        break;
-      }
-
-      opciones.add(new Opcion(request.queryParams(opcion)));
-    }
+//
+//    Duenio duenio = repositorioDuenio.getDuenioByIdUsuario(usuario.getId());
+//
+//    if (duenio == null) {
+//      String nombreDuenio = request.queryParams("registro-nombreDuenio");
+//      String apellidoDuenio = request.queryParams("registro-apellido");
+//      TipoIdentificacion tipoIdentificacion = TipoIdentificacion.valueOf(
+//          request.queryParams("registro-tipoDocumento")
+//      );
+//      String numeroDocumento = request.queryParams("registro-documento");
+//      LocalDate fechaNacimiento = LocalDate.parse(request.queryParams("registro-fechaNacimiento"));
+//      DatoPersonal datosDuenio = new DatoPersonal(
+//          nombreDuenio,
+//          apellidoDuenio,
+//          tipoIdentificacion,
+//          numeroDocumento,
+//          fechaNacimiento
+//      );
+//
+//      List<Contacto> contactos = new ArrayList<>();
+//      List<String> contactoParams = request.queryParams()
+//          .stream()
+//          .filter(paramName -> paramName.contains("contacto"))
+//          .collect(Collectors.toList());
+//
+//      String nombreContacto1 = request.queryParams("registro-nombreContacto1");
+//      String apellidoContacto1 = request.queryParams("registro-apellidoContacto1");
+//      String telefonoContacto1 = request.queryParams("registro-telefonoContacto1");
+//      String mailContacto1 = request.queryParams("registro-mailContacto1");
+//      Vinculo vinculoContacto1 = Vinculo.valueOf(request.queryParams("registro-vinculoContacto1"));
+//      Contacto contacto1 = new Contacto(
+//          nombreContacto1,
+//          apellidoContacto1,
+//          telefonoContacto1,
+//          mailContacto1,
+//          vinculoContacto1,
+//          new MedioNotificacionEmail()
+//      );
+//
+//      String nombreContacto2 = request.queryParams("registro-nombreContacto2");
+//      String apellidoContacto2 = request.queryParams("registro-apellidoContacto2");
+//      String telefonoContacto2 = request.queryParams("registro-telefonoContacto2");
+//      String mailContacto2 = request.queryParams("registro-mailContacto2");
+//      Vinculo vinculoContacto2 = Vinculo.valueOf(request.queryParams("registro-vinculoContacto2"));
+//      Contacto contacto2 = new Contacto(
+//          nombreContacto2,
+//          apellidoContacto2,
+//          telefonoContacto2,
+//          mailContacto2,
+//          vinculoContacto2,
+//          new MedioNotificacionEmail()
+//      );
+//
+//      duenio = new Duenio(datosDuenio, Arrays.asList(contacto1, contacto2), null, usuario);
+//    }
+    // TODO: Ejemplo de como se consiguen los valores de las opciones
+    Arrays.asList("texto", "bullet", "number", "checkbox").forEach(param -> this.getValoresPorNombre(request, param));
 
     TipoMascota tipoMascota = TipoMascota.valueOf(request.queryParams("registro-especie"));
     String nombreMascota = request.queryParams("registro-nombre");
@@ -123,11 +109,11 @@ public class MascotaController extends BaseController implements WithGlobalEntit
         SituacionMascota.EN_HOGAR_PROPIO
     );
 
-    duenio.addMascota(mascota);
+//    duenio.addMascota(mascota);
 
-    Duenio finalDuenio = duenio;
+//    Duenio finalDuenio = duenio;
 
-    withTransaction(() -> repositorioDuenio.agregar(finalDuenio));
+//    withTransaction(() -> repositorioDuenio.agregar(finalDuenio));
 
     //Redireccionar a la misma página
     response.redirect("/registrarMascota");
@@ -161,8 +147,19 @@ public class MascotaController extends BaseController implements WithGlobalEntit
   }
 
   public Void encontreMascota(Request request, Response response) {
-
     return null;
   }
 
+  // TODO: Ejemplo de como se consiguen los valores de las opciones
+  Arrays.asList("texto", "bullet", "number", "checkbox").forEach(param -> this.getValoresPorNombre(request, param));
+  private void getValoresPorNombre(Request request, String name) {
+    QueryParamsMap opciones = request.queryMap().get(name);
+    opciones.toMap().keySet()
+        .forEach(key -> {
+          System.out.println("==============");
+          System.out.println(name + " id: " + key);
+          Arrays.stream(opciones.get(key).values())
+              .forEach(value -> System.out.println("Value: " + value));
+        });
+  }
 }

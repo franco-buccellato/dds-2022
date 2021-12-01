@@ -29,19 +29,19 @@
                                         <li>
                                             <label class="registro__label" style="display:inline-block;  width: 150px">Opcion {{@index}}:</label>
                                             <input type="text"
-                                                name="opcion-{{@index}}"
+                                                name="opcion"
                                                 class="registro__input"
                                                 id="opcion-{{@index}}"
                                                 style="display:inline-block"
                                                 value={{descripcion}}
                                             >
-                                            {{#if @index}}
-                                            <button onclick=salvarYagregarOpcion(this)><i class="fas fa-plus"></i></button>
-                                            {{/if}}
                                             <button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>
                                         </li>
                                   {{/each}}
                             </ul>
+                            {{#if caracteristica.opciones}}
+                            <button onclick=crearOpcion()><i class="fas fa-plus"></i></button>
+                            {{/if}}
                         </div>
                     </div>
                     <div>
@@ -59,70 +59,33 @@
         </div>
     </section>
     <script type="text/javascript">
-        let caracteristicas = document.querySelector('div.detalle_caracteristica');
-        const opcion = `
-            <label class="registro__label" style="display:inline-block;  width: 150px"></label>
-            <input type="text"
-                   name="opcion"
-                   class="registro__input"
-                   id="opcion"
-                   style="display:inline-block"
-                   required
-            >`
-        const agregarOpcionBoton = `
-            <button onclick=salvarYagregarOpcion(this)><i class="fas fa-plus"></i></button>
-        `
+            let caracteristicas = document.querySelector('div.detalle_caracteristica');
+            const sacarOpcionBoton = `<button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>`
+            const opcion = (numero) => `
+                <label class="registro__label" style="display:inline-block;  width: 150px">Opcion ${numero}:</label>
+                <input type="text"
+                      name="opcion"
+                      class="registro__input"
+                      id="opcion-${numero}"
+                      style="display:inline-block"
+                      required
+                >`
+            const crearOpcion = () => {
+                const numeroOpcion = caracteristicas.querySelectorAll('li').length + 1;
+                var nuevaOpcion = document.createElement('li');
+                nuevaOpcion.innerHTML = opcion(numeroOpcion) + sacarOpcionBoton;
+                caracteristicas.querySelector('ul').appendChild(nuevaOpcion);
+            }
 
-        const sacarOpcionBoton = `
-            <button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>
-        `
-
-        const salvarYagregarOpcion = (element) => {
-            const input = element.parentElement.querySelector('input');
-            input.setAttribute('value', input.value);
-
-            caracteristicas.querySelectorAll('li').forEach((item) => {
-                const input = item.lastElementChild
-                input.setAttribute('value', input.value);
-            })
-
-            agregarOpcion();
-        }
-
-        const agregarOpcion = () => {
-            caracteristicas.querySelector('ul').innerHTML += `<li>${opcion}</li>`
-            renameItems();
-            renderBotonesOpciones();
-        }
-
-        const eliminarOpcion = (element) => {
-            element.parentElement?.remove()
-            renameItems();
-            renderBotonesOpciones()
-        }
-        const renameItems = () => {
-          caracteristicas.querySelectorAll('li').forEach((item, index) => {
-                        const input = item.querySelector('input');
-                        input.setAttribute('value', input.value);
-                        input.setAttribute('id', `opcion-${index + 1}`);
-                        item.querySelector('label').innerText = `Opcion ${index + 1}`;
-          })
-        }
-        const renderBotonesOpciones = () => {
-            const lis = caracteristicas.querySelectorAll('li');
-            lis.forEach((li, index) => {
-                li.querySelectorAll('button')?.forEach(button => button.remove())
-                if (index === 0 && lis.length === 1) {
-                    li.innerHTML += agregarOpcionBoton;
-                    return;
-                }
-                if (lis.length === (index + 1)) {
-                    li.innerHTML += agregarOpcionBoton + sacarOpcionBoton;
-                    return;
-                }
-                li.innerHTML += sacarOpcionBoton
-            })
-        }
+            const eliminarOpcion = (element) => {
+                element.parentElement?.remove();
+                renderNumeroOpcion();
+            }
+            const renderNumeroOpcion = () => {
+                caracteristicas.querySelectorAll('ul label').forEach((item, index) => {
+                    item.innerText = `Opcion ${index + 1}:`;
+                })
+            }
     </script>
 {{/partial}}
 {{# partial "footer" }}
