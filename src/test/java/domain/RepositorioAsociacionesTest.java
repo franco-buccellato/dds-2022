@@ -1,19 +1,17 @@
 package domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import constants.Fixture;
-import domain.Asociacion;
-import domain.Ubicacion;
 import domain.exception.AsociacionNoEncontradaException;
 import domain.repositorios.RepositorioAsociaciones;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RepositorioAsociacionesTest extends Fixture {
 
@@ -46,7 +44,14 @@ public class RepositorioAsociacionesTest extends Fixture {
 
   @Test
   void laAsociacion1EsLaMasCercanaALaUbicacionDelRescatista() {
-    repositorioAsociacionesTest.setAsociaciones(new ArrayList<>(Arrays.asList(asociacion1, asociacion2, asociacion3)));
+    repositorioAsociacionesTest.setAsociaciones(
+        new ArrayList<>(
+            Arrays.asList(
+                asociacion1,
+                asociacion2,
+                asociacion3)
+        )
+    );
     assertEquals(
         repositorioAsociacionesTest.encontrarMasCercana(ubicacionRescatista).getNombre(),
         asociacion1.getNombre()

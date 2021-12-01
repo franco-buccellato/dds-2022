@@ -3,21 +3,29 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import domain.repositorios.RepositorioAsociaciones;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "asociaciones")
 public class Asociacion {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "asociacion_id")
-  @GeneratedValue
   private Long id;
 
-  @Column(name = "asociacion_nombre")
+  @Column(name = "nombre")
   private String nombre;
 
   @OneToOne

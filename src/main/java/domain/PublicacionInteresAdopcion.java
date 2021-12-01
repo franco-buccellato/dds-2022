@@ -5,7 +5,6 @@ import static domain.exception.Mensajes.NOT_NULO;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-
 @Entity(name = "publicaciones_interes_adopcion")
 public class PublicacionInteresAdopcion {
   @Id
@@ -26,6 +24,7 @@ public class PublicacionInteresAdopcion {
   private Long id;
 
   @OneToOne
+  @JoinColumn(name = "duenio_id")
   private Duenio interesado;
 
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -50,6 +49,7 @@ public class PublicacionInteresAdopcion {
   public Long getId() {
     return id;
   }
+
   public void setId(Long id) {
     this.id = id;
   }

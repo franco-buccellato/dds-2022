@@ -4,8 +4,22 @@ import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.List;
 import java.util.Objects;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity(name = "preguntas")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -38,7 +52,7 @@ public abstract class Pregunta {
   }
 
   public Pregunta(TipoPregunta tipoPregunta, List<ObjetivoPregunta> objetivos, String descripcion, Boolean obligatoria) {
-    this.tipoPregunta = Objects.requireNonNull(tipoPregunta, NOT_NULO.mensaje("tipo"));
+    this.tipoPregunta = Objects.requireNonNull(tipoPregunta, NOT_NULO.mensaje("tipoPregunta"));
     this.objetivos = Objects.requireNonNull(objetivos, NOT_NULO.mensaje("objetivos"));
     this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
     this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
@@ -69,7 +83,7 @@ public abstract class Pregunta {
   }
 
   public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
+    this.descripcion = Objects.requireNonNull(descripcion, NOT_NULO.mensaje("descripcion"));
   }
 
   public List<Opcion> getOpciones() {
@@ -77,7 +91,9 @@ public abstract class Pregunta {
   }
 
   public void setOpciones(List<Opcion> opciones) {
-    this.opciones = opciones;
+    if (this.tieneOpcionesSeteables()) {
+      this.opciones = Objects.requireNonNull(opciones, NOT_NULO.mensaje("opciones"));
+    }
   }
 
   public void addOpcion(Opcion opcion) {
@@ -89,7 +105,7 @@ public abstract class Pregunta {
   }
 
   public void setObligatoria(Boolean obligatoria) {
-    this.obligatoria = obligatoria;
+    this.obligatoria = Objects.requireNonNull(obligatoria, NOT_NULO.mensaje("obligatoria"));
   }
 
   public Boolean esMismaPregunta(Pregunta pregunta) {
@@ -110,5 +126,10 @@ public abstract class Pregunta {
             seleccion -> seleccion.esMismaOpcion(opcion)
         )
     );
+  }
+
+  public Boolean tieneOpcionesSeteables() {
+    return this.getTipoPregunta().equals(TipoPregunta.BULLET)
+           || this.getTipoPregunta().equals(TipoPregunta.CHECKBOX);
   }
 }

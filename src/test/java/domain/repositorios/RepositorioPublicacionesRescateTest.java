@@ -1,17 +1,22 @@
 package domain.repositorios;
 
-import constants.Fixture;
-import domain.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import constants.Fixture;
+import domain.Mascota;
+import domain.PublicacionRescate;
+import domain.RescateSinChapa;
+import domain.Rescatista;
+import domain.Ubicacion;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import domain.Voluntario;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RepositorioPublicacionesRescateTest extends Fixture {
   List<String> fotos;

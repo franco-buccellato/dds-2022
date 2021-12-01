@@ -1,15 +1,18 @@
 package domain;
 
-import constants.Fixture;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static domain.exception.Mensajes.NOT_NULO;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+
+import constants.Fixture;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DuenioTest extends Fixture {
   Contacto contacto;
@@ -50,7 +53,14 @@ public class DuenioTest extends Fixture {
   @Test
   void puedoActualizarElContactoDeUnDuenio() throws IOException {
     MedioNotificacion email = new MedioNotificacionEmail();
-    Contacto nuevoContacto = new Contacto("Pedro", "Perez", "11123123123", "pedro@perez.com", Vinculo.FAMILIAR, email);
+    Contacto nuevoContacto = new Contacto(
+        "Pedro",
+        "Perez",
+        "11123123123",
+        "pedro@perez.com",
+        Vinculo.FAMILIAR,
+        email
+    );
     duenio.setContactos(Arrays.asList(nuevoContacto));
 
     assertNotEquals(contacto, duenio.getContactos().get(0));

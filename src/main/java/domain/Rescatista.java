@@ -7,26 +7,31 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Rescatistas")
+@Table(name = "rescatistas")
 public class Rescatista {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "rescatista_id")
-  @GeneratedValue
   Long id;
+
   @Embedded
   private DatoPersonal datoPersonal;
+
   @OneToOne
   @JoinColumn(name = "contacto_id")
   private Contacto contacto;
+
   @OneToOne
   @JoinColumn(name = "ubicacion_id")
   private Ubicacion ubicacion;
+
   @OneToOne
   @JoinColumn(name = "usuario_id")
   private Usuario usuario;

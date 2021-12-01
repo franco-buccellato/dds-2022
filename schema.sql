@@ -1,5 +1,19 @@
 
-    create table Contactos (
+    create table asociaciones (
+        asociacion_id bigint not null auto_increment,
+        nombre varchar(255),
+        ubicacion_id bigint,
+        primary key (asociacion_id)
+    )
+
+    create table caracteristicas_mascotas (
+        respuesta_id bigint not null,
+        pregunta_id bigint,
+        mascota_id bigint,
+        primary key (respuesta_id)
+    )
+
+    create table contactos (
         contacto_id bigint not null auto_increment,
         apellido varchar(255),
         mail varchar(255),
@@ -10,57 +24,15 @@
         primary key (contacto_id)
     )
 
-    create table Duenios (
-        id bigint not null auto_increment,
+    create table duenios (
+        duenio_id bigint not null auto_increment,
         apellido varchar(255),
         fecha_nacimiento date,
         nombre varchar(255),
         numero_identificacion varchar(255),
         tipo_identificacion varchar(255),
         usuario_id bigint,
-        primary key (id)
-    )
-
-    create table Rescatistas (
-        rescatista_id bigint not null auto_increment,
-        apellido varchar(255),
-        fecha_nacimiento date,
-        nombre varchar(255),
-        numero_identificacion varchar(255),
-        tipo_identificacion varchar(255),
-        contacto_id bigint,
-        ubicacion_id bigint,
-        usuario_id bigint,
-        primary key (rescatista_id)
-    )
-
-    create table Usuarios (
-        usuario_id bigint not null auto_increment,
-        contrasenia varchar(255),
-        nombre_usuario varchar(255),
-        tipo_usuario varchar(255),
-        primary key (usuario_id)
-    )
-
-    create table Voluntarios (
-        voluntario_id bigint not null auto_increment,
-        asociacion_id bigint,
-        usuario_id bigint,
-        primary key (voluntario_id)
-    )
-
-    create table asociaciones (
-        asociacion_id bigint not null auto_increment,
-        asociacion_nombre varchar(255),
-        ubicacion_id bigint,
-        primary key (asociacion_id)
-    )
-
-    create table caracteristicas_mascotas (
-        caracteristica_mascota_id bigint not null auto_increment,
-        pregunta_id bigint,
-        mascota_id bigint,
-        primary key (caracteristica_mascota_id)
+        primary key (duenio_id)
     )
 
     create table mascotas (
@@ -88,18 +60,8 @@
         primary key (opcion_id)
     )
 
-    create table opciones_adopciones (
-        respuesta_publicacion_adopcion_id bigint not null,
-        opcion_id bigint not null
-    )
-
-    create table opciones_caracteristicas_mascotas (
-        caracteristica_mascota_id bigint not null,
-        opcion_id bigint not null
-    )
-
-    create table opciones_interes_adopcion (
-        respuesta_interes_adopcion_id bigint not null,
+    create table opciones_respuestas (
+        respuesta_id bigint not null,
         opcion_id bigint not null
     )
 
@@ -134,13 +96,13 @@
     create table publicaciones_interes_adopcion (
         publicacion_interes_adopcion_id bigint not null auto_increment,
         activa bit,
-        interesado_id bigint,
+        duenio_id bigint,
         primary key (publicacion_interes_adopcion_id)
     )
 
     create table publicaciones_rescates (
         publicacion_rescate_id bigint not null auto_increment,
-        publicacion_rescate_estado varchar(255),
+        estado varchar(255),
         asociacion_id bigint,
         rescate_id bigint,
         primary key (publicacion_rescate_id)
@@ -157,67 +119,60 @@
         primary key (rescate_id)
     )
 
+    create table rescatistas (
+        rescatista_id bigint not null auto_increment,
+        apellido varchar(255),
+        fecha_nacimiento date,
+        nombre varchar(255),
+        numero_identificacion varchar(255),
+        tipo_identificacion varchar(255),
+        contacto_id bigint,
+        ubicacion_id bigint,
+        usuario_id bigint,
+        primary key (rescatista_id)
+    )
+
     create table respuestas_interes_adopcion (
-        respuesta_interes_adopcion_id bigint not null auto_increment,
+        respuesta_id bigint not null,
         pregunta_id bigint,
         publicacion_interes_adopcion_id bigint,
-        primary key (respuesta_interes_adopcion_id)
+        primary key (respuesta_id)
     )
 
     create table respuestas_publicaciones_adopciones (
-        respuesta_publicacion_adopcion_id bigint not null auto_increment,
+        respuesta_id bigint not null,
         pregunta_id bigint,
         publicacion_adopcion_id bigint,
-        primary key (respuesta_publicacion_adopcion_id)
+        primary key (respuesta_id)
     )
 
     create table ubicaciones (
         ubicacion_id bigint not null auto_increment,
-        ubicacion_codigo_postal varchar(255),
-        ubicacion_direccion varchar(255),
-        ubicacion_latitud decimal(19,2),
-        ubicacion_localidad varchar(255),
-        ubicacion_longitud decimal(19,2),
+        codigo_postal varchar(255),
+        direccion varchar(255),
+        latitud decimal(19,2),
+        localidad varchar(255),
+        longitud decimal(19,2),
         primary key (ubicacion_id)
+    )
+
+    create table usuarios (
+        usuario_id bigint not null auto_increment,
+        contrasenia varchar(255),
+        nombre_usuario varchar(255),
+        tipo_usuario varchar(255),
+        primary key (usuario_id)
+    )
+
+    create table voluntarios (
+        voluntario_id bigint not null auto_increment,
+        asociacion_id bigint,
+        usuario_id bigint,
+        primary key (voluntario_id)
     )
 
     alter table mascotas_fotos 
         add constraint UK_8jrlj0152qvffs829aex3g1w3  unique (mascota_id, foto)
-
-    alter table Contactos 
-        add constraint FK_fmgv9k9xocpk0b4o5x4gcpqsy 
-        foreign key (duenio_id) 
-        references Duenios (id)
-
-    alter table Duenios 
-        add constraint FK_t0ofydwaf7x56d6vr9ged1qi7 
-        foreign key (usuario_id) 
-        references Usuarios (usuario_id)
-
-    alter table Rescatistas 
-        add constraint FK_6p8hx05vyemjbtpoi2npypwvu 
-        foreign key (contacto_id) 
-        references Contactos (contacto_id)
-
-    alter table Rescatistas 
-        add constraint FK_xegjxsywco47warso8pm2xfi 
-        foreign key (ubicacion_id) 
-        references ubicaciones (ubicacion_id)
-
-    alter table Rescatistas 
-        add constraint FK_elwsnn5lthcetya4weobsi5nm 
-        foreign key (usuario_id) 
-        references Usuarios (usuario_id)
-
-    alter table Voluntarios 
-        add constraint FK_gsh7xgqbntnmg91mafxg6uwc7 
-        foreign key (asociacion_id) 
-        references asociaciones (asociacion_id)
-
-    alter table Voluntarios 
-        add constraint FK_kj9mxlopn4of0o0mckx2iv1jh 
-        foreign key (usuario_id) 
-        references Usuarios (usuario_id)
 
     alter table asociaciones 
         add constraint FK_p65rpqdtcf7acm61m5m6oxp4a 
@@ -225,19 +180,29 @@
         references ubicaciones (ubicacion_id)
 
     alter table caracteristicas_mascotas 
-        add constraint FK_pbp4f0r2ff73qt0ilhc0a47fy 
-        foreign key (pregunta_id) 
-        references preguntas (pregunta_id)
-
-    alter table caracteristicas_mascotas 
         add constraint FK_nf8eet6jp3ea02m1bxqdm7vb9 
         foreign key (mascota_id) 
         references mascotas (mascota_id)
 
+    alter table caracteristicas_mascotas 
+        add constraint FK_pbp4f0r2ff73qt0ilhc0a47fy 
+        foreign key (pregunta_id) 
+        references preguntas (pregunta_id)
+
+    alter table contactos 
+        add constraint FK_2gncfufnorrtg0gvtu6ubwj4g 
+        foreign key (duenio_id) 
+        references duenios (duenio_id)
+
+    alter table duenios 
+        add constraint FK_dhlk11eo6mx7uwiwyy1srreno 
+        foreign key (usuario_id) 
+        references usuarios (usuario_id)
+
     alter table mascotas 
         add constraint FK_rrryiaj66wmjgs25gvok8t9k8 
         foreign key (duenio_id) 
-        references Duenios (id)
+        references duenios (duenio_id)
 
     alter table mascotas_fotos 
         add constraint FK_co0w2wjvorccs34t2ofeh47yc 
@@ -249,35 +214,10 @@
         foreign key (pregunta_id) 
         references preguntas (pregunta_id)
 
-    alter table opciones_adopciones 
-        add constraint FK_h7ein51re8a13ot7m9k18gbfr 
+    alter table opciones_respuestas 
+        add constraint FK_tp5ww9yu5hfimrxaud86v80pc 
         foreign key (opcion_id) 
         references opciones (opcion_id)
-
-    alter table opciones_adopciones 
-        add constraint FK_h8vufnt5qhnwn8ioawja4r55m 
-        foreign key (respuesta_publicacion_adopcion_id) 
-        references respuestas_publicaciones_adopciones (respuesta_publicacion_adopcion_id)
-
-    alter table opciones_caracteristicas_mascotas 
-        add constraint FK_qxslu100te39wrm10hjdx1a3w 
-        foreign key (opcion_id) 
-        references opciones (opcion_id)
-
-    alter table opciones_caracteristicas_mascotas 
-        add constraint FK_dp6itnw1q8wwe2ldxqnmo0iwg 
-        foreign key (caracteristica_mascota_id) 
-        references caracteristicas_mascotas (caracteristica_mascota_id)
-
-    alter table opciones_interes_adopcion 
-        add constraint FK_3e4jsw2rnnqhwdoe4gu3um96b 
-        foreign key (opcion_id) 
-        references opciones (opcion_id)
-
-    alter table opciones_interes_adopcion 
-        add constraint FK_4mqul125upvo97ghja6385gbf 
-        foreign key (respuesta_interes_adopcion_id) 
-        references respuestas_interes_adopcion (respuesta_interes_adopcion_id)
 
     alter table preguntas_adopcion 
         add constraint FK_shq7n2lx8nidefl84ej3ywc6p 
@@ -302,7 +242,7 @@
     alter table publicaciones_adopcion 
         add constraint FK_p8e98j0wps4yb8oude88bbigm 
         foreign key (duenio_id) 
-        references Duenios (id)
+        references duenios (duenio_id)
 
     alter table publicaciones_adopcion 
         add constraint FK_s1qfxtq9vjcnnqcnor4rils1i 
@@ -310,9 +250,9 @@
         references mascotas (mascota_id)
 
     alter table publicaciones_interes_adopcion 
-        add constraint FK_rnd27geldhvwmfploswgravlu 
-        foreign key (interesado_id) 
-        references Duenios (id)
+        add constraint FK_ld7dgw2eum3bm1s6bj1tyf1c2 
+        foreign key (duenio_id) 
+        references duenios (duenio_id)
 
     alter table publicaciones_rescates 
         add constraint FK_97u5f617ytkeyvhmpl3hffx73 
@@ -337,20 +277,30 @@
     alter table rescates 
         add constraint FK_8ysfq750ehns2h2v4sq77k4cn 
         foreign key (rescatista_id) 
-        references Rescatistas (rescatista_id)
+        references rescatistas (rescatista_id)
 
-    alter table respuestas_interes_adopcion 
-        add constraint FK_jgw9bttgttvn7ytpxu8gnv4x6 
-        foreign key (pregunta_id) 
-        references preguntas (pregunta_id)
+    alter table rescatistas 
+        add constraint FK_mvwfhdhn88u4w8wqylx5a9p9c 
+        foreign key (contacto_id) 
+        references contactos (contacto_id)
+
+    alter table rescatistas 
+        add constraint FK_c4ldm1lvg0wdbavsxjmeqlt0r 
+        foreign key (ubicacion_id) 
+        references ubicaciones (ubicacion_id)
+
+    alter table rescatistas 
+        add constraint FK_ml8b1aac2ic5wljdp8hf1d4gs 
+        foreign key (usuario_id) 
+        references usuarios (usuario_id)
 
     alter table respuestas_interes_adopcion 
         add constraint FK_fc74sq6akbsudyrrj2p8jp799 
         foreign key (publicacion_interes_adopcion_id) 
         references publicaciones_interes_adopcion (publicacion_interes_adopcion_id)
 
-    alter table respuestas_publicaciones_adopciones 
-        add constraint FK_h3kaa24puqpmm2y824ae6nrkf 
+    alter table respuestas_interes_adopcion 
+        add constraint FK_jgw9bttgttvn7ytpxu8gnv4x6 
         foreign key (pregunta_id) 
         references preguntas (pregunta_id)
 
@@ -358,3 +308,23 @@
         add constraint FK_a8dqraxlnlni1p1384mrhumkv 
         foreign key (publicacion_adopcion_id) 
         references publicaciones_adopcion (publicacion_adopcion_id)
+
+    alter table respuestas_publicaciones_adopciones 
+        add constraint FK_h3kaa24puqpmm2y824ae6nrkf 
+        foreign key (pregunta_id) 
+        references preguntas (pregunta_id)
+
+    alter table voluntarios 
+        add constraint FK_bocttaw72ejdslrvrhq73mda0 
+        foreign key (asociacion_id) 
+        references asociaciones (asociacion_id)
+
+    alter table voluntarios 
+        add constraint FK_k5rl3o3rgyyjvn475nt4r6v3q 
+        foreign key (usuario_id) 
+        references usuarios (usuario_id)
+
+    create table hibernate_sequences (
+         sequence_name varchar(255),
+         sequence_next_hi_value integer 
+    )

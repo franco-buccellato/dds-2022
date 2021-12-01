@@ -2,9 +2,24 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import java.util.*;
-import javax.persistence.*;
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.UniqueConstraint;
 
 @Entity(name = "mascotas")
 public class Mascota {
@@ -38,7 +53,7 @@ public class Mascota {
   @Column(name = "foto", nullable = false)
   private List<String> fotos;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinColumn(name = "mascota_id")
   private List<RespuestaCaracteristicaMascota> caracteristicas;
 
@@ -63,19 +78,14 @@ public class Mascota {
     this.tipoMascota = Objects.requireNonNull(tipoMascota, NOT_NULO.mensaje("tipoMascota"));
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
     this.apodo = Objects.requireNonNull(apodo, NOT_NULO.mensaje("apodo"));
-    this.edadAproximada = Objects.requireNonNull(
-        edadAproximada,
-        NOT_NULO.mensaje("edadAproximada")
-    );
+    this.edadAproximada = Objects.requireNonNull(edadAproximada, NOT_NULO.mensaje("edad"));
     this.sexo = Objects.requireNonNull(sexo, NOT_NULO.mensaje("sexo"));
     this.descripcionFisica = Objects.requireNonNull(
         descripcionFisica,
         NOT_NULO.mensaje("descripcionFisica")
     );
     this.fotos = Objects.requireNonNull(fotos, NOT_NULO.mensaje("fotos"));
-    this.caracteristicas = Objects.isNull(caracteristicas)
-        ? new ArrayList<>()
-        : caracteristicas;
+    this.caracteristicas = Objects.isNull(caracteristicas) ? new ArrayList<>() : caracteristicas;
     this.situacionMascota = situacionMascota;
   }
 
@@ -104,7 +114,7 @@ public class Mascota {
   }
 
   public void setEdadAproximada(Double edadAproximada) {
-    this.edadAproximada = edadAproximada;
+    this.edadAproximada = Objects.requireNonNull(edadAproximada, NOT_NULO.mensaje("edad"));
   }
 
   public Sexo getSexo() {
@@ -120,7 +130,7 @@ public class Mascota {
   }
 
   public void setFotos(List<String> fotos) {
-    this.fotos = fotos;
+    this.fotos = Objects.requireNonNull(fotos, NOT_NULO.mensaje("fotos"));
   }
 
   public void addFoto(String foto) {

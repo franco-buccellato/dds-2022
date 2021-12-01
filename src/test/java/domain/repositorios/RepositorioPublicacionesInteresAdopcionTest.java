@@ -1,12 +1,12 @@
 package domain.repositorios;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import constants.Fixture;
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RepositorioPublicacionesInteresAdopcionTest extends Fixture {
     RepositorioPublicacionesAdopcion repositorio;

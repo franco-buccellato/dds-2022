@@ -1,13 +1,14 @@
 package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import constants.Fixture;
 import domain.exception.SeleccionInvalidaException;
-import org.junit.jupiter.api.Test;
-
 import java.util.Collections;
+import org.junit.jupiter.api.Test;
 
 public class RespuestaCaracteristicaMascotaTest extends Fixture {
 
@@ -57,6 +58,7 @@ public class RespuestaCaracteristicaMascotaTest extends Fixture {
         Collections.singletonList(new Opcion("Le gusta jugar a la pelota"))
     );
 
-    assertEquals("Le gusta jugar a la pelota", respuestaCaracteristica.getSelecciones().get(0).getDescripcion());
+    assertEquals("Le gusta jugar a la pelota",
+                 respuestaCaracteristica.getSelecciones().get(0).getDescripcion());
   }
 }

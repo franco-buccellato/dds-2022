@@ -1,21 +1,19 @@
 package db;
 
+import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import constants.Fixture;
 import domain.Pregunta;
 import domain.PreguntaBullet;
-import domain.TipoUsuario;
+import javax.persistence.EntityTransaction;
+import java.util.Collections;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-import javax.persistence.EntityTransaction;
-
-import java.util.Collections;
-
-import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PreguntaTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
   EntityTransaction tran;

@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public abstract class TemplateNotificacion<T> {
   private String templateAUtilizar;
-  private final String directorioTemplates = "/email/templates";
-  private final String extensionTemplates = ".html";
+  private static final String directorioTemplates = "/email/templates";
+  private static final String extensionTemplates = ".html";
 
   public TemplateNotificacion(String templateAUtilizar) {
     this.templateAUtilizar = templateAUtilizar;

@@ -5,7 +5,6 @@ import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 

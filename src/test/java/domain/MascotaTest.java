@@ -7,15 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import constants.Fixture;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import constants.Fixture;
 
 public class MascotaTest extends Fixture {
   private Mascota perroPepe;
@@ -91,7 +89,7 @@ public class MascotaTest extends Fixture {
       new Mascota(PERRO, "Pedro", "Pepe", null, Sexo.MACHO, "Tiene pulgas", null, null, null);
     });
 
-    assertEquals(NOT_NULO.mensaje("edadAproximada"), exception.getMessage());
+    assertEquals(NOT_NULO.mensaje("edad"), exception.getMessage());
   }
 
   @Test
@@ -153,12 +151,13 @@ public class MascotaTest extends Fixture {
 
     assertEquals(1, gatoBenito.getCaracteristicas().size());
     assertEquals(castrado, gatoBenito.getCaracteristicas().get(0));
-    assertTrue(gatoBenito.getCaracteristicas()
-                   .get(0)
-                   .getSelecciones()
-                   .get(0)
-                   .getDescripcion()
-                   .equals("Si")
+    assertTrue(
+        gatoBenito.getCaracteristicas()
+            .get(0)
+            .getSelecciones()
+            .get(0)
+            .getDescripcion()
+            .equals("Si")
     );
   }
 

@@ -1,17 +1,19 @@
 package domain;
 
-import constants.Fixture;
-import domain.*;
-import domain.repositorios.RepositorioDuenio;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
+import constants.Fixture;
+import domain.repositorios.RepositorioDuenio;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class RepositorioDuenioTest extends Fixture {
   RepositorioDuenio repositorioDuenio;
