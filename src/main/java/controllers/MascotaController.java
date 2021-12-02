@@ -2,11 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -34,6 +30,8 @@ import domain.repositorios.RepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+
+import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
 
 public class MascotaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
@@ -195,10 +193,10 @@ public class MascotaController extends BaseController implements WithGlobalEntit
 
     RepositorioPreguntas repositorioPreguntas = RepositorioPreguntas.getInstance();
 
-    List<Pregunta> textos = repositorioPreguntas.listarSegunTipo(TipoPregunta.TEXT);
-    List<Pregunta> numeros = repositorioPreguntas.listarSegunTipo(TipoPregunta.NUMBER);
-    List<Pregunta> bullets = repositorioPreguntas.listarSegunTipo(TipoPregunta.BULLET);
-    List<Pregunta> checkboxs = repositorioPreguntas.listarSegunTipo(TipoPregunta.CHECKBOX);
+    List<Pregunta> textos = repositorioPreguntas.listarSegunTipo(TipoPregunta.TEXT, CARACTERISTICA_MASCOTA);
+    List<Pregunta> numeros = repositorioPreguntas.listarSegunTipo(TipoPregunta.NUMBER, CARACTERISTICA_MASCOTA);
+    List<Pregunta> bullets = repositorioPreguntas.listarSegunTipo(TipoPregunta.BULLET, CARACTERISTICA_MASCOTA);
+    List<Pregunta> checkboxs = repositorioPreguntas.listarSegunTipo(TipoPregunta.CHECKBOX, CARACTERISTICA_MASCOTA);
 
     modelo.put("textos", textos);
     modelo.put("numeros", numeros);

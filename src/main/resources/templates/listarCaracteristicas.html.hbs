@@ -18,32 +18,36 @@
                 </div>
             </div>
         {{/if}}
-        <div class="container__registro">
+        <div class="container__listar">
             <div class="registro">
-                <div class="listar_caracteristica">
-                    <div>
-                        <form action="/caracteristicas/crear">
-                            <input type="submit" class="boton-submit" value="Agregar Caracteristica">
-                        </form>
-                    </div>
-                    <h2></br>Caracteristicas Disponibles</h2></br>
-                    {{#caracteristicasDisponibles}}
-                        <a href="/caracteristicas/{{id}}"
-                           onMouseOver="this.style.border=1"
-                           onMouseOut="this.style.border=0">
-                            <div style="padding: 10px">
-                                <label> {{descripcion}} ( {{tipoPregunta}} {{#if obligatoria}}
-                                    - Obligatoria {{/if}})</label>
-                                <div>
-                                    {{#opciones}}
-                                        <li>{{descripcion}}</li>
-                                    {{/opciones}}
-                                </div>
-                            </div>
-                        </a>
-                        </br>
-                    {{/caracteristicasDisponibles}}
-                </div>
+               {{#each disponibles}}
+                    <div class="listar_caracteristica column">
+                        <div>
+                            <form action="/caracteristicas/crear">
+                                <button type="submit" class="boton-submit" name="alcance" value="{{@key}}">Agregar {{@key}}</button>
+{{!--                                 <input type="submit" class="boton-submit" value="Agregar {{@key}}" name="alcance"> --}}
+                            </form>
+                        </div>
+
+                            <h2></br>{{@key}}s Disponibles</h2></br>
+                            {{#each this}}
+                                <a href="/caracteristicas/{{../@key}}/{{id}}"
+                                   onMouseOver="this.style.border=1"
+                                   onMouseOut="this.style.border=0">
+                                    <div style="padding: 10px">
+                                        <label> {{descripcion}} ( {{tipoPregunta}} {{#if obligatoria}}
+                                            - Obligatoria {{/if}})</label>
+                                        <div>
+                                            {{#opciones}}
+                                                <li>{{descripcion}}</li>
+                                            {{/opciones}}
+                                        </div>
+                                    </div>
+                                </a>
+                                </br>
+                            {{/each}}
+                     </div>
+                {{/each}}
             </div>
         </div>
     </section>

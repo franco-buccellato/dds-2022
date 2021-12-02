@@ -1,8 +1,5 @@
 package main;
 
-import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
-import static domain.ObjetivoPregunta.PREGUNTA_ASOCIACION_PREFERENCIAS;
-
 import domain.Contacto;
 import domain.DatoPersonal;
 import domain.Duenio;
@@ -19,6 +16,8 @@ import java.util.Collections;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
+import static domain.ObjetivoPregunta.*;
 
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
   public static void main(String[] args) {
@@ -59,16 +58,6 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
       persist(TipoPreguntaFactory.makePregunta(
           TipoPregunta.BULLET,
           Collections.singletonList(CARACTERISTICA_MASCOTA),
-          "Tipo",
-          true,
-          Arrays.asList(
-              new Opcion("Gato"),
-              new Opcion("Perro")
-          )
-      ));
-      persist(TipoPreguntaFactory.makePregunta(
-          TipoPregunta.BULLET,
-          Collections.singletonList(CARACTERISTICA_MASCOTA),
           "Tamaño",
           true,
           Arrays.asList(
@@ -91,14 +80,14 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
       ));
       persist(TipoPreguntaFactory.makePregunta(
           TipoPregunta.TEXT,
-          Arrays.asList(CARACTERISTICA_MASCOTA, PREGUNTA_ASOCIACION_PREFERENCIAS),
+          Arrays.asList(CARACTERISTICA_MASCOTA, PREGUNTA_ASOCIACION_COMODIDAD),
           "Dato de Interes",
           false,
           null
       ));
       persist(TipoPreguntaFactory.makePregunta(
           TipoPregunta.NUMBER,
-          Collections.singletonList(PREGUNTA_ASOCIACION_PREFERENCIAS),
+          Collections.singletonList(PREGUNTA_ASOCIACION_COMODIDAD),
           "Edad en anios",
           true,
           null

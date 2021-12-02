@@ -50,7 +50,7 @@ public class Routes {
     Spark.post("/registro", sesionController::registrarUsuario, engine);
     Spark.get("/caracteristicas", caracteristicaController::getCaracteristicas, engine);
     Spark.get("/caracteristicas/crear", caracteristicaController::mostrarCrearCaracteristica, engine);
-    Spark.get("/caracteristicas/:id", caracteristicaController::getDetalleCaracteristica, engine);
+    Spark.get("/caracteristicas/:objetivo/:id", caracteristicaController::getDetalleCaracteristica, engine);
     Spark.post("/caracteristicas", caracteristicaController::crearCaracteristica, engine);
     Spark.post("/caracteristicas/:id", caracteristicaController::actualizarCaracteristica, engine);
 

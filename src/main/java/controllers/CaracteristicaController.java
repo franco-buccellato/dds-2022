@@ -1,5 +1,7 @@
 package controllers;
 
+import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
+import static domain.ObjetivoPregunta.PREGUNTA_ASOCIACION_COMODIDAD;
 import static spark.Spark.halt;
 
 import java.util.ArrayList;
@@ -29,119 +31,98 @@ public class CaracteristicaController extends BaseController implements WithGlob
   public ModelAndView getCaracteristicas(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 
-    modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
-
+    modelo.put("disponibles", getDisponibles());
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
   public ModelAndView mostrarCrearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
-    modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
 
+    modelo.put("alcance", request.queryParams("alcance"));
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
 
   public ModelAndView crearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 
-    TipoPregunta tipoPregunta;
-    try {
-      tipoPregunta = TipoPregunta.valueOf(request.queryParams("tipoCaracteristica"));
-
-    } catch (IllegalArgumentException exception) {
-      modelo.put("error", "El tipo de Pregunta seleccionado no existe");
-      response.status(422);
-
-      return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
-    }
-
-    List<ObjetivoPregunta> objetivos = Arrays.asList(ObjetivoPregunta.CARACTERISTICA_MASCOTA);
-    String descripcion = request.queryParams("descripcion");
-    Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
-
+    TipoPregunta tipoPregunta = TipoPregunta.valueOf(request.queryParams("tipoCaracteristica"));
+    ObjetivoPregunta objetivo =
+        request.queryParams("alcance").equals("Caracteristica")
+        ? CARACTERISTICA_MASCOTA
+        : PREGUNTA_ASOCIACION_COMODIDAD;
     List<Opcion> opciones = new ArrayList<>();
     QueryParamsMap paramsOpciones = request.queryMap().get("opcion");
-    Arrays.stream(paramsOpciones.values())
-        .forEach(value -> opciones.add(new Opcion(value)));
+    if(paramsOpciones.hasValue()) {
+      Arrays.stream(paramsOpciones.values())
+          .forEach(value -> opciones.add(new Opcion(value)));
+    }
 
     try {
       Pregunta pregunta = TipoPreguntaFactory.makePregunta(
-          tipoPregunta, objetivos, descripcion, obligatoria, opciones
+          tipoPregunta,
+          Arrays.asList(objetivo),
+          request.queryParams("descripcion"),
+          request.queryParams("obligatoria").equals("SI"),
+          opciones
       );
       withTransaction(() -> repositorioPreguntas.agregar(pregunta));
       response.status(201);
-      // modelo.put("success", "Creaste una nueva caracteristica!");
-      // modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
+      modelo.put("disponibles", getDisponibles());
       response.redirect("/caracteristicas");
     } catch (TipoPreguntaInexistenteException | NullPointerException exception) {
       modelo.put("error", exception.getMessage());
       response.status(422);
-
       return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
     }
-
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
   public ModelAndView getDetalleCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
     String id = request.params(":id");
+    String objetivo = request.params(":objetivo");
 
     try {
       Pregunta caracteristica = repositorioPreguntas.buscar(Long.valueOf(id));
 
       if (caracteristica != null) {
         modelo.put("caracteristica", caracteristica);
-
+        modelo.put("objetivo", objetivo);
         return new ModelAndView(modelo, "detalleCaracteristicas.html.hbs");
       }
-
-      modelo.put("error", "Caracteristica no encontrada");
+      modelo.put("error", objetivo + " no encontrada");
       response.status(404);
 
     } catch (NumberFormatException | NullPointerException exception) {
       modelo.put("error", "Request erronea");
       response.status(400);
 
-    } finally {
-      modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
     }
-
+    modelo.put("disponibles", getDisponibles());
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
   public ModelAndView actualizarCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 
-    Long id;
-    try {
-      id = Long.parseLong(request.params(":id"));
-    } catch (NumberFormatException | NullPointerException exception) {
-      modelo.put("error", "Request erronea");
-      modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
-      response.status(400);
-      response.redirect("/caracteristicas");
-      // return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
-    }
-
-    String descripcion = request.queryParams("descripcion");
-    Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
-
-    List<Opcion> opciones = new ArrayList<>();
-    QueryParamsMap paramsOpciones = request.queryMap().get("opcion");
-    Arrays.stream(paramsOpciones.values())
-        .forEach(value -> opciones.add(new Opcion(value)));
-
+    Long id = Long.parseLong(request.params(":id"));
     Pregunta pregunta = repositorioPreguntas.buscar(id);
-
     if (pregunta == null) {
       modelo.put("error", "Caracteristica no encontrada");
       modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
       response.status(404);
-
       response.redirect("/caracteristicas");
-      // return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
     }
+
+    String descripcion = request.queryParams("descripcion");
+    Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
+    List<Opcion> opciones = new ArrayList<>();
+    QueryParamsMap paramsOpciones = request.queryMap().get("opcion");
+    if(paramsOpciones.hasValue()) {
+      Arrays.stream(paramsOpciones.values())
+          .forEach(value -> opciones.add(new Opcion(value)));
+    }
+
     try {
       pregunta.setDescripcion(descripcion);
       pregunta.setObligatoria(obligatoria);
@@ -150,9 +131,8 @@ public class CaracteristicaController extends BaseController implements WithGlob
       withTransaction(() -> repositorioPreguntas.agregar(pregunta));
 
       modelo.put("success", "Actualizaste la caracteristica " + pregunta.getDescripcion() + "!");
-      modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
       response.status(201);
-
+      response.redirect("/caracteristicas");
     } catch (NullPointerException exception) {
       modelo.put("caracteristica", pregunta);
       modelo.put("error", exception.getMessage());
@@ -161,6 +141,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
       return new ModelAndView(modelo, "detalleCaracteristicas.html.hbs");
     }
 
+    modelo.put("disponibles", getDisponibles());
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
@@ -181,19 +162,11 @@ public class CaracteristicaController extends BaseController implements WithGlob
 
     return modelo;
   }
+
+  private Map<String, List<Pregunta>> getDisponibles() {
+    return new HashMap<String, List<Pregunta>>() {{
+      put("Caracteristica", repositorioPreguntas.listarSegunObjetivo(CARACTERISTICA_MASCOTA));
+      put("Pregunta", repositorioPreguntas.listarSegunObjetivo(PREGUNTA_ASOCIACION_COMODIDAD));
+    }};
+  }
 }
-
-
-// TODO: Ejemplo de como se consiguen los valores de las opciones
-// Arrays.asList("texto", "bullet", "number", "checkbox").forEach(param -> this.getValoresPorNombre(request, param));
-// private void getValoresPorNombre(Request request, String name) {
-//   QueryParamsMap opciones = request.queryMap().get(name);
-//   opciones.toMap().keySet()
-//       .forEach(key -> {
-//         System.out.println("==============");
-//         System.out.println(name + " id: " + key);
-//         Arrays.stream(opciones.get(key).values())
-//             .forEach(value -> System.out.println("Value: " + value));
-//       });
-// }
-

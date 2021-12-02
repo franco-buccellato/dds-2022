@@ -47,12 +47,22 @@ public class RepositorioPreguntas implements WithGlobalEntityManager {
     return entityManager().createQuery("from preguntas", Pregunta.class).getResultList();
   }
 
-  public List<Pregunta> listarSegunTipo(TipoPregunta tipoPregunta) {
+  public List<Pregunta> listarSegunTipo(TipoPregunta tipoPregunta, ObjetivoPregunta objetivo) {
     return entityManager().createQuery(
             "from preguntas p where p.tipoPregunta = :tipoPregunta",
             Pregunta.class
         ).setParameter("tipoPregunta", tipoPregunta)
-        .getResultList();
+        .getResultList()
+        .stream()
+        .filter(pregunta -> pregunta.cumpleObjetivo(objetivo))
+        .collect(Collectors.toList());
+  }
+
+  public List<Pregunta> listarSegunObjetivo(ObjetivoPregunta objetivo) {
+    return listar()
+        .stream()
+        .filter(pregunta -> pregunta.cumpleObjetivo(objetivo))
+        .collect(Collectors.toList());
   }
 
   public Pregunta buscar(Long id) {

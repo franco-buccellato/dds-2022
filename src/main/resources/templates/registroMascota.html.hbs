@@ -4,115 +4,115 @@
             <div class="registro">
                 <form action="/registrarMascota" method="POST">
                     <ul>
-{{!--                         {{#unless esDuenio}} --}}
-{{!--                             <h3>Complete la siguiente información sobre usted:</h3> --}}
-{{!--                             <li><label class="registro__label">Ingrese su nombre completo:</label></li> --}}
-{{!--                             <li><input type="text" name="registro-nombreDuenio" class="registro__input" --}}
-{{!--                                        id="registro-nombreDuenio" required></li> --}}
-{{!--                             <li><label class="registro__label">Ingrese su apellido:</label></li> --}}
-{{!--                             <li><input type="text" name="registro-apellido" class="registro__input" --}}
-{{!--                                        id="registro-apellido" required></li> --}}
-{{!--                             <li><label class="registro__label">Seleccione tipo de documento:</label></li> --}}
-{{!--                             <li> --}}
-{{!--                                 <select name="registro-tipoDocumento" class="registro__input" --}}
-{{!--                                         id="registro-tipoDocumento" required> --}}
-{{!--                                     <option value=""></option> --}}
-{{!--                                     <option value="DNI">DNI</option> --}}
-{{!--                                     <option value="LE">LE</option> --}}
-{{!--                                     <option value="CEDULA">CEDULA</option> --}}
-{{!--                                 </select> --}}
-{{!--                             </li> --}}
-{{!--                             <li><label class="registro__label">Ingrese su documento:</label></li> --}}
-{{!--                             <li><input type="number" name="registro-documento" class="registro__input" --}}
-{{!--                                        id="registro-documento" required></li> --}}
-{{!--                             <li><label class="registro__label">Ingrese su fecha de nacimiento:</label></li> --}}
-{{!--                             <li><input type="date" name="registro-fechaNacimiento" class="registro__input" --}}
-{{!--                                        id="registro-fechaNacimiento" required></li> --}}
-{{!--                             <br><br><br><br> --}}
-{{!--                             <h3>Ingrese los posibles contactos a comunicarse al hallar a su mascota:</h3> --}}
-{{!--                             <br><br> --}}
-{{!--                             <h3>Contacto 1:</h3> --}}
-{{!--                             <li><label class="registro__label">Ingrese nombre:</label></li> --}}
-{{!--                             <li><input type="text" name="registro-nombreContacto1" class="registro__input" --}}
-{{!--                                        id="registro-nombreContacto1" required></li> --}}
-{{!--                             <li><label class="registro__label">Ingrese apellido:</label></li> --}}
-{{!--                             <li><input type="text" name="registro-apellidoContacto1" class="registro__input" --}}
-{{!--                                        id="registro-apellidoContacto1" required></li> --}}
-{{!--                             <li><label class="registro__label">Ingrese telefono:</label></li> --}}
-{{!--                             <li><input type="number" name="registro-telefonoContacto1" class="registro__input" --}}
-{{!--                                        id="registro-telefonoContacto1" required></li> --}}
-{{!--                             <li><label class="registro__label">Ingrese mail:</label></li> --}}
-{{!--                             <li><input type="email" name="registro-mailContacto1" class="registro__input" --}}
-{{!--                                        id="registro-mailContacto1" required></li> --}}
-{{!--                             <li><label class="registro__label">Seleccione tipo de vinculo:</label></li> --}}
-{{!--                             <li> --}}
-{{!--                                 <select name="registro-vinculoContacto1" class="registro__input" --}}
-{{!--                                         id="registro-vinculoContacto1" required> --}}
-{{!--                                     <option value=""></option> --}}
-{{!--                                     <option value="TITULAR">Titular</option> --}}
-{{!--                                     <option value="FAMILIAR">Amistad</option> --}}
-{{!--                                     <option value="AMISTAD">Familiar</option> --}}
-{{!--                                 </select> --}}
-{{!--                             </li> --}}
-{{!--                             <br><br> --}}
-{{!--                             <h3>Contacto 2:</h3> --}}
-{{!--                             <li><label class="registro__label">Ingrese nombre:</label></li> --}}
-{{!--                             <li><input type="text" name="registro-nombreContacto2" class="registro__input" --}}
-{{!--                                        id="registro-nombreContacto2" required></li> --}}
-{{!--                             <li><label class="registro__label">Ingrese apellido:</label></li> --}}
-{{!--                             <li><input type="text" name="registro-apellidoContacto2" class="registro__input" --}}
-{{!--                                        id="registro-apellidoContacto2" required></li> --}}
-{{!--                             <li><label class="registro__label">Ingrese telefono:</label></li> --}}
-{{!--                             <li><input type="number" name="registro-telefonoContacto2" class="registro__input" --}}
-{{!--                                        id="registro-telefonoContacto2" required></li> --}}
-{{!--                             <li><label class="registro__label">Ingrese mail:</label></li> --}}
-{{!--                             <li><input type="email" name="registro-mailContacto2" class="registro__input" --}}
-{{!--                                        id="registro-mailContacto2" required></li> --}}
-{{!--                             <li><label class="registro__label">Seleccione tipo de vinculo:</label></li> --}}
-{{!--                             <li> --}}
-{{!--                                 <select name="registro-vinculoContacto2" class="registro__input" --}}
-{{!--                                         id="registro-vinculoContacto2" required> --}}
-{{!--                                     <option value=""></option> --}}
-{{!--                                     <option value="TITULAR">Titular</option> --}}
-{{!--                                     <option value="FAMILIAR">Amistad</option> --}}
-{{!--                                     <option value="AMISTAD">Familiar</option> --}}
-{{!--                                 </select> --}}
-{{!--                             </li> --}}
-{{!--                             <br><br><br><br> --}}
-{{!--                         {{/unless}} --}}
+                        {{#unless esDuenio}}
+                            <h3>Complete la siguiente información sobre usted:</h3>
+                            <li><label class="registro__label">Ingrese su nombre completo:</label></li>
+                            <li><input type="text" name="registro-nombreDuenio" class="registro__input"
+                                       id="registro-nombreDuenio" required></li>
+                            <li><label class="registro__label">Ingrese su apellido:</label></li>
+                            <li><input type="text" name="registro-apellido" class="registro__input"
+                                       id="registro-apellido" required></li>
+                            <li><label class="registro__label">Seleccione tipo de documento:</label></li>
+                            <li>
+                                <select name="registro-tipoDocumento" class="registro__input"
+                                        id="registro-tipoDocumento" required>
+                                    <option value=""></option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="LE">LE</option>
+                                    <option value="CEDULA">CEDULA</option>
+                                </select>
+                            </li>
+                            <li><label class="registro__label">Ingrese su documento:</label></li>
+                            <li><input type="number" name="registro-documento" class="registro__input"
+                                       id="registro-documento" required></li>
+                            <li><label class="registro__label">Ingrese su fecha de nacimiento:</label></li>
+                            <li><input type="date" name="registro-fechaNacimiento" class="registro__input"
+                                       id="registro-fechaNacimiento" required></li>
+                            <br><br><br><br>
+                            <h3>Ingrese los posibles contactos a comunicarse al hallar a su mascota:</h3>
+                            <br><br>
+                            <h3>Contacto 1:</h3>
+                            <li><label class="registro__label">Ingrese nombre:</label></li>
+                            <li><input type="text" name="registro-nombreContacto1" class="registro__input"
+                                       id="registro-nombreContacto1" required></li>
+                            <li><label class="registro__label">Ingrese apellido:</label></li>
+                            <li><input type="text" name="registro-apellidoContacto1" class="registro__input"
+                                       id="registro-apellidoContacto1" required></li>
+                            <li><label class="registro__label">Ingrese telefono:</label></li>
+                            <li><input type="number" name="registro-telefonoContacto1" class="registro__input"
+                                       id="registro-telefonoContacto1" required></li>
+                            <li><label class="registro__label">Ingrese mail:</label></li>
+                            <li><input type="email" name="registro-mailContacto1" class="registro__input"
+                                       id="registro-mailContacto1" required></li>
+                            <li><label class="registro__label">Seleccione tipo de vinculo:</label></li>
+                            <li>
+                                <select name="registro-vinculoContacto1" class="registro__input"
+                                        id="registro-vinculoContacto1" required>
+                                    <option value=""></option>
+                                    <option value="TITULAR">Titular</option>
+                                    <option value="FAMILIAR">Amistad</option>
+                                    <option value="AMISTAD">Familiar</option>
+                                </select>
+                            </li>
+                            <br><br>
+                            <h3>Contacto 2:</h3>
+                            <li><label class="registro__label">Ingrese nombre:</label></li>
+                            <li><input type="text" name="registro-nombreContacto2" class="registro__input"
+                                       id="registro-nombreContacto2" required></li>
+                            <li><label class="registro__label">Ingrese apellido:</label></li>
+                            <li><input type="text" name="registro-apellidoContacto2" class="registro__input"
+                                       id="registro-apellidoContacto2" required></li>
+                            <li><label class="registro__label">Ingrese telefono:</label></li>
+                            <li><input type="number" name="registro-telefonoContacto2" class="registro__input"
+                                       id="registro-telefonoContacto2" required></li>
+                            <li><label class="registro__label">Ingrese mail:</label></li>
+                            <li><input type="email" name="registro-mailContacto2" class="registro__input"
+                                       id="registro-mailContacto2" required></li>
+                            <li><label class="registro__label">Seleccione tipo de vinculo:</label></li>
+                            <li>
+                                <select name="registro-vinculoContacto2" class="registro__input"
+                                        id="registro-vinculoContacto2" required>
+                                    <option value=""></option>
+                                    <option value="TITULAR">Titular</option>
+                                    <option value="FAMILIAR">Amistad</option>
+                                    <option value="AMISTAD">Familiar</option>
+                                </select>
+                            </li>
+                            <br><br><br><br>
+                        {{/unless}}
                         <h3>Complete los siguientes datos de su mascota:</h3>
-{{!--                         <li><label class="registro__label">Seleccione tipo de Mascota:</label></li> --}}
-{{!--                         <li> --}}
-{{!--                             <select name="registro-especie" class="registro__input" id="registro-especie" required> --}}
-{{!--                                 <option value=""></option> --}}
-{{!--                                 <option value="PERRO">Perro</option> --}}
-{{!--                                 <option value="GATO">Gato</option> --}}
-{{!--                             </select> --}}
-{{!--                         </li> --}}
-{{!--                         <li><label class="registro__label">Ingrese el nombre:</label></li> --}}
-{{!--                         <li><input type="text" name="registro-nombre" class="registro__input" id="registro-nombre" --}}
-{{!--                                    required></li> --}}
-{{!--                         <li><label class="registro__label">Ingrese el apodo:</label></li> --}}
-{{!--                         <li><input type="text" name="registro-apodo" class="registro__input" id="registro-apodo" --}}
-{{!--                                    required></li> --}}
-{{!--                         <li><label class="registro__label">Ingrese la edad:</label></li> --}}
-{{!--                         <li><input type="number" name="registro-edad" class="registro__input" id="registro-edad" --}}
-{{!--                                    required> --}}
-{{!--                         </li> --}}
-{{!--                         <li><label class="registro__label">Seleccione el sexo:</label></li> --}}
-{{!--                         <li> --}}
-{{!--                             <select name="registro-sexo" class="registro__input" id="registro-sexo" required> --}}
-{{!--                                 <option value=""></option> --}}
-{{!--                                 <option value="MACHO">Macho</option> --}}
-{{!--                                 <option value="HEMBRA">Hembra</option> --}}
-{{!--                             </select> --}}
-{{!--                         </li> --}}
-{{!--                         <li><label class="registro__label">Ingrese una descripción física:</label></li> --}}
-{{!--                         <li><textarea class="registro__textarea" name="registro-descripcion" id="registro-descripcion" --}}
-{{!--                                       cols="63" rows="10" required></textarea></li> --}}
-{{!--                         <li><label class="registro__label">Seleccione imagenes:</label></li> --}}
-{{!--                         <li><input type="file" name="registro-fotos" class="registro__file" id="registro-fotos"></li> --}}
-{{!--                         <li> --}}
+                        <li><label class="registro__label">Seleccione tipo de Mascota:</label></li>
+                        <li>
+                            <select name="registro-especie" class="registro__input" id="registro-especie" required>
+                                <option value=""></option>
+                                <option value="PERRO">Perro</option>
+                                <option value="GATO">Gato</option>
+                            </select>
+                        </li>
+                        <li><label class="registro__label">Ingrese el nombre:</label></li>
+                        <li><input type="text" name="registro-nombre" class="registro__input" id="registro-nombre"
+                                   required></li>
+                        <li><label class="registro__label">Ingrese el apodo:</label></li>
+                        <li><input type="text" name="registro-apodo" class="registro__input" id="registro-apodo"
+                                   required></li>
+                        <li><label class="registro__label">Ingrese la edad:</label></li>
+                        <li><input type="number" name="registro-edad" class="registro__input" id="registro-edad"
+                                   required>
+                        </li>
+                        <li><label class="registro__label">Seleccione el sexo:</label></li>
+                        <li>
+                            <select name="registro-sexo" class="registro__input" id="registro-sexo" required>
+                                <option value=""></option>
+                                <option value="MACHO">Macho</option>
+                                <option value="HEMBRA">Hembra</option>
+                            </select>
+                        </li>
+                        <li><label class="registro__label">Ingrese una descripción física:</label></li>
+                        <li><textarea class="registro__textarea" name="registro-descripcion" id="registro-descripcion"
+                                      cols="63" rows="10" required></textarea></li>
+                        <li><label class="registro__label">Seleccione imagenes:</label></li>
+                        <li><input type="file" name="registro-fotos" class="registro__file" id="registro-fotos"></li>
+                        <li>
                             <div class="caracteristicas">
                                 {{#textos as |texto|}}
                                     <label class="registro__label">{{texto.descripcion}}</label>
@@ -121,7 +121,7 @@
                                             class="registro__input"
                                             required="{{texto.obligatoria}}"
                                             id="respuesta-{{texto.id}}"
-                                            name="texto[{{texto.id}}]"
+                                            name="respuesta-{{texto.id}}"
                                     />
                                 {{/textos}}
                                 {{#numeros as |numero|}}
@@ -131,7 +131,7 @@
                                             class="registro__input"
                                             required="{{numero.obligatoria}}"
                                             id="respuesta-{{numero.id}}"
-                                            name="number[{{numero.id}}]"
+                                            name="respuesta-{{numero.id}}"
                                     />
                                 {{/numeros}}
                                 {{#bullets as |bullet|}}
@@ -141,7 +141,7 @@
                                                 class="registro__input"
                                                 required="{{bullet.obligatoria}}"
                                                 id="respuesta-{{bullet.id}}"
-                                                name="bullet[{{bullet.id}}]"
+                                                name="respuesta-{{bullet.id}}"
                                         >
                                             <option value=""></option>
                                             {{#bullet.opciones as |opcion|}}
@@ -160,7 +160,6 @@
                                                 <input
                                                         type="checkbox"
                                                         onchange="saveCheckbox(this, {{checkbox.id}},{{opcion.id}})"
-                                                        value="{{opcion.id}}"
                                                 />
                                                 {{opcion.descripcion}}
                                             </label>
@@ -177,9 +176,9 @@
         </div>
     </section>
     <script type="text/javascript">
-        const saveCheckbox = (checkbox, preguntaId) => {
+        const saveCheckbox = (checkbox, preguntaId, opcionId) => {
             if (checkbox.checked) {
-                checkbox.setAttribute('name', `checkbox[${preguntaId}]`)
+                checkbox.setAttribute('name', `respuesta-${preguntaId}-${opcionId}`)
                 return
             }
 

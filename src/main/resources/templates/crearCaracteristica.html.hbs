@@ -4,7 +4,7 @@
             <div class="registro">
                 <form action="/caracteristicas" method="POST">
                     <div class="crear_caracteristica">
-                        <h2>Complete nueva caracteristica</h2>
+                        <h2>Complete nueva {{alcance}}</h2>
                         <div>
                             <label class="registro__label"
                                    style="display:inline-block; width: 150px">Descripción:</label>
@@ -22,7 +22,7 @@
                         </div>
                         <div class="registro__opciones">
                             <label class="registro__label" style="display:inline-block;  width: 150px">Tipo de
-                                Caracteristica:</label>
+                                {{alcance}}:</label>
                             <select
                                     name="tipoCaracteristica"
                                     class="registro__input"
@@ -38,7 +38,7 @@
 {{!--                         <button onclick=crearOpcion()><i class="fas fa-plus"></i></button> --}}
                     </div>
                     <div>
-                        <input type="submit" class="boton-submit" value="Crear Caracteristica">
+                        <button type="submit" class="boton-submit salvar" name="alcance" value="{{alcance}}">Agregar {{alcance}}</button>
                     </div>
                     <div id="informacion">
                         <div class="informacion-flex">
