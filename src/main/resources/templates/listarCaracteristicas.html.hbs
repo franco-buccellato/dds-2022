@@ -18,12 +18,12 @@
                 </div>
             </div>
         {{/if}}
-        <div class="container__registro">
+        <div class="container__listar">
             <div class="registro">
-                <div class="listar_caracteristica">
+                <div class="listar_caracteristica column">
                     <div>
                         <form action="/caracteristicas/crear">
-                            <input type="submit" class="boton-submit" value="Agregar Caracteristica">
+                            <input type="submit" class="boton-submit" value="Agregar Caracteristica" name="alcance">
                         </form>
                     </div>
                     <h2></br>Caracteristicas Disponibles</h2></br>
@@ -43,6 +43,30 @@
                         </a>
                         </br>
                     {{/caracteristicasDisponibles}}
+                </div>
+                <div class="listar_preguntas column" styles="float: left; width: 50%">
+                    <div>
+                        <form action="/preguntas/crear">
+                            <input type="submit" class="boton-submit" value="Agregar Pregunta Adopcion" name="alcance">
+                        </form>
+                    </div>
+                    <h2></br>Preguntas Disponibles</h2></br>
+                    {{#preguntasDisponibles}}
+                        <a href="/preguntas/{{id}}"
+                           onMouseOver="this.style.border=1"
+                           onMouseOut="this.style.border=0">
+                            <div style="padding: 10px">
+                                <label> {{descripcion}} ( {{tipoPregunta}} {{#if obligatoria}}
+                                    - Obligatoria {{/if}})</label>
+                                <div>
+                                    {{#opciones}}
+                                        <li>{{descripcion}}</li>
+                                    {{/opciones}}
+                                </div>
+                            </div>
+                        </a>
+                        </br>
+                    {{/preguntasDisponibles}}
                 </div>
             </div>
         </div>

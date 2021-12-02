@@ -4,7 +4,7 @@
             <div class="registro">
                 <form action="/caracteristicas/{{caracteristica.id}}" method="POST">
                     <div class="detalle_caracteristica">
-                        <h2>Edite caracteristica</h2>
+                        <h2>Edite {{objetivoPregunta}}</h2>
                         <div>
                             <label class="registro__label"
                                    style="display:inline-block; width: 150px">Descripción:</label>
@@ -22,7 +22,7 @@
                         </div>
                         <div>
                             <label class="registro__label" style="display:inline-block;  width: 150px">Tipo de
-                                Caracteristica: </label>
+                                {{objetivoPregunta}}: </label>
                             <label name="tipoCaracteristica" class="registro__input" id="tipoCaracteristica" style="display:inline-block;"> {{caracteristica.tipoPregunta}} </label>
                             <ul>
                                   {{#each caracteristica.opciones}}
