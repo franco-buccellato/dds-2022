@@ -47,8 +47,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
                       "Perez",
                       "4444-4444",
                       "jp@gmail.com",
-                      Vinculo.FAMILIAR,
-                      null
+                      Vinculo.FAMILIAR
                   )
               ),
               null,

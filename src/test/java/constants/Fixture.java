@@ -10,6 +10,7 @@ import static domain.TipoIdentificacion.DNI;
 import static domain.TipoMascota.GATO;
 import static domain.TipoMascota.PERRO;
 import static domain.TipoUsuario.VOLUNTARIO;
+import static domain.Vinculo.AMISTAD;
 import static org.mockito.Mockito.mock;
 
 import java.math.BigDecimal;

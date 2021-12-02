@@ -1,6 +1,8 @@
 package domain;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.json.simple.JSONObject;
+
+import static domain.exception.Mensajes.NOT_NULO;
 
 @Entity(name = "opciones")
 public class Opcion {
@@ -53,7 +57,8 @@ public class Opcion {
   public JSONObject toJson() {
     JSONObject jsonOpcion = new JSONObject();
     jsonOpcion.put("descripcion", this.descripcion);
-    jsonOpcion.put("seleccionada", this.seleccionada.toString());
+//    TODO: HERE
+//    jsonOpcion.put("seleccionada", this.seleccionada.toString());
     return jsonOpcion;
   }
 }

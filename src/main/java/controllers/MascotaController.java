@@ -4,18 +4,14 @@ import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import domain.*;
+import domain.repositorios.RepositorioOpciones;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
-import domain.Contacto;
-import domain.DatoPersonal;
-import domain.Duenio;
-import domain.Pregunta;
-import domain.TipoIdentificacion;
-import domain.TipoPregunta;
-import domain.Usuario;
 import domain.repositorios.RepositorioDuenio;
 import domain.repositorios.RepositorioPreguntas;
 import domain.repositorios.RepositorioUsuarios;
@@ -25,7 +21,8 @@ import spark.Response;
 
 public class MascotaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
-  public Void registrarMascota(Request request, Response response) throws IOException {
+  public ModelAndView registrarMascota(Request request, Response response) throws IOException {
+    Map<String, Object> modelo = new HashMap<>();
     RepositorioDuenio repositorioDuenio = RepositorioDuenio.getInstance();
 
     Usuario usuario = RepositorioUsuarios.getInstance()
@@ -76,7 +73,7 @@ public class MascotaController extends BaseController implements WithGlobalEntit
           apellidoContacto2,
           telefonoContacto2,
           mailContacto2,
-          vinculoContacto2,
+          vinculoContacto2
       );
 
       duenio = new Duenio(datosDuenio, Arrays.asList(contacto1, contacto2), null, usuario);
@@ -155,15 +152,15 @@ public class MascotaController extends BaseController implements WithGlobalEntit
         SituacionMascota.EN_HOGAR_PROPIO
     );
 
-//    duenio.addMascota(mascota);
+    duenio.addMascota(mascota);
 
-//    Duenio finalDuenio = duenio;
+    Duenio finalDuenio = duenio;
 
-//    withTransaction(() -> repositorioDuenio.agregar(finalDuenio));
+    withTransaction(() -> repositorioDuenio.agregar(finalDuenio));
 
     //Redireccionar a la misma página
-    //response.redirect("/registrarMascota");
-
+//    response.redirect("/registrarMascota");
+//    return null;
 
     modelo.put("QR", "imagenes/QR_out/QR_Code-" + String.valueOf(mascota.getId()) + ".png");
 

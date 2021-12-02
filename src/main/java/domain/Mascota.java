@@ -185,13 +185,9 @@ public class Mascota {
     jsonMascota.put("descripcion", this.descripcionFisica);
     JSONArray jsonCaracteristicas = new JSONArray();
     jsonCaracteristicas.addAll(this.caracteristicas);
-    jsonMascota.put("caracteristicas", this.caracteristicas.stream().map(caracteristica -> caracteristica.toJson()).collect(Collectors.toList()));
+//    TODO: HERE
+//    jsonMascota.put("caracteristicas", this.caracteristicas.stream().map(caracteristica -> caracteristica.toJson()).collect(Collectors.toList()));
 
     return jsonMascota;
   }
-
-  public int getId() {
-    return this.id;
-  }
-
 }
