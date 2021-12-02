@@ -1,13 +1,15 @@
 package domain.repositorios;
 
-import domain.ObjetivoPregunta;
-import domain.Pregunta;
-import domain.TipoPregunta;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+
+import domain.ObjetivoPregunta;
+import domain.Pregunta;
+import domain.TipoPregunta;
 
 public class RepositorioPreguntas implements WithGlobalEntityManager {
   private List<Pregunta> caracteristicasDisponibles = Collections.emptyList();
