@@ -42,6 +42,12 @@ public class CaracteristicaController extends BaseController implements WithGlob
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
 
+  public ModelAndView mostrarCrearPregunta(Request request, Response response) {
+    Map<String, Object> modelo = this.setMetadata(request);
+
+    return new ModelAndView(modelo, "crearPregunta.html.hbs");
+  }
+
   public ModelAndView crearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 

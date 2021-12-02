@@ -67,6 +67,13 @@ public class RepositorioPreguntas implements WithGlobalEntityManager {
         .collect(Collectors.toList());
   }
 
+  public List<Pregunta> listarSegunObjetivo(ObjetivoPregunta objetivo) {
+    return listar()
+        .stream()
+        .filter(pregunta -> pregunta.cumpleObjetivo(objetivo))
+        .collect(Collectors.toList());
+  }
+
   public Pregunta buscar(Long id) {
     return entityManager().find(Pregunta.class, id);
   }
