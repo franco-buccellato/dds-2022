@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -20,6 +22,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.UniqueConstraint;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 @Entity(name = "mascotas")
 public class Mascota {
@@ -168,4 +173,25 @@ public class Mascota {
 
     return tamanio.getDescripcion();
   }
+
+  public JSONObject toJson() {
+    JSONObject jsonMascota = new JSONObject();
+    jsonMascota.put("id", this.id);
+    jsonMascota.put("tipo_mascota", this.tipoMascota.getLabel());
+    jsonMascota.put("nombre", this.nombre);
+    jsonMascota.put("apodo", this.apodo);
+    jsonMascota.put("edad", this.edadAproximada);
+    jsonMascota.put("sexo", this.sexo.getLabel());
+    jsonMascota.put("descripcion", this.descripcionFisica);
+    JSONArray jsonCaracteristicas = new JSONArray();
+    jsonCaracteristicas.addAll(this.caracteristicas);
+    jsonMascota.put("caracteristicas", this.caracteristicas.stream().map(caracteristica -> caracteristica.toJson()).collect(Collectors.toList()));
+
+    return jsonMascota;
+  }
+
+  public int getId() {
+    return this.id;
+  }
+
 }

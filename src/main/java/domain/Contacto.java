@@ -3,6 +3,7 @@ package domain;
 import static domain.exception.Mensajes.NOT_NULO;
 
 import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import domain.exception.NoSePudoEnviarMailException;
 
 @Entity
 @Table(name = "contactos")
@@ -40,15 +43,13 @@ public class Contacto {
       String apellido,
       String telefono,
       String mail,
-      Vinculo vinculo,
-      MedioNotificacion medioNotificacion
+      Vinculo vinculo
   ) {
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
     this.apellido = Objects.requireNonNull(apellido, NOT_NULO.mensaje("apellido"));
     this.telefono = telefono;
     this.mail = mail;
     this.vinculo = vinculo;
-    this.medioNotificacion = medioNotificacion;
   }
 
   //  Getters y setters
@@ -89,7 +90,11 @@ public class Contacto {
   }
 
   public void notificar(Notificacion notificacion) {
-    this.getMedioNotificacion().notificar(this, notificacion.getMensaje());
+    try {
+      MedioNotificacionEmail.getInstance().notificar(this, notificacion.getMensaje());
+    } catch(NoSePudoEnviarMailException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   @Override

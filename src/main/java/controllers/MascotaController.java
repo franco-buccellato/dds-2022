@@ -1,9 +1,10 @@
 package controllers;
 
+import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
+
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
@@ -11,27 +12,16 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import domain.Contacto;
 import domain.DatoPersonal;
 import domain.Duenio;
-import domain.Mascota;
-import domain.MedioNotificacionEmail;
-import domain.Opcion;
 import domain.Pregunta;
-import domain.RespuestaCaracteristicaMascota;
-import domain.Sexo;
-import domain.SituacionMascota;
 import domain.TipoIdentificacion;
-import domain.TipoMascota;
 import domain.TipoPregunta;
 import domain.Usuario;
-import domain.Vinculo;
 import domain.repositorios.RepositorioDuenio;
-import domain.repositorios.RepositorioOpciones;
 import domain.repositorios.RepositorioPreguntas;
 import domain.repositorios.RepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-
-import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
 
 public class MascotaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
@@ -70,15 +60,12 @@ public class MascotaController extends BaseController implements WithGlobalEntit
       String telefonoContacto1 = request.queryParams("registro-telefonoContacto1");
       String mailContacto1 = request.queryParams("registro-mailContacto1");
       Vinculo vinculoContacto1 = Vinculo.valueOf(request.queryParams("registro-vinculoContacto1"));
-      Contacto contacto1 = new Contacto(
-          nombreContacto1,
-          apellidoContacto1,
-          telefonoContacto1,
-          mailContacto1,
-          vinculoContacto1,
-          new MedioNotificacionEmail()
-      );
-
+      Contacto contacto1 = new Contacto(nombreContacto1,
+                                        apellidoContacto1,
+                                        telefonoContacto1,
+                                        mailContacto1,
+                                        vinculoContacto1);
+      //Obtengo los datos del Contacto 2
       String nombreContacto2 = request.queryParams("registro-nombreContacto2");
       String apellidoContacto2 = request.queryParams("registro-apellidoContacto2");
       String telefonoContacto2 = request.queryParams("registro-telefonoContacto2");
@@ -90,7 +77,6 @@ public class MascotaController extends BaseController implements WithGlobalEntit
           telefonoContacto2,
           mailContacto2,
           vinculoContacto2,
-          new MedioNotificacionEmail()
       );
 
       duenio = new Duenio(datosDuenio, Arrays.asList(contacto1, contacto2), null, usuario);
@@ -176,8 +162,12 @@ public class MascotaController extends BaseController implements WithGlobalEntit
 //    withTransaction(() -> repositorioDuenio.agregar(finalDuenio));
 
     //Redireccionar a la misma página
-    response.redirect("/registrarMascota");
-    return null;
+    //response.redirect("/registrarMascota");
+
+
+    modelo.put("QR", "imagenes/QR_out/QR_Code-" + String.valueOf(mascota.getId()) + ".png");
+
+    return new ModelAndView(modelo, "registroMascotaConfirmado.html.hbs");
   }
 
   public ModelAndView formularioRegistrarMascota(Request request, Response response) {
@@ -206,7 +196,7 @@ public class MascotaController extends BaseController implements WithGlobalEntit
     return new ModelAndView(modelo, "registroMascota.html.hbs");
   }
 
-  public Void encontreMascota(Request request, Response response) {
-    return null;
+  public ModelAndView encontreMascota(Request request, Response response) {
+    return new ModelAndView(null, "encontre_mascota.html.hbs");
   }
 }

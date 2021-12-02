@@ -1,15 +1,18 @@
 package domain.repositorios;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+
 import domain.Duenio;
 import domain.Mascota;
 import domain.Rescate;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-
-import javax.persistence.NoResultException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 public class RepositorioDuenio implements WithGlobalEntityManager {
   private List<Duenio> duenios = new ArrayList<>();
@@ -52,8 +55,17 @@ public class RepositorioDuenio implements WithGlobalEntityManager {
     }
   }
 
-  public Optional<Duenio> findDuenioMascota(Mascota mascota) {
-    return duenios.stream().filter(duenio -> duenio.getMascotas().contains(mascota)).findFirst();
+//  public List findWithName(String name) {
+//    return entityManager().createQuery(
+//        "SELECT c FROM Customer c WHERE c.name LIKE :custName")
+//        .setParameter("custName", name)
+//        .setMaxResults(10)
+//        .getResultList();
+//  }
+
+  public Optional<Duenio> findDuenioMascota(Mascota mascota) {    Query query = entityManager().createNativeQuery("select top 1 d.id from Duenios as d INNER JOIN mascotas as m ON d.id = m.duenio_id WHERE m.id = :mascota_id");
+    query.setParameter("mascota_id", mascota.getId());
+    return Optional.ofNullable(this.getById(((BigInteger) query.getSingleResult()).longValue()));
   }
 
   public List<Duenio> listar() {
@@ -61,5 +73,3 @@ public class RepositorioDuenio implements WithGlobalEntityManager {
   }
 
 }
-
-// TODO: Logica no va

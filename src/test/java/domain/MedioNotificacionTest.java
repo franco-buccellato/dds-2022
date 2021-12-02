@@ -21,14 +21,12 @@ public class MedioNotificacionTest {
     mensaje = "Mensaje #" + System.currentTimeMillis();
     telefono = String.valueOf(System.currentTimeMillis());
     emailTo = "contact.patitas+" + System.currentTimeMillis() + "@gmail.com";
-    contacto = new Contacto("Patitas", "Test", telefono, emailTo, TITULAR, null);
+    contacto = new Contacto("Patitas", "Test", telefono, emailTo, TITULAR);
   }
 
   @Test
   public void puedoEnviarUnMail() throws MessagingException, IOException {
-    MedioNotificacion email = new MedioNotificacionEmail();
-    contacto.setMedioNotificacion(email);
-
+    MedioNotificacion email = MedioNotificacionEmail.getInstance();
     // Envio email
     email.notificar(contacto, mensaje);
     // Leo ultimo email recibido

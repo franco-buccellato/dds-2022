@@ -1,15 +1,14 @@
 package domain;
 
-import static domain.exception.Mensajes.NOT_NULO;
-
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.json.simple.JSONObject;
 
 @Entity(name = "opciones")
 public class Opcion {
@@ -49,5 +48,12 @@ public class Opcion {
     List<String> tamanios = Arrays.asList("Chico", "Mediano", "Grande");
 
     return tamanios.stream().anyMatch(tamanio -> tamanio.equals(this.getDescripcion()));
+  }
+
+  public JSONObject toJson() {
+    JSONObject jsonOpcion = new JSONObject();
+    jsonOpcion.put("descripcion", this.descripcion);
+    jsonOpcion.put("seleccionada", this.seleccionada.toString());
+    return jsonOpcion;
   }
 }

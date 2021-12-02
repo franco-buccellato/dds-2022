@@ -1,6 +1,8 @@
 package constants;
 
-import static domain.ObjetivoPregunta.*;
+import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
+import static domain.ObjetivoPregunta.PREGUNTA_ASOCIACION_COMODIDAD;
+import static domain.ObjetivoPregunta.PREGUNTA_ASOCIACION_PREFERENCIAS;
 import static domain.Sexo.HEMBRA;
 import static domain.SituacionMascota.EN_HOGAR_PROPIO;
 import static domain.SituacionMascota.PERDIDA;
@@ -8,7 +10,6 @@ import static domain.TipoIdentificacion.DNI;
 import static domain.TipoMascota.GATO;
 import static domain.TipoMascota.PERRO;
 import static domain.TipoUsuario.VOLUNTARIO;
-import static domain.Vinculo.TITULAR;
 import static org.mockito.Mockito.mock;
 
 import java.math.BigDecimal;
@@ -247,12 +248,11 @@ public class Fixture {
   public Contacto contacto() {
     MedioNotificacion medioNotificacion = mock(MedioNotificacion.class);
     return new Contacto(
-        "Pedro",
-        "Gonzalez",
-        "494949",
-        "pedro@g.com",
-        TITULAR,
-        medioNotificacion
+      "Pedro",
+      "Gonzalez",
+      "494949",
+      "pedro@g.com",
+      AMISTAD
     );
   }
 

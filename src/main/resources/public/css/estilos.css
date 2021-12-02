@@ -677,3 +677,25 @@ footer div div div div a{
 	height:200px;
 	width:500px;
 }
+
+/*Encontre mascota*/
+.container-encontre_mascota {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10vw;
+	height: 15vw;
+	justify-content: space-evenly;
+	align-content: flex-start;
+	padding-left: 2vw;
+	padding-top: 5vw;
+}
+
+.container-con_chapa {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10vw;
+	justify-content: space-evenly;
+	align-content: flex-start;
+	padding-left: 2vw;
+	padding-top: 5vw;
+}

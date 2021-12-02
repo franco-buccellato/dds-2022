@@ -53,6 +53,28 @@ public class Ubicacion {
     this.longitud = longitud;
   }
 
+  public Ubicacion(
+      String direccion,
+      String codigoPostal,
+      String localidad
+  ) {
+    this.direccion = direccion;
+    this.codigoPostal = codigoPostal;
+    this.localidad = localidad;
+    this.latitud = this.obtenerLatitud();
+    this.longitud = this.obtenerLongitud();
+  }
+
+  private BigDecimal obtenerLongitud() {
+    //TODO: obtener coordenada de alguna API externa
+    return BigDecimal.valueOf(Math.random());
+  }
+
+  private BigDecimal obtenerLatitud() {
+    //TODO: obtener coordenada de alguna API externa
+    return BigDecimal.valueOf(Math.random());
+  }
+
   public String getDireccion() {
     return direccion;
   }
