@@ -683,14 +683,19 @@ footer div div div div a{
 
 /*Encontre mascota*/
 .container-encontre_mascota {
-	display: flex;
+	display: inline-block;
 	flex-wrap: wrap;
 	margin-top: 10vw;
-	height: 15vw;
 	justify-content: space-evenly;
 	align-content: flex-start;
 	padding-left: 2vw;
-	padding-top: 5vw;
+}
+
+.encontre_mascota {
+    display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-content: flex-start;
 }
 
 .container-con_chapa {
@@ -723,11 +728,9 @@ a:link, a:visited, a:active {
 .container_listar_mascotas {
     display: flex;
     flex-wrap: wrap;
-    height: 5vw;
     justify-content: space-evenly;
     align-content: flex-start;
     padding-left: 2vw;
-    padding-top: 5vw;
 }
 
 .container-con_chapa {
@@ -766,4 +769,19 @@ a:link, a:visited, a:active {
     display: flex;
     height: 500px;
     width: 600px;
+}
+
+.imagen_agregar_mascota {
+	height: 500px;
+	display: flex;
+}
+
+.imagen_mascota_con_chapa {
+	height: 400px;
+	display: flex;
+}
+
+.imagen_mascota_sin_chapa {
+	height: 400px;
+	display: flex;
 }
