@@ -110,7 +110,7 @@ public class MascotaController extends BaseController implements WithGlobalEntit
     //response.redirect("/registrarMascota");
 
 
-    modelo.put("QR", "imagenes/QR_out/QR_Code-" + String.valueOf(mascota.getId()) + ".png");
+    modelo.put("QR", String.valueOf(mascota.getId()));
 
     return new ModelAndView(modelo, "registroMascotaConfirmado.html.hbs");
   }
@@ -130,7 +130,10 @@ public class MascotaController extends BaseController implements WithGlobalEntit
   }
 
   public ModelAndView encontreMascota(Request request, Response response) {
-    return new ModelAndView(null, "encontre_mascota.html.hbs");
+    Map<String, Object> modelo = new HashMap<>();
+    boolean sesionIniciada = this.sesionIniciada(request);
+    modelo.put("sesionIniciada", sesionIniciada);
+    return new ModelAndView(modelo, "encontre_mascota.html.hbs");
   }
 
 }

@@ -1,8 +1,159 @@
+{{# partial "head" }}
+    <script>
+    "use strict";
+
+    function initMap() {
+      const componentForm = [
+        'location',
+        'locality',
+        'administrative_area_level_1',
+        'postal_code',
+      ];
+			const componentFormPet = [
+        'location_pet',
+        'locality_pet',
+        'administrative_area_level_1_pet',
+        'postal_code_pet',				
+			];
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        center: { lat: -34.6592726, lng: -58.4695279 },
+        mapTypeControl: false,
+        fullscreenControl: true,
+        zoomControl: true,
+        streetViewControl: false
+      });
+			const map_pet = new google.maps.Map(document.getElementById("map_pet"), {
+				zoom: 13,
+        center: { lat: -34.6592726, lng: -58.4695279 },
+        mapTypeControl: false,
+        fullscreenControl: true,
+        zoomControl: true,
+        streetViewControl: false
+			});
+      const marker = new google.maps.Marker({map: map, draggable: false});
+			const marker_pet = new google.maps.Marker({map: map_pet, draggable: false});
+      const autocompleteInput = document.getElementById('location');
+			const autocompleteInputPet = document.getElementById('location_pet');
+      const autocomplete = new google.maps.places.Autocomplete(autocompleteInput, {
+        types: ["address"],
+				componentRestrictions: {'country': ['AR']},
+        fields: ["address_components", "geometry", "name"]
+      });
+			const autocompletePet = new google.maps.places.Autocomplete(autocompleteInputPet, {
+				types: ["address"],
+				componentRestrictions: {'country': ['AR']},
+        fields: ["address_components", "geometry", "name"]
+			})
+      autocomplete.addListener('place_changed', function () {
+        marker.setVisible(false);
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+          // User entered the name of a Place that was not suggested and
+          // pressed the Enter key, or the Place Details request failed.
+          window.alert('No details available for input: \'' + place.name + '\'');
+          return;
+        }
+        renderAddress(place);
+        fillInAddress(place);
+      });
+			
+			autocompletePet.addListener('place_changed', function () {
+				marker_pet.setVisible(false);
+        const placePet = autocompletePet.getPlace();
+        if (!placePet.geometry) {
+          // User entered the name of a Place that was not suggested and
+          // pressed the Enter key, or the Place Details request failed.
+          window.alert('No details available for input: \'' + place.name + '\'');
+          return;
+        }
+        renderAddressPet(placePet);
+        fillInAddressPet(placePet);
+			});
+			
+
+      function fillInAddress(place) {  // optional parameter
+        const addressNameFormat = {
+          'street_number': 'short_name',
+          'route': 'long_name',
+          'locality': 'long_name',
+          'administrative_area_level_1': 'short_name',
+          'country': 'long_name',
+          'postal_code': 'short_name',
+        };
+        const getAddressComp = function (type) {
+          for (const component of place.address_components) {
+            if (component.types[0] === type) {
+              return component[addressNameFormat[type]];
+            }
+          }
+          return '';
+        };
+        document.getElementById('location').value = getAddressComp('route') + ' '
+                  + getAddressComp('street_number');
+        for (const component of componentForm) {
+          // Location field is handled separately above as it has different logic.
+          if (component !== 'location') {
+            document.getElementById(component).value = getAddressComp(component);
+          }
+        }
+      }
+
+      function renderAddress(place) {
+        map.setCenter(place.geometry.location);
+				document.getElementById('latitude').value = place.geometry.location.lat();
+				document.getElementById('longitude').value = place.geometry.location.lng();
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+      }
+			
+			function fillInAddressPet(placePet) {  // optional parameter
+        const addressNameFormat = {
+          'street_number': 'short_name',
+          'route': 'long_name',
+          'locality': 'long_name',
+          'administrative_area_level_1': 'short_name',
+          'country': 'long_name',
+          'postal_code': 'short_name',
+        };
+        const getAddressComp = function (type) {
+          for (const component of placePet.address_components) {
+            if (component.types[0] === type) {
+              return component[addressNameFormat[type]];
+            }
+          }
+          return '';
+        };
+        document.getElementById('location_pet').value = getAddressComp('route') + ' '
+                  + getAddressComp('street_number');
+				document.getElementById('locality_pet').value = getAddressComp('locality')
+				document.getElementById('administrative_area_level_1_pet').value = getAddressComp('administrative_area_level_1')
+				document.getElementById('postal_code_pet').value = getAddressComp('postal_code')
+        /*
+				for (const component of componentFormPet) {
+          // Location field is handled separately above as it has different logic.
+          if (component !== 'location_pet') {
+            document.getElementById(component).value = getAddressComp(component);
+          }
+        }
+				*/
+      }
+
+      function renderAddressPet(placePet) {
+        map_pet.setCenter(placePet.geometry.location);
+				document.getElementById('latitude_pet').value = placePet.geometry.location.lat();
+				document.getElementById('longitude_pet').value = placePet.geometry.location.lng();
+        marker_pet.setPosition(placePet.geometry.location);
+        marker_pet.setVisible(true);
+      }
+    }
+    </script>
+{{/partial}}
 {{# partial "contenido" }}
 <section>
     <div id="form_rescatista">
         <div class="container-con_chapa">            
-            <form method="post" enctype="multipart/form-data">
+            <form method="post">
                 <h2>Rescatista</h2>
                 <label class="registro__label" for="nombre">Nombre</label>
                 <input required type="text" id="nombre" name="nombre" autofocus><br>
@@ -17,13 +168,22 @@
                     {{/tipos_documentos}}
                 </select><br>
                 <label class="registro__label" for="ndoc">Nro. Documento</label>
-                <input required type="number" id="ndoc" name="ndoc"><br>
-                <label class="registro__label" for="r_dir">Direcci&oacute;n</label>
-                <input required type="text" id="r_dir" name="dir"><br>
-                <label class="registro__label" for="number">C&oacute;digo Postal</label>
-                <input required type="text" id="r_cp" name="cp"><br>
-                <label class="registro__label" for="loc">Localidad</label>
-                <input required type="text" id="r_loc" name="loc"><br>
+                <input required type="number" id="ndoc" name="ndoc"><br><br>        
+                <div class="card-container">
+                  <div class="panel-map">
+                    <label class="registro__label" for="location">Direcci&oacute;n</label>
+                    <input type="text" id="location" name="r_dir"/><br>
+                    <label class="registro__label" for="locality">Localidad</label>
+                    <input type="text" id="locality"/><br><br>               
+                    <label class="registro__label" for="administrative_area_level_1" name="r_loc">Provincia</label>
+                    <input type="text" id="administrative_area_level_1"/><br>
+                    <label class="registro__label" for="postal_code" name="r_cp">C&oacute;digo Postal</label>
+                    <input type="text" id="postal_code"/><br>
+                    <input type="hidden" placeholder="Latitud" id="latitude" name="latitude"/><br>
+                    <input type="hidden" placeholder="Longitud" id="longitude" name="longitude"/><br>
+                  </div>
+                  <div class="map" id="map"></div>                    
+                </div>                
                 <label class="registro__label" for="tel">Tel&eacute;fono</label>
                 <input required type="text" id="tel" name="tel"><br>
                 <label class="registro__label" for="email">Email</label>
@@ -31,12 +191,22 @@
                 <h2>Mascota</h2>
                 <label class="registro__label" for="desc">Descripci&oacute;n</label>
                 <textarea class="contacto__consulta__texto" cols="40" rows="8" id="desc" name="desc"></textarea><br>
-                <label class="registro__label" for="m_dir">Direcci&oacute;n encuentro</label>
-                <input required type="text" id="m_dir" name="dir"><br>
-                <label class="registro__label" for="number">C&oacute;digo Postal</label>
-                <input required type="text" id="m_cp" name="cp"><br>
-                <label class="registro__label" for="loc">Localidad</label>
-                <input required type="text" id="m_loc" name="loc"><br>
+                <div class="card-container">
+                  <div class="panel-map">
+                    <label class="registro__label" for="m_dir">Direcci&oacute;n</label>
+                    <input type="text" id="location_pet" name="m_dir"/><br>
+                    <label class="registro__label" for="locality_pet">Localidad</label>
+                    <input type="text" id="locality_pet"/><br><br>               
+                    <label class="registro__label" for="m_loc" >Provincia</label>
+                    <input type="text" id="administrative_area_level_1_pet" name="m_loc"/><br>
+                    <label class="registro__label" for="postal_code">C&oacute;digo Postal</label>
+                    <input type="text" id="postal_code_pet" name="m_cp"/><br>
+                    <input type="hidden" placeholder="Latitud" id="latitude_pet" name="m_latitude"/><br>
+                    <input type="hidden" placeholder="Longitud" id="longitude_pet" name="m_longitude"/><br>
+                  </div>
+                  <div class="map" id="map_pet"></div>                    
+                </div>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDNsId_U6gauCfo3dap2CAzj7g9KOVpes&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cAB" async defer></script>                
                 <label class="registro__label" for="foto">Foto</label>
                 <input required type="file" id="foto" name="foto"><br>               
                 <input type="submit" class="boton-submit" style="color:black;" value="Registrar Rescate"><br>

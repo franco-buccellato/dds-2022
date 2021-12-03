@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,9 +53,11 @@ public class RescateController extends BaseController implements WithGlobalEntit
       Vinculo.TITULAR
     );
     Ubicacion ubicacionRescatista = new Ubicacion(
-        request.queryParams("r_dir"),
-        request.queryParams("r_cp"),
-        request.queryParams("r_loc")
+        request.queryParams("location"),
+        request.queryParams("postal_code"),
+        request.queryParams("locality"),
+        BigDecimal.valueOf(Double.parseDouble(request.queryParams("latitude"))),
+        BigDecimal.valueOf(Double.parseDouble(request.queryParams("longitude")))
     );
     Ubicacion ubicacionRescate = new Ubicacion(
         request.queryParams("m_dir"),
@@ -97,13 +100,12 @@ public class RescateController extends BaseController implements WithGlobalEntit
     boolean sesionIniciada = this.sesionIniciada(request);
     modelo.put("sesionIniciada", sesionIniciada);
     modelo.put("tipos_documentos", TipoIdentificacion.values());
+    modelo.put("tipos_mascotas", TipoMascota.values());
+
     return new ModelAndView(modelo, "mascota_sin_chapa.html.hbs");
   }
 
   public Void guardarRescateSinChapa(Request request, Response response) {
-    Map<String, Object> modelo = new HashMap<>();
-    boolean sesionIniciada = this.sesionIniciada(request);
-    modelo.put("sesionIniciada", sesionIniciada);
     Long idUsuario = request.session().attribute("idUsuario");
     Usuario usuarioActual = RepositorioUsuarios.getInstance().getById(idUsuario);
 
@@ -117,12 +119,16 @@ public class RescateController extends BaseController implements WithGlobalEntit
     Ubicacion ubicacionRescatista = new Ubicacion(
         request.queryParams("r_dir"),
         request.queryParams("r_cp"),
-        request.queryParams("r_loc")
+        request.queryParams("r_loc"),
+        BigDecimal.valueOf(Double.parseDouble(request.queryParams("latitude"))),
+        BigDecimal.valueOf(Double.parseDouble(request.queryParams("longitude")))
     );
     Ubicacion ubicacionRescate = new Ubicacion(
         request.queryParams("m_dir"),
         request.queryParams("m_cp"),
-        request.queryParams("m_loc")
+        request.queryParams("m_loc"),
+        BigDecimal.valueOf(Double.parseDouble(request.queryParams("m_latitude"))),
+        BigDecimal.valueOf(Double.parseDouble(request.queryParams("m_longitude")))
     );
     Rescatista rescatista = new Rescatista(
         new DatoPersonal(
@@ -136,12 +142,13 @@ public class RescateController extends BaseController implements WithGlobalEntit
         ubicacionRescatista,
         usuarioActual
     );
-    RescateSinChapa rescateConChapa = new RescateSinChapa(
+    Mascota mascotaRescatada = new Mascota();
+    RescateSinChapa rescateSinChapa = new RescateSinChapa(
         Arrays.asList(request.queryParams("foto")),
         request.queryParams("desc"),
         ubicacionRescate,
         LocalDate.now(),
-        new Mascota(),
+        mascotaRescatada,
         rescatista
     );
     withTransaction(() -> {
@@ -149,8 +156,12 @@ public class RescateController extends BaseController implements WithGlobalEntit
       persist(ubicacionRescatista);
       persist(contactoRescatista);
       persist(rescatista);
-      persist(rescateConChapa);
+      persist(mascotaRescatada);
+      persist(rescateSinChapa);
     });
+
+    rescateSinChapa.buscarHogarDeTransito(50.0);
+
     response.redirect("/encontreMascota");
     return null;
   }
