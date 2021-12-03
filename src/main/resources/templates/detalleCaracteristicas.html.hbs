@@ -1,0 +1,94 @@
+{{# partial "contenido" }}
+    <section class="section-registrar">
+        <div class="container__registro">
+            <div class="registro">
+                <form action="/caracteristicas/{{caracteristica.id}}" method="POST">
+                    <div class="detalle_caracteristica">
+                        <h2>Edite {{objetivo}}</h2>
+                        <div>
+                            <label class="registro__label"
+                                   style="display:inline-block; width: 150px">Descripción:</label>
+                            <input type="text" name="descripcion" class="registro__input"
+                                   id="descripcion" style="display:inline-block" value="{{caracteristica.descripcion}}" required>
+                        </div>
+                        <div>
+                            <label class="registro__label"
+                                   style="display:inline-block;  width: 150px">Obligatoria:</label>
+                            <select name="obligatoria" class="registro__input" id="obligatoria"
+                                    style="display:inline-block" required>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="registro__label" style="display:inline-block;  width: 150px">Tipo de
+                                {{objetivo}}: </label>
+                            <label name="tipoCaracteristica" class="registro__input" id="tipoCaracteristica" style="display:inline-block;"> {{caracteristica.tipoPregunta}} </label>
+                            <ul>
+                                  {{#each caracteristica.opciones}}
+                                        <li>
+                                            <label class="registro__label" style="display:inline-block;  width: 150px">Opcion {{@index}}:</label>
+                                            <input type="text"
+                                                name="opcion"
+                                                class="registro__input"
+                                                id="opcion-{{@index}}"
+                                                style="display:inline-block"
+                                                value={{descripcion}}
+                                            >
+                                            <button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>
+                                        </li>
+                                  {{/each}}
+                            </ul>
+                            {{#if caracteristica.opciones}}
+                            <button class="agregar" onclick=crearOpcion()><i class="fas fa-plus"></i></button>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div>
+                        <input type="submit" class="boton-submit salvar" value="Salvar {{objetivo}}">
+                    </div>
+                    <div id="informacion">
+                        <div class="informacion-flex">
+                            <p>
+                                {{error}}
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+            let caracteristicas = document.querySelector('div.detalle_caracteristica');
+            const sacarOpcionBoton = `<button onclick=eliminarOpcion(this)><i class="fas fa-minus"></i></button>`
+            const opcion = (numero) => `
+                <label class="registro__label" style="display:inline-block;  width: 150px">Opcion ${numero}:</label>
+                <input type="text"
+                      name="opcion"
+                      class="registro__input"
+                      id="opcion-${numero}"
+                      style="display:inline-block"
+                      required
+                >`
+            const crearOpcion = () => {
+                const numeroOpcion = caracteristicas.querySelectorAll('li').length + 1;
+                var nuevaOpcion = document.createElement('li');
+                nuevaOpcion.innerHTML = opcion(numeroOpcion) + sacarOpcionBoton;
+                caracteristicas.querySelector('ul').appendChild(nuevaOpcion);
+            }
+
+            const eliminarOpcion = (element) => {
+                element.parentElement?.remove();
+                renderNumeroOpcion();
+            }
+            const renderNumeroOpcion = () => {
+                caracteristicas.querySelectorAll('ul label').forEach((item, index) => {
+                    item.innerText = `Opcion ${index + 1}:`;
+                })
+            }
+    </script>
+{{/partial}}
+{{# partial "footer" }}
+{{/partial}}
+
+{{> layout.html.hbs }}

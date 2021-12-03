@@ -2,30 +2,38 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
+import domain.repositorios.RepositorioAsociaciones;
 import domain.repositorios.RepositorioPublicacionesRescate;
 import domain.templatesNotificacion.DuenioContactaRescatistaTemplate;
-
-import domain.repositorios.RepositorioAsociaciones;
-
 import java.util.Objects;
-import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "publicaciones_rescates")
 public class PublicacionRescate {
   @Id
   @Column(name = "publicacion_rescate_id")
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;
+
   @OneToOne
-  //@JoinColumn(name = "rescate_id")
+  @JoinColumn(name = "rescate_id")
   private Rescate rescate;
-  //@ElementCollection
-  //@Column(name = "publicacion_rescate_estado")
+
   @Enumerated(EnumType.STRING)
-  @Column(name = "publicacion_rescate_estado")
+  @Column(name = "estado")
   private EstadoPublicacion estado;
+
   @ManyToOne
   @JoinColumn(name = "asociacion_id")
   private Asociacion asociacion;
@@ -65,7 +73,10 @@ public class PublicacionRescate {
 
   // TODO asociar a la creacion
   public void notificarRescatista(Duenio duenio) {
-    this.getRescate().getRescatista().getContacto().notificar(new Notificacion(new DuenioContactaRescatistaTemplate(duenio)));
+    this.getRescate()
+        .getRescatista()
+        .getContacto()
+        .notificar(new Notificacion(new DuenioContactaRescatistaTemplate(duenio)));
     //        new StringBuilder()
     //            .append("<h1>El due&ntilde;io de la mascota ")
     //            .append("quiere contactar contigo</h1>\n")

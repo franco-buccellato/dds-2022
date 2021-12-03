@@ -2,72 +2,73 @@ package domain;
 
 import static domain.exception.Mensajes.NOT_NULO;
 
-import domain.exception.PreguntaObligatoriaNoContestadaException;
-
-import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-@Entity(name = "publicaciones")
+@Entity(name = "publicaciones_interes_adopcion")
 public class PublicacionInteresAdopcion {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  @Column(name = "publicacion_interes_adopcion_id")
+  private Long id;
+
   @OneToOne
+  @JoinColumn(name = "duenio_id")
   private Duenio interesado;
-  @ManyToMany
-  @JoinTable(
-      name = "preguntas_interes_adopcion",
-      joinColumns = @JoinColumn(name = "publicacion_interes_id"),
-      inverseJoinColumns = @JoinColumn(name = "pregunta_id")
-  )
-  private List<Pregunta> preguntas;
+
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "publicacion_interes_adopcion_id")
+  private List<RespuestaInteresAdopcion> selecciones;
+
   @Column(name = "activa")
   private Boolean estaActiva;
 
-  private PublicacionInteresAdopcion() {}
-
-  public PublicacionInteresAdopcion(Duenio interesado, List<Pregunta> preguntas) {
-    if (estanCompletasLasPreguntas(preguntas).get()) {
-      this.estaActiva = true;
-    }
-    this.interesado = Objects.requireNonNull(interesado, NOT_NULO.mensaje("interesado"));
-    this.preguntas = Objects.requireNonNull(preguntas, NOT_NULO.mensaje("comodidadesMascota"));
+  public PublicacionInteresAdopcion() {
   }
 
-  public int getId() {
+  public PublicacionInteresAdopcion(Duenio interesado, List<RespuestaInteresAdopcion> selecciones) {
+    this.interesado = Objects.requireNonNull(interesado, NOT_NULO.mensaje("interesado"));
+    this.selecciones = Objects.requireNonNull(selecciones, NOT_NULO.mensaje("selecciones"));
+    this.estaActiva = Boolean.TRUE;
+//    TODO levantar preguntas asociacion
+//    TODO Definir comportamiento boton y habilitar
+//    this.enviarBotonDeBaja();
+  }
+
+  public Long getId() {
     return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public Duenio getInteresado() {
     return interesado;
   }
 
-  public List<Pregunta> getComodidadesMascota() {
-    return preguntas;
+  public List<RespuestaInteresAdopcion> getSelecciones() {
+    return selecciones;
   }
 
   public Boolean getEstaActiva() {
     return estaActiva;
   }
 
-  private AtomicBoolean estanCompletasLasPreguntas(List<Pregunta> preguntas) throws PreguntaObligatoriaNoContestadaException {
-    AtomicBoolean estanCompletas = new AtomicBoolean(true);
-    preguntas
-        .stream()
-        .forEach(pregunta -> {
-          if (pregunta.getOpcionesSeleccionas().isEmpty()) {
-            estanCompletas.set(false);
-            throw new PreguntaObligatoriaNoContestadaException("Falta contestar la pregunta " + pregunta.getDescripcion());
-          }
-        });
-    return estanCompletas;
-  }
-
   public void enviarBotonDeBaja() {
-    this.interesado.contactoTitular().notificar(new Notificacion(null));
+    // TODO definir template
+    this.getInteresado().contactoTitular().notificar(new Notificacion(null));
   }
 
   public void anularPublicacion() {
@@ -75,32 +76,34 @@ public class PublicacionInteresAdopcion {
   }
 
   public Boolean cumpleConPublicacionAdopcion(PublicacionAdopcion publicacion) {
-    return cumpleConPreferencias(publicacion.getMascota().getCaracteristicasSeleccionadas())
-        && cumpleConComodidades(publicacion.getPreguntas());
+    return this.cumpleConPreferencias(publicacion.getMascota().getCaracteristicas())
+           && this.cumpleConComodidades(publicacion.getSeleccionesAdopcion());
   }
 
-  public Boolean cumpleConComodidades(List<Pregunta> comodidades) {
-    return getPreguntasSegun(AlcancePregunta.PREGUNTA_COMODIDAD)
+  public Boolean cumpleConComodidades(List<RespuestaPublicacionAdopcion> comodidades) {
+    List<RespuestaInteresAdopcion> preguntasComodidad = this.getSeleccionesSegunObjetivo(
+        ObjetivoPregunta.PREGUNTA_ASOCIACION_COMODIDAD
+    );
+
+    return comodidades
         .stream()
-        .allMatch(preguntaCumplir ->
-            comodidades
-                .stream()
-                .anyMatch(preguntaCumplir::tienenMismasOpciones)
+        .allMatch(comodidad -> preguntasComodidad.stream()
+            .anyMatch(pregunta -> pregunta.esMismaPreguntaSeleccionada(comodidad))
         );
   }
 
-  public Boolean cumpleConPreferencias(List<Caracteristica> caracteristicas) {
-     return getPreguntasSegun(AlcancePregunta.PREGUNTA_PREFERENCIA)
+  public Boolean cumpleConPreferencias(List<RespuestaCaracteristicaMascota> preferenciasMascota) {
+    return this.getSeleccionesSegunObjetivo(ObjetivoPregunta.PREGUNTA_ASOCIACION_PREFERENCIAS)
         .stream()
-        .allMatch(
-            pregunta -> caracteristicas.stream().anyMatch(caracteristica -> caracteristica.tienenMismasOpciones(pregunta))
+        .allMatch(preferenciaPropia -> preferenciasMascota.stream().anyMatch(
+            preferenciaMascota -> preferenciaMascota.esMismaPreguntaSeleccionada(preferenciaPropia))
         );
   }
 
-  private List<Pregunta> getPreguntasSegun(AlcancePregunta alcance) {
-    return preguntas
+  private List<RespuestaInteresAdopcion> getSeleccionesSegunObjetivo(ObjetivoPregunta alcance) {
+    return this.getSelecciones()
         .stream()
-        .filter(pregunta -> pregunta.getAlcancePregunta().equals(alcance))
+        .filter(seleccion -> seleccion.tieneMismoObjetivo(alcance))
         .collect(Collectors.toList());
   }
 }

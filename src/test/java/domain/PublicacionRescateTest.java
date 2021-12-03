@@ -1,22 +1,21 @@
 package domain;
 
+import static domain.exception.Mensajes.NOT_NULO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import constants.Fixture;
 import domain.repositorios.RepositorioAsociaciones;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static domain.exception.Mensajes.NOT_NULO;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PublicacionRescateTest extends Fixture {
-
   List<String> fotos;
   String descripcion;
   Ubicacion ubicacion;
@@ -38,7 +37,9 @@ public class PublicacionRescateTest extends Fixture {
     fecha = LocalDate.of(2021, 5, 4);
     mascota = mascota1();
     rescatista = rescatista();
-
+    asociacion1 = new Asociacion("Asociacion1", ubicacionAsociacion1());
+    asociacion2 = new Asociacion("Asociacion2", ubicacionAsociacion2());
+    asociacion3 = new Asociacion("Asociacion3", ubicacionAsociacion3());
     rescate = new RescateSinChapa(
         fotos,
         descripcion,
@@ -49,9 +50,7 @@ public class PublicacionRescateTest extends Fixture {
     );
     publicacionRescate = new PublicacionRescate(rescate);
 
-    asociacion1 = new Asociacion("Asociacion1", ubicacionAsociacion1());
-    asociacion2 = new Asociacion("Asociacion2", ubicacionAsociacion2());
-    asociacion3 = new Asociacion("Asociacion3", ubicacionAsociacion3());
+
     RepositorioAsociaciones repositorioAsociacionesTest = RepositorioAsociaciones.getRepositorioAsociaciones();
     repositorioAsociacionesTest.setAsociaciones(new ArrayList<>(Arrays.asList(
         asociacion1,

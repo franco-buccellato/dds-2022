@@ -1,14 +1,10 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-
-import static domain.TipoCaracteristica.BULLET;
 
 public class HogarTransito {
 
@@ -140,7 +136,7 @@ public class HogarTransito {
   boolean patio;
 
   @JsonProperty("caracteristicas")
-  public List<Caracteristica> getCaracteristicas() {
+  public List<Pregunta> getCaracteristicas() {
     return this.caracteristicas
         .stream()
         .map(this::getCaracteristica)
@@ -161,8 +157,14 @@ public class HogarTransito {
     return patio || tamanioMascota.equals("Chico");
   }
 
-  public Caracteristica getCaracteristica(String caracteristicaHogar) {
+  public Pregunta getCaracteristica(String caracteristicaHogar) {
     Opcion opcionCaracteristicaHogar = new Opcion(caracteristicaHogar);
-    return new CaracteristicaChoice(BULLET, caracteristicaHogar, Arrays.asList(opcionCaracteristicaHogar));
+
+    return new PreguntaBullet(
+        Arrays.asList(ObjetivoPregunta.CARACTERISTICA_MASCOTA),
+        caracteristicaHogar,
+        Arrays.asList(opcionCaracteristicaHogar),
+        true
+    );
   }
 }

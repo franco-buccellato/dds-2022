@@ -1,17 +1,19 @@
 package domain;
 
-import constants.Fixture;
-import domain.repositorios.RepositorioDuenio;
-import domain.repositorios.RepositorioMascotas;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static domain.exception.Mensajes.NOT_NULO;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import constants.Fixture;
 
 public class DuenioTest extends Fixture {
   Contacto contacto;

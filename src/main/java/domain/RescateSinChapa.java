@@ -1,12 +1,14 @@
 package domain;
 
 import domain.repositorios.RepositorioHogares;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue("S")
@@ -15,6 +17,10 @@ public class RescateSinChapa extends Rescate {
   List<HogarTransito> hogaresTransito;
   @Transient
   RepositorioHogares repositorioHogares;
+
+  public RescateSinChapa() {
+    super();
+  }
 
   public RescateSinChapa(
       List<String> fotos,

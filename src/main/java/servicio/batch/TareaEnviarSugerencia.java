@@ -12,8 +12,8 @@ public class TareaEnviarSugerencia implements Job {
 
   public void execute(JobExecutionContext jobExecutionContext) {
     log.info("Enviando sugerencias....");
-    RepositorioPublicacionesInteresAdopcion.getRepositorioPublicaciones();
-//        .enviarSugerenciasAdopcion(RepositorioPublicacionesAdopcion.getRepositorioPublicaciones());
+    RepositorioPublicacionesInteresAdopcion.getRepositorioPublicaciones()
+        .enviarSugerenciasAdopcion(RepositorioPublicacionesAdopcion.getRepositorioPublicaciones());
     log.info("Sugerencias enviadas");
   }
 }

@@ -6,30 +6,42 @@ import domain.repositorios.RepositorioAsociaciones;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "asociaciones")
 public class Asociacion {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "asociacion_id")
-  @GeneratedValue
-  private int id;
-  @Column(name = "asociacion_nombre")
+  private Long id;
+
+  @Column(name = "nombre")
   private String nombre;
+
   @OneToOne
   @JoinColumn(name = "ubicacion_id")
   private Ubicacion ubicacion;
+
   @ManyToMany
   @JoinTable(
       name = "preguntas_adopcion",
       joinColumns = @JoinColumn(name = "asociacion_id"),
-      inverseJoinColumns = @JoinColumn(name = "caracteristica_id")
+      inverseJoinColumns = @JoinColumn(name = "pregunta_id")
   )
   private List<Pregunta> preguntasAdopcion;
+
+  public Asociacion() {
+  }
 
   public Asociacion(String nombre, Ubicacion ubicacion) {
     this.nombre = Objects.requireNonNull(nombre, NOT_NULO.mensaje("nombre"));
@@ -38,8 +50,12 @@ public class Asociacion {
     RepositorioAsociaciones.getRepositorioAsociaciones().addAsociacion(this);
   }
 
-  public int getId() {
+  public Long getId() {
     return this.id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getNombre() {
@@ -58,7 +74,7 @@ public class Asociacion {
     this.preguntasAdopcion = preguntasAdopcion;
   }
 
-  public void addPreguntasAdopcion(Pregunta pregunta) {
+  public void addPreguntaAdopcion(Pregunta pregunta) {
     this.preguntasAdopcion.add(pregunta);
   }
 }

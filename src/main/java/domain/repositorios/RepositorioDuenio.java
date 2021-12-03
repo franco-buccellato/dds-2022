@@ -1,17 +1,18 @@
 package domain.repositorios;
 
-import domain.Duenio;
-import domain.Mascota;
-import domain.Rescate;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+
+import domain.Duenio;
+import domain.Mascota;
+import domain.Rescate;
 
 public class RepositorioDuenio implements WithGlobalEntityManager {
   private List<Duenio> duenios = new ArrayList<>();
@@ -46,10 +47,9 @@ public class RepositorioDuenio implements WithGlobalEntityManager {
 
   public Duenio getDuenioByIdUsuario(Long userId) {
     try {
-      Query query = entityManager().createNativeQuery("select d.id, d.apellido from duenios d where d.usuario_usuario_id = :userId", Duenio.class);
-      query.setParameter("userId", userId);
-      Long idDuenio = (Long) query.getParameterValue("userId");
-      return getById(idDuenio);
+      return entityManager().createQuery("from Duenio d where d.usuario.id = :userId", Duenio.class)
+          .setParameter("userId", userId)
+          .getSingleResult();
     } catch (NoResultException e) {
       return null;
     }
@@ -68,6 +68,8 @@ public class RepositorioDuenio implements WithGlobalEntityManager {
     return Optional.ofNullable(this.getById(((BigInteger) query.getSingleResult()).longValue()));
   }
 
-}
+  public List<Duenio> listar() {
+    return entityManager().createQuery("from Duenio", Duenio.class).getResultList();
+  }
 
-// TODO: Logica no va
+}

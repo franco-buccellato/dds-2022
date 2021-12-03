@@ -1,10 +1,18 @@
 package main;
 
-import static spark.Spark.*;
+import static spark.Spark.after;
+import static spark.Spark.before;
+import static spark.Spark.halt;
+import static spark.Spark.staticFiles;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
-import controllers.*;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import controllers.CaracteristicaController;
+import controllers.HomeController;
+import controllers.MascotaController;
+import controllers.RescateController;
+import controllers.SesionController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -51,8 +59,11 @@ public class Routes {
     Spark.post("/mascota_sin_chapa", rescateController::guardarRescateSinChapa);
     Spark.get("/registro", sesionController::mostrarRegistroUsuario, engine);
     Spark.post("/registro", sesionController::registrarUsuario, engine);
-    Spark.get("crearCaracteristica", caracteristicaController::crear, engine);
-    Spark.post("crearCaracteristica", caracteristicaController::guardar);
+    Spark.get("/caracteristicas", caracteristicaController::getCaracteristicas, engine);
+    Spark.get("/caracteristicas/crear", caracteristicaController::mostrarCrearCaracteristica, engine);
+    Spark.get("/caracteristicas/:objetivo/:id", caracteristicaController::getDetalleCaracteristica, engine);
+    Spark.post("/caracteristicas", caracteristicaController::crearCaracteristica, engine);
+    Spark.post("/caracteristicas/:id", caracteristicaController::actualizarCaracteristica, engine);
 
     after((request, response) -> {
       PerThreadEntityManagers.getEntityManager();

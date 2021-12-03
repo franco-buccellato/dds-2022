@@ -1,30 +1,30 @@
 package db;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import domain.Caracteristica;
-import domain.CaracteristicaChoice;
+import constants.Fixture;
 import domain.Mascota;
-import domain.Opcion;
+import domain.RespuestaCaracteristicaMascota;
 import domain.Sexo;
 import domain.SituacionMascota;
-import domain.TipoCaracteristica;
 import domain.TipoMascota;
+import java.util.Collections;
+import java.util.List;
+import javax.persistence.EntityTransaction;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-import javax.persistence.EntityTransaction;
-import java.util.Collections;
-import java.util.List;
 
 public class MascotaTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
   EntityTransaction tran;
+  Fixture fixture = new Fixture();
 
   @BeforeEach
   public void iniciarTransaccion() {
+    fixture.generalSetup();
     tran = entityManager().getTransaction();
     tran.begin();
   }
@@ -36,12 +36,9 @@ public class MascotaTest extends AbstractPersistenceTest implements WithGlobalEn
 
   @Test
   public void puedoPersistirUnaMascota() {
-    List<Caracteristica> caracteristicas = Collections.singletonList(
-        new CaracteristicaChoice(
-            TipoCaracteristica.BULLET,
-            "Tipo pelaje",
-            Collections.singletonList(new Opcion("Peludo"))
-        )
+    List<RespuestaCaracteristicaMascota> caracteristicas = Collections.singletonList(
+        new RespuestaCaracteristicaMascota(fixture.estaCastrada,
+                                           Collections.singletonList(fixture.no))
     );
 
     Mascota mascota = new Mascota(
@@ -60,7 +57,18 @@ public class MascotaTest extends AbstractPersistenceTest implements WithGlobalEn
 
     assertEquals(
         "Roque",
-        entityManager().createQuery("from mascotas ", Mascota.class).getSingleResult().getNombre()
+        entityManager().createQuery("from mascotas ", Mascota.class)
+            .getSingleResult()
+            .getNombre()
+    );
+    assertEquals(
+        fixture.no,
+        entityManager().createQuery("from mascotas ", Mascota.class)
+            .getSingleResult()
+            .getCaracteristicas()
+            .get(0)
+            .getSelecciones()
+            .get(0)
     );
   }
 

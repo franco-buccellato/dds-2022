@@ -5,12 +5,16 @@ import domain.repositorios.RepositorioDuenio;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("C")
 public class RescateConChapa extends Rescate {
+
+  public RescateConChapa() {
+  }
+
   public RescateConChapa(
       List<String> fotos,
       String descripcion,
@@ -25,7 +29,8 @@ public class RescateConChapa extends Rescate {
 
   @Override
   public void informaRescate() {
-    Optional<Duenio> elDuenio = RepositorioDuenio.getInstance().findDuenioMascota(this.getMascota());
+    Optional<Duenio> elDuenio = RepositorioDuenio.getInstance()
+        .findDuenioMascota(this.getMascota());
     if (!elDuenio.isPresent()) {
       throw new MascotaSinDuenioException("La mascota buscada no tiene duenio");
     } else {

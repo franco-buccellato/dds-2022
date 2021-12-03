@@ -1,14 +1,12 @@
 package controllers;
 
-import domain.Duenio;
 import domain.Usuario;
 import domain.repositorios.RepositorioDuenio;
 import domain.repositorios.RepositorioUsuarios;
-import servicio.Funcion;
-import spark.Request;
-
 import java.util.List;
 import java.util.Objects;
+import servicio.Funcion;
+import spark.Request;
 
 public class BaseController {
 

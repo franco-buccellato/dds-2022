@@ -1,0 +1,57 @@
+{{# partial "contenido" }}
+    <section class="section-registrar">
+        {{#if success}}
+            <div id="success">
+                <div class="informacion-flex">
+                    <p>
+                        {{success}}
+                    </p>
+                </div>
+            </div>
+        {{/if}}
+        {{#if error}}
+            <div id="error">
+                <div class="informacion-flex">
+                    <p>
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+        {{/if}}
+        <div class="container__listar">
+            <div class="registro">
+               {{#each disponibles}}
+                    <div class="listar_caracteristica column">
+                        <div>
+                            <form action="/caracteristicas/crear">
+                                <button type="submit" class="boton-submit" name="alcance" value="{{@key}}">Agregar {{@key}}</button>
+                            </form>
+                        </div>
+
+                            <h2></br>{{@key}}s Disponibles</h2></br>
+                            {{#each this}}
+                                <a href="/caracteristicas/{{../@key}}/{{id}}"
+                                   onMouseOver="this.style.border=1"
+                                   onMouseOut="this.style.border=0">
+                                    <div style="padding: 10px">
+                                        <label> {{descripcion}} ( {{tipoPregunta}} {{#if obligatoria}}
+                                            - Obligatoria {{/if}})</label>
+                                        <div>
+                                            {{#opciones}}
+                                                <li>{{descripcion}}</li>
+                                            {{/opciones}}
+                                        </div>
+                                    </div>
+                                </a>
+                                </br>
+                            {{/each}}
+                     </div>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+{{/partial}}
+{{# partial "footer" }}
+{{/partial}}
+
+{{> layout.html.hbs }}

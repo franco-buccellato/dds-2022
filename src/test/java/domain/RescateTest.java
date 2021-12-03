@@ -1,6 +1,18 @@
 package domain;
 
+import static domain.exception.Mensajes.NOT_NULO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+
 import constants.Fixture;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import domain.exception.MascotaSinDuenioException;
 import domain.repositorios.RepositorioAsociaciones;
 import domain.repositorios.RepositorioDuenio;
@@ -8,17 +20,6 @@ import domain.repositorios.RepositorioPublicacionesRescate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static domain.exception.Mensajes.NOT_NULO;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class RescateTest extends Fixture {
   List<String> fotos;
@@ -161,7 +162,7 @@ public class RescateTest extends Fixture {
   }
 
   @Test
-  void noPuedoConseguirHogaresMuyCercaDeMiUbicacion() throws KeyManagementException, NoSuchAlgorithmException {
+  void noPuedoConseguirHogaresMuyCercaDeMiUbicacion() {
     RescateSinChapa rescateSinChapa = new RescateSinChapa(
         fotos,
         descripcion,

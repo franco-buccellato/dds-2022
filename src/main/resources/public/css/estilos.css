@@ -102,7 +102,12 @@ header {
 	color: #979797;
 }
 
-
+button.agregar {
+  padding: 10px;
+  margin:0 auto;
+  display:block;
+  border-radius: 50%;
+}
 
 /*Responsive */
 @media only screen and (max-width: 1000px) {
@@ -605,6 +610,21 @@ footer div div div div a{
 	align-content: flex-start;
 }
 
+.container__listar {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+.crear_caracteristica > h2 {
+  margin:0 auto;
+  display:block;
+}
+
 .registro__label {
 	display: flex;
 	flex-wrap: wrap;
@@ -637,6 +657,17 @@ footer div div div div a{
 	width: 500px;
 	padding: 1vw 0 1vw 0;
 	margin: 2vw 0 2vw 0;
+}
+
+.boton-submit.salvar {
+    background-color: #FF914D;
+	color: #000;
+	font-weight: bold;
+	width: 500px;
+	padding: 1vw 0 1vw 0;
+	margin:0 auto;
+    display:block;
+    margin-top: 35px;
 }
 
 .registro__input__select {

@@ -1,19 +1,18 @@
 package domain;
 
-import constants.Fixture;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import constants.Fixture;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VoluntarioTest extends Fixture {
   Voluntario voluntario;
-
   List<String> fotos;
   String descripcion;
   Ubicacion ubicacion;
@@ -34,12 +33,12 @@ public class VoluntarioTest extends Fixture {
     rescatista = rescatista();
 
     rescateSinChapa = new RescateSinChapa(
-      fotos,
-      descripcion,
-      ubicacion,
-      fecha,
-      mascota,
-      rescatista
+        fotos,
+        descripcion,
+        ubicacion,
+        fecha,
+        mascota,
+        rescatista
     );
     publicacionRescate = new PublicacionRescate(rescateSinChapa);
   }

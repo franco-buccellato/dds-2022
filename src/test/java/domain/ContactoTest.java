@@ -1,17 +1,17 @@
 package domain;
 
+import static domain.Vinculo.TITULAR;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+
 import constants.MensajePruebaTemplate;
+import java.io.IOException;
+import javax.mail.MessagingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import services.MailReader;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
-
-import static domain.Vinculo.TITULAR;
-import static org.mockito.Mockito.mock;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ContactoTest {
   Contacto contacto;

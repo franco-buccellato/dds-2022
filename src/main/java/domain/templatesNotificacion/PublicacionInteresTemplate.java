@@ -2,7 +2,6 @@ package domain.templatesNotificacion;
 
 import domain.PublicacionAdopcion;
 import domain.TemplateNotificacion;
-
 import java.util.List;
 
 public class PublicacionInteresTemplate extends TemplateNotificacion<List<PublicacionAdopcion>> {

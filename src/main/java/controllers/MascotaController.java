@@ -1,59 +1,76 @@
 package controllers;
 
-import com.google.zxing.WriterException;
-import domain.*;
-import domain.exception.PasswordDebilException;
-import domain.repositorios.RepositorioDuenio;
-import domain.repositorios.RepositorioUsuarios;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import utilidades.QRCodeGenerator;
+import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+
+import domain.Contacto;
+import domain.DatoPersonal;
+import domain.Duenio;
+import domain.Mascota;
+import domain.Opcion;
+import domain.Pregunta;
+import domain.RespuestaCaracteristicaMascota;
+import domain.Sexo;
+import domain.SituacionMascota;
+import domain.TipoIdentificacion;
+import domain.TipoMascota;
+import domain.TipoPregunta;
+import domain.Usuario;
+import domain.Vinculo;
+import domain.repositorios.RepositorioDuenio;
+import domain.repositorios.RepositorioOpciones;
+import domain.repositorios.RepositorioPreguntas;
+import domain.repositorios.RepositorioUsuarios;
+import spark.ModelAndView;
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Response;
 
 public class MascotaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
-  public ModelAndView registrarMascota(Request request, Response response) throws IOException, WriterException {
+  public ModelAndView registrarMascota(Request request, Response response) throws IOException {
     Map<String, Object> modelo = new HashMap<>();
-    RepositorioUsuarios repositorioUsuarios = RepositorioUsuarios.getInstance();
-    Long idUsuario = request.session().attribute("idUsuario");
-    Usuario usuarioActual = repositorioUsuarios.getById(idUsuario);
     RepositorioDuenio repositorioDuenio = RepositorioDuenio.getInstance();
-    Duenio nuevoDuenio;
-    //Obtengo los datos completados en el form para la mascota
-    TipoMascota tipoMascota = TipoMascota.valueOf(request.queryParams("registro-especie"));
-    String nombreMascota = request.queryParams("registro-nombre");
-    String apodo = request.queryParams("registro-apodo");
-    Double edad = new Double(request.queryParams("registro-edad"));
-    Sexo sexo = Sexo.valueOf(request.queryParams("registro-sexo"));
-    String descripcionFisica = request.queryParams("registro-descripcion");
-    String fotos = request.queryParams("registro-fotos");
-    System.out.println("foto: " + request.queryParams("registro-fotos"));
-    List<String> listaFotos = new ArrayList<>();
-    listaFotos.add(fotos);
-    String caracteristicas = request.queryParams("registro-caracteristicas");
-    //TODO: Ver lo de ArrayList
-    List<Caracteristica> listaCaracteristicas = new ArrayList<>();
-    //listaCaracteristicas.add(caracteristicas);
-    //Creo la mascota
-    Mascota mascota = new Mascota(tipoMascota,
-                                  nombreMascota,
-                                  apodo,
-                                  edad,
-                                  sexo,
-                                  descripcionFisica,
-                                  listaFotos,
-                                  listaCaracteristicas,
-                                  SituacionMascota.EN_HOGAR_PROPIO);
-    //Verifico si el usuario ya era duenio
-    Duenio duenioExistente = repositorioDuenio.getDuenioByIdUsuario(idUsuario);
-    if (duenioExistente == null) {
-      //Obtengo los datos del Contacto 1
+
+    Usuario usuario = RepositorioUsuarios.getInstance()
+        .getById(request.session().attribute("idUsuario"));
+
+    Duenio duenio = repositorioDuenio.getDuenioByIdUsuario(usuario.getId());
+
+    if (duenio == null) {
+      String nombreDuenio = request.queryParams("registro-nombreDuenio");
+      String apellidoDuenio = request.queryParams("registro-apellido");
+      TipoIdentificacion tipoIdentificacion = TipoIdentificacion.valueOf(
+          request.queryParams("registro-tipoDocumento")
+      );
+      String numeroDocumento = request.queryParams("registro-documento");
+      LocalDate fechaNacimiento = LocalDate.parse(request.queryParams("registro-fechaNacimiento"));
+      DatoPersonal datosDuenio = new DatoPersonal(
+          nombreDuenio,
+          apellidoDuenio,
+          tipoIdentificacion,
+          numeroDocumento,
+          fechaNacimiento
+      );
+
+      List<Contacto> contactos = new ArrayList<>();
+      List<String> contactoParams = request.queryParams()
+          .stream()
+          .filter(paramName -> paramName.contains("contacto"))
+          .collect(Collectors.toList());
+
       String nombreContacto1 = request.queryParams("registro-nombreContacto1");
       String apellidoContacto1 = request.queryParams("registro-apellidoContacto1");
       String telefonoContacto1 = request.queryParams("registro-telefonoContacto1");
@@ -70,45 +87,64 @@ public class MascotaController extends BaseController implements WithGlobalEntit
       String telefonoContacto2 = request.queryParams("registro-telefonoContacto2");
       String mailContacto2 = request.queryParams("registro-mailContacto2");
       Vinculo vinculoContacto2 = Vinculo.valueOf(request.queryParams("registro-vinculoContacto2"));
-      Contacto contacto2 = new Contacto(nombreContacto2,
-                                        apellidoContacto2,
-                                        telefonoContacto2,
-                                        mailContacto2,
-                                        vinculoContacto2);
-      //Armos listas de Contactos
-      List<Contacto> contactos = new ArrayList<>();
-      contactos.add(contacto1);
-      contactos.add(contacto2);
-      //Armo lista de mascotas
-      List<Mascota> mascotas = new ArrayList<>();
-      mascotas.add(mascota);
-      //Creo al duenio
-      //Si no era duenio tengo que cargar sus datos personales completos
-      //Obtengo los datos personales del duenio que va a registrar la mascota
-      String nombreDuenio = request.queryParams("registro-nombreDuenio");
-      String apellidoDuenio = request.queryParams("registro-apellido");
-      TipoIdentificacion tipoIdentificacion = TipoIdentificacion.valueOf(request.queryParams(
-          "registro-tipoDocumento"));
-      String numeroDocumento = request.queryParams("registro-documento");
-      LocalDate fechaNacimiento = LocalDate.parse(request.queryParams("registro-fechaNacimiento"));
-      DatoPersonal datosDuenio = new DatoPersonal(nombreDuenio,
-                                                  apellidoDuenio,
-                                                  tipoIdentificacion,
-                                                  numeroDocumento,
-                                                  fechaNacimiento);
-      nuevoDuenio = new Duenio(datosDuenio, contactos, mascotas, usuarioActual);
-      //Persistir nuevoDuenio
-      withTransaction(() -> repositorioDuenio.agregar(nuevoDuenio));
-    } else {
-      System.out.println(duenioExistente.getUsuario());
-      //Agrego la mascota al duenio
-      duenioExistente.addMascota(mascota);
-      //Persistir duenio
-      withTransaction(() -> repositorioDuenio.agregar(duenioExistente));
-    }
-    //Redireccionar a la misma página
-    //response.redirect("/registrarMascota");
+      Contacto contacto2 = new Contacto(
+          nombreContacto2,
+          apellidoContacto2,
+          telefonoContacto2,
+          mailContacto2,
+          vinculoContacto2
+      );
 
+      duenio = new Duenio(datosDuenio, Arrays.asList(contacto1, contacto2), null, usuario);
+    }
+
+    List<RespuestaCaracteristicaMascota> respuestasCaracteristicas = new ArrayList<>();
+    //      Busco por tipo
+    Arrays.asList("texto", "bullet", "number", "checkbox").forEach(nombre -> {
+      QueryParamsMap paramsNombre = request.queryMap().get(nombre);
+      if(paramsNombre.hasKeys()) {
+        //      Si existe respuesta del tipo busco existencia de la pregunta
+        final Pregunta[] pregunta = new Pregunta[1];
+        List<Opcion> opciones = new ArrayList<>();
+        paramsNombre.toMap().keySet()
+            .forEach(key -> {
+              pregunta[0] = RepositorioPreguntas.getInstance().buscar(Long.valueOf(key));
+              //      Busco la existencia de opciones o las creo en el caso de las input
+              Arrays.stream(paramsNombre.get(key).values())
+                  .forEach(value -> opciones.add(getOpcionFromParam(nombre, value)));
+            });
+        respuestasCaracteristicas.add(new RespuestaCaracteristicaMascota(pregunta[0], opciones));
+      }
+    });
+
+    TipoMascota tipoMascota = TipoMascota.valueOf(request.queryParams("registro-especie"));
+    String nombreMascota = request.queryParams("registro-nombre");
+    String apodo = request.queryParams("registro-apodo");
+    Double edad = new Double(request.queryParams("registro-edad"));
+    Sexo sexo = Sexo.valueOf(request.queryParams("registro-sexo"));
+    String descripcionFisica = request.queryParams("registro-descripcion");
+    List<String> fotos = Collections.singletonList(request.queryParams("registro-fotos"));
+    Mascota mascota = new Mascota(
+        tipoMascota,
+        nombreMascota,
+        apodo,
+        edad,
+        sexo,
+        descripcionFisica,
+        fotos,
+        respuestasCaracteristicas,
+        SituacionMascota.EN_HOGAR_PROPIO
+    );
+
+    duenio.addMascota(mascota);
+
+    Duenio finalDuenio = duenio;
+
+    withTransaction(() -> repositorioDuenio.agregar(finalDuenio));
+
+    //Redireccionar a la misma página
+//    response.redirect("/registrarMascota");
+//    return null;
 
     modelo.put("QR", String.valueOf(mascota.getId()));
 
@@ -126,6 +162,18 @@ public class MascotaController extends BaseController implements WithGlobalEntit
     boolean usuarioCreadorCaracteristicas = this.usuarioCreadorCaracteristicas(request);
     modelo.put("usuarioCreadorCaracteristicas", usuarioCreadorCaracteristicas);
 
+    RepositorioPreguntas repositorioPreguntas = RepositorioPreguntas.getInstance();
+
+    List<Pregunta> textos = repositorioPreguntas.listarSegunTipo(TipoPregunta.TEXT, CARACTERISTICA_MASCOTA);
+    List<Pregunta> numeros = repositorioPreguntas.listarSegunTipo(TipoPregunta.NUMBER, CARACTERISTICA_MASCOTA);
+    List<Pregunta> bullets = repositorioPreguntas.listarSegunTipo(TipoPregunta.BULLET, CARACTERISTICA_MASCOTA);
+    List<Pregunta> checkboxs = repositorioPreguntas.listarSegunTipo(TipoPregunta.CHECKBOX, CARACTERISTICA_MASCOTA);
+
+    modelo.put("textos", textos);
+    modelo.put("numeros", numeros);
+    modelo.put("bullets", bullets);
+    modelo.put("checkboxs", checkboxs);
+
     return new ModelAndView(modelo, "registroMascota.html.hbs");
   }
 
@@ -136,4 +184,10 @@ public class MascotaController extends BaseController implements WithGlobalEntit
     return new ModelAndView(modelo, "encontre_mascota.html.hbs");
   }
 
+  private Opcion getOpcionFromParam(String param, String descripcion) {
+    if (Arrays.asList("bullet", "checkbox").contains(param)) {
+      return RepositorioOpciones.getInstance().buscar(Long.valueOf(descripcion));
+    }
+    return new Opcion(descripcion);
+  }
 }

@@ -1,21 +1,21 @@
 package domain.repositorios;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import constants.Fixture;
 import domain.Mascota;
 import domain.RescateSinChapa;
 import domain.Rescatista;
 import domain.Ubicacion;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RepositorioRescatesTest {
   private RescateSinChapa pastorAleman;
