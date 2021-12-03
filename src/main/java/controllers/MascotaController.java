@@ -100,20 +100,19 @@ public class MascotaController extends BaseController implements WithGlobalEntit
 
     List<RespuestaCaracteristicaMascota> respuestasCaracteristicas = new ArrayList<>();
     //      Busco por tipo
-    Arrays.asList("texto", "bullet", "number", "checkbox").forEach(nombre -> {
+    Arrays.asList("texto", "bullet", "numero", "checkbox").forEach(nombre -> {
       QueryParamsMap paramsNombre = request.queryMap().get(nombre);
       if(paramsNombre.hasKeys()) {
         //      Si existe respuesta del tipo busco existencia de la pregunta
-        final Pregunta[] pregunta = new Pregunta[1];
-        List<Opcion> opciones = new ArrayList<>();
         paramsNombre.toMap().keySet()
             .forEach(key -> {
-              pregunta[0] = RepositorioPreguntas.getInstance().buscar(Long.valueOf(key));
+              Pregunta pregunta = RepositorioPreguntas.getInstance().buscar(Long.valueOf(key));
+              List<Opcion> opciones = new ArrayList<>();
               //      Busco la existencia de opciones o las creo en el caso de las input
               Arrays.stream(paramsNombre.get(key).values())
                   .forEach(value -> opciones.add(getOpcionFromParam(nombre, value)));
+              respuestasCaracteristicas.add(new RespuestaCaracteristicaMascota(pregunta, opciones));
             });
-        respuestasCaracteristicas.add(new RespuestaCaracteristicaMascota(pregunta[0], opciones));
       }
     });
 
@@ -143,8 +142,8 @@ public class MascotaController extends BaseController implements WithGlobalEntit
     withTransaction(() -> repositorioDuenio.agregar(finalDuenio));
 
     //Redireccionar a la misma página
-//    response.redirect("/registrarMascota");
-//    return null;
+    // response.redirect("/registrarMascota");
+    // return null;
 
     modelo.put("QR", String.valueOf(mascota.getId()));
 

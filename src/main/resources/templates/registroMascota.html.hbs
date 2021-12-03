@@ -122,6 +122,7 @@
                                             required="{{texto.obligatoria}}"
                                             id="respuesta-{{texto.id}}"
                                             name="texto[{{texto.id}}]"
+                                            maxlength="100"
                                     />
                                 {{/textos}}
                                 {{#numeros as |numero|}}
@@ -131,7 +132,8 @@
                                             class="registro__input"
                                             required="{{numero.obligatoria}}"
                                             id="respuesta-{{numero.id}}"
-                                            name="numero[{{numero.id}}]"
+                                            name="numero[{{numero.id}}]",
+                                            maxlength="10"
                                     />
                                 {{/numeros}}
                                 {{#bullets as |bullet|}}
