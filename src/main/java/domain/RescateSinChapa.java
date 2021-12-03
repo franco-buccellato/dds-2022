@@ -30,9 +30,9 @@ public class RescateSinChapa extends Rescate {
       Rescatista rescatista
   ) {
     super(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
-    repositorioHogares = new RepositorioHogares(Collections.emptyList());
-    this.hogaresTransito = new ArrayList<>();
-    this.informaRescate();
+    //repositorioHogares = new RepositorioHogares(Collections.emptyList());
+    //this.hogaresTransito = new ArrayList<>();
+    //this.informaRescate();
   }
 
   @Override

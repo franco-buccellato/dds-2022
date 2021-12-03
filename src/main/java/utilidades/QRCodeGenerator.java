@@ -25,6 +25,7 @@ public class QRCodeGenerator {
   }
 
   public static JSONObject decodificarQRCode(BufferedImage qrCode) throws NotFoundException, IOException {
+    //TODO ver libreria para escanear QR desde la app
     LuminanceSource source = new BufferedImageLuminanceSource(qrCode);
     BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
     Result result = new MultiFormatReader().decode(bitmap);
