@@ -26,7 +26,8 @@ public class RescateSinChapa extends Rescate {
       List<String> fotos,
       String descripcion,
       Ubicacion lugarEncuentro,
-      LocalDate fecha, Mascota mascota,
+      LocalDate fecha,
+      Mascota mascota,
       Rescatista rescatista
   ) {
     super(fotos, descripcion, lugarEncuentro, fecha, mascota, rescatista);
