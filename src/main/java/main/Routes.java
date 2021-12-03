@@ -59,7 +59,7 @@ public class Routes {
     Spark.get("/mascota_con_chapa", rescateController::registroRescateConChapa, engine);
     Spark.post("/mascota_con_chapa", rescateController::guardarRescateConChapa);
     Spark.get("/mascota_sin_chapa", rescateController::registroRescateSinChapa, engine);
-    Spark.post("/mascota_sin_chapa", rescateController::guardarRescateSinChapa);
+    Spark.post("/mascota_sin_chapa", rescateController::guardarRescateSinChapa, engine);
     Spark.get("/registro", sesionController::mostrarRegistroUsuario, engine);
     Spark.post("/registro", sesionController::registrarUsuario, engine);
     Spark.get("/caracteristicas", caracteristicaController::getCaracteristicas, engine);

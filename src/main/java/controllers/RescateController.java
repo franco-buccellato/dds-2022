@@ -1,13 +1,11 @@
 package controllers;
 
 import domain.*;
-import domain.repositorios.RepositorioMascotas;
-import domain.repositorios.RepositorioOpciones;
-import domain.repositorios.RepositorioPreguntas;
-import domain.repositorios.RepositorioUsuarios;
+import domain.repositorios.*;
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+import servicio.viewmodel.HogarTransitoVM;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.Request;
@@ -131,7 +129,8 @@ public class RescateController extends BaseController implements WithGlobalEntit
     return new ModelAndView(modelo, "mascota_sin_chapa.html.hbs");
   }
 
-  public Void guardarRescateSinChapa(Request request, Response response) {
+  public ModelAndView guardarRescateSinChapa(Request request, Response response) {
+    Map<String, Object> modelo = new HashMap<>();
     Long idUsuario = request.session().attribute("idUsuario");
     Usuario usuarioActual = RepositorioUsuarios.getInstance().getById(idUsuario);
 
@@ -214,11 +213,11 @@ public class RescateController extends BaseController implements WithGlobalEntit
       persist(mascotaRescatada);
       persist(rescateSinChapa);
     });
+    List<HogarTransito> hogares = new ArrayList<HogarTransito>();
+    hogares = RepositorioHogares.getInstance().getHogaresParaRescate(rescateSinChapa, 500.00);
+    modelo.put("hogares", RepositorioHogares.getInstance().getHogaresTransitoVM(hogares));
 
-    //rescateSinChapa.buscarHogarDeTransito(50.0);
-
-    response.redirect("/encontreMascota");
-    return null;
+    return new ModelAndView(modelo, "hogares_disponibles.html.hbs");
   }
 
   private Opcion getOpcionFromParam(String param, String descripcion) {

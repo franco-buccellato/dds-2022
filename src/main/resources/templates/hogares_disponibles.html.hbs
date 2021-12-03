@@ -1,0 +1,27 @@
+{{# partial "contenido" }}
+<section>    
+    <br>
+    <div class="container-con_chapa">           
+        <div style="top: 50%; width: 100%; text-align: center; font-size: 18px;">
+            <h2>Hogares disponibles</h2>     
+        </div>    
+        <table>
+            <thead>
+                <tr>
+                <th>Nombre</th>
+                <th>Direcci&oacute;n</th>
+                <th>Tel&eacute;fono</th>
+                </tr>
+            </thead>
+            {{#hogares}}
+            <tr>          
+                <td>{{nombre}}</td>
+                <td>{{direccion}}</td>      
+                <td>{{telefono}}</td>        
+            </tr>
+            {{/hogares}}
+        </table>            
+    </div>    
+</section>
+{{/partial}}
+{{> layout.html.hbs }}

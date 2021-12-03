@@ -4,6 +4,8 @@ import static domain.TipoMascota.GATO;
 import static domain.TipoMascota.PERRO;
 
 import domain.*;
+import servicio.HogarTransitoServicio;
+import servicio.viewmodel.HogarTransitoVM;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -11,14 +13,27 @@ import java.util.stream.Collectors;
 
 public class RepositorioHogares {
   private List<HogarTransito> hogares;
+  private static RepositorioHogares INSTANCE = new RepositorioHogares();
 
-  public RepositorioHogares(List<HogarTransito> hogares) {
+  public static RepositorioHogares getInstance() {
+    if(INSTANCE == null) {
+      return new RepositorioHogares();
+    } else {
+      return INSTANCE;
+    }
+  }
+
+  private List<HogarTransito> hogaresDisponibles() {
+    return new HogarTransitoServicio().hogaresDisponibles();
+  }
+
+  public void setHogares(List<HogarTransito> hogares) {
     this.hogares = hogares;
   }
 
   public List<HogarTransito> getHogaresParaRescate(Rescate rescate, double radioBusqueda) {
     Mascota mascota = rescate.getMascota();
-    return hogares
+    return this.hogaresDisponibles()
         .stream()
         .filter(hayLugar()
                     .and(tipoMascota(mascota))
@@ -59,5 +74,13 @@ public class RepositorioHogares {
   ) {
     return hogarTransito ->
         hogarTransito.getUbicacion().distanciaA(lugarEncuentro) <= kilometrosRadioBusqueda;
+  }
+
+  public List<HogarTransitoVM> getHogaresTransitoVM(List<HogarTransito> hogares) {
+    List<HogarTransitoVM> hogaresVM = new ArrayList<>();
+    for (HogarTransito hogar : hogares) {
+      hogaresVM.add(new HogarTransitoVM(hogar));
+    }
+    return hogaresVM;
   }
 }

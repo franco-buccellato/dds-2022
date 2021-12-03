@@ -29,7 +29,8 @@ public class RepositorioHogaresTest extends Fixture {
     new Asociacion("Asosiacion3", ubicacionAsociacion3());
 
     hogares = new HogarTransitoServicio();
-    repositorioHogares = new RepositorioHogares(hogares.hogaresDisponibles());
+    repositorioHogares = RepositorioHogares.getInstance();
+    repositorioHogares.setHogares(hogares.hogaresDisponibles());
     rescatePerro = new RescateSinChapa(
         new ArrayList<>(Collections.singletonList("unaFoto")),
         "Canino macho, color negro, raza caniche",
