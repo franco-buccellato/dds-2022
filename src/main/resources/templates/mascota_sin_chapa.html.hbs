@@ -142,7 +142,7 @@
       function renderAddressPet(placePet) {
         map_pet.setCenter(placePet.geometry.location);
 				document.getElementById('latitude_pet').value = placePet.geometry.location.lat();
-				document.getElementById('longitude_pets').value = placePet.geometry.location.lng();
+				document.getElementById('longitude_pet').value = placePet.geometry.location.lng();
         marker_pet.setPosition(placePet.geometry.location);
         marker_pet.setVisible(true);
       }
@@ -162,7 +162,7 @@
                 <label class="registro__label" for="fnacimiento">Fecha Nacimiento</label>
                 <input required type="date" id="fnacimiento" name="fnacimiento"><br>
                 <label class="registro__label" for="tip_doc">Tipo Documento</label>
-                <select id="tip_doc" name="tip_doc">
+                <select required id="tip_doc" name="tip_doc">
                     {{#tipos_documentos}}
                     <option value={{label}}>{{label}}</option>
                     {{/tipos_documentos}}
@@ -172,13 +172,13 @@
                 <div class="card-container">
                   <div class="panel-map">
                     <label class="registro__label" for="location">Direcci&oacute;n</label>
-                    <input type="text" id="location" name="r_dir"/><br>
+                    <input required type="text" id="location" name="r_dir"/><br>
                     <label class="registro__label" for="locality">Localidad</label>
                     <input type="text" id="locality"/><br><br>               
                     <label class="registro__label" for="administrative_area_level_1" name="r_loc">Provincia</label>
-                    <input type="text" id="administrative_area_level_1"/><br>
+                    <input required type="text" id="administrative_area_level_1"/><br>
                     <label class="registro__label" for="postal_code" name="r_cp">C&oacute;digo Postal</label>
-                    <input type="text" id="postal_code"/><br>
+                    <input required type="text" id="postal_code"/><br>
                     <input type="hidden" placeholder="Latitud" id="latitude" name="latitude"/><br>
                     <input type="hidden" placeholder="Longitud" id="longitude" name="longitude"/><br>
                   </div>
@@ -190,13 +190,13 @@
                 <input required type="text" id="email" name="email"><br><br>
                 <h2>Mascota</h2>                
                 <label class="registro__label" for="tipos_mascotas">Tipo Mascota</label>
-                <select id="tipos_mascotas" name="tipos_mascotas" style="width: 100px; height: 30px;">
+                <select required id="tipos_mascotas" name="tipos_mascotas" style="width: 100px; height: 30px;">
                     {{#tipos_mascotas}}
                     <option value={{label}}>{{label}}</option>
                     {{/tipos_mascotas}}
                 </select><br>
                 <label class="registro__label" for="sexo">Sexo</label>
-                <select id="sexo" name="sexo" style="width: 100px; height: 30px;">
+                <select required id="sexo" name="sexo" style="width: 100px; height: 30px;">
                     {{#sexo}}
                     <option value={{label}}>{{label}}</option>
                     {{/sexo}}
@@ -204,7 +204,7 @@
                 <label class="registro__label" for="edad">Edad Aproximada</label>
                 <input required type="number" id="edad" name="edad" min="0" max="100"><br><br>    
                 <label class="registro__label" for="desc">Descripci&oacute;n</label>
-                <textarea class="contacto__consulta__texto" cols="40" rows="8" id="desc" name="desc" style="margin: 15.35px 0px; width: 490px; height: 137px;"></textarea><br><br>
+                <textarea required class="contacto__consulta__texto" cols="40" rows="8" id="desc" name="desc" style="margin: 15.35px 0px; width: 490px; height: 137px;"></textarea><br><br>
                 <div class="caracteristicas">
                     {{#textos as |texto|}}
                         <label class="registro__label">{{texto.descripcion}}</label>
@@ -270,13 +270,13 @@
                 <div class="card-container">
                   <div class="panel-map">
                     <label class="registro__label" for="m_dir">Direcci&oacute;n</label>
-                    <input type="text" id="location_pet" name="m_dir"/><br>
+                    <input required type="text" id="location_pet" name="m_dir"/><br>
                     <label class="registro__label" for="locality_pet">Localidad</label>
                     <input type="text" id="locality_pet"/><br><br>               
                     <label class="registro__label" for="m_loc" >Provincia</label>
-                    <input type="text" id="administrative_area_level_1_pet" name="m_loc"/><br>
+                    <input required type="text" id="administrative_area_level_1_pet" name="m_loc"/><br>
                     <label class="registro__label" for="postal_code">C&oacute;digo Postal</label>
-                    <input type="text" id="postal_code_pet" name="m_cp"/><br>
+                    <input required type="text" id="postal_code_pet" name="m_cp"/><br>
                     <input type="hidden" placeholder="Latitud" id="latitude_pet" name="m_latitude"/><br>
                     <input type="hidden" placeholder="Longitud" id="longitude_pet" name="m_longitude"/><br>
                   </div>

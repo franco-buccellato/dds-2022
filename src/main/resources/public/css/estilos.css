@@ -1,7 +1,7 @@
 /*Fuente en general*/
 *{
 	font-family: 'Roboto', sans-serif;
-	background-color: rgb(255, 255, 255);
+	/*background-color: rgb(255, 255, 255);*/
 	color: gray;
 }
 
@@ -700,4 +700,22 @@ footer div div div div a{
 	align-content: flex-start;
 	padding-left: 2vw;
 	padding-top: 5vw;
+}
+.panel-map {
+    background: white;
+    width: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.card-container {
+    display: flex;
+    height: 500px;
+    width: 600px;
+}
+
+.map {
+    width: 300px;
+    background-color:transparent;
 }
