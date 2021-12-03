@@ -128,4 +128,8 @@ public class Duenio {
         .findFirst()
         .get();
   }
+
+  public boolean esMismoUsuario(Long userId) {
+    return this.getUsuario().getId().equals(userId);
+  }
 }

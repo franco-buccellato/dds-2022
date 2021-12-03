@@ -24,9 +24,7 @@
 	<script src="https://kit.fontawesome.com/a2beca5d14.js" crossorigin="anonymous"></script>
 	{{# block "head" }}
     {{/block}}
-
 </head>
-
 <body>
 		<header id="principio">
 			<div class="encabezado">
@@ -45,9 +43,9 @@
 					{{else}}
 					<li class="menu__menu__li"><i class="fas fa-paw"></i>
 					    {{#if sesionIniciada}}
-						<a href="/registrarMascota"><h3>Registrar mi Mascota</h3></a>
+						<a href="/mascotas"><h3>Mis Mascotas</h3></a>
 						{{else}}
-						<a href="/login"><h3>Registrar mi Mascota</h3></a>
+						<a href="/login"><h3>Mis Mascotas</h3></a>
 						{{/if}}
 					</li>
 					<li class="menu__menu__li"><i class="fas fa-paw"></i>
@@ -58,7 +56,6 @@
 						{{/if}}
 					</li>
                     {{/if}}
-
                     <li class="menu__menu__li"><i class="fas fa-sign-in-alt"></i>
 						{{#if sesionIniciada}}
                         <a href="/logout"><h3>Cerrar Sesión</h3></a>
@@ -75,7 +72,6 @@
 						<li class="menu__responsive__div__li"><i class="fas fa-home"></i>
 							<a href="/"><h2>Inicio</h2></a>
 						</li>
-
                         {{#if usuarioCreadorCaracteristicas}}
                         <li class="menu__menu__li"><i class="fas fa-highlighter"></i>
                             <a href="/caracteristicas"><h3>Administrar Características</h3></a>
@@ -83,9 +79,9 @@
                         {{else}}
 						<li class="menu__responsive__div__li"><i class="fas fa-paw"></i>
 						    {{#if sesionIniciada}}
-							<a href="/registrarMascota"><h2>Registrar Mascota</h2></a>
+							<a href="/mascotas"><h2>Mis Mascotas</h2></a>
 							{{else}}
-                            <a href="/login"><h2>Registrar mi Mascota</h2></a>
+                            <a href="/login"><h2>Mis Mascotas</h2></a>
                             {{/if}}
 						</li>
 						<li class="menu__responsive__div__li"><i class="fas fa-paw"></i>
@@ -96,7 +92,6 @@
 							{{/if}}
 						</li>
                         {{/if}}
-
                         <li class="menu__responsive__div__li"><i class="fas fa-sign-in-alt"></i>
 							{{#if sesionIniciada}}
                             <a href="/logout"><h3>Cerrar Sesión</h3></a>

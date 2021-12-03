@@ -39,7 +39,8 @@ public class Routes {
       boolean authEndpoints =
           (request.pathInfo().contains("registrarMascota"))
           || (request.pathInfo().contains("encontreMascota"))
-          || (request.pathInfo().contains("caracteristicas/crear"));
+          || (request.pathInfo().contains("caracteristicas/crear"))
+          || (request.pathInfo().contains("mascotas"));
 
       if (!autenticado && authEndpoints) {
         halt(401, "Acceso denegado");
@@ -53,6 +54,8 @@ public class Routes {
     Spark.get("/registrarMascota", mascotaController::formularioRegistrarMascota, engine);
     Spark.post("/registrarMascota", mascotaController::registrarMascota, engine);
     Spark.get("/encontreMascota", mascotaController::encontreMascota, engine);
+    Spark.get("/mascotas", mascotaController::getMascotas, engine);
+    Spark.get("mascotas/:id", mascotaController::getMascota, engine);
     Spark.get("/mascota_con_chapa", rescateController::registroRescateConChapa, engine);
     Spark.post("/mascota_con_chapa", rescateController::guardarRescateConChapa);
     Spark.get("/mascota_sin_chapa", rescateController::registroRescateSinChapa, engine);

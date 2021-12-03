@@ -1,0 +1,54 @@
+{{# partial "contenido" }}
+    <section class="section-registrar">
+        {{#if success}}
+            <div id="success">
+                <div class="informacion-flex">
+                    <p>
+                        {{success}}
+                    </p>
+                </div>
+            </div>
+        {{/if}}
+        {{#if error}}
+            <div id="error">
+                <div class="informacion-flex">
+                    <p>
+                        {{error}}
+                    </p>
+                </div>
+            </div>
+        {{/if}}
+        <div class="container_listar_mascotas">
+            <div class="registro">
+                <div>
+                    <a href="/registrarMascota">
+                        <button type="submit" class="boton-submit">
+                            Registrar una mascota
+                        </button>
+                    </a>
+                </div>
+                {{#if noTieneMascota}}
+                    <h2></br> No tenes ninguna mascota :'(</h2></br>
+                {{else}}
+                    <h2></br>Tus mascotas</h2></br>
+                    {{#each mascotas}}
+                        <a href="/mascotas/{{id}}"
+                           onMouseOver="this.style.border=1"
+                           onMouseOut="this.style.border=0">
+                            <div style="padding: 10px">
+                                <label>{{nombre}} '{{apodo}}' - {{tipoMascota}} {{sexo}} de {{edadAproximada}}
+                                    años</label>
+                            </div>
+                        </a>
+                        </br>
+
+                    {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </section>
+{{/partial}}
+{{# partial "footer" }}
+{{/partial}}
+
+{{> layout.html.hbs }}
