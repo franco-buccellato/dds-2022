@@ -10,6 +10,8 @@ import domain.TipoPreguntaFactory;
 import domain.TipoUsuario;
 import domain.Usuario;
 import domain.Vinculo;
+
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,7 +58,7 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
       );
       persist(TipoPreguntaFactory.makePregunta(
           TipoPregunta.BULLET,
-          Collections.singletonList(CARACTERISTICA_MASCOTA),
+          Arrays.asList(CARACTERISTICA_MASCOTA, PREGUNTA_ASOCIACION_COMODIDAD),
           "Tamaño",
           true,
           Arrays.asList(
