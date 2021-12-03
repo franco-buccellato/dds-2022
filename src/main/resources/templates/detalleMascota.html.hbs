@@ -1,0 +1,76 @@
+{{# partial "contenido" }}
+    <section class="section-registrar">
+        <div class="container__registro">
+            <div class="registro">
+                <div class="detalle_mascota">
+                    <div>
+                        <h2>{{mascota.nombre}}</h2>
+                    </div>
+                    <div>
+                        <label class="registro__label" style="display:inline-block; width: 150px">
+                            Nombre:
+                        </label>
+                        <span style="display:inline-block">{{mascota.nombre}}</span>
+                    </div>
+
+                    <div>
+                        <label class="registro__label" style="display:inline-block; width: 150px">
+                            Apodo:
+                        </label>
+                        <span style="display:inline-block">{{mascota.apodo}}</span>
+                    </div>
+
+                    <div>
+                        <label class="registro__label" style="display:inline-block; width: 150px">
+                            Tipo de Mascota:
+                        </label>
+                        <span style="display:inline-block">{{mascota.tipoMascota}}</span>
+                    </div>
+
+                    <div>
+                        <label class="registro__label" style="display:inline-block; width: 150px">
+                            Edad aproximada:
+                        </label>
+                        <span style="display:inline-block">{{mascota.edadAproximada}}</span>
+                    </div>
+
+                    <div>
+                        <label class="registro__label" style="display:inline-block; width: 150px">
+                            Sexo:
+                        </label>
+                        <span style="display:inline-block">{{mascota.sexo}}</span>
+                    </div>
+
+                    <div>
+                        <label class="registro__label" style="display:inline-block; width: 150px">
+                            Sexo:
+                        </label>
+                        <span style="display:inline-block">{{mascota.descripcionFisica}}</span>
+                    </div>
+
+                    <div>
+                        <label class="registro__label" style="display:inline-block; width: 150px">
+                            Situación Mascota:
+                        </label>
+                        <span style="display:inline-block">{{mascota.situacionMascota}}</span>
+                    </div>
+
+                    {{#each mascota.caracteristicas as |caracteristica|}}
+                        <div>
+                            <label class="registro__label">{{caracteristica.pregunta.descripcion}}</label>
+                            <ul>
+                                {{#each caracteristica.selecciones as |seleccion|}}
+                                    <li>{{seleccion.descripcion}}</li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </section>
+{{/partial}}
+{{# partial "footer" }}
+{{/partial}}
+
+{{> layout.html.hbs }}

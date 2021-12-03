@@ -48,11 +48,11 @@ public class CaracteristicaController extends BaseController implements WithGlob
     TipoPregunta tipoPregunta = TipoPregunta.valueOf(request.queryParams("tipoCaracteristica"));
     ObjetivoPregunta objetivo =
         request.queryParams("alcance").equals("Caracteristica")
-        ? CARACTERISTICA_MASCOTA
-        : PREGUNTA_ASOCIACION_COMODIDAD;
+            ? CARACTERISTICA_MASCOTA
+            : PREGUNTA_ASOCIACION_COMODIDAD;
     List<Opcion> opciones = new ArrayList<>();
     QueryParamsMap paramsOpciones = request.queryMap().get("opcion");
-    if(paramsOpciones.hasValue()) {
+    if (paramsOpciones.hasValue()) {
       Arrays.stream(paramsOpciones.values())
           .forEach(value -> opciones.add(new Opcion(value)));
     }
@@ -76,6 +76,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
     }
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
+
   public ModelAndView getDetalleCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
     String id = request.params(":id");
@@ -100,6 +101,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
     modelo.put("disponibles", getDisponibles());
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
+
   public ModelAndView actualizarCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 
@@ -116,7 +118,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
     Boolean obligatoria = request.queryParams("obligatoria").equals("SI");
     List<Opcion> opciones = new ArrayList<>();
     QueryParamsMap paramsOpciones = request.queryMap().get("opcion");
-    if(paramsOpciones.hasValue()) {
+    if (paramsOpciones.hasValue()) {
       Arrays.stream(paramsOpciones.values())
           .forEach(value -> opciones.add(new Opcion(value)));
     }
@@ -143,28 +145,21 @@ public class CaracteristicaController extends BaseController implements WithGlob
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
 
-  public Map<String, Object> setMetadata(Request request) {
-    Map<String, Object> modelo = new HashMap<>();
-
-    boolean usuarioCreadorCaracteristicas = this.usuarioCreadorCaracteristicas(request);
-    if (!usuarioCreadorCaracteristicas) {
-      halt(401, "Acceso Denegeado");
-    }
-    modelo.put("usuarioCreadorCaracteristicas", true);
-
-    boolean sesionIniciada = this.sesionIniciada(request);
-    modelo.put("sesionIniciada", sesionIniciada);
-
-    List<TipoPregunta> tipoCaracteristicas = Arrays.asList(TipoPregunta.values());
-    modelo.put("tipoCaracteristicas", tipoCaracteristicas);
-
-    return modelo;
-  }
 
   private Map<String, List<Pregunta>> getDisponibles() {
     return new HashMap<String, List<Pregunta>>() {{
       put("Caracteristica", repositorioPreguntas.listarSegunObjetivo(CARACTERISTICA_MASCOTA));
       put("Pregunta", repositorioPreguntas.listarSegunObjetivo(PREGUNTA_ASOCIACION_COMODIDAD));
     }};
+  }
+
+  @Override
+  public Map<String, Object> setMetadata(Request request) {
+    Map<String, Object> modelo = super.setMetadata(request);
+    if (modelo.get("usuarioCreadorCaracteristicas").equals(false)) {
+      halt(401, "Acceso Denegado");
+    }
+
+    return modelo;
   }
 }

@@ -55,6 +55,18 @@ public class RepositorioDuenio implements WithGlobalEntityManager {
     }
   }
 
+  public Duenio getDuenioByIdMascota(Long mascotaId) {
+    try {
+      return entityManager().createQuery(
+              "SELECT d from Duenio d join d.mascotas m where m.id = :mascotaId",
+              Duenio.class
+          ).setParameter("mascotaId", mascotaId)
+          .getSingleResult();
+    } catch (NoResultException e) {
+      return null;
+    }
+  }
+
 //  public List findWithName(String name) {
 //    return entityManager().createQuery(
 //        "SELECT c FROM Customer c WHERE c.name LIKE :custName")
@@ -63,7 +75,9 @@ public class RepositorioDuenio implements WithGlobalEntityManager {
 //        .getResultList();
 //  }
 
-  public Optional<Duenio> findDuenioMascota(Mascota mascota) {    Query query = entityManager().createNativeQuery("select top 1 d.id from Duenios as d INNER JOIN mascotas as m ON d.id = m.duenio_id WHERE m.id = :mascota_id");
+  public Optional<Duenio> findDuenioMascota(Mascota mascota) {
+    Query query = entityManager().createNativeQuery(
+        "select top 1 d.id from Duenios as d INNER JOIN mascotas as m ON d.id = m.duenio_id WHERE m.id = :mascota_id");
     query.setParameter("mascota_id", mascota.getId());
     return Optional.ofNullable(this.getById(((BigInteger) query.getSingleResult()).longValue()));
   }

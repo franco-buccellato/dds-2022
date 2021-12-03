@@ -2,19 +2,6 @@ package controllers;
 
 import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
-
 import domain.Contacto;
 import domain.DatoPersonal;
 import domain.Duenio;
@@ -29,10 +16,26 @@ import domain.TipoMascota;
 import domain.TipoPregunta;
 import domain.Usuario;
 import domain.Vinculo;
+import domain.exception.DuenioDiferenteAlDeMascotaException;
+import domain.exception.MascotaNoEncontradaException;
+import domain.exception.SeleccionInvalidaException;
 import domain.repositorios.RepositorioDuenio;
+import domain.repositorios.RepositorioMascotas;
 import domain.repositorios.RepositorioOpciones;
 import domain.repositorios.RepositorioPreguntas;
 import domain.repositorios.RepositorioUsuarios;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
 import spark.Request;
@@ -40,8 +43,63 @@ import spark.Response;
 
 public class MascotaController extends BaseController implements WithGlobalEntityManager, TransactionalOps {
 
+  public ModelAndView getMascotas(Request request, Response response) {
+    Map<String, Object> modelo = this.setMetadata(request);
+
+    List<Mascota> mascotas = RepositorioMascotas.getInstace().getByUsuario(
+        request.session().attribute("idUsuario")
+    );
+
+    modelo.put("noTieneMascota", mascotas == null || mascotas.isEmpty());
+    modelo.put("mascotas", mascotas);
+
+    return new ModelAndView(modelo, "listarMascotas.html.hbs");
+  }
+
+  public ModelAndView getMascota(Request request, Response response) {
+    Map<String, Object> modelo = this.setMetadata(request);
+
+    try {
+      Long id = Long.valueOf(request.params(":id"));
+
+      Duenio duenio = RepositorioDuenio.getInstance().getDuenioByIdMascota(id);
+      Mascota mascota = RepositorioMascotas.getInstace().getById(id);
+
+      if (duenio == null || mascota == null) {
+        response.status(404);
+        throw new MascotaNoEncontradaException("Mascota no encontrada");
+      }
+
+      if (!duenio.esMismoUsuario(request.session().attribute("idUsuario"))) {
+        response.status(401);
+        throw new DuenioDiferenteAlDeMascotaException("No esta autorizado para ver a la mascota");
+      }
+
+      modelo.put("mascota", mascota);
+      return new ModelAndView(modelo, "detalleMascota.html.hbs");
+
+    } catch (NumberFormatException | NullPointerException exception) {
+      response.status(400);
+      modelo.put("error", "Solicitud erronea");
+
+    } catch (DuenioDiferenteAlDeMascotaException | MascotaNoEncontradaException exception) {
+      modelo.put("error", exception.getMessage());
+
+    } finally {
+
+      List<Mascota> mascotas = RepositorioMascotas.getInstace().getByUsuario(
+          request.session().attribute("idUsuario")
+      );
+
+      modelo.put("noTieneMascota", mascotas == null || mascotas.isEmpty());
+      modelo.put("mascotas", mascotas);
+    }
+
+    return new ModelAndView(modelo, "listarMascotas.html.hbs");
+  }
+
   public ModelAndView registrarMascota(Request request, Response response) throws IOException {
-    Map<String, Object> modelo = new HashMap<>();
+    Map<String, Object> modelo = this.setMetadata(request);
     RepositorioDuenio repositorioDuenio = RepositorioDuenio.getInstance();
 
     Usuario usuario = RepositorioUsuarios.getInstance()
@@ -102,20 +160,30 @@ public class MascotaController extends BaseController implements WithGlobalEntit
     //      Busco por tipo
     Arrays.asList("texto", "bullet", "number", "checkbox").forEach(nombre -> {
       QueryParamsMap paramsNombre = request.queryMap().get(nombre);
-      if(paramsNombre.hasKeys()) {
+      if (paramsNombre.hasKeys()) {
         //      Si existe respuesta del tipo busco existencia de la pregunta
+
         final Pregunta[] pregunta = new Pregunta[1];
+
         List<Opcion> opciones = new ArrayList<>();
+
         paramsNombre.toMap().keySet()
             .forEach(key -> {
               pregunta[0] = RepositorioPreguntas.getInstance().buscar(Long.valueOf(key));
+
               //      Busco la existencia de opciones o las creo en el caso de las input
               Arrays.stream(paramsNombre.get(key).values())
                   .forEach(value -> opciones.add(getOpcionFromParam(nombre, value)));
             });
+
         respuestasCaracteristicas.add(new RespuestaCaracteristicaMascota(pregunta[0], opciones));
+
       }
     });
+
+    if (!Objects.isNull(modelo.get("error"))) {
+      return new ModelAndView(modelo, "registroMascota.html.hbs");
+    }
 
     TipoMascota tipoMascota = TipoMascota.valueOf(request.queryParams("registro-especie"));
     String nombreMascota = request.queryParams("registro-nombre");
@@ -152,22 +220,22 @@ public class MascotaController extends BaseController implements WithGlobalEntit
   }
 
   public ModelAndView formularioRegistrarMascota(Request request, Response response) {
-    Map<String, Object> modelo = new HashMap<>();
-    boolean sesionIniciada = this.sesionIniciada(request);
-    modelo.put("sesionIniciada", sesionIniciada);
-
-    boolean esDuenio = this.esDuenio(request);
-    modelo.put("esDuenio", esDuenio);
-
-    boolean usuarioCreadorCaracteristicas = this.usuarioCreadorCaracteristicas(request);
-    modelo.put("usuarioCreadorCaracteristicas", usuarioCreadorCaracteristicas);
+    Map<String, Object> modelo = this.setMetadata(request);
 
     RepositorioPreguntas repositorioPreguntas = RepositorioPreguntas.getInstance();
 
-    List<Pregunta> textos = repositorioPreguntas.listarSegunTipo(TipoPregunta.TEXT, CARACTERISTICA_MASCOTA);
-    List<Pregunta> numeros = repositorioPreguntas.listarSegunTipo(TipoPregunta.NUMBER, CARACTERISTICA_MASCOTA);
-    List<Pregunta> bullets = repositorioPreguntas.listarSegunTipo(TipoPregunta.BULLET, CARACTERISTICA_MASCOTA);
-    List<Pregunta> checkboxs = repositorioPreguntas.listarSegunTipo(TipoPregunta.CHECKBOX, CARACTERISTICA_MASCOTA);
+    List<Pregunta> textos = repositorioPreguntas.listarSegunTipo(
+        TipoPregunta.TEXT, CARACTERISTICA_MASCOTA
+    );
+    List<Pregunta> numeros = repositorioPreguntas.listarSegunTipo(
+        TipoPregunta.NUMBER, CARACTERISTICA_MASCOTA
+    );
+    List<Pregunta> bullets = repositorioPreguntas.listarSegunTipo(
+        TipoPregunta.BULLET, CARACTERISTICA_MASCOTA
+    );
+    List<Pregunta> checkboxs = repositorioPreguntas.listarSegunTipo(
+        TipoPregunta.CHECKBOX, CARACTERISTICA_MASCOTA
+    );
 
     modelo.put("textos", textos);
     modelo.put("numeros", numeros);
