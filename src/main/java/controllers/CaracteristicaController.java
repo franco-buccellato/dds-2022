@@ -68,7 +68,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
       withTransaction(() -> repositorioPreguntas.agregar(pregunta));
       response.status(201);
       modelo.put("disponibles", getDisponibles());
-      response.redirect("/caracteristicas");
+//      response.redirect("/caracteristicas");
     } catch (TipoPreguntaInexistenteException | NullPointerException exception) {
       modelo.put("error", exception.getMessage());
       response.status(422);
