@@ -20,7 +20,7 @@ public class MedioNotificacionEmail implements MedioNotificacion {
   private Properties emailCredentials;
   private static MedioNotificacionEmail INSTANCE = new MedioNotificacionEmail();
 
-  private MedioNotificacionEmail() {
+  public MedioNotificacionEmail() {
     emailCredentials = new Properties();
     try {
       emailCredentials.loadFromXML(new FileInputStream("resources/email/credentials.xml"));
@@ -46,9 +46,7 @@ public class MedioNotificacionEmail implements MedioNotificacion {
     return Session.getInstance(getSmtpProperties(), new Authenticator() {
       @Override
       protected PasswordAuthentication getPasswordAuthentication() {
-          return new PasswordAuthentication(emailCredentials.getProperty("usuarioContacto"),
-              emailCredentials.getProperty("passContacto")
-          );
+          return new PasswordAuthentication("contact.patitas@gmail.com", "P@sswOrd1!T3st");
       }
     });
   }
@@ -64,7 +62,7 @@ public class MedioNotificacionEmail implements MedioNotificacion {
 
   public void sendEmail(String contacto, String asunto, String mensage) throws MessagingException {
     MimeMessage message = new MimeMessage(getSession());
-    message.setFrom(new InternetAddress(emailCredentials.getProperty("usuarioAdmin")));
+    message.setFrom(new InternetAddress("contact.patitas+admin@gmail.com"));
     message.setRecipients(
         Message.RecipientType.TO, InternetAddress.parse(contacto));
     message.setSubject(asunto);
