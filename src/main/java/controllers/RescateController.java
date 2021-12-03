@@ -60,8 +60,8 @@ public class RescateController extends BaseController implements WithGlobalEntit
         request.queryParams("location"),
         request.queryParams("postal_code"),
         request.queryParams("locality"),
-        BigDecimal.valueOf(Double.parseDouble(request.queryParams("latitude"))),
-        BigDecimal.valueOf(Double.parseDouble(request.queryParams("longitude")))
+        BigDecimal.valueOf(-34.607415758394005),
+        BigDecimal.valueOf(-58.37020660410098)
     );
     Ubicacion ubicacionRescate = new Ubicacion(
         request.queryParams("m_dir"),
@@ -85,7 +85,7 @@ public class RescateController extends BaseController implements WithGlobalEntit
         request.queryParams("desc"),
         ubicacionRescate,
         LocalDate.now(),
-        RepositorioMascotas.getInstace().getById(Long.getLong(request.queryParams("chapa"))),
+        RepositorioMascotas.getInstace().getById(new Long(request.queryParams("chapa"))),
         rescatista
     );
     withTransaction(() -> {
