@@ -58,7 +58,7 @@ public class Mascota {
   @Column(name = "foto", nullable = false)
   private List<String> fotos;
 
-  @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinColumn(name = "mascota_id")
   private List<RespuestaCaracteristicaMascota> caracteristicas;
 

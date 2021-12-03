@@ -4,18 +4,37 @@ import static domain.ObjetivoPregunta.CARACTERISTICA_MASCOTA;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import domain.*;
-import domain.repositorios.RepositorioOpciones;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
+import domain.Contacto;
+import domain.DatoPersonal;
+import domain.Duenio;
+import domain.Mascota;
+import domain.Opcion;
+import domain.Pregunta;
+import domain.RespuestaCaracteristicaMascota;
+import domain.Sexo;
+import domain.SituacionMascota;
+import domain.TipoIdentificacion;
+import domain.TipoMascota;
+import domain.TipoPregunta;
+import domain.Usuario;
+import domain.Vinculo;
 import domain.repositorios.RepositorioDuenio;
+import domain.repositorios.RepositorioOpciones;
 import domain.repositorios.RepositorioPreguntas;
 import domain.repositorios.RepositorioUsuarios;
 import spark.ModelAndView;
+import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 
@@ -79,58 +98,23 @@ public class MascotaController extends BaseController implements WithGlobalEntit
       duenio = new Duenio(datosDuenio, Arrays.asList(contacto1, contacto2), null, usuario);
     }
 
-    List<String> paramsOpciones = request.queryParams()
-        .stream()
-        .filter(paramName -> paramName.contains("respuesta"))
-        .collect(Collectors.toList());
-
-    HashMap<Long, List<String>> respuestas = new HashMap<>();
-
-    for (String opcion : paramsOpciones) {
-      String[] spliteado = opcion.split("-");
-      Long preguntaId = Long.valueOf(spliteado[1]);
-
-      if (spliteado.length == 3) {
-        List<String> respuesta = respuestas.get(preguntaId);
-        if (respuesta == null) {
-          respuesta = new ArrayList<>();
-        }
-        respuesta.add(spliteado[2]);
-        respuestas.put(preguntaId, respuesta);
-
-        continue;
-      }
-
-      respuestas.put(preguntaId, Collections.singletonList(request.queryParams(opcion)));
-    }
-
     List<RespuestaCaracteristicaMascota> respuestasCaracteristicas = new ArrayList<>();
-
-    respuestas.forEach((idPregunta, respuesta) -> {
-      Pregunta pregunta = RepositorioPreguntas.getInstance().buscar(idPregunta);
-      List<Opcion> opciones = new ArrayList<>();
-
-      respuesta.forEach(res -> {
-        Opcion opcion;
-        try {
-          opcion = RepositorioOpciones.getInstance().buscar(Long.valueOf(res));
-
-          if (opcion == null) {
-            opcion = new Opcion(res);
-          }
-
-        } catch (NumberFormatException e) {
-          opcion = new Opcion(res);
-        }
-
-        opciones.add(opcion);
-      });
-
-      RespuestaCaracteristicaMascota respuestaCaracteristicaMascota = new RespuestaCaracteristicaMascota(
-          pregunta,
-          opciones
-      );
-      respuestasCaracteristicas.add(respuestaCaracteristicaMascota);
+    //      Busco por tipo
+    Arrays.asList("texto", "bullet", "number", "checkbox").forEach(nombre -> {
+      QueryParamsMap paramsNombre = request.queryMap().get(nombre);
+      if(paramsNombre.hasKeys()) {
+        //      Si existe respuesta del tipo busco existencia de la pregunta
+        final Pregunta[] pregunta = new Pregunta[1];
+        List<Opcion> opciones = new ArrayList<>();
+        paramsNombre.toMap().keySet()
+            .forEach(key -> {
+              pregunta[0] = RepositorioPreguntas.getInstance().buscar(Long.valueOf(key));
+              //      Busco la existencia de opciones o las creo en el caso de las input
+              Arrays.stream(paramsNombre.get(key).values())
+                  .forEach(value -> opciones.add(getOpcionFromParam(nombre, value)));
+            });
+        respuestasCaracteristicas.add(new RespuestaCaracteristicaMascota(pregunta[0], opciones));
+      }
     });
 
     TipoMascota tipoMascota = TipoMascota.valueOf(request.queryParams("registro-especie"));
@@ -195,5 +179,12 @@ public class MascotaController extends BaseController implements WithGlobalEntit
 
   public ModelAndView encontreMascota(Request request, Response response) {
     return new ModelAndView(null, "encontre_mascota.html.hbs");
+  }
+
+  private Opcion getOpcionFromParam(String param, String descripcion) {
+    if (Arrays.asList("bullet", "checkbox").contains(param)) {
+      return RepositorioOpciones.getInstance().buscar(Long.valueOf(descripcion));
+    }
+    return new Opcion(descripcion);
   }
 }

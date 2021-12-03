@@ -42,12 +42,6 @@ public class CaracteristicaController extends BaseController implements WithGlob
     return new ModelAndView(modelo, "crearCaracteristica.html.hbs");
   }
 
-  public ModelAndView mostrarCrearPregunta(Request request, Response response) {
-    Map<String, Object> modelo = this.setMetadata(request);
-
-    return new ModelAndView(modelo, "crearPregunta.html.hbs");
-  }
-
   public ModelAndView crearCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 
@@ -82,7 +76,6 @@ public class CaracteristicaController extends BaseController implements WithGlob
     }
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
-
   public ModelAndView getDetalleCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
     String id = request.params(":id");
@@ -107,7 +100,6 @@ public class CaracteristicaController extends BaseController implements WithGlob
     modelo.put("disponibles", getDisponibles());
     return new ModelAndView(modelo, "listarCaracteristicas.html.hbs");
   }
-
   public ModelAndView actualizarCaracteristica(Request request, Response response) {
     Map<String, Object> modelo = this.setMetadata(request);
 
@@ -115,7 +107,7 @@ public class CaracteristicaController extends BaseController implements WithGlob
     Pregunta pregunta = repositorioPreguntas.buscar(id);
     if (pregunta == null) {
       modelo.put("error", "Caracteristica no encontrada");
-      modelo.put("caracteristicasDisponibles", repositorioPreguntas.listar());
+      modelo.put("disponibles", getDisponibles());
       response.status(404);
       response.redirect("/caracteristicas");
     }

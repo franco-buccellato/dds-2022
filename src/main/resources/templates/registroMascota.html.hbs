@@ -121,7 +121,7 @@
                                             class="registro__input"
                                             required="{{texto.obligatoria}}"
                                             id="respuesta-{{texto.id}}"
-                                            name="respuesta-{{texto.id}}"
+                                            name="texto[{{texto.id}}]"
                                     />
                                 {{/textos}}
                                 {{#numeros as |numero|}}
@@ -131,7 +131,7 @@
                                             class="registro__input"
                                             required="{{numero.obligatoria}}"
                                             id="respuesta-{{numero.id}}"
-                                            name="respuesta-{{numero.id}}"
+                                            name="numero[{{numero.id}}]"
                                     />
                                 {{/numeros}}
                                 {{#bullets as |bullet|}}
@@ -141,7 +141,7 @@
                                                 class="registro__input"
                                                 required="{{bullet.obligatoria}}"
                                                 id="respuesta-{{bullet.id}}"
-                                                name="respuesta-{{bullet.id}}"
+                                                name="bullet[{{bullet.id}}]"
                                         >
                                             <option value=""></option>
                                             {{#bullet.opciones as |opcion|}}
@@ -160,6 +160,7 @@
                                                 <input
                                                         type="checkbox"
                                                         onchange="saveCheckbox(this, {{checkbox.id}},{{opcion.id}})"
+                                                        value="{{opcion.id}}"
                                                 />
                                                 {{opcion.descripcion}}
                                             </label>
@@ -178,7 +179,7 @@
     <script type="text/javascript">
         const saveCheckbox = (checkbox, preguntaId, opcionId) => {
             if (checkbox.checked) {
-                checkbox.setAttribute('name', `respuesta-${preguntaId}-${opcionId}`)
+                checkbox.setAttribute('name', `checkbox[${preguntaId}]`)
                 return
             }
 
