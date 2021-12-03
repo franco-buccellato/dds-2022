@@ -486,15 +486,16 @@ ul{
 .copyright{
 	display: inline-block;
 	width: 100%;
-	background: #fff;
-	color: #ab45f0;
+	background: #ab45f0;
+	color: #fff;
 	text-align: center;
 	padding: 3vw 0 3vw 0;
 }
 
 .copyright p{
 	font-size: 1vw;
-	color: #ab45f0;
+	color: #fff;
+	background: #ab45f0;
 }
 
 p{
@@ -700,4 +701,69 @@ footer div div div div a{
 	align-content: flex-start;
 	padding-left: 2vw;
 	padding-top: 5vw;
+}
+
+.container-con_chapa_qr {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-content: flex-start;
+	padding-left: 2vw;
+	padding-top: 5vw;
+	padding-bottom: 5vw;
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+a:link, a:visited, a:active {
+    text-decoration:none;
+}
+.container_listar_mascotas {
+    display: flex;
+    flex-wrap: wrap;
+    height: 5vw;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    padding-left: 2vw;
+    padding-top: 5vw;
+}
+
+.container-con_chapa {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10vw;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    padding-left: 2vw;
+    padding-top: 5vw;
+}
+
+.half-input-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.half-input {
+    max-width: 120px;
+}
+
+.map {
+    width: 300px;
+}
+
+.panel-map {
+    background: white;
+    width: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.card-container {
+    display: flex;
+    height: 500px;
+    width: 600px;
 }
