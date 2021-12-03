@@ -1,18 +1,13 @@
 {{# partial "contenido" }}
     <section>
         <div id="registro_mascota_confirmado">
-            <div class="container-con_chapa"> 
-                <p>
-                    Su mascota fue registrada satisfactoriamente.
-                    Imprima el siguiente c&oacute;digo QR y coloqueselo a su mascota para que pueda ser identificada en caso de perderse.
-                </p><br>
-            </div>
             <div class="container-con_chapa">
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-                <div id="qrcode"></div>
-                <script>
-                    window.addEventListener("load", function(){var qrc = new QRCode(document.getElementById("qrcode"), {{#QR}});});
-                </script>
+                <p>
+                    Su mascota fue registrada satisfactoriamente.<br>
+                    Imprima el siguiente c&oacute;digo QR y coloqueselo a su mascota para que pueda ser identificada en caso de perderse.
+                    <br><br>
+                </p><br>
+                <img src={{QR}}>
             </div>
         </div>    
     </section>
